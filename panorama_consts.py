@@ -151,3 +151,5 @@ POLICY_TYPE_VALUE_LIST = ["pre-rulebase", "post-rulebase"]
 LOG_TYPE_VALUE_LIST = ["traffic", "url", "corr", "data", "threat", "config", "system", "hipmatch", "wildfire", "corr-categ", "corr-detail"]
 DIRECTION_VALUE_LIST = ["backward", "forward"]
 VALUE_LIST_VALIDATION_MSG = "Please provide valid input from {} in '{}' action parameter"
+
+DEFAULT_TIMEOUT = 30

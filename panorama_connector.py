@@ -237,7 +237,7 @@ class PanoramaConnector(BaseConnector):
         data = {'type': 'keygen', 'user': username, 'password': password}
 
         try:
-            response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY])
+            response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             self.debug_print(PAN_ERR_DEVICE_CONNECTIVITY, e)
             return self.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY, self._get_error_message_from_exception(e))
@@ -303,7 +303,7 @@ class PanoramaConnector(BaseConnector):
         config = self.get_config()
 
         try:
-            response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY])
+            response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             self.debug_print(PAN_ERR_DEVICE_CONNECTIVITY, e)
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY, self._get_error_message_from_exception(e))
@@ -1659,4 +1659,4 @@ if __name__ == '__main__':
 
         print(result)
 
-    exit(0)
+    sys.exit(0)
