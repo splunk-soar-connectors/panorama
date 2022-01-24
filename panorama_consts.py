@@ -23,7 +23,8 @@ PAN_ERR_INVALID_IP_FORMAT = "Invalid ip format"
 PAN_ERR_DEVICE_CONNECTIVITY = "Error in connecting to device"
 PAN_ERR_PARSE_POLICY_DATA = "Unable to parse security policy config"
 PAN_ERR_NO_POLICY_ENTRIES_FOUND = "Could not find any security policies to update"
-PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND = "Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and type '{policy_type}'."
+PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and "
+"type '{policy_type}'.")
 PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
 PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
 PAN_ERR_NO_JOB_ID = "Could not find Job ID in response body"
@@ -114,7 +115,8 @@ URL_PROF_ELEM_9 += "<block><member>{url_category_name}</member></block>"
 
 URL_CATEGORY_XPATH = "{config_xpath}/profiles/custom-url-category/entry[@name='{url_profile_name}']"
 
-# We can make this work on version 8 and below as well by removing <type>URL List</type>. However, </list><type>URL List</type> is required for version 9 and above.
+# We can make this work on version 8 and below as well by removing <type>URL List</type>.
+# However, </list><type>URL List</type> is required for version 9 and above.
 URL_CATEGORY_ELEM = "<description>Created by Phantom for Panorama</description>"
 URL_CATEGORY_ELEM += "<list><member>{url}</member></list>"
 URL_CATEGORY_ELEM += "<type>URL List</type>"

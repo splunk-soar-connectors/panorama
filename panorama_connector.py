@@ -15,19 +15,18 @@
 #
 #
 # Phantom imports
-import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-
-# THIS Connector imports
-from panorama_consts import *
-
+import re
 import sys
+import time
+
+import phantom.app as phantom
 import requests
 import xmltodict
-import re
-import time
 from bs4 import UnicodeDammit
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
+
+from panorama_consts import *
 
 
 class PanoramaConnector(BaseConnector):
@@ -437,7 +436,8 @@ class PanoramaConnector(BaseConnector):
         try:
             device_groups = result_data[0]['device-group']['entry']
         except Exception as e:
-            return (action_result.set_status(phantom.APP_ERROR, "Unable to parse response for the device group listing"), self._get_error_message_from_exception(e))
+            return (action_result.set_status(phantom.APP_ERROR,
+                "Unable to parse response for the device group listing"), self._get_error_message_from_exception(e))
 
         try:
             device_groups = [x['@name'] for x in device_groups]
@@ -573,7 +573,8 @@ class PanoramaConnector(BaseConnector):
 
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
 
-        self.save_progress("Commiting the config to device '{0}({1})' belonging to device group '{2}'".format(dev_info['hostname'], device, device_group))
+        self.save_progress("Commiting the config to device '{0}({1})' belonging to device group '{2}'".format(
+            dev_info['hostname'], device, device_group))
 
         cmd = COMMIT_ALL_DEV_GRP_DEV_CMD.format(device_group=device_group, dev_ser_num=dev_info['serial'])
 
@@ -644,7 +645,8 @@ class PanoramaConnector(BaseConnector):
 
         data = {'type': 'commit',
                 'action': 'all',
-                'cmd': '<commit-all><shared-policy><device-group><entry name="{0}"/></device-group></shared-policy></commit-all>'.format(device_group),
+                'cmd': '<commit-all><shared-policy><device-group><entry name="{0}"/></device-group></shared-policy></commit-all>'.format(
+                    device_group),
                 'key': self._key}
 
         rest_call_action_result = ActionResult()
@@ -767,7 +769,8 @@ class PanoramaConnector(BaseConnector):
             policy_name = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_NAME])
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
-            return (action_result.set_status(phantom.APP_ERROR, "Unable to create xpath to the security policies", self._get_error_message_from_exception(e)), None)
+            return (action_result.set_status(phantom.APP_ERROR, "Unable to create xpath to the security policies",
+                self._get_error_message_from_exception(e)), None)
 
         return (phantom.APP_SUCCESS, rules_xpath)
 
@@ -1270,13 +1273,15 @@ class PanoramaConnector(BaseConnector):
             dg_info = dgs.get(device_group)
 
             if not dg_info:
-                dg_status[device_group] = {'status': phantom.APP_ERROR, 'message': 'Device group {0} not found in the response from the device'.format(device_group)}
+                dg_status[device_group] = {'status': phantom.APP_ERROR,
+                    'message': 'Device group {0} not found in the response from the device'.format(device_group)}
                 continue
 
             devices = dg_info.get('devices')
 
             if not devices:
-                dg_status[device_group] = {'status': phantom.APP_ERROR, 'message': 'Device group {0} does not contain any devices'.format(device_group)}
+                dg_status[device_group] = {'status': phantom.APP_ERROR,
+                    'message': 'Device group {0} does not contain any devices'.format(device_group)}
                 continue
 
             dg_status[device_group] = curr_dg_status = {'status': phantom.APP_ERROR, 'message': ''}
@@ -1290,8 +1295,8 @@ class PanoramaConnector(BaseConnector):
                 curr_dg_devices[device] = device_ar = ActionResult()
 
                 if dev_info['connected'].lower() == 'no':
-                    device_ar.set_status(phantom.APP_ERROR, "Device '{0} ({1})' ignored since it's not connected to the device group".format(dev_info['hostname'],
-                        dev_info['serial']))
+                    device_ar.set_status(phantom.APP_ERROR, "Device '{0} ({1})' ignored since it's not connected to the device group".format(
+                        dev_info['hostname'], dev_info['serial']))
                     continue
 
                 # need to commit on this device
@@ -1434,7 +1439,8 @@ class PanoramaConnector(BaseConnector):
             min_offset = int(spl_range[0].strip())
             max_offset = int(spl_range[1].strip())
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, "Given range has a bad format: {0}".format(self._get_error_message_from_exception(e)))
+            return action_result.set_status(phantom.APP_ERROR, "Given range has a bad format: {0}".format(
+                self._get_error_message_from_exception(e)))
         offset_diff = max_offset - min_offset + 1
 
         if max_offset < min_offset:
@@ -1468,7 +1474,8 @@ class PanoramaConnector(BaseConnector):
         result_data = action_result.get_data()
 
         if len(result_data) == 0:
-            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(action_result.get_message()))
+            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
+                action_result.get_message()))
 
         result_data = result_data.pop(0)
         job_id = result_data.get('job')
@@ -1489,7 +1496,8 @@ class PanoramaConnector(BaseConnector):
             status = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
-                action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(status_action_result.get_message()))
+                action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
+                    status_action_result.get_message()))
                 return action_result.get_status()
 
             self.debug_print("status", status_action_result)
@@ -1634,8 +1642,9 @@ class PanoramaConnector(BaseConnector):
 
 if __name__ == '__main__':
 
-    import pudb
     import json
+
+    import pudb
 
     pudb.set_trace()
 
