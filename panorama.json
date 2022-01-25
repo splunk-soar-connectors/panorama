@@ -16,9 +16,10 @@
     ],
     "min_phantom_version": "4.9.39220",
     "python_version": "3",
+    "fips_compliant": true,
     "logo": "logo_panorama.svg",
     "logo_dark": "logo_panorama_dark.svg",
-    "license": "Copyright (c) 2016-2021 Splunk Inc.",
+    "license": "Copyright (c) 2016-2022 Splunk Inc.",
     "configuration": {
         "device": {
             "description": "Device IP/Hostname",
@@ -1771,11 +1772,11 @@
             },
             {
                 "module": "soupsieve",
-                "input_file": "wheels/soupsieve-2.3-py3-none-any.whl"
+                "input_file": "wheels/soupsieve-2.3.1-py3-none-any.whl"
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/urllib3-1.26.7-py2.py3-none-any.whl"
+                "input_file": "wheels/urllib3-1.26.8-py2.py3-none-any.whl"
             },
             {
                 "module": "xmltodict",
