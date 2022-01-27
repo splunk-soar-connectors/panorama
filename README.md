@@ -2,16 +2,16 @@
 # Panorama
 
 Publisher: Splunk  
-Connector Version: 3\.0\.3  
+Connector Version: 3\.0\.6  
 Product Vendor: Palo Alto Networks  
 Product Name: Panorama  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 4\.9\.39220  
+Minimum Product Version: 5\.1\.0  
 
 This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions
 
-[comment]: # " File: readme.md"
-[comment]: # "  Copyright (c) 2016-2021 Splunk Inc."
+[comment]: # " File: README.md"
+[comment]: # "  Copyright (c) 2016-2022 Splunk Inc."
 [comment]: # ""
 [comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
 [comment]: # ""
