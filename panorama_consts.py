@@ -1,8 +1,17 @@
 # File: panorama_consts.py
-# Copyright (c) 2016-2021 Splunk Inc.
 #
-# Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
-
+# Copyright (c) 2016-2022 Splunk Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under
+# the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+# either express or implied. See the License for the specific language governing permissions
+# and limitations under the License.
 PAN_ERR_REPLY_FORMAT_KEY_MISSING = "None '{key}' missing in reply from device"
 PAN_ERR_REPLY_NOT_SUCCESS = "REST call returned '{status}'"
 PAN_ERR_UNABLE_TO_PARSE_REPLY = "Unable to parse reply from device"
@@ -14,7 +23,8 @@ PAN_ERR_INVALID_IP_FORMAT = "Invalid ip format"
 PAN_ERR_DEVICE_CONNECTIVITY = "Error in connecting to device"
 PAN_ERR_PARSE_POLICY_DATA = "Unable to parse security policy config"
 PAN_ERR_NO_POLICY_ENTRIES_FOUND = "Could not find any security policies to update"
-PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND = "Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and type '{policy_type}'."
+PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and "
+"type '{policy_type}'.")
 PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
 PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
 PAN_ERR_NO_JOB_ID = "Could not find Job ID in response body"
@@ -105,7 +115,8 @@ URL_PROF_ELEM_9 += "<block><member>{url_category_name}</member></block>"
 
 URL_CATEGORY_XPATH = "{config_xpath}/profiles/custom-url-category/entry[@name='{url_profile_name}']"
 
-# We can make this work on version 8 and below as well by removing <type>URL List</type>. However, </list><type>URL List</type> is required for version 9 and above.
+# We can make this work on version 8 and below as well by removing <type>URL List</type>.
+# However, </list><type>URL List</type> is required for version 9 and above.
 URL_CATEGORY_ELEM = "<description>Created by Phantom for Panorama</description>"
 URL_CATEGORY_ELEM += "<list><member>{url}</member></list>"
 URL_CATEGORY_ELEM += "<type>URL List</type>"
@@ -140,3 +151,5 @@ POLICY_TYPE_VALUE_LIST = ["pre-rulebase", "post-rulebase"]
 LOG_TYPE_VALUE_LIST = ["traffic", "url", "corr", "data", "threat", "config", "system", "hipmatch", "wildfire", "corr-categ", "corr-detail"]
 DIRECTION_VALUE_LIST = ["backward", "forward"]
 VALUE_LIST_VALIDATION_MSG = "Please provide valid input from {} in '{}' action parameter"
+
+DEFAULT_TIMEOUT = 30
