@@ -893,7 +893,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        # block app done
+        # block app
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -972,7 +972,6 @@ class PanoramaConnector(BaseConnector):
         block_list_del_msg = action_result.get_message()
 
         # Now Commit the config
-        # unblock url DONE
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
@@ -1036,7 +1035,6 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         # Now Commit the config
-        # block url done
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
@@ -1074,7 +1072,6 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
         # Now Commit the config
-        # block url: DONE
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -1201,7 +1198,9 @@ class PanoramaConnector(BaseConnector):
 
     def _commit_and_commit_all(self, param, action_result):
 
-        # Now Commit the config
+        # By using partial commit, you commit only the changed made by the current username.
+        # The username in the config should represent an admin.
+        # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
@@ -1378,7 +1377,7 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
         message = action_result.get_message()
-        # Now Commit the config DONE
+        # Now Commit the config
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -1443,7 +1442,6 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        # done
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
