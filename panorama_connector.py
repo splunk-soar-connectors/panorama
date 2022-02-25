@@ -351,12 +351,16 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _commit_config(self, action_result):
+    def _commit_config(self, action_result, use_partial_commit=False):
 
         self.save_progress("Commiting the config to Panorama")
 
+        cmd = '<commit></commit>'
+        if use_partial_commit:
+            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(config["username"])
+
         data = {'type': 'commit',
-                'cmd': '<commit></commit>',
+                'cmd': cmd,
                 'key': self._key}
 
         status = self._make_rest_call(data, action_result)
@@ -889,6 +893,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
+        # block app done
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -967,6 +972,7 @@ class PanoramaConnector(BaseConnector):
         block_list_del_msg = action_result.get_message()
 
         # Now Commit the config
+        # unblock url DONE
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
@@ -1030,6 +1036,7 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         # Now Commit the config
+        # block url done
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
@@ -1067,6 +1074,7 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
         # Now Commit the config
+        # block url: DONE
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -1194,7 +1202,7 @@ class PanoramaConnector(BaseConnector):
     def _commit_and_commit_all(self, param, action_result):
 
         # Now Commit the config
-        status = self._commit_config(action_result)
+        status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -1222,9 +1230,32 @@ class PanoramaConnector(BaseConnector):
 
         status = phantom.APP_ERROR
         status_message = ''
+        commit_status = []
+        successful_commits = 0
+        failed_commits = 0
+        total_commits = 0
+
         for dev_group_ar in dev_groups_ar:
             status |= dev_group_ar.get_status()
             status_message = '{}{}'.format(status_message, dev_group_ar.get_message())
+
+            total_commits += 1
+            if dev_group_ar.get_status():
+                successful_commits += 1
+            else:
+                failed_commits += 1
+            commit_status.append({
+                "status": dev_group_ar.get_status(),
+                "message": dev_group_ar.get_message()
+            })
+
+        action_result.update_summary({
+            'successful_commits': successful_commits,
+            'failed_commits': failed_commits,
+            'total_commits': total_commits,
+            'message': "Successful Commits: {}, Failed Commits: {}, Total Commit Attempts: {}".format(
+                successful_commits, failed_commits, total_commits)
+        })
 
         action_result.set_status(status, status_message)
 
@@ -1347,7 +1378,7 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
         message = action_result.get_message()
-        # Now Commit the config
+        # Now Commit the config DONE
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -1412,6 +1443,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
+        # done
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
