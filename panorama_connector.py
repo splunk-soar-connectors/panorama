@@ -358,7 +358,9 @@ class PanoramaConnector(BaseConnector):
         # Commit the change to the firewall.
         cmd = '<commit></commit>'
         if use_partial_commit:
-            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(config["username"])
+            config = self.get_config()
+            username = config[phantom.APP_JSON_USERNAME]
+            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
 
         data = {'type': 'commit',
                 'cmd': cmd,
@@ -1203,8 +1205,8 @@ class PanoramaConnector(BaseConnector):
 
     def _commit_and_commit_all(self, param, action_result):
 
-        # By using partial commit, you commit only the changed made by the current username.
-        # The username in the config should represent an admin.
+        # To commit admin-level changes on a firewall, include the administrator name in the request.
+        # https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
         # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
