@@ -363,6 +363,9 @@ class PanoramaConnector(BaseConnector):
                 'cmd': cmd,
                 'key': self._key}
 
+        if use_partial_commit:
+            data.update({'action': 'partial'})
+
         status = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
