@@ -326,7 +326,7 @@ class PanoramaConnector(BaseConnector):
         return action_result.get_status()
 
     def _add_commit_status(self, job, action_result):
-
+        """Determine the UI status and the messages to be displayed for the commit action"""
         if job['result'] == 'OK':
             return phantom.APP_SUCCESS
 
@@ -355,6 +355,7 @@ class PanoramaConnector(BaseConnector):
 
         self.save_progress("Commiting the config to Panorama")
 
+        # Commit the change to the firewall.
         cmd = '<commit></commit>'
         if use_partial_commit:
             cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(config["username"])
@@ -386,6 +387,7 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print("commit job id: ", job_id)
 
+        # Query the status of the job using the job ID
         while True:
             data = {'type': 'op',
                     'key': self._key,
@@ -401,7 +403,8 @@ class PanoramaConnector(BaseConnector):
 
             self.debug_print("status", status_action_result)
 
-            # get the result_data and the job status
+            # Get the result_data and the job status
+            # Confirm that the XML response details state the Configuration was committed successfully
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
