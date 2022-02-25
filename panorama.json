@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.0.6",
+    "app_version": "3.0.6a",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
@@ -95,8 +95,12 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 3,
-                    "required": true
+                    "order": 3
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name",
+                    "data_type": "string",
+                    "order": 4
                 }
             },
             "output": [
@@ -299,6 +303,11 @@
                     "data_type": "string",
                     "order": 3,
                     "required": true
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name",
+                    "data_type": "string",
+                    "order": 4
                 }
             },
             "output": [
@@ -506,6 +515,11 @@
                     "data_type": "string",
                     "order": 4,
                     "required": true
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name",
+                    "data_type": "string",
+                    "order": 5
                 }
             },
             "output": [
