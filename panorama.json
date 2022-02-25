@@ -99,7 +99,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether partial commit should be used. We do full commit by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 4
                 }
@@ -209,7 +209,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether partial commit should be used. We do full commit by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 2
                 }
@@ -327,7 +327,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether partial commit should be used. We do full commit by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 4
                 }
@@ -437,7 +437,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether partial commit should be used. We do full commit by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 2
                 }
@@ -560,7 +560,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether partial commit should be used. We do full commit by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 5
                 }
@@ -679,7 +679,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether partial commit should be used. We do full commit by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 3
                 }
