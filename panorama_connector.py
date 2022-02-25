@@ -357,7 +357,12 @@ class PanoramaConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def _commit_config(self, action_result, use_partial_commit=False):
+        """Commit candidate changes to the firewall by default
 
+        With enabled partial, we commit admin-level changes on a firewall by including the administrator name in the request. # noqa
+        Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
+        Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
+        """
         self.save_progress("PAPP-24319: START Commiting the config to Panorama====")
 
         # Commit the change to the firewall.
@@ -397,6 +402,7 @@ class PanoramaConnector(BaseConnector):
         self.debug_print("PAPP-24319: commit job id: %s " % job_id)
 
         # Query the status of the job using the job ID
+        job_count = 0
         while True:
             data = {'type': 'op',
                     'key': self._key,
@@ -420,6 +426,8 @@ class PanoramaConnector(BaseConnector):
                 job = result_data[0]['job']
                 job_status = job['status']
                 queued = job['queued']
+                if job_count == 1:
+                    self.debug_print('PAPP-24319: job details: %s' % job['details'])
 
                 self.debug_print('PAPP-24319: job_status: %s' % job_status)
                 self.debug_print('PAPP-24319: queued: %s' % queued)
@@ -437,6 +445,7 @@ class PanoramaConnector(BaseConnector):
             # send the % progress
             self.send_progress(PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
 
+            job_count += 1
             time.sleep(2)
 
         self.save_progress("PAPP-24319: action result status %s" % action_result.get_status() )
@@ -1224,9 +1233,7 @@ class PanoramaConnector(BaseConnector):
 
     def _commit_and_commit_all(self, param, action_result):
         self.debug_print('PAPP-24319: START _commit_and_commit_all')
-        # To commit admin-level changes on a firewall, include the administrator name in the request.
-        # https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
-        # https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
+
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
