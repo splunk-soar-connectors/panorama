@@ -361,6 +361,7 @@ class PanoramaConnector(BaseConnector):
             config = self.get_config()
             username = config[phantom.APP_JSON_USERNAME]
             cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
+        self.debug_print('_commit_config: cmd: %s' % cmd)
 
         data = {'type': 'commit',
                 'cmd': cmd,
