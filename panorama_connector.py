@@ -893,7 +893,6 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        # block app
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
