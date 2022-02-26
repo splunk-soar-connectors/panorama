@@ -1289,13 +1289,14 @@ class PanoramaConnector(BaseConnector):
                 "message": dev_group_ar.get_message()
             })
 
-        action_result.update_summary({
-            'successful_commits': successful_commits,
-            'failed_commits': failed_commits,
-            'total_commits': total_commits,
-            'message': "Successful Commits: {}, Failed Commits: {}, Total Commit Attempts: {}".format(
-                successful_commits, failed_commits, total_commits)
-        })
+        # TODO: PAPPP-24596
+        # action_result.update_summary({
+        #     'successful_commits': successful_commits,
+        #     'failed_commits': failed_commits,
+        #     'total_commits': total_commits,
+        #     'message': "Successful Commits: {}, Failed Commits: {}, Total Commit Attempts: {}".format(
+        #         successful_commits, failed_commits, total_commits)
+        # })
         self.debug_print('PAPP-24319: update_summary: successful_commits: %s' % successful_commits)
 
         action_result.set_status(status, status_message)
