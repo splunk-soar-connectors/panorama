@@ -1020,7 +1020,6 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
     def _block_url(self, param):
-        # here
         status = self._get_key()
 
         if phantom.is_fail(status):
@@ -1440,7 +1439,6 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
     def _block_ip(self, param):
-        # vid
         status = self._get_key()
 
         if phantom.is_fail(status):
@@ -1483,10 +1481,7 @@ class PanoramaConnector(BaseConnector):
         data = {'type': 'config',
                 'action': 'set',
                 'key': self._key,
-                # "{config_xpath}/address-group/entry[@name='{ip_group_name}']"
                 'xpath': ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), ip_group_name=ip_group_name),
-
-                # <static><member>{addr_name}</member></static>
                 'element': ADDR_GRP_ELEM.format(addr_name=addr_name)}
 
         status = self._make_rest_call(data, action_result)
@@ -1497,7 +1492,6 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
 
         # Update the security policy
-        # this is where we update the security policy
         status = self._update_security_policy(param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -1653,7 +1647,6 @@ class PanoramaConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def _get_config_xpath(self, param):
-        # i'm back here
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
@@ -1674,19 +1667,6 @@ class PanoramaConnector(BaseConnector):
 
         status = self._make_rest_call(data, action_result)
 
-        if phantom.is_fail(status):
-            return action_result.get_status(), None
-
-        # checking audit comment
-        rules_xpath += '/audit-comments'
-        data = {'type': 'config',
-                'action': 'get',
-                'key': self._key,
-                'xpath': rules_xpath}
-
-        self.debug_print('paul: audit comment rules_xpath: %s' % rules_xpath)
-        status = self._make_rest_call(data, action_result, debug=True)
-        self.debug_print('paul: audit comment status: %s' % status)
         if phantom.is_fail(status):
             return action_result.get_status(), None
 
