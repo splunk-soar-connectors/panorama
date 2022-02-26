@@ -1513,6 +1513,8 @@ class PanoramaConnector(BaseConnector):
             self.debug_print('PAPP-24319: No Audit comment to update')
             return
 
+        self.debug_print('PAPP-24319: audit_comment: %s' % audit_comment)
+
         status, rule_path = self._get_security_policy_xpath(param, action_result)
         if phantom.is_fail(status):
             return action_result.get_status()
