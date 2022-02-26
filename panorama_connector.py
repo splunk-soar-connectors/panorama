@@ -935,6 +935,8 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
+        self._update_audit_comment(param, action_result)
+
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
@@ -1075,6 +1077,8 @@ class PanoramaConnector(BaseConnector):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
+        self._update_audit_comment(param, action_result)
+
         # Now Commit the config
         self._commit_and_commit_all(param, action_result)
 
@@ -1111,6 +1115,8 @@ class PanoramaConnector(BaseConnector):
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
+
+        self._update_audit_comment(param, action_result)
 
         # Now Commit the config
         self._commit_and_commit_all(param, action_result)
@@ -1496,7 +1502,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        self._update_audit_comment()
+        self._update_audit_comment(param, action_result)
 
         self._commit_and_commit_all(param, action_result)
 
