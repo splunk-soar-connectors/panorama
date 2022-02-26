@@ -848,11 +848,6 @@ class PanoramaConnector(BaseConnector):
                 'xpath': rules_xpath,
                 'element': element}
 
-        # audit_comment = param.get('audit_comment', '')
-        # audit_comment = self._handle_py_ver_compat_for_input_str(audit_comment)
-        # if audit_comment:
-        #     data.update({'audit-comment': audit_comment})
-
         status = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
@@ -1498,13 +1493,48 @@ class PanoramaConnector(BaseConnector):
         # Update the security policy
         # this is where we update the security policy
         status = self._update_security_policy(param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
-
         if phantom.is_fail(status):
             return action_result.get_status()
+
+        self._update_audit_comment()
 
         self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+
+    def _update_audit_comment(self, param, action_result):
+        """Create or Update Audit comment for the Policy rule
+
+        If the given Audit comment is empty, we won't be sending any update.
+        """
+
+        audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
+        if not audit_comment:
+            self.debug_print('No Audit comment to update')
+            return
+
+        status, rule_path = self._get_security_policy_xpath(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
+        cmd = (
+            '<set><audit-comment>'
+            '<comment>{audit_comment}</comment>'
+            '<xpath>{policy_rule_xpath}</xpath>'
+            '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
+        data = {
+            'type': 'op',
+            'key': self._key,
+            'cmd': cmd
+        }
+
+        status = self._make_rest_call(data, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('Failed to update audit comment for xpath {} with comment {}'.format(
+                rule_path, audit_comment))
+            return action_result.get_status()
+
+        return phantom.get_status()
 
     def _run_query(self, param):
 
@@ -1628,7 +1658,6 @@ class PanoramaConnector(BaseConnector):
     def _does_policy_exist(self, param, action_result):
 
         status, rules_xpath = self._get_security_policy_xpath(param, action_result)
-
         if phantom.is_fail(status):
             return action_result.get_status()
 
