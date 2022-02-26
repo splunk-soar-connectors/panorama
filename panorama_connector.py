@@ -1507,10 +1507,10 @@ class PanoramaConnector(BaseConnector):
 
         If the given Audit comment is empty, we won't be sending any update.
         """
-
+        self.debug_print('PAPP-24319: START _update_audit_comment ====')
         audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
         if not audit_comment:
-            self.debug_print('No Audit comment to update')
+            self.debug_print('PAPP-24319: No Audit comment to update')
             return
 
         status, rule_path = self._get_security_policy_xpath(param, action_result)
@@ -1530,9 +1530,11 @@ class PanoramaConnector(BaseConnector):
 
         status = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
-            self.debug_print('Failed to update audit comment for xpath {} with comment {}'.format(
+            self.debug_print('PAPP-24319: Failed to update audit comment for xpath {} with comment {}'.format(
                 rule_path, audit_comment))
             return action_result.get_status()
+
+        self.debug_print('PAPP-24319: DONE _update_audit_comment ====')
 
         return phantom.get_status()
 
