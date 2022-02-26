@@ -97,10 +97,16 @@
                     "data_type": "string",
                     "order": 3
                 },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 4
+                },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name",
                     "data_type": "string",
-                    "order": 4
+                    "order": 5,
+                    "required": true
                 }
             },
             "output": [
@@ -124,6 +130,14 @@
                 {
                     "data_path": "action_result.parameter.policy_name",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -198,6 +212,11 @@
                     "data_type": "string",
                     "order": 1,
                     "required": true
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 2
                 }
             },
             "output": [
@@ -213,6 +232,14 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -304,10 +331,16 @@
                     "order": 3,
                     "required": true
                 },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 4
+                },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name",
                     "data_type": "string",
-                    "order": 4
+                    "order": 5,
+                    "required": true
                 }
             },
             "output": [
@@ -331,6 +364,14 @@
                 {
                     "data_path": "action_result.parameter.policy_name",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -405,6 +446,11 @@
                     "data_type": "string",
                     "order": 1,
                     "required": true
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 2
                 }
             },
             "output": [
@@ -420,6 +466,14 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -516,10 +570,16 @@
                     "order": 4,
                     "required": true
                 },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 5
+                },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name",
                     "data_type": "string",
-                    "order": 5
+                    "order": 5,
+                    "required": true
                 }
             },
             "output": [
@@ -547,6 +607,14 @@
                 {
                     "data_path": "action_result.parameter.policy_name",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -626,6 +694,11 @@
                     "data_type": "string",
                     "order": 2,
                     "required": true
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 3
                 }
             },
             "output": [
@@ -645,6 +718,14 @@
                 {
                     "data_path": "action_result.parameter.is_source_address",
                     "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
