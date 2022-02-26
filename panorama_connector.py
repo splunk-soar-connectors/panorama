@@ -1511,7 +1511,7 @@ class PanoramaConnector(BaseConnector):
         audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
         if not audit_comment:
             self.debug_print('PAPP-24319: No Audit comment to update')
-            return
+            return action_result.get_status()
 
         self.debug_print('PAPP-24319: audit_comment: %s' % audit_comment)
 
@@ -1524,6 +1524,8 @@ class PanoramaConnector(BaseConnector):
             '<comment>{audit_comment}</comment>'
             '<xpath>{policy_rule_xpath}</xpath>'
             '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
+
+        self.debug_print('PAPP-24319: cmd: %s' % cmd)
         data = {
             'type': 'op',
             'key': self._key,
@@ -1538,7 +1540,7 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print('PAPP-24319: DONE _update_audit_comment ====')
 
-        return phantom.get_status()
+        return action_result.get_status()
 
     def _run_query(self, param):
 
@@ -1655,7 +1657,7 @@ class PanoramaConnector(BaseConnector):
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             return '/config/shared'
-
+        # device name
         return "/config/devices/entry/device-group/entry[@name='{device_group}']".format(device_group=device_group)
 
     def _does_policy_exist(self, param, action_result):
@@ -1670,6 +1672,8 @@ class PanoramaConnector(BaseConnector):
                 'xpath': rules_xpath}
 
         status = self._make_rest_call(data, action_result)
+        self.debug_print('PAPP-24319: Check if policy exists: xpath: %s' % rules_xpath)
+        self.debug_print('PAPP-24319: response message: %s' % action_result.get_message())
 
         if phantom.is_fail(status):
             return action_result.get_status(), None
