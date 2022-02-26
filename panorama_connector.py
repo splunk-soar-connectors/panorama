@@ -436,6 +436,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('PAPP-24319: YAY FOUND it: %s' % job)
                     self._add_commit_status(job, action_result)
+                    action_result.add_data(job)
                     break
             except Exception as e:
                 self.debug_print("PAPP-24319: Failed to find job with FIN: %s" % e)
