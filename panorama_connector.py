@@ -217,7 +217,10 @@ class PanoramaConnector(BaseConnector):
         result = response.get('result')
 
         if result is not None:
+            self.debug_print('PAPP-24319: action_result.add_data: response_dict: %s' % response_dict)
             action_result.add_data(result)
+        else:
+            self.debug_print('PAPP-24319: No data for action_result.add_data from  %s' % response_dict)
 
         return action_result.get_status()
 
@@ -311,7 +314,7 @@ class PanoramaConnector(BaseConnector):
 
         xml = response.text
         if debug:
-            self.debug_print('paul: xml: %s' % xml)
+            self.debug_print('PAPP-24319: xml: %s' % xml)
 
         action_result.add_debug_data(xml)
 
@@ -323,7 +326,7 @@ class PanoramaConnector(BaseConnector):
 
         status = self._parse_response(response_dict, action_result)
         if debug:
-            self.debug_print('paul: response_dict: %s' % response_dict)
+            self.debug_print('PAPP-24319: response_dict: %s' % response_dict)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -367,7 +370,7 @@ class PanoramaConnector(BaseConnector):
         Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
         Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         """
-        self.save_progress("PAPP-24319: START Commiting the config to Panorama====")
+        self.debug_print("PAPP-24319: START Committing the config to Panorama====")
 
         # Commit the change to the firewall.
         cmd = '<commit></commit>'
@@ -375,7 +378,6 @@ class PanoramaConnector(BaseConnector):
             config = self.get_config()
             username = config[phantom.APP_JSON_USERNAME]
             cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
-        self.debug_print('PAPP-24319: _commit_config: cmd: %s' % cmd)
 
         data = {'type': 'commit',
                 'cmd': cmd,
@@ -384,20 +386,33 @@ class PanoramaConnector(BaseConnector):
         if use_partial_commit:
             data.update({'action': 'partial'})
 
-        status = self._make_rest_call(data, action_result)
+        self.debug_print('PAPP-24319: Submitting commit: %s' % data)
+        status = self._make_rest_call(data, action_result, debug=True)
 
         if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed commit: %s' % action_result.get_message())
             return action_result.get_status()
 
         # Get the job id of the commit call from the result_data, also pop it since we don't need it
         # to be in the action result
         result_data = action_result.get_data()
+        self.debug_print('PAPP-24319: after commit config: result_data: %s' % result_data)
+        self.debug_print('PAPP-24319: after commit config: LEN result_data: %s' % len(result_data))
 
         if len(result_data) == 0:
+            self.debug_print('PAPP-24319: NO result data')
             return action_result.get_status()
 
-        result_data = result_data.pop(0)
+        # Monitor the job from the result of commit config above
+        result_data = result_data.pop()
+
+        if not isinstance(result_data, dict):
+            error_msg = "Failed to retrieve job id from %s" % result_data
+            self.debug_print('PAPP-24319: %s' % error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
+
         job_id = result_data.get('job')
+        self.debug_print("PAPP-24319: job_id: %s" % job_id)
 
         if not job_id:
             self.debug_print("PAPP-24319: NO job id: ")
@@ -415,6 +430,7 @@ class PanoramaConnector(BaseConnector):
             status_action_result = ActionResult()
 
             status = self._make_rest_call(data, status_action_result)
+            self.debug_print('PAPP-24319: Show job status: %s' % status)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -425,6 +441,7 @@ class PanoramaConnector(BaseConnector):
 
             # Get the result_data and the job status
             # Confirm that the XML response details state the Configuration was committed successfully
+            self.debug_print('PAPP-24319: Querying job: %s' % job_id)
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
@@ -709,6 +726,12 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(rest_call_action_result.get_status(), rest_call_action_result.get_message())
 
         result_data = result_data.pop(0)
+
+        if not isinstance(result_data, dict):
+            error_msg = "Failed to retrieve job id from %s" % result_data
+            self.debug_print('PAPP-24319: _commit_device_group: %s' % error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
+
         job_id = result_data.get('job')
 
         if not job_id:
@@ -806,12 +829,14 @@ class PanoramaConnector(BaseConnector):
 
         return (phantom.APP_SUCCESS, name)
 
-    def _get_security_policy_xpath(self, param, action_result):
+    def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
         # maybe add audit comment here
 
         try:
-            rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(config_xpath=self._get_config_xpath(param),
-                    policy_type=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_TYPE]))
+            config_xpath = self._get_config_xpath(param, device_entry_name=device_entry_name)
+            rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(
+                config_xpath=config_xpath,
+                policy_type=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_TYPE]))
             policy_name = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_NAME])
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
@@ -1255,6 +1280,7 @@ class PanoramaConnector(BaseConnector):
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
         device_groups = [device_group]
 
+        self.debug_print('PAPP-24319: Device groups to commit: %s' % device_groups)
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             # get all the device groups
             status, device_groups = self._get_all_device_groups(param, action_result)
@@ -1496,9 +1522,16 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        self._update_audit_comment(param, action_result)
+        # The comment need to be added to the same xpath as the config.
+        status = self._update_audit_comment(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to block ip: Reason: %s' % action_result.get_message())
+            return action_result.get_status()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Reason: %s' % action_result.get_message())
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1506,8 +1539,11 @@ class PanoramaConnector(BaseConnector):
         """Create or Update Audit comment for the Policy rule
 
         If the given Audit comment is empty, we won't be sending any update.
+        Adding an Audit comment does not require commit after.
+        If commit is called on a rule, the comments on that rule will be cleared.
         """
         self.debug_print('PAPP-24319: START _update_audit_comment ====')
+        self.debug_print('PAPP-24319: param: %s' % param)
         audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
         if not audit_comment:
             self.debug_print('PAPP-24319: No Audit comment to update')
@@ -1515,6 +1551,8 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print('PAPP-24319: audit_comment: %s' % audit_comment)
 
+        # If the device entry name is missing, you won't see the comment on the Web UI.
+        # If "Require audit comment on policies" option is enabled, the rule_path must match the one used on commit config update. # noqa
         status, rule_path = self._get_security_policy_xpath(param, action_result)
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -1525,7 +1563,7 @@ class PanoramaConnector(BaseConnector):
             '<xpath>{policy_rule_xpath}</xpath>'
             '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
 
-        self.debug_print('PAPP-24319: cmd: %s' % cmd)
+        self.debug_print('PAPP-24319: _update_audit_comment: cmd: %s' % cmd)
         data = {
             'type': 'op',
             'key': self._key,
@@ -1538,7 +1576,7 @@ class PanoramaConnector(BaseConnector):
                 rule_path, audit_comment))
             return action_result.get_status()
 
-        self.debug_print('PAPP-24319: DONE _update_audit_comment ====')
+        self.debug_print('PAPP-24319: DONE Successful _update_audit_comment ====')
 
         return action_result.get_status()
 
@@ -1652,13 +1690,22 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _get_config_xpath(self, param):
+    def _get_config_xpath(self, param, device_entry_name=''):
+        """Return the xpath to the specified device group"""
+
+        if device_entry_name:
+            self.debug_print('PAPP-24319: _get_config_xpath with device_entry_name %s' % device_entry_name)
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             return '/config/shared'
-        # device name
-        return "/config/devices/entry/device-group/entry[@name='{device_group}']".format(device_group=device_group)
+
+        formatted_device_entry_name = ''
+        if device_entry_name:
+            formatted_device_entry_name = "[@name='{}']".format(device_entry_name)
+
+        return "/config/devices/entry{formatted_device_entry_name}/device-group/entry[@name='{device_group}']".format(
+            formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
 
     def _does_policy_exist(self, param, action_result):
 
