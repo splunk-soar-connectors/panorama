@@ -1534,7 +1534,6 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        # The comment need to be added to the same xpath as the config.
         status = self._update_audit_comment(param, action_result)
         if phantom.is_fail(status):
             self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
