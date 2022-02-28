@@ -909,7 +909,9 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
         # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1010,7 +1012,9 @@ class PanoramaConnector(BaseConnector):
         url_category_del_msg = action_result.get_message()
 
         # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
 
@@ -1040,7 +1044,9 @@ class PanoramaConnector(BaseConnector):
         block_list_del_msg = action_result.get_message()
 
         # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
@@ -1277,8 +1283,7 @@ class PanoramaConnector(BaseConnector):
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Fail to commit config...')
-            self.debug_print('PAPP-24319: action result status: %s' % action_result.get_status())
+            self.debug_print('PAPP-24319: Fail to commit config: %s' % action_result.get_message())
             return action_result.get_status()
 
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
@@ -1463,8 +1468,10 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
         message = action_result.get_message()
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1528,7 +1535,7 @@ class PanoramaConnector(BaseConnector):
 
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Reason: %s' % action_result.get_message())
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
