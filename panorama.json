@@ -140,6 +140,10 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.data",
                     "data_type": "string"
                 },
@@ -371,6 +375,10 @@
                         true,
                         false
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data",
@@ -613,6 +621,10 @@
                         true,
                         false
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data",
