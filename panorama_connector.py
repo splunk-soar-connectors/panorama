@@ -370,7 +370,7 @@ class PanoramaConnector(BaseConnector):
         Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
         Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         """
-        self.debug_print("PAPP-24319: START Committing the config to Panorama====")
+        self.debug_print("PAPP-24319: START _commit_config====")
 
         # Commit the change to the firewall.
         cmd = '<commit></commit>'
@@ -470,8 +470,8 @@ class PanoramaConnector(BaseConnector):
             job_count += 1
             time.sleep(2)
 
-        self.save_progress("PAPP-24319: action result status %s" % action_result.get_status() )
-        self.save_progress("PAPP-24319: DONE Commiting the config to Panorama====")
+        self.debug_print("PAPP-24319: action result status %s" % action_result.get_status() )
+        self.debug_print("PAPP-24319: DONE _commit_config====")
         return action_result.get_status()
 
     def _get_all_device_groups(self, param, action_result):
