@@ -960,9 +960,13 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        self._update_audit_comment(param, action_result)
+        status = self._update_audit_comment(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1101,10 +1105,14 @@ class PanoramaConnector(BaseConnector):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        self._update_audit_comment(param, action_result)
+        status = self._update_audit_comment(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
 
         # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
@@ -1140,10 +1148,14 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        self._update_audit_comment(param, action_result)
+        status = self._update_audit_comment(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
 
         # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1525,13 +1537,11 @@ class PanoramaConnector(BaseConnector):
         # The comment need to be added to the same xpath as the config.
         status = self._update_audit_comment(param, action_result)
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to block ip: Reason: %s' % action_result.get_message())
-            return action_result.get_status()
+            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
 
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
             self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Reason: %s' % action_result.get_message())
-            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
