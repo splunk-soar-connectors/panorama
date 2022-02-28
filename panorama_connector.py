@@ -960,10 +960,6 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        status = self._update_audit_comment(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
-
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
             self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
@@ -1105,11 +1101,6 @@ class PanoramaConnector(BaseConnector):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        status = self._update_audit_comment(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
-
-        # Now Commit the config
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
             self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
@@ -1148,11 +1139,6 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        status = self._update_audit_comment(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
-
-        # Now Commit the config
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
             self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
@@ -1281,6 +1267,12 @@ class PanoramaConnector(BaseConnector):
 
     def _commit_and_commit_all(self, param, action_result):
         self.debug_print('PAPP-24319: START _commit_and_commit_all')
+
+        # If Audit comment is provided, we need to update it prior to committing all changes.
+        status = self._update_audit_comment(param, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
+            return action_result.get_status()
 
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
@@ -1534,10 +1526,6 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        status = self._update_audit_comment(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
-
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
             self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Reason: %s' % action_result.get_message())
@@ -1548,8 +1536,9 @@ class PanoramaConnector(BaseConnector):
         """Create or Update Audit comment for the Policy rule
 
         If the given Audit comment is empty, we won't be sending any update.
-        Adding an Audit comment does not require commit after.
-        If commit is called on a rule, the comments on that rule will be cleared.
+        Adding an Audit comment does not require Commit after.
+        If Commit is called on a rule, the comments on that rule will be cleared.
+        Audit comments must be done on the same xpath as the associated Policy rule.
         """
         self.debug_print('PAPP-24319: START _update_audit_comment ====')
         self.debug_print('PAPP-24319: param: %s' % param)
