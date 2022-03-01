@@ -333,31 +333,32 @@ class PanoramaConnector(BaseConnector):
         return action_result.get_status()
 
     def _add_commit_status(self, job, action_result):
-        """Determine the UI status and the messages to be displayed for the commit action"""
-        self.debug_print('PAPP-24319: _add_commit_status: %s' % job)
-        self.debug_print('PAPP-24319: job result: %s' % job['result'])
+        """Update the given result based on the given Finish job
+
+        :param job: job returned from performing Commit action. The job is already in Finish state
+        :param action_result:
+        """
+        self.debug_print('Update action result with the finished job: %s' % job)
+
         if job['result'] == 'OK':
-            self.debug_print('PAPP-24319: OK job')
             detail = job['details']
             return action_result.set_status(phantom.APP_SUCCESS, detail)
 
         status_string = ""
 
         if job['result'] == 'FAIL':
-            self.debug_print('PAPP-24319: FAIL job')
             action_result.set_status(phantom.APP_ERROR)
 
             try:
                 status_string = '{}{}'.format(status_string, '\n'.join(job['details']['line']))
             except Exception as e:
-                self.debug_print("PAPP-24319: Parsing commit status dict, handled exception", self._get_error_message_from_exception(e))
-                pass
+                self.debug_print(
+                    "Parsing commit status dict, handled exception", self._get_error_message_from_exception(e))
 
             try:
                 status_string = '\n'.join(job['warnings']['line'])
-                self.debug_print('PAPP-24319: status_string: %s' % status_string)
-            except:
-                pass
+            except Exception as e:
+                self.debug_print('Failed to retrieve warning message from job. Reason: %s' % e)
 
         action_result.append_to_message("\n{0}".format(status_string))
 
@@ -370,14 +371,15 @@ class PanoramaConnector(BaseConnector):
         Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
         Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         """
-        self.debug_print("PAPP-24319: START _commit_config====")
+        self.debug_print("START Committing Config changes")
 
-        # Commit the change to the firewall.
         cmd = '<commit></commit>'
         if use_partial_commit:
             config = self.get_config()
             username = config[phantom.APP_JSON_USERNAME]
             cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
+
+        self.debug_print('Config cmd: %s' % cmd)
 
         data = {'type': 'commit',
                 'cmd': cmd,
@@ -415,13 +417,13 @@ class PanoramaConnector(BaseConnector):
         self.debug_print("PAPP-24319: job_id: %s" % job_id)
 
         if not job_id:
-            self.debug_print("PAPP-24319: NO job id: ")
+            self.debug_print("Failed to commit Config changes. Reason: NO job id")
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
 
-        self.debug_print("PAPP-24319: commit job id: %s " % job_id)
+        self.debug_print("Commit Job id: %s" % job_id)
 
-        # Query the status of the job using the job ID
-        job_count = 0
+        # Keep querying Job info until we find a Finished job
+        # Update the action result with the finished job
         while True:
             data = {'type': 'op',
                     'key': self._key,
@@ -434,44 +436,32 @@ class PanoramaConnector(BaseConnector):
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
-                self.debug_print("PAPP-24319: 1: Failed to get info for job id: %s" % job_id)
+                self.debug_print("Failed to get info for job id: %s" % job_id)
                 return action_result.get_status()
 
             self.debug_print("status", status_action_result)
 
-            # Get the result_data and the job status
-            # Confirm that the XML response details state the Configuration was committed successfully
-            self.debug_print('PAPP-24319: Querying job: %s' % job_id)
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
                 job_status = job['status']
-                queued = job['queued']
-                if job_count == 1:
-                    self.debug_print('PAPP-24319: job details: %s' % job['details'])
-
-                self.debug_print('PAPP-24319: job_status: %s' % job_status)
-                self.debug_print('PAPP-24319: queued: %s' % queued)
-                self.debug_print('PAPP-24319: job_status====')
+                self.debug_print('Job status: %s' % job_status)
 
                 if job_status == 'FIN':
-                    self.debug_print('PAPP-24319: YAY FOUND it: %s' % job)
+                    self.debug_print('Finished job: %s' % job)
                     self._add_commit_status(job, action_result)
-                    action_result.add_data(job)
                     break
             except Exception as e:
-                self.debug_print("PAPP-24319: Failed to find job with FIN: %s" % e)
+                self.debug_print("Failed to find a finished job. Reason: %s" % e)
                 err = self._get_error_message_from_exception(e)
                 return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(err))
 
             # send the % progress
             self.send_progress(PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
 
-            job_count += 1
             time.sleep(2)
 
-        self.debug_print("PAPP-24319: action result status %s" % action_result.get_status() )
-        self.debug_print("PAPP-24319: DONE _commit_config====")
+        self.debug_print("DONE Committing Config changes")
         return action_result.get_status()
 
     def _get_all_device_groups(self, param, action_result):
@@ -701,14 +691,23 @@ class PanoramaConnector(BaseConnector):
 
         return device_ar.get_status()
 
-    def _commit_device_group(self, device_group, param, action_result):
+    def _commit_device_group(self, device_group, action_result):
+        """Commit changes for the Device group
 
-        self.save_progress("Commiting the config to the device group '{0}'".format(device_group))
+        we then query the Commit job until it's finished to update the given action result.
+        """
+        self.debug_print("Committing Config changes for the device group '{0}'".format(device_group))
+
+        cmd = (
+            '<commit-all>'
+            '<shared-policy>'
+            '<device-group><entry name="{0}"/></device-group>'
+            '</shared-policy>'
+            '</commit-all>'.format(device_group))
 
         data = {'type': 'commit',
                 'action': 'all',
-                'cmd': '<commit-all><shared-policy><device-group><entry name="{0}"/></device-group></shared-policy></commit-all>'.format(
-                    device_group),
+                'cmd': cmd,
                 'key': self._key}
 
         rest_call_action_result = ActionResult()
@@ -735,6 +734,7 @@ class PanoramaConnector(BaseConnector):
         job_id = result_data.get('job')
 
         if not job_id:
+            self.debug_print('Failed to find Job id')
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
 
         self.debug_print("commit job id: ", job_id)
@@ -758,7 +758,11 @@ class PanoramaConnector(BaseConnector):
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
-                if job['status'] == 'FIN':
+                job_status = job['status']
+                self.debug_print('Job status: %s' % job_status)
+
+                if job_status == 'FIN':
+                    self.debug_print('Finished job: %s' % job)
                     self._parse_device_group_job_response(job, action_result)
                     break
             except Exception as e:
@@ -769,6 +773,8 @@ class PanoramaConnector(BaseConnector):
             self.send_progress(PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
 
             time.sleep(2)
+
+        self.debug_print("Done committing Config changes for the device group '{0}'".format(device_group))
 
         return action_result.get_status()
 
@@ -1272,7 +1278,9 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(status, status_message)
 
     def _commit_and_commit_all(self, param, action_result):
-        self.debug_print('PAPP-24319: START _commit_and_commit_all')
+        """Commit Config changes and Commit Device Group changes"""
+
+        self.debug_print('Start Commit actions')
 
         # If Audit comment is provided, we need to update it prior to committing all changes.
         status = self._update_audit_comment(param, action_result)
@@ -1283,7 +1291,6 @@ class PanoramaConnector(BaseConnector):
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Fail to commit config: %s' % action_result.get_message())
             return action_result.get_status()
 
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
@@ -1294,60 +1301,34 @@ class PanoramaConnector(BaseConnector):
             # get all the device groups
             status, device_groups = self._get_all_device_groups(param, action_result)
             if phantom.is_fail(status):
-                self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Fail to get device groups')
                 return action_result.get_status()
 
         if not device_groups:
-            self.debug_print('PAPP-24319: Failed _commit_and_commit_all: Got empty device group list')
-            return action_result.set_status(phantom.APP_ERROR, "Got empty device group list")
+            error_msg = 'Got empty device group list'
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         # Reset the action_result object to error
         action_result.set_status(phantom.APP_ERROR)
 
-        self.debug_print('PAPP-24319: Processing device groups: %s' % device_groups)
+        self.debug_print('Processing device groups: %s' % device_groups)
 
         dev_groups_ar = []
         for device_group in device_groups:
             dev_grp_ar = ActionResult()
             dev_groups_ar.append(dev_grp_ar)
-            self._commit_device_group(device_group, param, dev_grp_ar)
-
-        self.debug_print('PAPP-24319: # dev_groups_ar: %s' % len(dev_groups_ar))
+            self._commit_device_group(device_group, dev_grp_ar)
 
         status = phantom.APP_ERROR
         status_message = ''
-        commit_status = []
-        successful_commits = 0
-        failed_commits = 0
-        total_commits = 0
 
         for dev_group_ar in dev_groups_ar:
             status |= dev_group_ar.get_status()
             status_message = '{}{}'.format(status_message, dev_group_ar.get_message())
 
-            total_commits += 1
-            if dev_group_ar.get_status():
-                successful_commits += 1
-            else:
-                failed_commits += 1
-            commit_status.append({
-                "status": dev_group_ar.get_status(),
-                "message": dev_group_ar.get_message()
-            })
-
-        # TODO: PAPPP-24596
-        # action_result.update_summary({
-        #     'successful_commits': successful_commits,
-        #     'failed_commits': failed_commits,
-        #     'total_commits': total_commits,
-        #     'message': "Successful Commits: {}, Failed Commits: {}, Total Commit Attempts: {}".format(
-        #         successful_commits, failed_commits, total_commits)
-        # })
-        self.debug_print('PAPP-24319: update_summary: successful_commits: %s' % successful_commits)
-
         action_result.set_status(status, status_message)
 
-        self.debug_print('PAPP-24319: DONE _commit_and_commit_all')
+        self.debug_print('Done Commit actions')
 
         return action_result.get_status()
 
