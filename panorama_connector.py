@@ -1500,14 +1500,13 @@ class PanoramaConnector(BaseConnector):
         If Commit is called on a rule, the comments on that rule will be cleared.
         Audit comments must be done on the same xpath as the associated Policy rule.
         """
-        self.debug_print('PAPP-24319: START _update_audit_comment ====')
-        self.debug_print('PAPP-24319: param: %s' % param)
+        self.debug_print('Start Create/Update Audit comment with param %s' % param)
         audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
         if not audit_comment:
-            self.debug_print('PAPP-24319: No Audit comment to update')
+            self.debug_print('No Audit comment to update')
             return action_result.get_status()
 
-        self.debug_print('PAPP-24319: audit_comment: %s' % audit_comment)
+        self.debug_print('Audit comment to submit %s' % audit_comment)
 
         # If the device entry name is missing, you won't see the comment on the Web UI.
         # If "Require audit comment on policies" option is enabled, the rule_path must match the one used on commit config update. # noqa
@@ -1521,7 +1520,7 @@ class PanoramaConnector(BaseConnector):
             '<xpath>{policy_rule_xpath}</xpath>'
             '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
 
-        self.debug_print('PAPP-24319: _update_audit_comment: cmd: %s' % cmd)
+        self.debug_print('Updating Audit comment with cmd: %s' % cmd)
         data = {
             'type': 'op',
             'key': self._key,
@@ -1530,11 +1529,11 @@ class PanoramaConnector(BaseConnector):
 
         status = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to update audit comment for xpath {} with comment {}'.format(
-                rule_path, audit_comment))
+            self.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
+                rule_path, audit_comment, action_result.get_message()))
             return action_result.get_status()
 
-        self.debug_print('PAPP-24319: DONE Successful _update_audit_comment ====')
+        self.debug_print('Successfully Updated Audit comment')
 
         return action_result.get_status()
 
@@ -1652,7 +1651,7 @@ class PanoramaConnector(BaseConnector):
         """Return the xpath to the specified device group"""
 
         if device_entry_name:
-            self.debug_print('PAPP-24319: _get_config_xpath with device_entry_name %s' % device_entry_name)
+            self.debug_print('Getting the Config xpath for the device entry name %s' % device_entry_name)
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
@@ -1677,10 +1676,11 @@ class PanoramaConnector(BaseConnector):
                 'xpath': rules_xpath}
 
         status = self._make_rest_call(data, action_result)
-        self.debug_print('PAPP-24319: Check if policy exists: xpath: %s' % rules_xpath)
-        self.debug_print('PAPP-24319: response message: %s' % action_result.get_message())
+
+        self.debug_print('Check if policy exists for xpath: %s' % rules_xpath)
 
         if phantom.is_fail(status):
+            self.debug_print('No Policy rule for xpath %s. Reason: %s' % (rules_xpath, action_result.get_message()))
             return action_result.get_status(), None
 
         # Get the data, if the policy existed, we will have some data
