@@ -326,31 +326,32 @@ class PanoramaConnector(BaseConnector):
         return action_result.get_status()
 
     def _add_commit_status(self, job, action_result):
-        """Determine the UI status and the messages to be displayed for the commit action"""
-        self.debug_print('PAPP-24319: _add_commit_status: %s' % job)
-        self.debug_print('PAPP-24319: job result: %s' % job['result'])
+        """Update the given result based on the given Finish job
+
+        :param job: job returned from performing Commit action. The job is already in Finish state
+        :param action_result:
+        """
+        self.debug_print('Update action result with the finished job: %s' % job)
+
         if job['result'] == 'OK':
-            self.debug_print('PAPP-24319: OK job')
             detail = job['details']
             return action_result.set_status(phantom.APP_SUCCESS, detail)
 
         status_string = ""
 
         if job['result'] == 'FAIL':
-            self.debug_print('PAPP-24319: FAIL job')
             action_result.set_status(phantom.APP_ERROR)
 
             try:
                 status_string = '{}{}'.format(status_string, '\n'.join(job['details']['line']))
             except Exception as e:
-                self.debug_print("PAPP-24319: Parsing commit status dict, handled exception", self._get_error_message_from_exception(e))
-                pass
+                self.debug_print(
+                    "Parsing commit status dict, handled exception", self._get_error_message_from_exception(e))
 
             try:
                 status_string = '\n'.join(job['warnings']['line'])
-                self.debug_print('PAPP-24319: status_string: %s' % status_string)
-            except:
-                pass
+            except Exception as e:
+                self.debug_print('Failed to retrieve warning message from job. Reason: %s' % e)
 
         action_result.append_to_message("\n{0}".format(status_string))
 
