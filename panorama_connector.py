@@ -217,10 +217,8 @@ class PanoramaConnector(BaseConnector):
         result = response.get('result')
 
         if result is not None:
-            self.debug_print('PAPP-24319: action_result.add_data: response_dict: %s' % response_dict)
+            self.debug_print('action_result.add_data: response_dict: %s' % response_dict)
             action_result.add_data(result)
-        else:
-            self.debug_print('PAPP-24319: No data for action_result.add_data from  %s' % response_dict)
 
         return action_result.get_status()
 
@@ -299,7 +297,7 @@ class PanoramaConnector(BaseConnector):
 
         return self.set_status(phantom.APP_SUCCESS, PAN_SUCC_TEST_CONNECTIVITY_PASSED)
 
-    def _make_rest_call(self, data, action_result, debug=False):
+    def _make_rest_call(self, data, action_result):
 
         self.debug_print("Making rest call")
 
@@ -313,8 +311,6 @@ class PanoramaConnector(BaseConnector):
                                             self._get_error_message_from_exception(e))
 
         xml = response.text
-        if debug:
-            self.debug_print('PAPP-24319: xml: %s' % xml)
 
         action_result.add_debug_data(xml)
 
@@ -325,8 +321,6 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_UNABLE_TO_PARSE_REPLY, self._get_error_message_from_exception(e))
 
         status = self._parse_response(response_dict, action_result)
-        if debug:
-            self.debug_print('PAPP-24319: response_dict: %s' % response_dict)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -379,8 +373,6 @@ class PanoramaConnector(BaseConnector):
             username = config[phantom.APP_JSON_USERNAME]
             cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
 
-        self.debug_print('Config cmd: %s' % cmd)
-
         data = {'type': 'commit',
                 'cmd': cmd,
                 'key': self._key}
@@ -388,21 +380,19 @@ class PanoramaConnector(BaseConnector):
         if use_partial_commit:
             data.update({'action': 'partial'})
 
-        self.debug_print('PAPP-24319: Submitting commit: %s' % data)
-        status = self._make_rest_call(data, action_result, debug=True)
+        self.debug_print('Committing with data: %s' % data)
+        status = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed commit: %s' % action_result.get_message())
+            self.debug_print('Failed to commit Config changes. Reason: %s' % action_result.get_message())
             return action_result.get_status()
 
         # Get the job id of the commit call from the result_data, also pop it since we don't need it
         # to be in the action result
         result_data = action_result.get_data()
-        self.debug_print('PAPP-24319: after commit config: result_data: %s' % result_data)
-        self.debug_print('PAPP-24319: after commit config: LEN result_data: %s' % len(result_data))
 
         if len(result_data) == 0:
-            self.debug_print('PAPP-24319: NO result data')
+            self.debug_print('NO result data')
             return action_result.get_status()
 
         # Monitor the job from the result of commit config above
@@ -410,11 +400,11 @@ class PanoramaConnector(BaseConnector):
 
         if not isinstance(result_data, dict):
             error_msg = "Failed to retrieve job id from %s" % result_data
-            self.debug_print('PAPP-24319: %s' % error_msg)
+            self.debug_print(error_msg)
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         job_id = result_data.get('job')
-        self.debug_print("PAPP-24319: job_id: %s" % job_id)
+        self.debug_print("Successful committed change with job_id: %s" % job_id)
 
         if not job_id:
             self.debug_print("Failed to commit Config changes. Reason: NO job id")
@@ -432,7 +422,6 @@ class PanoramaConnector(BaseConnector):
             status_action_result = ActionResult()
 
             status = self._make_rest_call(data, status_action_result)
-            self.debug_print('PAPP-24319: Show job status: %s' % status)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -651,6 +640,7 @@ class PanoramaConnector(BaseConnector):
 
         result_data = result_data.pop(0)
         job_id = result_data.get('job')
+        self.debug_print("Successful committed change with job_id: %s" % job_id)
 
         if not job_id:
             return device_ar.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
@@ -728,7 +718,7 @@ class PanoramaConnector(BaseConnector):
 
         if not isinstance(result_data, dict):
             error_msg = "Failed to retrieve job id from %s" % result_data
-            self.debug_print('PAPP-24319: _commit_device_group: %s' % error_msg)
+            self.debug_print(error_msg)
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         job_id = result_data.get('job')
@@ -914,10 +904,8 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking application", action_result.get_message()))
 
         message = action_result.get_message()
-        # Now Commit the config
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -968,9 +956,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1017,10 +1003,7 @@ class PanoramaConnector(BaseConnector):
 
         url_category_del_msg = action_result.get_message()
 
-        # Now Commit the config
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
 
@@ -1049,10 +1032,7 @@ class PanoramaConnector(BaseConnector):
 
         block_list_del_msg = action_result.get_message()
 
-        # Now Commit the config
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
@@ -1113,9 +1093,7 @@ class PanoramaConnector(BaseConnector):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
@@ -1151,9 +1129,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1285,7 +1261,6 @@ class PanoramaConnector(BaseConnector):
         # If Audit comment is provided, we need to update it prior to committing all changes.
         status = self._update_audit_comment(param, action_result)
         if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to create/update Audit comment: %s' % action_result.get_message())
             return action_result.get_status()
 
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
@@ -1296,7 +1271,8 @@ class PanoramaConnector(BaseConnector):
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
         device_groups = [device_group]
 
-        self.debug_print('PAPP-24319: Device groups to commit: %s' % device_groups)
+        self.debug_print('Device groups to commit: %s' % device_groups)
+
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             # get all the device groups
             status, device_groups = self._get_all_device_groups(param, action_result)
@@ -1450,9 +1426,7 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1514,9 +1488,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            self.debug_print('PAPP-24319: Failed to commit changes: %s' % action_result.get_message())
+        self._commit_and_commit_all(param, action_result)
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
