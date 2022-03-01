@@ -681,14 +681,23 @@ class PanoramaConnector(BaseConnector):
 
         return device_ar.get_status()
 
-    def _commit_device_group(self, device_group, param, action_result):
+    def _commit_device_group(self, device_group, action_result):
+        """Commit changes for the Device group
 
+        we then query the Commit job until it's inifhsed to update the given action result.
+        """
         self.save_progress("Commiting the config to the device group '{0}'".format(device_group))
+
+        cmd = (
+            '<commit-all>'
+            '<shared-policy>'
+            '<device-group><entry name="{0}"/></device-group>'
+            '</shared-policy>'
+            '</commit-all>'.format(device_group))
 
         data = {'type': 'commit',
                 'action': 'all',
-                'cmd': '<commit-all><shared-policy><device-group><entry name="{0}"/></device-group></shared-policy></commit-all>'.format(
-                    device_group),
+                'cmd': cmd,
                 'key': self._key}
 
         rest_call_action_result = ActionResult()
@@ -734,6 +743,7 @@ class PanoramaConnector(BaseConnector):
                 job = result_data[0]['job']
                 if job['status'] == 'FIN':
                     self._parse_device_group_job_response(job, action_result)
+                    action_result.add_data(job)
                     break
             except Exception as e:
                 err = self._get_error_message_from_exception(e)
@@ -1234,6 +1244,12 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(status, status_message)
 
     def _commit_and_commit_all(self, param, action_result):
+        """Commit Config changes and Commit Device Group changes
+
+        :param param:
+        :param action_result:
+        :return:
+        """
         self.debug_print('PAPP-24319: START _commit_and_commit_all')
 
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
