@@ -366,7 +366,6 @@ class PanoramaConnector(BaseConnector):
         """
         self.debug_print("START Committing Config changes")
 
-        # Commit the change to the firewall.
         cmd = '<commit></commit>'
         if use_partial_commit:
             config = self.get_config()
@@ -400,9 +399,10 @@ class PanoramaConnector(BaseConnector):
             self.debug_print("Failed to commit Config changes. Reason: NO job id")
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
 
-        self.debug_print("Commit Job id: %s " % job_id)
+        self.debug_print("Commit Job id: %s" % job_id)
 
-        # Query the status of the job using the job ID
+        # Keep querying Job info until we find a Finished job
+        # Update the action result with the finished job
         while True:
             data = {'type': 'op',
                     'key': self._key,
@@ -419,8 +419,6 @@ class PanoramaConnector(BaseConnector):
 
             self.debug_print("status", status_action_result)
 
-            # Get the result_data and the job status
-            # Confirm that the XML response details state the Configuration was committed successfully
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
