@@ -1459,6 +1459,11 @@ class PanoramaConnector(BaseConnector):
             self.debug_print('No Audit comment to update')
             return action_result.get_status()
 
+        if len(audit_comment) > 256:
+            error_msg = "The length of an Audit comment can be at most 256 characters."
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
+
         self.debug_print('Audit comment to submit %s' % audit_comment)
 
         # If the device entry name is missing, you won't see the comment on the Web UI.
