@@ -456,6 +456,8 @@ class PanoramaConnector(BaseConnector):
     def _get_all_device_groups(self, param, action_result):
         """Get all the device groups configured on the system"""
 
+        self.debug_print('Start retrieving all device groups')
+
         device_groups = []
 
         data = {'type': 'config',
@@ -474,9 +476,18 @@ class PanoramaConnector(BaseConnector):
         if not result_data:
             return (action_result.set_status(phantom.APP_ERROR, "Got empty list for device groups"), device_groups)
 
+        self.debug_print('Getting Device Groups config from %s' % result_data)
+        device_groups_config = result_data.pop()
+
+        if not isinstance(device_groups_config, dict):
+            error_msg = "Invalid Device Group config: %s" % device_groups_config
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg), []
+
         try:
-            device_groups = result_data[0]['device-group']['entry']
+            device_groups = device_groups_config['device-group']['entry']
         except Exception as e:
+            self.debug_print('Failed to extracted device_groups from %s. Reason: %s' % (device_groups_config, e))
             return (action_result.set_status(phantom.APP_ERROR,
                 "Unable to parse response for the device group listing"), self._get_error_message_from_exception(e))
 
@@ -489,7 +500,7 @@ class PanoramaConnector(BaseConnector):
         action_result.set_data_size(0)
         action_result.set_status(phantom.APP_ERROR)
 
-        return (phantom.APP_SUCCESS, device_groups)
+        return phantom.APP_SUCCESS, device_groups
 
     def _get_device_commit_details_string(self, commit_all_device_details):
 
@@ -714,7 +725,9 @@ class PanoramaConnector(BaseConnector):
         if len(result_data) == 0:
             return action_result.set_status(rest_call_action_result.get_status(), rest_call_action_result.get_message())
 
-        result_data = result_data.pop(0)
+        # We want to process the response from the Commit request we've just done
+        # https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html#id4e36ab51-cce0-4bd1-8953-2413189ab1c6 # noqa
+        result_data = result_data.pop()
 
         if not isinstance(result_data, dict):
             error_msg = "Failed to retrieve job id from %s" % result_data
@@ -905,7 +918,9 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -956,7 +971,9 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1003,7 +1020,9 @@ class PanoramaConnector(BaseConnector):
 
         url_category_del_msg = action_result.get_message()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
 
@@ -1032,7 +1051,9 @@ class PanoramaConnector(BaseConnector):
 
         block_list_del_msg = action_result.get_message()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
@@ -1093,7 +1114,9 @@ class PanoramaConnector(BaseConnector):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
@@ -1129,7 +1152,9 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1308,82 +1333,6 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.get_status()
 
-    def _commit_and_commit_all_per_device(self, param, action_result):
-
-        # Get the list of connected devices
-        status, dgs = self._get_dgs(action_result)
-
-        if phantom.is_fail(status):
-            return action_result.get_status()
-
-        self._device_groups = dgs
-
-        # Now Commit the config
-        status = self._commit_config(action_result)
-
-        if phantom.is_fail(status):
-            return action_result.get_status()
-
-        # Now Commit for each device in the device group
-        device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
-        device_groups = [device_group]
-
-        if device_group.lower() == PAN_DEV_GRP_SHARED:
-            # get all the device groups
-            status, device_groups = self._get_all_device_groups(param, action_result)
-            if phantom.is_fail(status):
-                return action_result.get_status()
-
-        if not device_groups:
-            return action_result.set_status(phantom.APP_ERROR, "Got empty device group list")
-
-        # Reset the action_result object to error
-        action_result.set_status(phantom.APP_ERROR)
-
-        # committing for the device group does not give us proper status strings
-        # so the best thing to do is save each device manually
-        # get back all the results and show it to the user
-
-        dg_status = {}
-
-        for device_group in device_groups:
-
-            dg_info = dgs.get(device_group)
-
-            if not dg_info:
-                dg_status[device_group] = {'status': phantom.APP_ERROR,
-                    'message': 'Device group {0} not found in the response from the device'.format(device_group)}
-                continue
-
-            devices = dg_info.get('devices')
-
-            if not devices:
-                dg_status[device_group] = {'status': phantom.APP_ERROR,
-                    'message': 'Device group {0} does not contain any devices'.format(device_group)}
-                continue
-
-            dg_status[device_group] = curr_dg_status = {'status': phantom.APP_ERROR, 'message': ''}
-
-            curr_dg_status['devices'] = curr_dg_devices = {}
-
-            devices_values = list(devices.items())
-            for device, dev_info in devices_values:
-
-                # create a status dictionary
-                curr_dg_devices[device] = device_ar = ActionResult()
-
-                if dev_info['connected'].lower() == 'no':
-                    device_ar.set_status(phantom.APP_ERROR, "Device '{0} ({1})' ignored since it's not connected to the device group".format(
-                        dev_info['hostname'], dev_info['serial']))
-                    continue
-
-                # need to commit on this device
-                self._commit_device(device_group, device, dev_info, device_ar, param)
-
-        self._set_action_result_status(dg_status, action_result)
-
-        return action_result.get_status()
-
     def _unblock_ip(self, param):
 
         status = self._get_key()
@@ -1426,7 +1375,9 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1488,7 +1439,9 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
