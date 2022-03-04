@@ -217,6 +217,7 @@ class PanoramaConnector(BaseConnector):
         result = response.get('result')
 
         if result is not None:
+            self.debug_print('action_result.add_data: response_dict: %s' % response_dict)
             action_result.add_data(result)
 
         return action_result.get_status()
@@ -306,7 +307,8 @@ class PanoramaConnector(BaseConnector):
             response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             self.debug_print(PAN_ERR_DEVICE_CONNECTIVITY, e)
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY, self._get_error_message_from_exception(e))
+            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY,
+                                            self._get_error_message_from_exception(e))
 
         xml = response.text
 
@@ -319,49 +321,70 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_UNABLE_TO_PARSE_REPLY, self._get_error_message_from_exception(e))
 
         status = self._parse_response(response_dict, action_result)
-
         if phantom.is_fail(status):
             return action_result.get_status()
 
         return action_result.get_status()
 
     def _add_commit_status(self, job, action_result):
+        """Update the given result based on the given Finish job
+
+        :param job: job returned from performing Commit action. The job is already in Finish state
+        :param action_result:
+        """
+        self.debug_print('Update action result with the finished job: %s' % job)
 
         if job['result'] == 'OK':
-            return phantom.APP_SUCCESS
+            detail = job['details']
+            return action_result.set_status(phantom.APP_SUCCESS, detail)
 
         status_string = ""
 
         if job['result'] == 'FAIL':
-
             action_result.set_status(phantom.APP_ERROR)
 
             try:
                 status_string = '{}{}'.format(status_string, '\n'.join(job['details']['line']))
             except Exception as e:
-                self.debug_print("Parsing commit status dict, handled exception", self._get_error_message_from_exception(e))
-                pass
+                self.debug_print(
+                    "Parsing commit status dict, handled exception", self._get_error_message_from_exception(e))
 
             try:
                 status_string = '\n'.join(job['warnings']['line'])
-            except:
-                pass
+            except Exception as e:
+                self.debug_print('Failed to retrieve warning message from job. Reason: %s' % e)
 
         action_result.append_to_message("\n{0}".format(status_string))
 
         return phantom.APP_SUCCESS
 
-    def _commit_config(self, action_result):
+    def _commit_config(self, action_result, use_partial_commit=False):
+        """Commit candidate changes to the firewall by default
 
-        self.save_progress("Commiting the config to Panorama")
+        With enabled partial, we commit admin-level changes on a firewall by including the administrator name in the request. # noqa
+        Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
+        Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
+        """
+        self.debug_print("START Committing Config changes")
+
+        cmd = '<commit></commit>'
+        if use_partial_commit:
+            config = self.get_config()
+            username = config[phantom.APP_JSON_USERNAME]
+            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
 
         data = {'type': 'commit',
-                'cmd': '<commit></commit>',
+                'cmd': cmd,
                 'key': self._key}
 
+        if use_partial_commit:
+            data.update({'action': 'partial'})
+
+        self.debug_print('Committing with data: %s' % data)
         status = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
+            self.debug_print('Failed to commit Config changes. Reason: %s' % action_result.get_message())
             return action_result.get_status()
 
         # Get the job id of the commit call from the result_data, also pop it since we don't need it
@@ -369,16 +392,28 @@ class PanoramaConnector(BaseConnector):
         result_data = action_result.get_data()
 
         if len(result_data) == 0:
+            self.debug_print('NO result data')
             return action_result.get_status()
 
-        result_data = result_data.pop(0)
+        # Monitor the job from the result of commit config above
+        result_data = result_data.pop()
+
+        if not isinstance(result_data, dict):
+            error_msg = "Failed to retrieve job id from %s" % result_data
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
+
         job_id = result_data.get('job')
+        self.debug_print("Successful committed change with job_id: %s" % job_id)
 
         if not job_id:
+            self.debug_print("Failed to commit Config changes. Reason: NO job id")
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
 
-        self.debug_print("commit job id: ", job_id)
+        self.debug_print("Commit Job id: %s" % job_id)
 
+        # Keep querying Job info until we find a Finished job
+        # Update the action result with the finished job
         while True:
             data = {'type': 'op',
                     'key': self._key,
@@ -390,18 +425,23 @@ class PanoramaConnector(BaseConnector):
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
+                self.debug_print("Failed to get info for job id: %s" % job_id)
                 return action_result.get_status()
 
             self.debug_print("status", status_action_result)
 
-            # get the result_data and the job status
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
-                if job['status'] == 'FIN':
+                job_status = job['status']
+                self.debug_print('Job status: %s' % job_status)
+
+                if job_status == 'FIN':
+                    self.debug_print('Finished job: %s' % job)
                     self._add_commit_status(job, action_result)
                     break
             except Exception as e:
+                self.debug_print("Failed to find a finished job. Reason: %s" % e)
                 err = self._get_error_message_from_exception(e)
                 return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(err))
 
@@ -410,10 +450,13 @@ class PanoramaConnector(BaseConnector):
 
             time.sleep(2)
 
+        self.debug_print("DONE Committing Config changes")
         return action_result.get_status()
 
     def _get_all_device_groups(self, param, action_result):
         """Get all the device groups configured on the system"""
+
+        self.debug_print('Start retrieving all device groups')
 
         device_groups = []
 
@@ -433,9 +476,18 @@ class PanoramaConnector(BaseConnector):
         if not result_data:
             return (action_result.set_status(phantom.APP_ERROR, "Got empty list for device groups"), device_groups)
 
+        self.debug_print('Getting Device Groups config from %s' % result_data)
+        device_groups_config = result_data.pop()
+
+        if not isinstance(device_groups_config, dict):
+            error_msg = "Invalid Device Group config: %s" % device_groups_config
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg), []
+
         try:
-            device_groups = result_data[0]['device-group']['entry']
+            device_groups = device_groups_config['device-group']['entry']
         except Exception as e:
+            self.debug_print('Failed to extracted device_groups from %s. Reason: %s' % (device_groups_config, e))
             return (action_result.set_status(phantom.APP_ERROR,
                 "Unable to parse response for the device group listing"), self._get_error_message_from_exception(e))
 
@@ -448,7 +500,7 @@ class PanoramaConnector(BaseConnector):
         action_result.set_data_size(0)
         action_result.set_status(phantom.APP_ERROR)
 
-        return (phantom.APP_SUCCESS, device_groups)
+        return phantom.APP_SUCCESS, device_groups
 
     def _get_device_commit_details_string(self, commit_all_device_details):
 
@@ -599,6 +651,7 @@ class PanoramaConnector(BaseConnector):
 
         result_data = result_data.pop(0)
         job_id = result_data.get('job')
+        self.debug_print("Successful committed change with job_id: %s" % job_id)
 
         if not job_id:
             return device_ar.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
@@ -639,14 +692,23 @@ class PanoramaConnector(BaseConnector):
 
         return device_ar.get_status()
 
-    def _commit_device_group(self, device_group, param, action_result):
+    def _commit_device_group(self, device_group, action_result):
+        """Commit changes for the Device group
 
-        self.save_progress("Commiting the config to the device group '{0}'".format(device_group))
+        we then query the Commit job until it's finished to update the given action result.
+        """
+        self.debug_print("Committing Config changes for the device group '{0}'".format(device_group))
+
+        cmd = (
+            '<commit-all>'
+            '<shared-policy>'
+            '<device-group><entry name="{0}"/></device-group>'
+            '</shared-policy>'
+            '</commit-all>'.format(device_group))
 
         data = {'type': 'commit',
                 'action': 'all',
-                'cmd': '<commit-all><shared-policy><device-group><entry name="{0}"/></device-group></shared-policy></commit-all>'.format(
-                    device_group),
+                'cmd': cmd,
                 'key': self._key}
 
         rest_call_action_result = ActionResult()
@@ -663,10 +725,19 @@ class PanoramaConnector(BaseConnector):
         if len(result_data) == 0:
             return action_result.set_status(rest_call_action_result.get_status(), rest_call_action_result.get_message())
 
-        result_data = result_data.pop(0)
+        # We want to process the response from the Commit request we've just done
+        # https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html#id4e36ab51-cce0-4bd1-8953-2413189ab1c6 # noqa
+        result_data = result_data.pop()
+
+        if not isinstance(result_data, dict):
+            error_msg = "Failed to retrieve job id from %s" % result_data
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
+
         job_id = result_data.get('job')
 
         if not job_id:
+            self.debug_print('Failed to find Job id')
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_NO_JOB_ID)
 
         self.debug_print("commit job id: ", job_id)
@@ -690,7 +761,11 @@ class PanoramaConnector(BaseConnector):
             result_data = status_action_result.get_data()
             try:
                 job = result_data[0]['job']
-                if job['status'] == 'FIN':
+                job_status = job['status']
+                self.debug_print('Job status: %s' % job_status)
+
+                if job_status == 'FIN':
+                    self.debug_print('Finished job: %s' % job)
                     self._parse_device_group_job_response(job, action_result)
                     break
             except Exception as e:
@@ -701,6 +776,8 @@ class PanoramaConnector(BaseConnector):
             self.send_progress(PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
 
             time.sleep(2)
+
+        self.debug_print("Done committing Config changes for the device group '{0}'".format(device_group))
 
         return action_result.get_status()
 
@@ -761,11 +838,14 @@ class PanoramaConnector(BaseConnector):
 
         return (phantom.APP_SUCCESS, name)
 
-    def _get_security_policy_xpath(self, param, action_result):
+    def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
+        # maybe add audit comment here
 
         try:
-            rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(config_xpath=self._get_config_xpath(param),
-                    policy_type=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_TYPE]))
+            config_xpath = self._get_config_xpath(param, device_entry_name=device_entry_name)
+            rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(
+                config_xpath=config_xpath,
+                policy_type=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_TYPE]))
             policy_name = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_NAME])
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
@@ -837,8 +917,10 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking application", action_result.get_message()))
 
         message = action_result.get_message()
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -889,7 +971,9 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -936,8 +1020,9 @@ class PanoramaConnector(BaseConnector):
 
         url_category_del_msg = action_result.get_message()
 
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
 
@@ -966,13 +1051,13 @@ class PanoramaConnector(BaseConnector):
 
         block_list_del_msg = action_result.get_message()
 
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
     def _block_url(self, param):
-
         status = self._get_key()
 
         if phantom.is_fail(status):
@@ -1029,8 +1114,9 @@ class PanoramaConnector(BaseConnector):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
@@ -1066,8 +1152,9 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1192,15 +1279,24 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(status, status_message)
 
     def _commit_and_commit_all(self, param, action_result):
+        """Commit Config changes and Commit Device Group changes"""
 
-        # Now Commit the config
-        status = self._commit_config(action_result)
+        self.debug_print('Start Commit actions')
+
+        # If Audit comment is provided, we need to update it prior to committing all changes.
+        status = self._update_audit_comment(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
+        status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
             return action_result.get_status()
 
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
         device_groups = [device_group]
+
+        self.debug_print('Device groups to commit: %s' % device_groups)
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             # get all the device groups
@@ -1209,100 +1305,31 @@ class PanoramaConnector(BaseConnector):
                 return action_result.get_status()
 
         if not device_groups:
-            return action_result.set_status(phantom.APP_ERROR, "Got empty device group list")
+            error_msg = 'Got empty device group list'
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         # Reset the action_result object to error
         action_result.set_status(phantom.APP_ERROR)
+
+        self.debug_print('Processing device groups: %s' % device_groups)
 
         dev_groups_ar = []
         for device_group in device_groups:
             dev_grp_ar = ActionResult()
             dev_groups_ar.append(dev_grp_ar)
-            self._commit_device_group(device_group, param, dev_grp_ar)
+            self._commit_device_group(device_group, dev_grp_ar)
 
         status = phantom.APP_ERROR
         status_message = ''
+
         for dev_group_ar in dev_groups_ar:
             status |= dev_group_ar.get_status()
             status_message = '{}{}'.format(status_message, dev_group_ar.get_message())
 
         action_result.set_status(status, status_message)
 
-        return action_result.get_status()
-
-    def _commit_and_commit_all_per_device(self, param, action_result):
-
-        # Get the list of connected devices
-        status, dgs = self._get_dgs(action_result)
-
-        if phantom.is_fail(status):
-            return action_result.get_status()
-
-        self._device_groups = dgs
-
-        # Now Commit the config
-        status = self._commit_config(action_result)
-
-        if phantom.is_fail(status):
-            return action_result.get_status()
-
-        # Now Commit for each device in the device group
-        device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
-        device_groups = [device_group]
-
-        if device_group.lower() == PAN_DEV_GRP_SHARED:
-            # get all the device groups
-            status, device_groups = self._get_all_device_groups(param, action_result)
-            if phantom.is_fail(status):
-                return action_result.get_status()
-
-        if not device_groups:
-            return action_result.set_status(phantom.APP_ERROR, "Got empty device group list")
-
-        # Reset the action_result object to error
-        action_result.set_status(phantom.APP_ERROR)
-
-        # committing for the device group does not give us proper status strings
-        # so the best thing to do is save each device manually
-        # get back all the results and show it to the user
-
-        dg_status = {}
-
-        for device_group in device_groups:
-
-            dg_info = dgs.get(device_group)
-
-            if not dg_info:
-                dg_status[device_group] = {'status': phantom.APP_ERROR,
-                    'message': 'Device group {0} not found in the response from the device'.format(device_group)}
-                continue
-
-            devices = dg_info.get('devices')
-
-            if not devices:
-                dg_status[device_group] = {'status': phantom.APP_ERROR,
-                    'message': 'Device group {0} does not contain any devices'.format(device_group)}
-                continue
-
-            dg_status[device_group] = curr_dg_status = {'status': phantom.APP_ERROR, 'message': ''}
-
-            curr_dg_status['devices'] = curr_dg_devices = {}
-
-            devices_values = list(devices.items())
-            for device, dev_info in devices_values:
-
-                # create a status dictionary
-                curr_dg_devices[device] = device_ar = ActionResult()
-
-                if dev_info['connected'].lower() == 'no':
-                    device_ar.set_status(phantom.APP_ERROR, "Device '{0} ({1})' ignored since it's not connected to the device group".format(
-                        dev_info['hostname'], dev_info['serial']))
-                    continue
-
-                # need to commit on this device
-                self._commit_device(device_group, device, dev_info, device_ar, param)
-
-        self._set_action_result_status(dg_status, action_result)
+        self.debug_print('Done Commit actions')
 
         return action_result.get_status()
 
@@ -1347,13 +1374,14 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
         message = action_result.get_message()
-        # Now Commit the config
-        self._commit_and_commit_all(param, action_result)
+
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
     def _block_ip(self, param):
-
         status = self._get_key()
 
         if phantom.is_fail(status):
@@ -1408,13 +1436,64 @@ class PanoramaConnector(BaseConnector):
 
         # Update the security policy
         status = self._update_security_policy(param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
-
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        self._commit_and_commit_all(param, action_result)
+        status = self._commit_and_commit_all(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+
+    def _update_audit_comment(self, param, action_result):
+        """Create or Update Audit comment for the Policy rule
+
+        If the given Audit comment is empty, we won't be sending any update.
+        Adding an Audit comment does not require Commit after.
+        If Commit is called on a rule, the comments on that rule will be cleared.
+        Audit comments must be done on the same xpath as the associated Policy rule.
+        """
+        self.debug_print('Start Create/Update Audit comment with param %s' % param)
+        audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
+        if not audit_comment:
+            self.debug_print('No Audit comment to update')
+            return action_result.get_status()
+
+        if len(audit_comment) > 256:
+            error_msg = "The length of an Audit comment can be at most 256 characters."
+            self.debug_print(error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_msg)
+
+        self.debug_print('Audit comment to submit %s' % audit_comment)
+
+        # If the device entry name is missing, you won't see the comment on the Web UI.
+        # If "Require audit comment on policies" option is enabled, the rule_path must match the one used on commit config update. # noqa
+        status, rule_path = self._get_security_policy_xpath(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
+        cmd = (
+            '<set><audit-comment>'
+            '<comment>{audit_comment}</comment>'
+            '<xpath>{policy_rule_xpath}</xpath>'
+            '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
+
+        self.debug_print('Updating Audit comment with cmd: %s' % cmd)
+        data = {
+            'type': 'op',
+            'key': self._key,
+            'cmd': cmd
+        }
+
+        status = self._make_rest_call(data, action_result)
+        if phantom.is_fail(status):
+            self.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
+                rule_path, audit_comment, action_result.get_message()))
+            return action_result.get_status()
+
+        self.debug_print('Successfully Updated Audit comment')
+
+        return action_result.get_status()
 
     def _run_query(self, param):
 
@@ -1526,19 +1605,26 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _get_config_xpath(self, param):
+    def _get_config_xpath(self, param, device_entry_name=''):
+        """Return the xpath to the specified device group"""
 
+        if device_entry_name:
+            self.debug_print('Getting the Config xpath for the device entry name %s' % device_entry_name)
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             return '/config/shared'
 
-        return "/config/devices/entry/device-group/entry[@name='{device_group}']".format(device_group=device_group)
+        formatted_device_entry_name = ''
+        if device_entry_name:
+            formatted_device_entry_name = "[@name='{}']".format(device_entry_name)
+
+        return DEVICE_GRP_XPATH.format(
+            formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
 
     def _does_policy_exist(self, param, action_result):
 
         status, rules_xpath = self._get_security_policy_xpath(param, action_result)
-
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -1549,7 +1635,10 @@ class PanoramaConnector(BaseConnector):
 
         status = self._make_rest_call(data, action_result)
 
+        self.debug_print('Check if policy exists for xpath: %s' % rules_xpath)
+
         if phantom.is_fail(status):
+            self.debug_print('No Policy rule for xpath %s. Reason: %s' % (rules_xpath, action_result.get_message()))
             return action_result.get_status(), None
 
         # Get the data, if the policy existed, we will have some data
