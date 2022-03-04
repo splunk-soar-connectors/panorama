@@ -102,6 +102,11 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 4
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "data_type": "string",
+                    "order": 5
                 }
             },
             "output": [
@@ -133,6 +138,10 @@
                         true,
                         false
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data",
@@ -330,6 +339,11 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 4
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "data_type": "string",
+                    "order": 5
                 }
             },
             "output": [
@@ -361,6 +375,10 @@
                         true,
                         false
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data",
@@ -563,6 +581,11 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 5
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "data_type": "string",
+                    "order": 6
                 }
             },
             "output": [
@@ -598,6 +621,10 @@
                         true,
                         false
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data",
