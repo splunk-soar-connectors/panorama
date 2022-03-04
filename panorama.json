@@ -104,7 +104,7 @@
                     "order": 4
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 5
                 }
@@ -341,7 +341,7 @@
                     "order": 4
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 5
                 }
@@ -583,7 +583,7 @@
                     "order": 5
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 6
                 }
