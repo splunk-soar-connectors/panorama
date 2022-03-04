@@ -1661,7 +1661,7 @@ class PanoramaConnector(BaseConnector):
         if device_entry_name:
             formatted_device_entry_name = "[@name='{}']".format(device_entry_name)
 
-        return "/config/devices/entry{formatted_device_entry_name}/device-group/entry[@name='{device_group}']".format(
+        return DEVICE_GRP_XPATH.format(
             formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
 
     def _does_policy_exist(self, param, action_result):
