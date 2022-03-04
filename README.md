@@ -2,7 +2,7 @@
 # Panorama
 
 Publisher: Splunk  
-Connector Version: 3\.0\.6  
+Connector Version: 3\.1\.0  
 Product Vendor: Palo Alto Networks  
 Product Name: Panorama  
 Product Version Supported (regex): "\.\*"  
@@ -38,6 +38,32 @@ of each type of object. The panorama_app playbook that is available on the commu
 assumes this type of configuration. Note that to block URLs on Panorama, they are included in a URL
 Filtering profile that is usually added to an **Allow** policy. Please see the PanOS documentation
 for more details.
+
+### Commit Configuration
+
+You can use the commit API request to commit a candidate configuration to a firewall. Commit actions
+are called at the end of all Contain actions (e.g. BlockIP).
+
+You can learn more about Commit Configuration below: (API)
+
+-   [Commit and
+    Commit-All](https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api.html)
+-   [Panorama Commit Operations - Learn about Partial
+    commits](https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html)
+
+### Audit Comment Archive
+
+If the option "Require audit comment on policies" (Panorama -> Management) is enabled, Audit
+comments must be specified to a given Policy rule before committing any changes to that rule.
+
+WARNING: Additionally, the length of an Audit comment can be at most 256 characters.
+
+You can learn more about Audit comment below:
+
+-   [Audit Comment
+    Archive](https://docs.paloaltonetworks.com/pan-os/10-1/pan-os-web-interface-help/policies/audit-comment-archive.html)
+-   [Making changes to Audit comments via
+    API](https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/pan-os-xml-api-request-types/run-operational-mode-commands-api.html)
 
 
 ### Configuration Variables
@@ -90,6 +116,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **policy\_type** |  required  | Block policy type | string | 
 **policy\_name** |  required  | Policy to use | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters\. | string | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
@@ -98,6 +126,8 @@ action\_result\.parameter\.url | string |  `url`
 action\_result\.parameter\.device\_group | string | 
 action\_result\.parameter\.policy\_type | string | 
 action\_result\.parameter\.policy\_name | string | 
+action\_result\.parameter\.use\_partial\_commit | boolean | 
+action\_result\.parameter\.audit\_comment | string | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
@@ -118,12 +148,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **url** |  required  | URL to unblock | string |  `url` 
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
 action\_result\.parameter\.url | string |  `url` 
 action\_result\.parameter\.device\_group | string | 
+action\_result\.parameter\.use\_partial\_commit | boolean | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
@@ -146,6 +178,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **policy\_type** |  required  | Block policy type | string | 
 **policy\_name** |  required  | Policy to use | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters\. | string | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
@@ -154,6 +188,8 @@ action\_result\.parameter\.application | string |  `network application`
 action\_result\.parameter\.device\_group | string | 
 action\_result\.parameter\.policy\_type | string | 
 action\_result\.parameter\.policy\_name | string | 
+action\_result\.parameter\.use\_partial\_commit | boolean | 
+action\_result\.parameter\.audit\_comment | string | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
@@ -174,12 +210,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **application** |  required  | Application to unblock | string |  `network application` 
 **device\_group** |  required  | Device group to configure or 'shared' | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
 action\_result\.parameter\.application | string |  `network application` 
 action\_result\.parameter\.device\_group | string | 
+action\_result\.parameter\.use\_partial\_commit | boolean | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
@@ -203,6 +241,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **policy\_type** |  required  | Block policy type | string | 
 **policy\_name** |  required  | Policy to use | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters\. | string | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
@@ -212,6 +252,8 @@ action\_result\.parameter\.is\_source\_address | boolean |
 action\_result\.parameter\.device\_group | string | 
 action\_result\.parameter\.policy\_type | string | 
 action\_result\.parameter\.policy\_name | string | 
+action\_result\.parameter\.use\_partial\_commit | boolean | 
+action\_result\.parameter\.audit\_comment | string | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
@@ -233,6 +275,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **ip** |  required  | IP to unblock | string |  `ip` 
 **is\_source\_address** |  optional  | Source address | boolean | 
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
@@ -240,6 +283,7 @@ DATA PATH | TYPE | CONTAINS
 action\_result\.parameter\.ip | string |  `ip` 
 action\_result\.parameter\.device\_group | string | 
 action\_result\.parameter\.is\_source\_address | boolean | 
+action\_result\.parameter\.use\_partial\_commit | boolean | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
