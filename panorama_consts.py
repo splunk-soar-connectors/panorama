@@ -64,6 +64,7 @@ BLOCK_IP_GROUP_NAME_SRC = "PhantomNtwrkSrcLst{device_group}"
 BLOCK_APP_GROUP_NAME = "Phantom App List for {device_group}"
 PHANTOM_ADDRESS_NAME = "Added By Phantom"
 PAN_DEV_GRP_SHARED = "shared"
+DEVICE_GRP_XPATH = "/config/devices/entry{formatted_device_entry_name}/device-group/entry[@name='{device_group}']"
 
 SEC_POL_URL_TYPE = "URL"
 SEC_POL_APP_TYPE = "App"
