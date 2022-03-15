@@ -163,7 +163,7 @@ class PanoramaConnector(BaseConnector):
 
     def _load_pan_version(self, action_result):
         data = {'type': 'version', 'key': self._key}
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
@@ -304,11 +304,13 @@ class PanoramaConnector(BaseConnector):
         config = self.get_config()
 
         try:
-            response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
+            response = requests.post(
+                self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             self.debug_print(PAN_ERR_DEVICE_CONNECTIVITY, e)
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY,
-                                            self._get_error_message_from_exception(e))
+            return (action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY,
+                                             self._get_error_message_from_exception(e)),
+                    e)
 
         xml = response.text
 
@@ -318,13 +320,15 @@ class PanoramaConnector(BaseConnector):
             response_dict = xmltodict.parse(xml)
         except Exception as e:
             self.save_progress(PAN_ERR_UNABLE_TO_PARSE_REPLY)
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_UNABLE_TO_PARSE_REPLY, self._get_error_message_from_exception(e))
+            return (action_result.set_status(phantom.APP_ERROR, PAN_ERR_UNABLE_TO_PARSE_REPLY,
+                                             self._get_error_message_from_exception(e)),
+                    xml)
 
         status = self._parse_response(response_dict, action_result)
         if phantom.is_fail(status):
-            return action_result.get_status()
+            return action_result.get_status(), response_dict
 
-        return action_result.get_status()
+        return action_result.get_status(), response_dict
 
     def _add_commit_status(self, job, action_result):
         """Update the given result based on the given Finish job
@@ -381,7 +385,7 @@ class PanoramaConnector(BaseConnector):
             data.update({'action': 'partial'})
 
         self.debug_print('Committing with data: %s' % data)
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             self.debug_print('Failed to commit Config changes. Reason: %s' % action_result.get_message())
@@ -421,7 +425,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -465,7 +469,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': "/config/devices/entry/device-group"}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return (action_result.get_status(), device_groups)
@@ -637,7 +641,7 @@ class PanoramaConnector(BaseConnector):
 
         commit_dev_ar = ActionResult()
 
-        status = self._make_rest_call(data, commit_dev_ar)
+        status, _ = self._make_rest_call(data, commit_dev_ar)
 
         if phantom.is_fail(status):
             return device_ar.set_status(commit_dev_ar.get_status(), commit_dev_ar.get_message())
@@ -665,7 +669,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 return device_ar.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -713,7 +717,7 @@ class PanoramaConnector(BaseConnector):
 
         rest_call_action_result = ActionResult()
 
-        status = self._make_rest_call(data, rest_call_action_result)
+        status, _ = self._make_rest_call(data, rest_call_action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(rest_call_action_result.get_status(), rest_call_action_result.get_message())
@@ -749,7 +753,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -791,6 +795,7 @@ class PanoramaConnector(BaseConnector):
         return name
 
     def _add_address_entry(self, param, action_result):
+        self.debug_print('Start adding address entry with param %s' % param)
 
         ip_type = None
         name = None
@@ -804,7 +809,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
                 'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return (action_result.get_status(), name)
@@ -831,11 +836,12 @@ class PanoramaConnector(BaseConnector):
                 'xpath': address_xpath,
                 'element': IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip, tag=tag)}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return (action_result.get_status(), name)
 
+        self.debug_print('Done adding address entry with param')
         return (phantom.APP_SUCCESS, name)
 
     def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
@@ -882,7 +888,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': rules_xpath,
                 'element': element}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -911,7 +917,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking application", action_result.get_message()))
@@ -958,7 +964,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
                 'element': APP_GRP_ELEM.format(app_name=block_app)}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
@@ -1014,7 +1020,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
 
@@ -1044,7 +1050,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
@@ -1171,7 +1177,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         return status
 
@@ -1190,7 +1196,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         return status
 
@@ -1202,7 +1208,7 @@ class PanoramaConnector(BaseConnector):
                 'cmd': '<show><devicegroups></devicegroups></show>',
                 'key': self._key}
 
-        status = self._make_rest_call(data, dgs_ar)
+        status, _ = self._make_rest_call(data, dgs_ar)
 
         if phantom.is_fail(status):
             return (action_result.set_status(action_result.get_status(), action_result.get_message()), None)
@@ -1368,7 +1374,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
@@ -1427,7 +1433,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), ip_group_name=ip_group_name),
                 'element': ADDR_GRP_ELEM.format(addr_name=addr_name)}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         message = action_result.get_message()
 
@@ -1485,7 +1491,7 @@ class PanoramaConnector(BaseConnector):
             'cmd': cmd
         }
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
                 rule_path, audit_comment, action_result.get_message()))
@@ -1543,7 +1549,7 @@ class PanoramaConnector(BaseConnector):
                 'nlogs': offset_diff,
                 'dir': direction}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("running query", action_result.get_message()))
@@ -1572,7 +1578,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
@@ -1633,7 +1639,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': rules_xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         self.debug_print('Check if policy exists for xpath: %s' % rules_xpath)
 
@@ -1675,7 +1681,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': APP_LIST_XPATH}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("retrieving list of application", action_result.get_message()))
