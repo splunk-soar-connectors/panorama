@@ -1577,7 +1577,8 @@ class PanoramaConnector(BaseConnector):
                 'nlogs': offset_diff,
                 'dir': direction}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'run_query': response})
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("running query", action_result.get_message()))
@@ -1625,6 +1626,7 @@ class PanoramaConnector(BaseConnector):
                 if isinstance(result_data.get('log').get('logs').get('entry'), dict):
                     result_data['log']['logs']['entry'] = [result_data['log']['logs']['entry']]
                 action_result.add_data(result_data)
+                action_result.update_summary({'finished_job': job})
                 break
 
             # send the % progress
@@ -1633,7 +1635,7 @@ class PanoramaConnector(BaseConnector):
             time.sleep(2)
 
         try:
-            action_result.set_summary({'num_logs': int(result_data['log']['logs']['@count'])})
+            action_result.update_summary({'num_logs': int(result_data['log']['logs']['@count'])})
         except:
             pass
 
