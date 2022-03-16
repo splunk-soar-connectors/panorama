@@ -1695,14 +1695,15 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': APP_LIST_XPATH}
 
-        status, _ = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'list_apps': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("retrieving list of application", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, PAN_ERR_MSG.format("retrieving list of application", action_result.get_message()))
 
         # Move things around, so that result data is an array of applications
         result_data = action_result.get_data()
-        result_data = result_data.pop(0)
+        result_data = result_data.pop()
         try:
             result_data = result_data['application']['entry']
         except Exception as e:
