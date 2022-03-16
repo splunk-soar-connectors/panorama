@@ -443,6 +443,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('Finished job: %s' % job)
                     self._add_commit_status(job, action_result)
+                    action_result.update_summary({'commit_config': job})
                     break
             except Exception as e:
                 self.debug_print("Failed to find a finished job. Reason: %s" % e)
@@ -771,6 +772,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('Finished job: %s' % job)
                     self._parse_device_group_job_response(job, action_result)
+                    action_result.update_summary({'commit_device_group': job})
                     break
             except Exception as e:
                 err = self._get_error_message_from_exception(e)
@@ -795,7 +797,7 @@ class PanoramaConnector(BaseConnector):
         return name
 
     def _add_address_entry(self, param, action_result):
-        self.debug_print('Start adding address entry with param %s' % param)
+        self.debug_print('paul: Start adding address entry with param %s' % param)
 
         ip_type = None
         name = None
@@ -836,13 +838,14 @@ class PanoramaConnector(BaseConnector):
                 'xpath': address_xpath,
                 'element': IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip, tag=tag)}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'add_address_entry': response})
 
         if phantom.is_fail(status):
-            return (action_result.get_status(), name)
+            return action_result.get_status(), name
 
-        self.debug_print('Done adding address entry with param')
-        return (phantom.APP_SUCCESS, name)
+        self.debug_print('paul: Done adding address entry with param')
+        return phantom.APP_SUCCESS, name
 
     def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
         # maybe add audit comment here
@@ -888,7 +891,8 @@ class PanoramaConnector(BaseConnector):
                 'xpath': rules_xpath,
                 'element': element}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'update_security_policy': response})
 
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -1100,12 +1104,12 @@ class PanoramaConnector(BaseConnector):
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        status = self._create_or_update_url_category(param, action_result, url_prof_name)
+        status = self._set_url_category(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        status = self._create_or_update_url_filtering(param, action_result, url_prof_name)
+        status = self._set_url_filtering(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
@@ -1146,7 +1150,7 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        status = self._create_or_update_url_filtering(param, action_result, url_prof_name)
+        status = self._set_url_filtering(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
@@ -1164,8 +1168,9 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
-    def _create_or_update_url_category(self, param, action_result, url_prof_name):
-        # Add the block url, will create the url profile if not present
+    def _set_url_category(self, param, action_result, url_prof_name):
+        """Create or Update a url category"""
+
         block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
 
         xpath = URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
@@ -1177,11 +1182,14 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'set_url_category': response})
 
         return status
 
-    def _create_or_update_url_filtering(self, param, action_result, url_prof_name):
+    def _set_url_filtering(self, param, action_result, url_prof_name):
+        """Create or Update a url filtering"""
+
         xpath = URL_PROF_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
 
         if self._get_pan_major_version() < 9:
@@ -1196,7 +1204,8 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'set_url_filtering': response})
 
         return status
 
@@ -1334,6 +1343,9 @@ class PanoramaConnector(BaseConnector):
             status_message = '{}{}'.format(status_message, dev_group_ar.get_message())
 
         action_result.set_status(status, status_message)
+        action_result.update_summary({
+            'commit_device_groups': [dev_grp_ar.get_summary()['commit_device_group'] for dev_grp_ar in dev_groups_ar]
+        })
 
         self.debug_print('Done Commit actions')
 
@@ -1433,15 +1445,16 @@ class PanoramaConnector(BaseConnector):
                 'xpath': ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), ip_group_name=ip_group_name),
                 'element': ADDR_GRP_ELEM.format(addr_name=addr_name)}
 
-        status, _ = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'set_address_group': response})
         message = action_result.get_message()
-
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
 
         # Update the security policy
-        status = self._update_security_policy(param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
+        status = self._update_security_policy(
+            param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -1491,7 +1504,8 @@ class PanoramaConnector(BaseConnector):
             'cmd': cmd
         }
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'update_audit_comment': response})
         if phantom.is_fail(status):
             self.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
                 rule_path, audit_comment, action_result.get_message()))
