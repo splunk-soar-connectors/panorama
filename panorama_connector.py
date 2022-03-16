@@ -1653,7 +1653,8 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': rules_xpath}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'does_policy_exist': response})
 
         self.debug_print('Check if policy exists for xpath: %s' % rules_xpath)
 
