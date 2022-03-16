@@ -1053,7 +1053,7 @@ class PanoramaConnector(BaseConnector):
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        # Remove url from Objects -> Custom Objects -> Url Category
+        # Remove url from Objects -> Custom Objects -> URL Category
         xpath = "{0}{1}".format(
             URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name),
             DEL_URL_CATEGORY_XPATH.format(url=block_url))
@@ -1114,7 +1114,7 @@ class PanoramaConnector(BaseConnector):
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        status = self._set_url_category(param, action_result, url_prof_name)
+        status = self._add_url_to_url_category(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
@@ -1178,8 +1178,11 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
-    def _set_url_category(self, param, action_result, url_prof_name):
-        """Create or Update a url category"""
+    def _add_url_to_url_category(self, param, action_result, url_prof_name):
+        """Add the given url to Objects > Custom Objects > URL Category > Phantom URL List for your device group
+
+        The URL category is usually created prior to linking it to a URL filtering.
+        """
 
         block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
 
@@ -1193,15 +1196,16 @@ class PanoramaConnector(BaseConnector):
                 'element': element}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'set_url_category': response})
+        action_result.update_summary({'add_url_to_url_category': response})
 
         return status
 
     def _set_url_filtering(self, param, action_result, url_prof_name):
-        """Create or Update a url filtering"""
+        """Link your newly created url category to the URL filtering profile with block status"""
 
         xpath = URL_PROF_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
 
+        # For Panorama 8 and below, we can simply add the url to the block list of the URL filtering.
         if self._get_pan_major_version() < 9:
             block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
             element = URL_PROF_ELEM.format(url=block_url)
