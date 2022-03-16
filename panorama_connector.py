@@ -913,8 +913,10 @@ class PanoramaConnector(BaseConnector):
         app_group_name = BLOCK_APP_GROUP_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()
 
-        xpath = "{0}{1}".format(APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
-                DEL_APP_XPATH.format(app_name=block_app))
+        # Delete the given application name from Objects > Application Groups > Phantom App List for your device group
+        xpath = "{0}{1}".format(
+            APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
+            DEL_APP_XPATH.format(app_name=block_app))
 
         data = {'type': 'config',
                 'action': 'delete',
@@ -922,7 +924,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'delete_application_group': response})
+        action_result.update_summary({'delete_application_from_application_group': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking application", action_result.get_message()))
 
@@ -959,7 +961,9 @@ class PanoramaConnector(BaseConnector):
 
         block_app = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_APPLICATION])
 
-        app_group_name = BLOCK_APP_GROUP_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
+        # Add the application name to Objects > Application Groups > Phantom App List for your device group
+        app_group_name = BLOCK_APP_GROUP_NAME.format(
+            device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()
 
         data = {'type': 'config',
@@ -970,7 +974,7 @@ class PanoramaConnector(BaseConnector):
                 'element': APP_GRP_ELEM.format(app_name=block_app)}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'set_application_group': response})
+        action_result.update_summary({'add_application_to_application_group': response})
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
