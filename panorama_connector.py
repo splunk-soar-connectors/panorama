@@ -1394,9 +1394,9 @@ class PanoramaConnector(BaseConnector):
         ip_group_name = block_ip_grp
         ip_group_name = ip_group_name[:MAX_NODE_NAME_LEN].strip()
 
-        xpath = "{0}{1}".format(ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param),
-            ip_group_name=ip_group_name),
-                DEL_ADDR_GRP_XPATH.format(addr_name=addr_name))
+        xpath = "{0}{1}".format(
+            ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), ip_group_name=ip_group_name),
+            DEL_ADDR_GRP_XPATH.format(addr_name=addr_name))
 
         # Remove the address from the phantom address group
         data = {'type': 'config',
@@ -1405,7 +1405,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'unblock_ip': response})
+        action_result.update_summary({'delete_ip_from_address_group': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
@@ -1464,11 +1464,12 @@ class PanoramaConnector(BaseConnector):
                 'element': ADDR_GRP_ELEM.format(addr_name=addr_name)}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'set_address_group': response})
-        message = action_result.get_message()
+        action_result.update_summary({'add_ip_to_address_group': response})
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
+
+        message = action_result.get_message()
 
         # Update the security policy
         status = self._update_security_policy(
