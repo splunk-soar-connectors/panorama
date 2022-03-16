@@ -816,6 +816,7 @@ class PanoramaConnector(BaseConnector):
         summary.update({'add_tag': response})
 
         if phantom.is_fail(status):
+            action_result.update_summary({'add_address_entry': summary})
             return (action_result.get_status(), name)
 
         # Try to figure out the type of ip
@@ -843,6 +844,7 @@ class PanoramaConnector(BaseConnector):
         status, response = self._make_rest_call(data, action_result)
         summary.update({'link_tag_to_ip': response})
         if phantom.is_fail(status):
+            action_result.update_summary({'add_address_entry': summary})
             return action_result.get_status(), name
 
         self.debug_print('Done adding address entry with param')
