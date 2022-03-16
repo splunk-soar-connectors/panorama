@@ -1386,8 +1386,8 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status, _ = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'unblock_ip': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
