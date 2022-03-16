@@ -443,7 +443,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('Finished job: %s' % job)
                     self._add_commit_status(job, action_result)
-                    action_result.update_summary({'commit_config': job})
+                    action_result.update_summary({'commit_config': {'finished_job': job}})
                     break
             except Exception as e:
                 self.debug_print("Failed to find a finished job. Reason: %s" % e)
@@ -772,7 +772,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('Finished job: %s' % job)
                     self._parse_device_group_job_response(job, action_result)
-                    action_result.update_summary({'commit_device_group': job})
+                    action_result.update_summary({'commit_device_group': {'finished_job': job}})
                     break
             except Exception as e:
                 err = self._get_error_message_from_exception(e)
