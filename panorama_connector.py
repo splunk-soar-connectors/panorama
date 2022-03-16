@@ -797,12 +797,13 @@ class PanoramaConnector(BaseConnector):
         return name
 
     def _add_address_entry(self, param, action_result):
-        self.debug_print('paul: Start adding address entry with param %s' % param)
+        self.debug_print('Start adding address entry with param %s' % param)
 
         ip_type = None
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
+        summary = {}
 
         # Add the tag to the system
         data = {'type': 'config',
@@ -811,7 +812,8 @@ class PanoramaConnector(BaseConnector):
                 'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
                 'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        summary.update({'add_tag': response})
 
         if phantom.is_fail(status):
             return (action_result.get_status(), name)
@@ -839,12 +841,12 @@ class PanoramaConnector(BaseConnector):
                 'element': IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip, tag=tag)}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'add_address_entry': response})
-
+        summary.update({'link_tag_to_ip': response})
         if phantom.is_fail(status):
             return action_result.get_status(), name
 
-        self.debug_print('paul: Done adding address entry with param')
+        self.debug_print('Done adding address entry with param')
+        action_result.update_summary({'add_address_entry': summary})
         return phantom.APP_SUCCESS, name
 
     def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
