@@ -965,10 +965,12 @@ class PanoramaConnector(BaseConnector):
         data = {'type': 'config',
                 'action': 'set',
                 'key': self._key,
-                'xpath': APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
+                'xpath': APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param),
+                                              app_group_name=app_group_name),
                 'element': APP_GRP_ELEM.format(app_name=block_app)}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'set_application_group': response})
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
