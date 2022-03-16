@@ -1017,6 +1017,7 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
+        # Remove the given url from UrlFiltering > Profile > BlockList
         xpath = "{0}{1}".format(
             URL_PROF_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name),
             DEL_URL_XPATH.format(url=block_url))
@@ -1026,7 +1027,8 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status, _ = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'delete_url_from_block_list': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
 
@@ -1047,6 +1049,7 @@ class PanoramaConnector(BaseConnector):
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
+        # Remove url from Objects -> Custom Objects -> Url Category
         xpath = "{0}{1}".format(
             URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name),
             DEL_URL_CATEGORY_XPATH.format(url=block_url))
@@ -1056,10 +1059,11 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status, _ = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.updaet_summary({'delete_url_from_url_category': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
 
         block_list_del_msg = action_result.get_message()
 
