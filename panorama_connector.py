@@ -1489,6 +1489,7 @@ class PanoramaConnector(BaseConnector):
     def _update_audit_comment(self, param, action_result):
         """Create or Update Audit comment for the Policy rule
 
+        Precondition: The policy name must be provided
         If the given Audit comment is empty, we won't be sending any update.
         Adding an Audit comment does not require Commit after.
         If Commit is called on a rule, the comments on that rule will be cleared.
