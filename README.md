@@ -2,7 +2,7 @@
 # Panorama
 
 Publisher: Splunk  
-Connector Version: 3\.1\.0  
+Connector Version: 3\.2\.0  
 Product Vendor: Palo Alto Networks  
 Product Name: Panorama  
 Product Version Supported (regex): "\.\*"  
