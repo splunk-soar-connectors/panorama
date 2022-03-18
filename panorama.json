@@ -565,7 +565,6 @@
                     "description": "Block policy type",
                     "data_type": "string",
                     "order": 3,
-                    "required": true,
                     "value_list": [
                         "pre-rulebase",
                         "post-rulebase"
@@ -574,8 +573,7 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 4,
-                    "required": true
+                    "order": 4
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
