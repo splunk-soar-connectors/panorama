@@ -867,6 +867,22 @@ class PanoramaConnector(BaseConnector):
         return (phantom.APP_SUCCESS, rules_xpath)
 
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
+        """Perform updates on the xpath to the given Security Policy name
+
+        Different updates are done on the xpath based on the given sec_policy_type.
+        """
+        if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
+            return action_result.set_status(phantom.APP_ERROR,
+                                            VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
+
+            # Check if policy is present or not
+        status, policy_present = self._does_policy_exist(param, action_result)
+        action_result.set_data_size(0)
+        if phantom.is_fail(status):
+            return action_result.set_status(phantom.APP_ERROR,
+                                            PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
+        if not policy_present:
+            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
 
         sec_policy_name = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_NAME])
 
@@ -897,6 +913,11 @@ class PanoramaConnector(BaseConnector):
         status, response = self._make_rest_call(data, action_result)
         action_result.update_summary({'update_security_policy': response})
 
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
+        # If Audit comment is provided, we need to update it prior to committing all changes.
+        status = self._update_audit_comment(param, action_result)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -948,18 +969,6 @@ class PanoramaConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
-
-        # Check if policy is present or not
-        status, policy_present = self._does_policy_exist(param, action_result)
-        action_result.set_data_size(0)
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
-
-        if not policy_present:
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
-
         self.debug_print("Creating the Application Group")
 
         block_app = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_APPLICATION])
@@ -985,10 +994,11 @@ class PanoramaConnector(BaseConnector):
         message = action_result.get_message()
 
         # Update the security policy
-        status = self._update_security_policy(param, SEC_POL_APP_TYPE, action_result, app_group_name)
-
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
+        if param.get('policy_name'):
+            status = self._update_security_policy(param, SEC_POL_APP_TYPE, action_result, app_group_name)
+            if phantom.is_fail(status):
+                return action_result.set_status(phantom.APP_ERROR,
+                                                PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
@@ -1101,18 +1111,6 @@ class PanoramaConnector(BaseConnector):
         return self._block_url_9_and_above(param, action_result)
 
     def _block_url_9_and_above(self, param, action_result):
-        if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
-
-        status, policy_present = self._does_policy_exist(param, action_result)
-        action_result.set_data_size(0)
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
-
-        if not policy_present:
-            return action_result.set_status(
-                phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
-
         url_prof_name = BLOCK_URL_PROF_NAME.format(
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
@@ -1131,11 +1129,11 @@ class PanoramaConnector(BaseConnector):
         url_filter_message = action_result.get_message()
 
         # Link the URL filtering profile to the given policy.
-        status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
-
-        if phantom.is_fail(status):
-            error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
-            return action_result.set_status(phantom.APP_ERROR, error_msg)
+        if param.get('policy_name'):
+            status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
+            if phantom.is_fail(status):
+                error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
+                return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
@@ -1144,20 +1142,6 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
     def _block_url_8_and_below(self, param, action_result):
-        if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(
-                phantom.APP_ERROR, VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
-
-        # Check if policy is present or not
-        status, policy_present = self._does_policy_exist(param, action_result)
-        action_result.set_data_size(0)
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
-
-        if not policy_present:
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
-
         self.debug_print("Adding the Block URL")
         # Add the block url, will create the url profile if not present
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
@@ -1170,10 +1154,10 @@ class PanoramaConnector(BaseConnector):
         message = action_result.get_message()
 
         # Create the policy
-        status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
-
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
+        if param.get('policy_name'):
+            status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
+            if phantom.is_fail(status):
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
@@ -1315,11 +1299,6 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print('Start Commit actions')
 
-        # If Audit comment is provided, we need to update it prior to committing all changes.
-        status = self._update_audit_comment(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
-
         status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
@@ -1460,20 +1439,6 @@ class PanoramaConnector(BaseConnector):
 
         # Update the security policy
         if param.get('policy_name'):
-            if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
-                return action_result.set_status(phantom.APP_ERROR,
-                                                VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
-
-                # Check if policy is present or not
-            status, policy_present = self._does_policy_exist(param, action_result)
-            action_result.set_data_size(0)
-            if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR,
-                                                PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
-
-            if not policy_present:
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
-
             status = self._update_security_policy(
                 param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
             if phantom.is_fail(status):

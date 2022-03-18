@@ -86,7 +86,6 @@
                     "description": "Block policy type",
                     "data_type": "string",
                     "order": 2,
-                    "required": true,
                     "value_list": [
                         "pre-rulebase",
                         "post-rulebase"
@@ -95,8 +94,7 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 3,
-                    "required": true
+                    "order": 3
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
@@ -323,7 +321,6 @@
                     "description": "Block policy type",
                     "data_type": "string",
                     "order": 2,
-                    "required": true,
                     "value_list": [
                         "pre-rulebase",
                         "post-rulebase"
@@ -332,8 +329,7 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 3,
-                    "required": true
+                    "order": 3
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
