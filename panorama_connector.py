@@ -1614,9 +1614,10 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _get_config_xpath(self, param, device_entry_name='localhost.localdomain'):
+    def _get_config_xpath(self, param, device_entry_name=''):
         """Return the xpath to the specified device group
         # TODO (Paul): Check if this default device entry name makes sense to you. Do you have this value as your default as well # noqa
+        # 'localhost.localdomain'
         device_entry_name should default to 'localhost.localdomain'.
         Leaving it blank can result in unexpected behaviours.
         Source: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
