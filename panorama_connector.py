@@ -163,7 +163,7 @@ class PanoramaConnector(BaseConnector):
 
     def _load_pan_version(self, action_result):
         data = {'type': 'version', 'key': self._key}
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
@@ -304,11 +304,13 @@ class PanoramaConnector(BaseConnector):
         config = self.get_config()
 
         try:
-            response = requests.post(self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
+            response = requests.post(
+                self._base_url, data=data, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             self.debug_print(PAN_ERR_DEVICE_CONNECTIVITY, e)
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY,
-                                            self._get_error_message_from_exception(e))
+            return (action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY,
+                                             self._get_error_message_from_exception(e)),
+                    e)
 
         xml = response.text
 
@@ -318,13 +320,15 @@ class PanoramaConnector(BaseConnector):
             response_dict = xmltodict.parse(xml)
         except Exception as e:
             self.save_progress(PAN_ERR_UNABLE_TO_PARSE_REPLY)
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_UNABLE_TO_PARSE_REPLY, self._get_error_message_from_exception(e))
+            return (action_result.set_status(phantom.APP_ERROR, PAN_ERR_UNABLE_TO_PARSE_REPLY,
+                                             self._get_error_message_from_exception(e)),
+                    xml)
 
         status = self._parse_response(response_dict, action_result)
         if phantom.is_fail(status):
-            return action_result.get_status()
+            return action_result.get_status(), response_dict
 
-        return action_result.get_status()
+        return action_result.get_status(), response_dict
 
     def _add_commit_status(self, job, action_result):
         """Update the given result based on the given Finish job
@@ -381,7 +385,7 @@ class PanoramaConnector(BaseConnector):
             data.update({'action': 'partial'})
 
         self.debug_print('Committing with data: %s' % data)
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             self.debug_print('Failed to commit Config changes. Reason: %s' % action_result.get_message())
@@ -421,7 +425,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -439,6 +443,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('Finished job: %s' % job)
                     self._add_commit_status(job, action_result)
+                    action_result.update_summary({'commit_config': {'finished_job': job}})
                     break
             except Exception as e:
                 self.debug_print("Failed to find a finished job. Reason: %s" % e)
@@ -465,7 +470,7 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': "/config/devices/entry/device-group"}
 
-        status = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return (action_result.get_status(), device_groups)
@@ -637,7 +642,7 @@ class PanoramaConnector(BaseConnector):
 
         commit_dev_ar = ActionResult()
 
-        status = self._make_rest_call(data, commit_dev_ar)
+        status, _ = self._make_rest_call(data, commit_dev_ar)
 
         if phantom.is_fail(status):
             return device_ar.set_status(commit_dev_ar.get_status(), commit_dev_ar.get_message())
@@ -665,7 +670,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 return device_ar.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -713,7 +718,7 @@ class PanoramaConnector(BaseConnector):
 
         rest_call_action_result = ActionResult()
 
-        status = self._make_rest_call(data, rest_call_action_result)
+        status, _ = self._make_rest_call(data, rest_call_action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(rest_call_action_result.get_status(), rest_call_action_result.get_message())
@@ -749,7 +754,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
@@ -767,6 +772,7 @@ class PanoramaConnector(BaseConnector):
                 if job_status == 'FIN':
                     self.debug_print('Finished job: %s' % job)
                     self._parse_device_group_job_response(job, action_result)
+                    action_result.update_summary({'commit_device_group': {'finished_job': job}})
                     break
             except Exception as e:
                 err = self._get_error_message_from_exception(e)
@@ -791,11 +797,13 @@ class PanoramaConnector(BaseConnector):
         return name
 
     def _add_address_entry(self, param, action_result):
+        self.debug_print('Start adding address entry with param %s' % param)
 
         ip_type = None
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
+        summary = {}
 
         # Add the tag to the system
         data = {'type': 'config',
@@ -804,9 +812,11 @@ class PanoramaConnector(BaseConnector):
                 'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
                 'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        summary.update({'add_tag': response})
 
         if phantom.is_fail(status):
+            action_result.update_summary({'add_address_entry': summary})
             return (action_result.get_status(), name)
 
         # Try to figure out the type of ip
@@ -831,12 +841,15 @@ class PanoramaConnector(BaseConnector):
                 'xpath': address_xpath,
                 'element': IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip, tag=tag)}
 
-        status = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        summary.update({'link_tag_to_ip': response})
         if phantom.is_fail(status):
-            return (action_result.get_status(), name)
+            action_result.update_summary({'add_address_entry': summary})
+            return action_result.get_status(), name
 
-        return (phantom.APP_SUCCESS, name)
+        self.debug_print('Done adding address entry with param')
+        action_result.update_summary({'add_address_entry': summary})
+        return phantom.APP_SUCCESS, name
 
     def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
         # maybe add audit comment here
@@ -882,7 +895,8 @@ class PanoramaConnector(BaseConnector):
                 'xpath': rules_xpath,
                 'element': element}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'update_security_policy': response})
 
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -903,16 +917,18 @@ class PanoramaConnector(BaseConnector):
         app_group_name = BLOCK_APP_GROUP_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()
 
-        xpath = "{0}{1}".format(APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
-                DEL_APP_XPATH.format(app_name=block_app))
+        # Delete the given application name from Objects > Application Groups > Phantom App List for your device group
+        xpath = "{0}{1}".format(
+            APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
+            DEL_APP_XPATH.format(app_name=block_app))
 
         data = {'type': 'config',
                 'action': 'delete',
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'delete_application_from_application_group': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking application", action_result.get_message()))
 
@@ -949,16 +965,20 @@ class PanoramaConnector(BaseConnector):
 
         block_app = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_APPLICATION])
 
-        app_group_name = BLOCK_APP_GROUP_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
+        # Add the application name to Objects > Application Groups > Phantom App List for your device group
+        app_group_name = BLOCK_APP_GROUP_NAME.format(
+            device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()
 
         data = {'type': 'config',
                 'action': 'set',
                 'key': self._key,
-                'xpath': APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), app_group_name=app_group_name),
+                'xpath': APP_GRP_XPATH.format(config_xpath=self._get_config_xpath(param),
+                                              app_group_name=app_group_name),
                 'element': APP_GRP_ELEM.format(app_name=block_app)}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'add_application_to_application_group': response})
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking application", action_result.get_message()))
@@ -1005,6 +1025,7 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
+        # Remove the given url from UrlFiltering > Profile > BlockList
         xpath = "{0}{1}".format(
             URL_PROF_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name),
             DEL_URL_XPATH.format(url=block_url))
@@ -1014,7 +1035,8 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'delete_url_from_block_list': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
 
@@ -1035,6 +1057,7 @@ class PanoramaConnector(BaseConnector):
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
+        # Remove url from Objects -> Custom Objects -> URL Category
         xpath = "{0}{1}".format(
             URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name),
             DEL_URL_CATEGORY_XPATH.format(url=block_url))
@@ -1044,10 +1067,11 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'delete_url_from_url_category': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
 
         block_list_del_msg = action_result.get_message()
 
@@ -1094,12 +1118,12 @@ class PanoramaConnector(BaseConnector):
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        status = self._create_or_update_url_category(param, action_result, url_prof_name)
+        status = self._add_url_to_url_category(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        status = self._create_or_update_url_filtering(param, action_result, url_prof_name)
+        status = self._set_url_filtering(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
@@ -1140,7 +1164,7 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        status = self._create_or_update_url_filtering(param, action_result, url_prof_name)
+        status = self._set_url_filtering(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
@@ -1158,8 +1182,12 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
-    def _create_or_update_url_category(self, param, action_result, url_prof_name):
-        # Add the block url, will create the url profile if not present
+    def _add_url_to_url_category(self, param, action_result, url_prof_name):
+        """Add the given url to Objects > Custom Objects > URL Category > Phantom URL List for your device group
+
+        The URL category is usually created prior to linking it to a URL filtering.
+        """
+
         block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
 
         xpath = URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
@@ -1171,13 +1199,17 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'add_url_to_url_category': response})
 
         return status
 
-    def _create_or_update_url_filtering(self, param, action_result, url_prof_name):
+    def _set_url_filtering(self, param, action_result, url_prof_name):
+        """Link your newly created url category to the URL filtering profile with block status"""
+
         xpath = URL_PROF_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
 
+        # For Panorama 8 and below, we can simply add the url to the block list of the URL filtering.
         if self._get_pan_major_version() < 9:
             block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
             element = URL_PROF_ELEM.format(url=block_url)
@@ -1190,7 +1222,8 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'set_url_filtering': response})
 
         return status
 
@@ -1202,7 +1235,7 @@ class PanoramaConnector(BaseConnector):
                 'cmd': '<show><devicegroups></devicegroups></show>',
                 'key': self._key}
 
-        status = self._make_rest_call(data, dgs_ar)
+        status, _ = self._make_rest_call(data, dgs_ar)
 
         if phantom.is_fail(status):
             return (action_result.set_status(action_result.get_status(), action_result.get_message()), None)
@@ -1328,6 +1361,9 @@ class PanoramaConnector(BaseConnector):
             status_message = '{}{}'.format(status_message, dev_group_ar.get_message())
 
         action_result.set_status(status, status_message)
+        action_result.update_summary({
+            'commit_device_groups': [dev_grp_ar.get_summary()['commit_device_group'] for dev_grp_ar in dev_groups_ar]
+        })
 
         self.debug_print('Done Commit actions')
 
@@ -1358,9 +1394,9 @@ class PanoramaConnector(BaseConnector):
         ip_group_name = block_ip_grp
         ip_group_name = ip_group_name[:MAX_NODE_NAME_LEN].strip()
 
-        xpath = "{0}{1}".format(ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param),
-            ip_group_name=ip_group_name),
-                DEL_ADDR_GRP_XPATH.format(addr_name=addr_name))
+        xpath = "{0}{1}".format(
+            ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), ip_group_name=ip_group_name),
+            DEL_ADDR_GRP_XPATH.format(addr_name=addr_name))
 
         # Remove the address from the phantom address group
         data = {'type': 'config',
@@ -1368,8 +1404,8 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': xpath}
 
-        status = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'delete_ip_from_address_group': response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking ip", action_result.get_message()))
 
@@ -1427,15 +1463,17 @@ class PanoramaConnector(BaseConnector):
                 'xpath': ADDR_GRP_XPATH.format(config_xpath=self._get_config_xpath(param), ip_group_name=ip_group_name),
                 'element': ADDR_GRP_ELEM.format(addr_name=addr_name)}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'add_ip_to_address_group': response})
+        if phantom.is_fail(status):
+            return action_result.set_status(
+                phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
 
         message = action_result.get_message()
 
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
-
         # Update the security policy
-        status = self._update_security_policy(param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
+        status = self._update_security_policy(
+            param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -1485,7 +1523,8 @@ class PanoramaConnector(BaseConnector):
             'cmd': cmd
         }
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'update_audit_comment': response})
         if phantom.is_fail(status):
             self.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
                 rule_path, audit_comment, action_result.get_message()))
@@ -1543,7 +1582,8 @@ class PanoramaConnector(BaseConnector):
                 'nlogs': offset_diff,
                 'dir': direction}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'run_query': response})
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("running query", action_result.get_message()))
@@ -1572,7 +1612,7 @@ class PanoramaConnector(BaseConnector):
 
             status_action_result = ActionResult()
 
-            status = self._make_rest_call(data, status_action_result)
+            status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
@@ -1591,6 +1631,7 @@ class PanoramaConnector(BaseConnector):
                 if isinstance(result_data.get('log').get('logs').get('entry'), dict):
                     result_data['log']['logs']['entry'] = [result_data['log']['logs']['entry']]
                 action_result.add_data(result_data)
+                action_result.update_summary({'finished_job': job})
                 break
 
             # send the % progress
@@ -1599,7 +1640,7 @@ class PanoramaConnector(BaseConnector):
             time.sleep(2)
 
         try:
-            action_result.set_summary({'num_logs': int(result_data['log']['logs']['@count'])})
+            action_result.update_summary({'num_logs': int(result_data['log']['logs']['@count'])})
         except:
             pass
 
@@ -1633,7 +1674,8 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': rules_xpath}
 
-        status = self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'does_policy_exist': response})
 
         self.debug_print('Check if policy exists for xpath: %s' % rules_xpath)
 
@@ -1675,14 +1717,15 @@ class PanoramaConnector(BaseConnector):
                 'key': self._key,
                 'xpath': APP_LIST_XPATH}
 
-        status = self._make_rest_call(data, action_result)
-
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'list_apps': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("retrieving list of application", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, PAN_ERR_MSG.format("retrieving list of application", action_result.get_message()))
 
         # Move things around, so that result data is an array of applications
         result_data = action_result.get_data()
-        result_data = result_data.pop(0)
+        result_data = result_data.pop()
         try:
             result_data = result_data['application']['entry']
         except Exception as e:
