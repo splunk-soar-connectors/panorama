@@ -1425,18 +1425,6 @@ class PanoramaConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
-
-        # Check if policy is present or not
-        status, policy_present = self._does_policy_exist(param, action_result)
-        action_result.set_data_size(0)
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
-
-        if not policy_present:
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
-
         # Next create the ip
         self.debug_print("Adding the IP Group")
 
@@ -1472,10 +1460,25 @@ class PanoramaConnector(BaseConnector):
         message = action_result.get_message()
 
         # Update the security policy
-        status = self._update_security_policy(
-            param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('policy_name'):
+            if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
+                return action_result.set_status(phantom.APP_ERROR,
+                                                VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
+
+                # Check if policy is present or not
+            status, policy_present = self._does_policy_exist(param, action_result)
+            action_result.set_data_size(0)
+            if phantom.is_fail(status):
+                return action_result.set_status(phantom.APP_ERROR,
+                                                PAN_ERR_MSG.format("blocking ip", action_result.get_message()))
+
+            if not policy_present:
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
+
+            status = self._update_security_policy(
+                param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         status = self._commit_and_commit_all(param, action_result)
         if phantom.is_fail(status):
@@ -1648,7 +1651,12 @@ class PanoramaConnector(BaseConnector):
 
     def _get_config_xpath(self, param, device_entry_name=''):
         """Return the xpath to the specified device group"""
+        # TODO: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
+        # device_entry_name should be default to 'localhost.localdomain'
+        # Without doing that, the Audit comment won't show up the correct path here.
+        # The guide is misleading at the moment.
 
+        # Q: Do you use other device entry name or just 'localhost.localdomain' as well?
         if device_entry_name:
             self.debug_print('Getting the Config xpath for the device entry name %s' % device_entry_name)
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
