@@ -851,11 +851,10 @@ class PanoramaConnector(BaseConnector):
         action_result.update_summary({'add_address_entry': summary})
         return phantom.APP_SUCCESS, name
 
-    def _get_security_policy_xpath(self, param, action_result, device_entry_name=''):
-        # maybe add audit comment here
-
+    def _get_security_policy_xpath(self, param, action_result):
+        """Return the xpath to the given Security Policy name"""
         try:
-            config_xpath = self._get_config_xpath(param, device_entry_name=device_entry_name)
+            config_xpath = self._get_config_xpath(param)
             rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(
                 config_xpath=config_xpath,
                 policy_type=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_TYPE]))
@@ -1650,14 +1649,14 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _get_config_xpath(self, param, device_entry_name=''):
-        """Return the xpath to the specified device group"""
-        # TODO: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
-        # device_entry_name should be default to 'localhost.localdomain'
-        # Without doing that, the Audit comment won't show up the correct path here.
-        # The guide is misleading at the moment.
+    def _get_config_xpath(self, param, device_entry_name='localhost.localdomain'):
+        """Return the xpath to the specified device group
 
-        # Q: Do you use other device entry name or just 'localhost.localdomain' as well?
+        device_entry_name should default to 'localhost.localdomain'.
+        Leaving it blank can result in unexpected behaviours.
+        Source: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
+        """
+        # TODO (Paul): Q: Do you use other device entry name or just 'localhost.localdomain' as well?
         if device_entry_name:
             self.debug_print('Getting the Config xpath for the device entry name %s' % device_entry_name)
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
