@@ -362,20 +362,77 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _commit_config(self, action_result, use_partial_commit=False):
+    def get_value_list(self, value):
+        """
+        Converts an input string into a list
+        """
+
+        try:
+            # Test to see if it's a list
+            value = json.loads(value)
+        except Exception:
+            pass
+
+        # Get the passed items
+        items = value
+        if not isinstance(value, list):
+            if '\n' in value:
+                items = value.split('\n')
+            elif ',' in value:
+                items = value.split(',')
+            elif ' ' in value:
+                items = value.split(' ')
+            else:
+                items = [value]
+
+        return [item.strip() for item in items if item]
+
+    def _commit_config(self, param, action_result, use_partial_commit=False):
         """Commit candidate changes to the firewall by default
 
         With enabled partial, we commit admin-level changes on a firewall by including the administrator name in the request. # noqa
         Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
         Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         """
-        self.debug_print("START Committing Config changes")
+        self.debug_print("PAPP-24291: START Committing Config changes")
 
         cmd = '<commit></commit>'
         if use_partial_commit:
-            config = self.get_config()
-            username = config[phantom.APP_JSON_USERNAME]
-            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
+            try:
+                # TODO: Not sure how we should call the fields...
+                config = self.get_config()
+                username = config[phantom.APP_JSON_USERNAME]
+                self.debug_print('PAPP-24291: username: %s' % username)
+
+                excluded_values = param.get('partial_commit_excluded', '')
+                no_locations = param.get('partial_commit_no', '')
+
+                excluded_values = self.get_value_list(excluded_values)
+                no_locations = self.get_value_list(no_locations)
+
+                self.debug_print('PAPP-24291: parsed excluded_values: %s' % excluded_values)
+                self.debug_print('PAPP-24291: parsed no_locations: %s' % no_locations)
+
+                ev_str = ''
+                for ev in excluded_values:
+                    ev_str += '<{}>excluded</{}>'.format(ev, ev)
+
+                nl_str = ''
+                for nl in no_locations:
+                    nl_str += '<{}/>'.format(nl)
+
+                cmd = ('<commit><partial>'
+                       '<admin><member>{username}</member></admin>'
+                       '{excluded_values}'
+                       '{no_locations}'
+                       '</partial></commit>').format(
+                    username=username, excluded_values=ev_str, no_locations=nl_str)
+
+                self.debug_print('PAPP-24291: _commit_config: cmd: %s' % cmd)
+            except Exception as e:
+                error_msg = 'Failed to get Partial Commit excluded values and locations. Reason: %s' % e
+                self.debug_print(error_msg)
+                return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         data = {'type': 'commit',
                 'cmd': cmd,
@@ -384,7 +441,7 @@ class PanoramaConnector(BaseConnector):
         if use_partial_commit:
             data.update({'action': 'partial'})
 
-        self.debug_print('Committing with data: %s' % data)
+        self.debug_print('PAPP-24291: Committing with data: %s' % data)
         status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
@@ -1299,7 +1356,7 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print('Start Commit actions')
 
-        status = self._commit_config(action_result, use_partial_commit=param.get('use_partial_commit', False))
+        status = self._commit_config(param, action_result, use_partial_commit=param.get('use_partial_commit', False))
 
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -1404,7 +1461,7 @@ class PanoramaConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Next create the ip
-        self.debug_print("Adding the IP Group")
+        self.debug_print("PAPP-24291: Adding the IP Group")
 
         # Check where the IP should go
         use_source = param.get(PAN_JSON_SOURCE_ADDRESS, PAN_DEFAULT_SOURCE_ADDRESS)

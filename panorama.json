@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.2.a",
+    "app_version": "3.2.b",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
@@ -580,6 +580,16 @@
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 6
+                },
+                "partial_commit_excluded": {
+                    "description": "A comma-separated or line-separated list of Partial Commit Excluded values",
+                    "data_type": "string",
+                    "order": 7
+                },
+                "partial_commit_no": {
+                    "description": "A comma-separated or line-separated list of Partial Commit no-locations",
+                    "data_type": "string",
+                    "order": 8
                 }
             },
             "output": [
