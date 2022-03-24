@@ -394,7 +394,7 @@ class PanoramaConnector(BaseConnector):
         Example: https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-panorama-api/pan-os-xml-api-request-types/commit-configuration-api/commit.html # noqa
         Commit doc: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations.html # noqa
         """
-        self.debug_print("PAPP-24291: START Committing Config changes")
+        self.debug_print("PAPP-24291: START _commit_config====")
 
         cmd = '<commit></commit>'
         if use_partial_commit:
@@ -863,13 +863,13 @@ class PanoramaConnector(BaseConnector):
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
-        should_add_tag = param.get('should_add_tag')
+        should_add_tag = param.get('should_add_tag', True)
         self.debug_print('PAPP-24291: should_add_tag: %s' % should_add_tag)
 
         summary = {}
 
         # Add the tag to the system: Make this optional
-        if param.get('should_add_tag'):
+        if should_add_tag:
             self.debug_print('PAPP-24291: Adding tag...')
             data = {'type': 'config',
                     'action': 'set',
@@ -907,7 +907,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': address_xpath,
                 'element': "{0}{1}".format(
                     IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip),
-                    IP_ADDR_TAG_ELEM.format(tag=tag)) if param.get('should_add_tag') else ''
+                    IP_ADDR_TAG_ELEM.format(tag=tag)) if should_add_tag else ''
                 }
 
         status, response = self._make_rest_call(data, action_result)
@@ -916,7 +916,7 @@ class PanoramaConnector(BaseConnector):
             action_result.update_summary({'add_address_entry': summary})
             return action_result.get_status(), name
 
-        self.debug_print('Done adding address entry with param')
+        self.debug_print('PAPP-24291: Done adding address entry with param')
         action_result.update_summary({'add_address_entry': summary})
         return phantom.APP_SUCCESS, name
 
@@ -940,6 +940,7 @@ class PanoramaConnector(BaseConnector):
 
         Different updates are done on the xpath based on the given sec_policy_type.
         """
+        self.debug_print('PAPP-24291: Start _update_security_policy')
         if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
             return action_result.set_status(phantom.APP_ERROR,
                                             VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
@@ -955,7 +956,7 @@ class PanoramaConnector(BaseConnector):
 
         sec_policy_name = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_POLICY_NAME])
 
-        self.debug_print("Updating Security Policy", sec_policy_name)
+        self.debug_print("PAPP-24291: Updating Security Policy", sec_policy_name)
 
         if (sec_policy_type == SEC_POL_IP_TYPE) and (not use_source):
             element = IP_GRP_SEC_POL_ELEM.format(ip_group_name=name)
@@ -990,6 +991,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
+        self.debug_print('PAPP-24291: Done _update_security_policy====')
         return phantom.APP_SUCCESS
 
     def _unblock_application(self, param):
@@ -1366,7 +1368,7 @@ class PanoramaConnector(BaseConnector):
     def _commit_and_commit_all(self, param, action_result):
         """Commit Config changes and Commit Device Group changes"""
 
-        self.debug_print('Start Commit actions')
+        self.debug_print('PAPP-24291: Start Commit actions')
 
         status = self._commit_config(param, action_result, use_partial_commit=param.get('use_partial_commit', False))
 
@@ -1376,7 +1378,7 @@ class PanoramaConnector(BaseConnector):
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
         device_groups = [device_group]
 
-        self.debug_print('Device groups to commit: %s' % device_groups)
+        self.debug_print('PAPP-24291: Device groups to commit: %s' % device_groups)
 
         if device_group.lower() == PAN_DEV_GRP_SHARED:
             # get all the device groups
@@ -1465,6 +1467,7 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
     def _block_ip(self, param):
+        self.debug_print('PAPP-24291: Start blocking ip')
         status = self._get_key()
 
         if phantom.is_fail(status):
@@ -1508,6 +1511,7 @@ class PanoramaConnector(BaseConnector):
 
         # Update the security policy
         if param.get('policy_name'):
+            self.debug_print('PAPP-24291: has policy name: %s' % param.get('policy_name'))
             status = self._update_security_policy(
                 param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
             if phantom.is_fail(status):
