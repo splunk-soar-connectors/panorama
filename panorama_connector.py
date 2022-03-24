@@ -406,20 +406,23 @@ class PanoramaConnector(BaseConnector):
 
                 excluded_values = param.get('partial_commit_excluded', '')
                 no_locations = param.get('partial_commit_no', '')
-
-                excluded_values = self.get_value_list(excluded_values)
-                no_locations = self.get_value_list(no_locations)
-
-                self.debug_print('PAPP-24291: parsed excluded_values: %s' % excluded_values)
-                self.debug_print('PAPP-24291: parsed no_locations: %s' % no_locations)
+                self.debug_print('PAPP-24291: initial excluded_values: %s' % excluded_values)
+                self.debug_print('PAPP-24291: initial excluded_values: %s' % excluded_values)
 
                 ev_str = ''
-                for ev in excluded_values:
-                    ev_str += '<{}>excluded</{}>'.format(ev, ev)
+                if excluded_values:
+                    excluded_values = self.get_value_list(excluded_values)
+                    self.debug_print('PAPP-24291: parsed excluded_values: %s' % excluded_values)
+
+                    for ev in excluded_values:
+                        ev_str += '<{}>excluded</{}>'.format(ev, ev)
 
                 nl_str = ''
-                for nl in no_locations:
-                    nl_str += '<{}/>'.format(nl)
+                if no_locations:
+                    no_locations = self.get_value_list(no_locations)
+                    self.debug_print('PAPP-24291: parsed no_locations: %s' % no_locations)
+                    for nl in no_locations:
+                        nl_str += '<{}/>'.format(nl)
 
                 cmd = ('<commit><partial>'
                        '<admin><member>{username}</member></admin>'
@@ -1525,18 +1528,18 @@ class PanoramaConnector(BaseConnector):
         If Commit is called on a rule, the comments on that rule will be cleared.
         Audit comments must be done on the same xpath as the associated Policy rule.
         """
-        self.debug_print('Start Create/Update Audit comment with param %s' % param)
+        self.debug_print('PAPP-24291: Start Create/Update Audit comment with param %s' % param)
         audit_comment = self._handle_py_ver_compat_for_input_str(param.get('audit_comment', ''))
         if not audit_comment:
-            self.debug_print('No Audit comment to update')
+            self.debug_print('PAPP-24291: No Audit comment to update')
             return action_result.get_status()
 
         if len(audit_comment) > 256:
-            error_msg = "The length of an Audit comment can be at most 256 characters."
+            error_msg = "PAPP-24291: The length of an Audit comment can be at most 256 characters."
             self.debug_print(error_msg)
             return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        self.debug_print('Audit comment to submit %s' % audit_comment)
+        self.debug_print('PAPP-24291: Audit comment to submit %s' % audit_comment)
 
         # If the device entry name is missing, you won't see the comment on the Web UI.
         # If "Require audit comment on policies" option is enabled, the rule_path must match the one used on commit config update. # noqa
@@ -1550,7 +1553,7 @@ class PanoramaConnector(BaseConnector):
             '<xpath>{policy_rule_xpath}</xpath>'
             '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
 
-        self.debug_print('Updating Audit comment with cmd: %s' % cmd)
+        self.debug_print('PAPP-24291: Updating Audit comment with cmd: %s' % cmd)
         data = {
             'type': 'op',
             'key': self._key,
@@ -1560,11 +1563,11 @@ class PanoramaConnector(BaseConnector):
         status, response = self._make_rest_call(data, action_result)
         action_result.update_summary({'update_audit_comment': response})
         if phantom.is_fail(status):
-            self.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
+            self.debug_print('PAPP-24291: Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
                 rule_path, audit_comment, action_result.get_message()))
             return action_result.get_status()
 
-        self.debug_print('Successfully Updated Audit comment')
+        self.debug_print('PAPP-24291: Successfully Updated Audit comment')
 
         return action_result.get_status()
 
