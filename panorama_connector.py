@@ -805,13 +805,13 @@ class PanoramaConnector(BaseConnector):
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
-        should_add_tag = param.get('should_add_tag')
+        should_add_tag = param.get('should_add_tag', True)
         self.debug_print('PAPP-24291: should_add_tag: %s' % should_add_tag)
 
         summary = {}
 
         # Add the tag to the system: Make this optional
-        if param.get('should_add_tag'):
+        if should_add_tag:
             self.debug_print('PAPP-24291: Adding tag...')
             data = {'type': 'config',
                     'action': 'set',
@@ -849,7 +849,7 @@ class PanoramaConnector(BaseConnector):
                 'xpath': address_xpath,
                 'element': "{0}{1}".format(
                     IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip),
-                    IP_ADDR_TAG_ELEM.format(tag=tag)) if param.get('should_add_tag') else ''
+                    IP_ADDR_TAG_ELEM.format(tag=tag)) if should_add_tag else ''
                 }
 
         status, response = self._make_rest_call(data, action_result)
@@ -882,6 +882,7 @@ class PanoramaConnector(BaseConnector):
 
         Different updates are done on the xpath based on the given sec_policy_type.
         """
+        self.debug_print('Start _update_security_policy')
         if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
             return action_result.set_status(phantom.APP_ERROR,
                                             VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
@@ -934,6 +935,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
+        self.debug_print('Done _update_security_policy')
         return phantom.APP_SUCCESS
 
     def _unblock_application(self, param):
@@ -1407,6 +1409,7 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
     def _block_ip(self, param):
+        self.debug_print('Start blocking ip')
         status = self._get_key()
 
         if phantom.is_fail(status):
