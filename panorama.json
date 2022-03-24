@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.2.b",
+    "app_version": "3.2.c",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
@@ -590,6 +590,12 @@
                     "description": "A comma-separated or line-separated list of Partial Commit no-locations",
                     "data_type": "string",
                     "order": 8
+                },
+                "should_add_tag": {
+                    "description": "Whether a new tag should added as part of adding a new IP address",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 9
                 }
             },
             "output": [

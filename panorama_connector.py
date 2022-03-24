@@ -854,27 +854,33 @@ class PanoramaConnector(BaseConnector):
         return name
 
     def _add_address_entry(self, param, action_result):
-        self.debug_print('Start adding address entry with param %s' % param)
+        self.debug_print('PAPP-24291: Start adding address entry with param %s' % param)
 
         ip_type = None
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
+        should_add_tag = param.get('should_add_tag')
+        self.debug_print('PAPP-24291: should_add_tag: %s' % should_add_tag)
+
         summary = {}
 
-        # Add the tag to the system
-        data = {'type': 'config',
-                'action': 'set',
-                'key': self._key,
-                'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
-                'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
+        # Add the tag to the system: Make this optional
+        if param.get('should_add_tag'):
+            self.debug_print('PAPP-24291: Adding tag...')
+            data = {'type': 'config',
+                    'action': 'set',
+                    'key': self._key,
+                    'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
+                    'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
 
-        status, response = self._make_rest_call(data, action_result)
-        summary.update({'add_tag': response})
+            status, response = self._make_rest_call(data, action_result)
+            summary.update({'add_tag': response})
+            if phantom.is_fail(status):
+                action_result.update_summary({'add_address_entry': summary})
+                return action_result.get_status(), name
 
-        if phantom.is_fail(status):
-            action_result.update_summary({'add_address_entry': summary})
-            return (action_result.get_status(), name)
+            self.debug_print('PAPP-24291: Done adding tag...')
 
         # Try to figure out the type of ip
         if block_ip.find('/') != -1:
@@ -896,7 +902,10 @@ class PanoramaConnector(BaseConnector):
                 'action': 'set',
                 'key': self._key,
                 'xpath': address_xpath,
-                'element': IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip, tag=tag)}
+                'element': "{0}{1}".format(
+                    IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip),
+                    IP_ADDR_TAG_ELEM.format(tag=tag)) if param.get('should_add_tag') else ''
+                }
 
         status, response = self._make_rest_call(data, action_result)
         summary.update({'link_tag_to_ip': response})
