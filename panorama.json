@@ -580,6 +580,12 @@
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 6
+                },
+                "should_add_tag": {
+                    "description": "Whether a new tag should added as part of adding a new IP address",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 7
                 }
             },
             "output": [

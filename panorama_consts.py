@@ -133,7 +133,8 @@ ADDR_GRP_ELEM = "<static><member>{addr_name}</member></static>"
 DEL_ADDR_GRP_XPATH = "/static/member[text()='{addr_name}']"
 
 IP_ADDR_XPATH = "{config_xpath}/address/entry[@name='{ip_addr_name}']"
-IP_ADDR_ELEM = "<{ip_type}>{ip}</{ip_type}><tag><member>{tag}</member></tag>"
+IP_ADDR_ELEM = "<{ip_type}>{ip}</{ip_type}>"
+IP_ADDR_TAG_ELEM = "<tag><member>{tag}</member></tag>"
 
 TAG_CONTAINER_COMMENT = "Phantom Container ID"
 TAG_COLOR = "color7"
