@@ -995,8 +995,7 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        # Update the security policy
-        if param.get('policy_name'):
+        if param.get('policy_name', ''):
             status = self._update_security_policy(param, SEC_POL_APP_TYPE, action_result, app_group_name)
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR,
@@ -1131,7 +1130,7 @@ class PanoramaConnector(BaseConnector):
         url_filter_message = action_result.get_message()
 
         # Link the URL filtering profile to the given policy.
-        if param.get('policy_name'):
+        if param.get('policy_name', ''):
             status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
             if phantom.is_fail(status):
                 error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
@@ -1155,8 +1154,7 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        # Create the policy
-        if param.get('policy_name'):
+        if param.get('policy_name', ''):
             status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
@@ -1439,8 +1437,7 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        # Update the security policy
-        if param.get('policy_name'):
+        if param.get('policy_name', ''):
             status = self._update_security_policy(
                 param, SEC_POL_IP_TYPE, action_result, ip_group_name, use_source=use_source)
             if phantom.is_fail(status):
