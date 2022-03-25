@@ -1620,7 +1620,8 @@ class PanoramaConnector(BaseConnector):
         """Return the xpath to the specified device group
 
         device_entry_name should default to 'localhost.localdomain'.
-        Leaving it blank can result in unexpected behaviours.
+        TODO (Ravenclaw): We've been using blank device_entry_name, which works for our test suite.
+        We need to look into using the valid device_entry_name later. This can be done as per customer request.
         Source: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
         """
         if device_entry_name:
