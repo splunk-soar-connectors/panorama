@@ -877,7 +877,7 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR,
                                             VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
 
-            # Check if policy is present or not
+        # Check if policy is present or not
         status, policy_present = self._does_policy_exist(param, action_result)
         action_result.set_data_size(0)
         if phantom.is_fail(status):
@@ -1623,7 +1623,6 @@ class PanoramaConnector(BaseConnector):
         Leaving it blank can result in unexpected behaviours.
         Source: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
         """
-        # TODO (Paul): Q: Do you use other device entry name or just 'localhost.localdomain' as well?
         if device_entry_name:
             self.debug_print('Getting the Config xpath for the device entry name %s' % device_entry_name)
         device_group = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP])
