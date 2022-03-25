@@ -1614,7 +1614,7 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _get_config_xpath(self, param, device_entry_name='localhost.localdomain'):
+    def _get_config_xpath(self, param, device_entry_name=''):
         """Return the xpath to the specified device group
 
         device_entry_name should default to 'localhost.localdomain'.
