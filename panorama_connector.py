@@ -362,7 +362,7 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
-    def _commit_config(self, action_result):
+    def _commit_config(self, param, action_result):
         """Commit candidate changes to the firewall by default
 
         With enabled partial, we commit admin-level changes on a firewall by including the administrator name in the request. # noqa
@@ -1299,7 +1299,7 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print('Start Commit actions')
 
-        status = self._commit_config(action_result)
+        status = self._commit_config(param, action_result)
 
         if phantom.is_fail(status):
             return action_result.get_status()
