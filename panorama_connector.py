@@ -869,7 +869,7 @@ class PanoramaConnector(BaseConnector):
         return (phantom.APP_SUCCESS, rules_xpath)
 
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
-        """Perform updates on the xpath to the given Security Policy name
+        """Perform any Policy updates on the xpath to the given Security Policy name
 
         Different updates are done on the xpath based on the given sec_policy_type.
         """
