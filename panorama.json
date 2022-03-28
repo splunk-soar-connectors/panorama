@@ -1851,6 +1851,94 @@
                 "title": "Query"
             },
             "versions": "EQ(*)"
+        },
+        {
+            "action": "get threat pcap",
+            "identifier": "get_threat_pcap",
+            "description": "Export a Threat PCAP file",
+            "verbose": "",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "serial_number": {
+                    "description": "Device serial number to fetch Threat PCAP from",
+                    "data_type": "numeric",
+                    "required": true,
+                    "primary": false,
+                    "default": false,
+                    "order": 0
+                },
+                "pcap_id": {
+                    "description": "PCAP ID required to fetch Threat PCAP",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "default": false,
+                    "order": 1
+                },
+                "search_time": {
+                    "description": "Search time that the Threat PCAP was received on the firewall (yyyy/mm/dd hr:min:sec)",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "default": false,
+                    "order": 2
+                },
+                "filename": {
+                    "description": "Filename of exported PCAP file",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "default": "threat",
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.serial_number",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.parameter.pcap_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.search_time",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.filename",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
         }
     ],
     "pip_dependencies": {
