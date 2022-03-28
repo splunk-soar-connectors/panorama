@@ -890,6 +890,7 @@ class PanoramaConnector(BaseConnector):
 
         self.debug_print("Updating Security Policy", sec_policy_name)
 
+        # Update different policy's elements based on the given flag
         if (sec_policy_type == SEC_POL_IP_TYPE) and (not use_source):
             element = IP_GRP_SEC_POL_ELEM.format(ip_group_name=name)
         elif (sec_policy_type == SEC_POL_IP_TYPE) and (use_source):
@@ -897,6 +898,7 @@ class PanoramaConnector(BaseConnector):
         elif sec_policy_type == SEC_POL_APP_TYPE:
             element = APP_GRP_SEC_POL_ELEM.format(app_group_name=name)
         elif sec_policy_type == SEC_POL_URL_TYPE:
+            # Link the URL filtering with the name to the Profile settings of this policy
             element = URL_PROF_SEC_POL_ELEM.format(url_prof_name=name)
         else:
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_CREATE_UNKNOWN_TYPE_SEC_POL)
