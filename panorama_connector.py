@@ -842,15 +842,15 @@ class PanoramaConnector(BaseConnector):
         name = self._get_addr_name(block_ip)
 
         address_xpath = IP_ADDR_XPATH.format(config_xpath=self._get_config_xpath(param), ip_addr_name=name)
-
         data = {'type': 'config',
                 'action': 'set',
                 'key': self._key,
                 'xpath': address_xpath,
                 'element': "{0}{1}".format(
                     IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip),
-                    IP_ADDR_TAG_ELEM.format(tag=tag)) if should_add_tag else ''
+                    IP_ADDR_TAG_ELEM.format(tag=tag) if should_add_tag else '')
                 }
+        self.debug_print('Updating address entry with data: %s' % data)
 
         status, response = self._make_rest_call(data, action_result)
         summary.update({'link_tag_to_ip': response})
