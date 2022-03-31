@@ -799,20 +799,20 @@ class PanoramaConnector(BaseConnector):
         return name
 
     def _add_address_entry(self, param, action_result):
-        self.debug_print('PAPP-24291: Start adding address entry with param %s' % param)
+        self.debug_print('Start adding address entry with param %s' % param)
 
         ip_type = None
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
         should_add_tag = param.get('should_add_tag', True)
-        self.debug_print('PAPP-24291: should_add_tag: %s' % should_add_tag)
+        self.debug_print('should_add_tag: %s' % should_add_tag)
 
         summary = {}
 
         # Add the tag to the system: Make this optional
         if should_add_tag:
-            self.debug_print('PAPP-24291: Adding tag...')
+            self.debug_print('Adding tag...')
             data = {'type': 'config',
                     'action': 'set',
                     'key': self._key,
@@ -825,7 +825,7 @@ class PanoramaConnector(BaseConnector):
                 action_result.update_summary({'add_address_entry': summary})
                 return action_result.get_status(), name
 
-            self.debug_print('PAPP-24291: Done adding tag...')
+            self.debug_print('Done adding tag...')
 
         # Try to figure out the type of ip
         if block_ip.find('/') != -1:
