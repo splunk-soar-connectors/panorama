@@ -627,6 +627,14 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.parameter.should_add_tag",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
                     "data_path": "action_result.data",
                     "data_type": "string"
                 },
