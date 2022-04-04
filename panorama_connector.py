@@ -805,21 +805,27 @@ class PanoramaConnector(BaseConnector):
         name = None
         tag = self.get_container_id()
         block_ip = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_IP])
+        should_add_tag = param.get('should_add_tag', True)
+        self.debug_print('should_add_tag: %s' % should_add_tag)
+
         summary = {}
 
-        # Add the tag to the system
-        data = {'type': 'config',
-                'action': 'set',
-                'key': self._key,
-                'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
-                'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
+        # Add the tag to the system: Make this optional
+        if should_add_tag:
+            self.debug_print('Adding tag...')
+            data = {'type': 'config',
+                    'action': 'set',
+                    'key': self._key,
+                    'xpath': TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
+                    'element': TAG_ELEM.format(tag=tag, tag_comment=TAG_CONTAINER_COMMENT, tag_color=TAG_COLOR)}
 
-        status, response = self._make_rest_call(data, action_result)
-        summary.update({'add_tag': response})
+            status, response = self._make_rest_call(data, action_result)
+            summary.update({'add_tag': response})
+            if phantom.is_fail(status):
+                action_result.update_summary({'add_address_entry': summary})
+                return action_result.get_status(), name
 
-        if phantom.is_fail(status):
-            action_result.update_summary({'add_address_entry': summary})
-            return (action_result.get_status(), name)
+            self.debug_print('Done adding tag...')
 
         # Try to figure out the type of ip
         if block_ip.find('/') != -1:
@@ -836,12 +842,15 @@ class PanoramaConnector(BaseConnector):
         name = self._get_addr_name(block_ip)
 
         address_xpath = IP_ADDR_XPATH.format(config_xpath=self._get_config_xpath(param), ip_addr_name=name)
-
         data = {'type': 'config',
                 'action': 'set',
                 'key': self._key,
                 'xpath': address_xpath,
-                'element': IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip, tag=tag)}
+                'element': "{0}{1}".format(
+                    IP_ADDR_ELEM.format(ip_type=ip_type, ip=block_ip),
+                    IP_ADDR_TAG_ELEM.format(tag=tag) if should_add_tag else '')
+                }
+        self.debug_print('Updating address entry with data: %s' % data)
 
         status, response = self._make_rest_call(data, action_result)
         summary.update({'link_tag_to_ip': response})
@@ -873,6 +882,7 @@ class PanoramaConnector(BaseConnector):
 
         Different updates are done on the xpath based on the given sec_policy_type.
         """
+        self.debug_print('Start _update_security_policy')
         if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
             return action_result.set_status(phantom.APP_ERROR,
                                             VALUE_LIST_VALIDATION_MSG.format(POLICY_TYPE_VALUE_LIST, 'policy_type'))
@@ -925,6 +935,7 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.get_status()
 
+        self.debug_print('Done _update_security_policy')
         return phantom.APP_SUCCESS
 
     def _unblock_application(self, param):
@@ -1398,6 +1409,7 @@ class PanoramaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
     def _block_ip(self, param):
+        self.debug_print('Start blocking ip')
         status = self._get_key()
 
         if phantom.is_fail(status):
