@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.2.0",
+    "app_version": "3.2.e",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
@@ -105,6 +105,12 @@
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 5
+                },
+                "should_commit_to_device_groups": {
+                    "description": "Whether to commit to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 6
                 }
             },
             "output": [
@@ -219,6 +225,12 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 2
+                },
+                "should_commit_to_device_groups": {
+                    "description": "Whether to commit to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 3
                 }
             },
             "output": [
@@ -340,6 +352,12 @@
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 5
+                },
+                "should_commit_to_device_groups": {
+                    "description": "Whether to commit to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 6
                 }
             },
             "output": [
@@ -454,6 +472,12 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 2
+                },
+                "should_commit_to_device_groups": {
+                    "description": "Whether to commit to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 3
                 }
             },
             "output": [
@@ -586,6 +610,12 @@
                     "data_type": "boolean",
                     "default": true,
                     "order": 7
+                },
+                "should_commit_to_device_groups": {
+                    "description": "Whether to commit to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 8
                 }
             },
             "output": [
@@ -717,6 +747,12 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 3
+                },
+                "should_commit_to_device_groups": {
+                    "description": "Whether to commit to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 4
                 }
             },
             "output": [
