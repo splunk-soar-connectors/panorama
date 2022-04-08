@@ -969,7 +969,7 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1015,7 +1015,7 @@ class PanoramaConnector(BaseConnector):
                 return action_result.set_status(phantom.APP_ERROR,
                                                 PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1067,7 +1067,7 @@ class PanoramaConnector(BaseConnector):
 
         url_category_del_msg = action_result.get_message()
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1101,7 +1101,7 @@ class PanoramaConnector(BaseConnector):
 
         block_list_del_msg = action_result.get_message()
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1153,7 +1153,7 @@ class PanoramaConnector(BaseConnector):
                 error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
                 return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1177,7 +1177,7 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1408,7 +1408,7 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
@@ -1464,7 +1464,7 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        if param.get('should_commit_to_device_groups', True):
+        if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
