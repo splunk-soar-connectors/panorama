@@ -1732,6 +1732,16 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _commit_changes(self, param):
+        # ensure we are authenticated
+        status = self._get_key()
+        if phantom.is_fail(status):
+            return self.get_status()
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        return self._commit_and_commit_all(param, action_result)
+
     def validate_parameters(self, param):
         """This app does it's own validation
         """
@@ -1762,6 +1772,8 @@ class PanoramaConnector(BaseConnector):
             result = self._list_apps(param)
         elif action == self.ACTION_ID_RUN_QUERY:
             result = self._run_query(param)
+        elif action == 'commit_changes':
+            result = self._commit_changes(param)
 
         return result
 
