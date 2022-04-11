@@ -1863,7 +1863,7 @@
                 "serial_number": {
                     "description": "Device serial number to fetch Threat PCAP from",
                     "data_type": "numeric",
-                    "required": true,
+                    "required": false,
                     "primary": false,
                     "default": false,
                     "order": 0
@@ -1876,13 +1876,29 @@
                     "default": false,
                     "order": 1
                 },
+                "device_name": {
+                    "description": "Device Name required to fetch Threat PCAP",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "default": false,
+                    "order": 2
+                },
+                "session_id": {
+                    "description": "Session ID required to fetch Threat PCAP",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "default": false,
+                    "order": 3
+                },
                 "search_time": {
                     "description": "Search time that the Threat PCAP was received on the firewall (yyyy/mm/dd hr:min:sec)",
                     "data_type": "string",
                     "required": true,
                     "primary": false,
                     "default": false,
-                    "order": 2
+                    "order": 4
                 },
                 "filename": {
                     "description": "Filename of exported PCAP file",
@@ -1890,7 +1906,7 @@
                     "required": false,
                     "primary": false,
                     "default": "threat",
-                    "order": 3
+                    "order": 5
                 }
             },
             "output": [
@@ -1900,6 +1916,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.pcap_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.session_id",
                     "data_type": "string"
                 },
                 {

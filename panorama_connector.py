@@ -1805,8 +1805,9 @@ class PanoramaConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        serial_no = param['serial_number']
         pcap_id = param['pcap_id']
+        device_name = param['device_name']
+        session_id = param['session_id']
         search_time = param['search_time']
         try:
             datetime.strptime(search_time, '%Y/%m/%d %H:%M:%S')
@@ -1814,16 +1815,22 @@ class PanoramaConnector(BaseConnector):
             err = self._get_error_message_from_exception(e)
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("fetching Threat PCAP", err))
-        filename = param.get('filename', "threat")
+
+        serial_no = param.get('serial_number', None)
+        filename = param.get('filename', pcap_id)
 
         data = {
             'type': 'export',
             'key': self._key,
             'category': 'threat-pcap',
-            'target': serial_no,
             'pcap-id': pcap_id,
+            'device_name': device_name,
+            'sessionid': session_id,
             'search-time': search_time
         }
+
+        if serial_no:
+            data['target'] = serial_no
 
         self.save_progress("_get_threat_pcap() - Sending data {}".format(data))
         self.debug_print("_get_threat_pcap() - Sending data {}".format(data))
