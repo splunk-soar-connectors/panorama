@@ -6,7 +6,7 @@ Connector Version: 3\.2\.0
 Product Vendor: Palo Alto Networks  
 Product Name: Panorama  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.1\.0  
+Minimum Product Version: 5\.2\.0  
 
 This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions
 
