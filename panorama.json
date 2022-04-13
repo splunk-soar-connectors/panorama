@@ -1947,6 +1947,7 @@
         {
             "action": "commit changes",
             "description": "Commit changes to the firewall and device groups",
+            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.",
             "type": "generic",
             "identifier": "commit_changes",
             "read_only": false,
