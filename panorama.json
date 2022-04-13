@@ -148,6 +148,14 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
                     "data_path": "action_result.data",
                     "data_type": "string"
                 },
@@ -249,6 +257,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
@@ -395,6 +411,14 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
                     "data_path": "action_result.data",
                     "data_type": "string"
                 },
@@ -496,6 +520,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
@@ -665,6 +697,14 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
                     "data_path": "action_result.data",
                     "data_type": "string"
                 },
@@ -775,6 +815,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
