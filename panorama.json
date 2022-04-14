@@ -1967,7 +1967,9 @@
             "output": [
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -2003,7 +2005,22 @@
                 {
                     "data_path": "action_result.summary",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
+
             ],
             "render": {
                 "type": "table",
