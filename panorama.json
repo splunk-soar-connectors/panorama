@@ -1955,13 +1955,13 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
-                    "order": 1,
+                    "order": 0,
                     "required": true
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
-                    "order": 2
+                    "order": 1
                 }
             },
             "output": [
