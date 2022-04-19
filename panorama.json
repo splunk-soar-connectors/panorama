@@ -1860,75 +1860,87 @@
             "type": "generic",
             "read_only": true,
             "parameters": {
-                "serial_number": {
-                    "description": "Device serial number to fetch Threat PCAP from",
-                    "data_type": "numeric",
-                    "required": false,
-                    "primary": false,
-                    "default": false,
-                    "order": 0
-                },
                 "pcap_id": {
                     "description": "PCAP ID required to fetch Threat PCAP",
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "default": false,
-                    "order": 1
+                    "order": 1,
+                    "name": "pcap_id",
+                    "contains": [
+                        "panorama pcap id"
+                    ]
                 },
                 "device_name": {
                     "description": "Device Name required to fetch Threat PCAP",
                     "data_type": "string",
                     "required": true,
-                    "primary": false,
-                    "default": false,
-                    "order": 2
+                    "primary": true,
+                    "order": 2,
+                    "name": "device_name",
+                    "contains": [
+                        "panorama device name"
+                    ]
                 },
                 "session_id": {
                     "description": "Session ID required to fetch Threat PCAP",
                     "data_type": "string",
                     "required": true,
-                    "primary": false,
-                    "default": false,
-                    "order": 3
+                    "primary": true,
+                    "order": 3,
+                    "name": "session_id",
+                    "contains": [
+                        "panorama session id"
+                    ]
                 },
                 "search_time": {
                     "description": "Search time that the Threat PCAP was received on the firewall (yyyy/mm/dd hr:min:sec)",
                     "data_type": "string",
                     "required": true,
-                    "primary": false,
-                    "default": false,
-                    "order": 4
+                    "primary": true,
+                    "order": 4,
+                    "name": "search_time",
+                    "contains": [
+                        "timestamp"
+                    ]
                 },
                 "filename": {
                     "description": "Filename of exported PCAP file",
                     "data_type": "string",
                     "required": false,
                     "primary": false,
-                    "default": "threat",
-                    "order": 5
+                    "order": 5,
+                    "name": "filename"
                 }
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.serial_number",
-                    "data_type": "numeric"
-                },
-                {
                     "data_path": "action_result.parameter.pcap_id",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama pcap id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.session_id",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama session id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.search_time",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "timestamp"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.filename",

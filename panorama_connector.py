@@ -304,6 +304,30 @@ class PanoramaConnector(BaseConnector):
 
         return self.set_status(phantom.APP_SUCCESS, PAN_SUCC_TEST_CONNECTIVITY_PASSED)
 
+    def _make_rest_download(self, params, action_result, method="get"):
+
+        self.debug_print("Making rest call")
+
+        config = self.get_config()
+
+        try:
+            request_method = getattr(requests, method)
+        except AttributeError:
+            return False, "invalid method: {}".format(method)
+
+        try:
+            response = request_method(self._base_url, params=params, verify=config[phantom.APP_JSON_VERIFY], timeout=DEFAULT_TIMEOUT)
+
+        except Exception as e:
+            self.debug_print(PAN_ERR_DEVICE_CONNECTIVITY, e)
+            return (action_result.set_status(phantom.APP_ERROR, PAN_ERR_DEVICE_CONNECTIVITY,
+                                             self._get_error_message_from_exception(e)),
+                    e)
+        if 200 <= response.status_code < 399:
+            return True, response.content
+
+        return action_result.set_status(phantom.APP_SUCCESS, f"Unable to get PCAP - {response.text}")
+
     def _make_rest_call(self, data, action_result):
 
         self.debug_print("Making rest call")
@@ -1748,8 +1772,6 @@ class PanoramaConnector(BaseConnector):
     def _save_pcap_to_vault(self, filename, response, container_id, action_result):
 
         # Creating temporary directory and file
-        self.save_progress("_save_pcap_to_vault() - Creating temp dir and file")
-        self.debug_print("_save_pcap_to_vault() - Creating temp dir and file")
         try:
             if hasattr(Vault, 'get_vault_tmp_dir'):
                 temp_dir = Vault.get_vault_tmp_dir()
@@ -1760,19 +1782,16 @@ class PanoramaConnector(BaseConnector):
             file_path = os.path.join(temp_dir, filename)
 
             with open(file_path, 'wb') as file_obj:
-                file_obj.write(response['content'])
+                file_obj.write(response)
         except Exception as e:
             return action_result.set_status(
                 phantom.APP_ERROR, "Error while writing to temporary file", e), None
 
         # Adding pcap to vault
-        self.save_progress("_save_pcap_to_vault() - Adding pcap to vault")
-        self.debug_print("_save_pcap_to_vault() - Adding pcap to vault")
-        vault_ret_dict = phrules.vault_add(container_id, file_path, filename)
+        self.save_progress("Adding pcap to vault")
+        vault_status, vault_message, vault_id = phrules.vault_add(container_id, file_path, filename)
 
         # Removing temporary directory created to download file
-        self.save_progress("_save_pcap_to_vault() - Removing temp dir")
-        self.debug_print("_save_pcap_to_vault() - Removing temp dir")
         try:
             shutil.rmtree(temp_dir)
         except Exception as e:
@@ -1780,18 +1799,16 @@ class PanoramaConnector(BaseConnector):
                 phantom.APP_ERROR, "Unable to remove temporary directory", e), None
 
         # Updating data with vault details
-        self.save_progress("_save_pcap_to_vault() - Updating data with vault details")
-        self.debug_print("_save_pcap_to_vault() - Updating data with vault details")
-        if vault_ret_dict[0]:
+        if vault_status:
             vault_details = {
-                phantom.APP_JSON_VAULT_ID: vault_ret_dict[2],
+                phantom.APP_JSON_VAULT_ID: vault_id,
                 'file_name': filename
             }
             return phantom.APP_SUCCESS, vault_details
 
         # Error while adding report to vault
-        self.debug_print('Error adding file to vault:', vault_ret_dict)
-        action_result.append_to_message('. {}'.format(vault_ret_dict[1]))
+        self.debug_print('Error adding file to vault:', vault_message)
+        action_result.append_to_message('. {}'.format(vault_message))
 
         # Set the action_result status to error, the handler function will most probably return as is
         return phantom.APP_ERROR, None
@@ -1815,8 +1832,6 @@ class PanoramaConnector(BaseConnector):
             err = self._get_error_message_from_exception(e)
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("fetching Threat PCAP", err))
-
-        serial_no = param.get('serial_number', None)
         filename = param.get('filename', pcap_id)
 
         data = {
@@ -1829,34 +1844,23 @@ class PanoramaConnector(BaseConnector):
             'search-time': search_time
         }
 
-        if serial_no:
-            data['target'] = serial_no
-
-        self.save_progress("_get_threat_pcap() - Sending data {}".format(data))
-        self.debug_print("_get_threat_pcap() - Sending data {}".format(data))
-
-        status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'get_threat_pcap': response})
+        status, response_content = self._make_rest_download(data, action_result)
+        # action_result.update_summary({'get_threat_pcap': response})
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("fetching Threat PCAP", action_result.get_message()))
 
         # Move things around, so that result data is an array of applications
-        result_data = action_result.get_data()
-        self.save_progress("_get_threat_pcap() - Got results {}".format(result_data))
-        self.debug_print("_get_threat_pcap() - Got results {}".format(result_data))
+        result_data = response_content
 
         self.save_progress("Saving PCAP file in vault")
-        self.save_progress("_get_threat_pcap() - Saving PCAP file in vault")
-        self.debug_print("_get_threat_pcap() - Saving PCAP file in vault")
-
         ret_val, vault_details = self._save_pcap_to_vault("{}.pcap".format(filename), result_data, self.get_container_id(), action_result)
 
         if (phantom.is_fail(ret_val)):
             return action_result.get_status()
 
-        action_result.update_data(vault_details)
-        action_result.set_message("PCAP file added successfully to the vault")
+        action_result.update_data([vault_details])
+        action_result.set_summary({"message": "PCAP file added successfully to the vault"})
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
