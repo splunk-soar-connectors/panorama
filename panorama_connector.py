@@ -824,7 +824,6 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 action_result.update_summary({'add_address_entry': summary})
                 return action_result.get_status(), name
-
             self.debug_print('Done adding tag...')
 
         # Try to figure out the type of ip
