@@ -362,6 +362,31 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
+    def get_value_list(self, value):
+        """
+        Converts an input string into a list
+        """
+
+        try:
+            # Test to see if it's a list
+            value = json.loads(value)
+        except Exception:
+            pass
+
+        # Get the passed items
+        items = value
+        if not isinstance(value, list):
+            if '\n' in value:
+                items = value.split('\n')
+            elif ',' in value:
+                items = value.split(',')
+            elif ' ' in value:
+                items = value.split(' ')
+            else:
+                items = [value]
+
+        return [item.strip() for item in items if item]
+
     def _commit_config(self, param, action_result):
         """Commit candidate changes to the firewall by default
 
@@ -375,9 +400,43 @@ class PanoramaConnector(BaseConnector):
 
         use_partial_commit = param.get('use_partial_commit', False)
         if use_partial_commit:
-            config = self.get_config()
-            username = config[phantom.APP_JSON_USERNAME]
-            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
+            try:
+                config = self.get_config()
+                username = config[phantom.APP_JSON_USERNAME]
+                self.debug_print('Partial commit with username %s' % username)
+
+                excluded_values = param.get('partial_commit_excluded_values', '')
+                no_locations = param.get('partial_commit_no_locations', '')
+                self.debug_print('initial excluded_values: %s' % excluded_values)
+                self.debug_print('initial no_locations: %s' % no_locations)
+
+                ev_str = ''
+                if excluded_values:
+                    excluded_values = self.get_value_list(excluded_values)
+                    self.debug_print('List of excluded values: %s' % excluded_values)
+
+                    for ev in excluded_values:
+                        ev_str += '<{}>excluded</{}>'.format(ev, ev)
+
+                nl_str = ''
+                if no_locations:
+                    no_locations = self.get_value_list(no_locations)
+                    self.debug_print('List of No locations: %s' % no_locations)
+                    for nl in no_locations:
+                        nl_str += '<{}/>'.format(nl)
+
+                cmd = ('<commit><partial>'
+                       '<admin><member>{username}</member></admin>'
+                       '{excluded_values}'
+                       '{no_locations}'
+                       '</partial></commit>').format(
+                    username=username, excluded_values=ev_str, no_locations=nl_str)
+
+                self.debug_print('Partial commit with cmd: %s' % cmd)
+            except Exception as e:
+                error_msg = 'Failed to do partial commit. Reason: %s' % e
+                self.debug_print(error_msg)
+                return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         data = {'type': 'commit',
                 'cmd': cmd,
