@@ -969,9 +969,10 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1014,9 +1015,10 @@ class PanoramaConnector(BaseConnector):
                 return action_result.set_status(phantom.APP_ERROR,
                                                 PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1065,9 +1067,10 @@ class PanoramaConnector(BaseConnector):
 
         url_category_del_msg = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
 
@@ -1098,9 +1101,10 @@ class PanoramaConnector(BaseConnector):
 
         block_list_del_msg = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
@@ -1149,9 +1153,10 @@ class PanoramaConnector(BaseConnector):
                 error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
                 return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
@@ -1172,9 +1177,10 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1402,9 +1408,10 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1457,9 +1464,10 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1724,6 +1732,16 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _commit_changes(self, param):
+        # ensure we are authenticated
+        status = self._get_key()
+        if phantom.is_fail(status):
+            return self.get_status()
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        return self._commit_and_commit_all(param, action_result)
+
     def validate_parameters(self, param):
         """This app does it's own validation
         """
@@ -1754,6 +1772,8 @@ class PanoramaConnector(BaseConnector):
             result = self._list_apps(param)
         elif action == self.ACTION_ID_RUN_QUERY:
             result = self._run_query(param)
+        elif action == 'commit_changes':
+            result = self._commit_changes(param)
 
         return result
 
