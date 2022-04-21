@@ -2033,7 +2033,6 @@
             "action": "get threat pcap",
             "identifier": "get_threat_pcap",
             "description": "Export a Threat PCAP file",
-            "verbose": "",
             "type": "generic",
             "read_only": true,
             "parameters": {
@@ -2042,7 +2041,7 @@
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "order": 1,
+                    "order": 0,
                     "name": "pcap_id",
                     "contains": [
                         "panorama pcap id"
@@ -2053,7 +2052,7 @@
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "order": 2,
+                    "order": 1,
                     "name": "device_name",
                     "contains": [
                         "panorama device name"
@@ -2064,7 +2063,7 @@
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "order": 3,
+                    "order": 2,
                     "name": "session_id",
                     "contains": [
                         "panorama session id"
@@ -2075,7 +2074,7 @@
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "order": 4,
+                    "order": 3,
                     "name": "search_time",
                     "contains": [
                         "timestamp"
@@ -2086,7 +2085,7 @@
                     "data_type": "string",
                     "required": false,
                     "primary": false,
-                    "order": 5,
+                    "order": 4,
                     "name": "filename"
                 }
             },

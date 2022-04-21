@@ -21,13 +21,13 @@ import shutil
 import sys
 import time
 import uuid
+from datetime import datetime
 
 import phantom.app as phantom
 import phantom.rules as phrules
 import requests
 import xmltodict
 from bs4 import UnicodeDammit
-from datetime import datetime
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 from phantom.vault import Vault
