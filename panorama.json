@@ -1993,14 +1993,16 @@
                     "data_path": "action_result.parameter.partial_commit_excluded_values",
                     "data_type": "string",
                     "example_values": [
-                        "device-and-network shared-object"
+                        "device-and-network shared-object",
+                        "device-and-network,shared-object"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.partial_commit_no_locations",
                     "data_type": "string",
                     "example_values": [
-                        "no-wildfire-appliance no-wildfire-appliance-cluster no-template no-template-stack no-log-collector no-log-collector-group"
+                        "no-wildfire-appliance no-wildfire-appliance-cluster no-template no-template-stack no-log-collector no-log-collector-group",
+                        "no-wildfire-appliance,no-wildfire-appliance-cluster,no-template"
                     ]
                 },
                 {
