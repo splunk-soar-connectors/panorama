@@ -1964,12 +1964,12 @@
                     "order": 1
                 },
                 "partial_commit_excluded_values": {
-                    "description": "A comma-separated or line-separated list of Partial Commit Excluded values",
+                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit Excluded values",
                     "data_type": "string",
                     "order": 2
                 },
                 "partial_commit_no_locations": {
-                    "description": "A comma-separated or line-separated list of Partial Commit no-locations",
+                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit no-locations",
                     "data_type": "string",
                     "order": 3
                 }
