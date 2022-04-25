@@ -431,6 +431,7 @@ class PanoramaConnector(BaseConnector):
                        '{no_locations}'
                        '</partial></commit>').format(
                     username=username, excluded_values=ev_str, no_locations=nl_str)
+                action_result.update_summary({'commit_changes_cmd': cmd})
 
                 self.debug_print('Partial commit with cmd: %s' % cmd)
             except Exception as e:
