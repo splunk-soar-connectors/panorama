@@ -517,19 +517,23 @@ Commit changes to the firewall and device groups
 Type: **generic**  
 Read only: **False**
 
-The action then proceeds to commit the changes to Panorama, followed by a commit to the device group\. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it\.
+The action then proceeds to commit the changes to Panorama, followed by a commit to the device group\.<br>If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it\.<br> If <b>partial\_commit\_excluded\_values</b> is provided, Partial commit will exclude those parts of the configuration\.<br> If <b>partial\_commit\_no\_locations</b> is provided, Partial commit will exclude pushing changes to those locations\.<br> You can learn more about Partial commit usage below\: <br><ul><li><a href='https\://docs\.paloaltonetworks\.com/pan\-os/10\-2/pan\-os\-cli\-quick\-start/use\-the\-cli/commit\-configuration\-changes' target='\_blank'>Commit Configuration Changes</a></li><li><a href='https\://docs\.paloaltonetworks\.com/pan\-os/8\-1/pan\-os\-web\-interface\-help/panorama\-web\-interface/panorama\-commit\-operations' target='\_blank'>Panorama Commit Operations</a></li></ul>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**partial\_commit\_excluded\_values** |  optional  | A space\-separated, comma\-separated or line\-separated list of Partial Commit Excluded values | string | 
+**partial\_commit\_no\_locations** |  optional  | A space\-separated, comma\-separated or line\-separated list of Partial Commit no\-locations | string | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
 action\_result\.parameter\.device\_group | string | 
 action\_result\.parameter\.use\_partial\_commit | boolean | 
+action\_result\.parameter\.partial\_commit\_excluded\_values | string | 
+action\_result\.parameter\.partial\_commit\_no\_locations | string | 
 action\_result\.data | string | 
 action\_result\.status | string | 
 action\_result\.message | string | 
