@@ -1947,7 +1947,7 @@
         {
             "action": "commit changes",
             "description": "Commit changes to the firewall and device groups",
-            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.",
+            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group.<br>If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.<br> If <b>partial_commit_excluded_values</b> is provided, Partial commit will exclude those parts of the configuration.<br> If <b>partial_commit_no_locations</b> is provided, Partial commit will exclude pushing changes to those locations.<br> You can learn more about Partial commit usage below: <br><ul><li><a href='https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-cli-quick-start/use-the-cli/commit-configuration-changes' target='_blank'>Commit Configuration Changes</a></li><li><a href='https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations' target='_blank'>Panorama Commit Operations</a></li></ul>",
             "type": "generic",
             "identifier": "commit_changes",
             "read_only": false,
@@ -1962,6 +1962,16 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 1
+                },
+                "partial_commit_excluded_values": {
+                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit Excluded values",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "partial_commit_no_locations": {
+                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit no-locations",
+                    "data_type": "string",
+                    "order": 3
                 }
             },
             "output": [
@@ -1977,6 +1987,22 @@
                     "example_values": [
                         true,
                         false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partial_commit_excluded_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "device-and-network shared-object",
+                        "device-and-network,shared-object"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partial_commit_no_locations",
+                    "data_type": "string",
+                    "example_values": [
+                        "no-wildfire-appliance no-wildfire-appliance-cluster no-template no-template-stack no-log-collector no-log-collector-group",
+                        "no-wildfire-appliance,no-wildfire-appliance-cluster,no-template"
                     ]
                 },
                 {
