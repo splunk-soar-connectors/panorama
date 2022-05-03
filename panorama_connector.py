@@ -362,6 +362,31 @@ class PanoramaConnector(BaseConnector):
 
         return phantom.APP_SUCCESS
 
+    def get_value_list(self, value):
+        """
+        Converts an input string into a list
+        """
+
+        try:
+            # Test to see if it's a list
+            value = json.loads(value)
+        except Exception:
+            pass
+
+        # Get the passed items
+        items = value
+        if not isinstance(value, list):
+            if '\n' in value:
+                items = value.split('\n')
+            elif ',' in value:
+                items = value.split(',')
+            elif ' ' in value:
+                items = value.split(' ')
+            else:
+                items = [value]
+
+        return [item.strip() for item in items if item]
+
     def _commit_config(self, param, action_result):
         """Commit candidate changes to the firewall by default
 
@@ -375,9 +400,44 @@ class PanoramaConnector(BaseConnector):
 
         use_partial_commit = param.get('use_partial_commit', False)
         if use_partial_commit:
-            config = self.get_config()
-            username = config[phantom.APP_JSON_USERNAME]
-            cmd = '<commit><partial><admin><member>{}</member></admin></partial></commit>'.format(username)
+            try:
+                config = self.get_config()
+                username = config[phantom.APP_JSON_USERNAME]
+                self.debug_print('Partial commit with username %s' % username)
+
+                excluded_values = param.get('partial_commit_excluded_values', '')
+                no_locations = param.get('partial_commit_no_locations', '')
+                self.debug_print('initial excluded_values: %s' % excluded_values)
+                self.debug_print('initial no_locations: %s' % no_locations)
+
+                ev_str = ''
+                if excluded_values:
+                    excluded_values = self.get_value_list(excluded_values)
+                    self.debug_print('List of excluded values: %s' % excluded_values)
+
+                    for ev in excluded_values:
+                        ev_str += '<{}>excluded</{}>'.format(ev, ev)
+
+                nl_str = ''
+                if no_locations:
+                    no_locations = self.get_value_list(no_locations)
+                    self.debug_print('List of No locations: %s' % no_locations)
+                    for nl in no_locations:
+                        nl_str += '<{}/>'.format(nl)
+
+                cmd = ('<commit><partial>'
+                       '<admin><member>{username}</member></admin>'
+                       '{excluded_values}'
+                       '{no_locations}'
+                       '</partial></commit>').format(
+                    username=username, excluded_values=ev_str, no_locations=nl_str)
+                action_result.update_summary({'commit_changes_cmd': cmd})
+
+                self.debug_print('Partial commit with cmd: %s' % cmd)
+            except Exception as e:
+                error_msg = 'Failed to do partial commit. Reason: %s' % e
+                self.debug_print(error_msg)
+                return action_result.set_status(phantom.APP_ERROR, error_msg)
 
         data = {'type': 'commit',
                 'cmd': cmd,
@@ -824,7 +884,6 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 action_result.update_summary({'add_address_entry': summary})
                 return action_result.get_status(), name
-
             self.debug_print('Done adding tag...')
 
         # Try to figure out the type of ip
@@ -969,9 +1028,10 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1014,9 +1074,10 @@ class PanoramaConnector(BaseConnector):
                 return action_result.set_status(phantom.APP_ERROR,
                                                 PAN_ERR_MSG.format("blocking application", action_result.get_message()))
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1065,9 +1126,10 @@ class PanoramaConnector(BaseConnector):
 
         url_category_del_msg = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
 
@@ -1098,9 +1160,10 @@ class PanoramaConnector(BaseConnector):
 
         block_list_del_msg = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
 
@@ -1149,9 +1212,10 @@ class PanoramaConnector(BaseConnector):
                 error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
                 return action_result.set_status(phantom.APP_ERROR, error_msg)
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
 
@@ -1172,9 +1236,10 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1402,9 +1467,10 @@ class PanoramaConnector(BaseConnector):
 
         message = action_result.get_message()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1457,9 +1523,10 @@ class PanoramaConnector(BaseConnector):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        status = self._commit_and_commit_all(param, action_result)
-        if phantom.is_fail(status):
-            return action_result.get_status()
+        if param.get('should_commit_changes', True):
+            status = self._commit_and_commit_all(param, action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
@@ -1724,6 +1791,16 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _commit_changes(self, param):
+        # ensure we are authenticated
+        status = self._get_key()
+        if phantom.is_fail(status):
+            return self.get_status()
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        return self._commit_and_commit_all(param, action_result)
+
     def validate_parameters(self, param):
         """This app does it's own validation
         """
@@ -1754,6 +1831,8 @@ class PanoramaConnector(BaseConnector):
             result = self._list_apps(param)
         elif action == self.ACTION_ID_RUN_QUERY:
             result = self._run_query(param)
+        elif action == 'commit_changes':
+            result = self._commit_changes(param)
 
         return result
 

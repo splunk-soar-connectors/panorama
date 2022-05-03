@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.2.0",
+    "app_version": "3.3.0",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
@@ -61,7 +61,7 @@
         {
             "action": "block url",
             "description": "Block an URL",
-            "verbose": "This action does the following to block a URL:<ul><li>Create an URL Filtering profile object named '<b>Phantom URL List for [device_group]</b>' containing the URL to block.</br>If the profile is already present, then it will be updated to include the URL to block. IMPORTANT: For Version 9 and above, a URL Filtering profile no longer includes allow-list/block-list. The official workaround is to use a Custom URL category instead. Therefore, we create a new Custom URL category with the same name as the profile and link it to the profile. Then, We configure the profile to block the URL category on both 'SITE ACCESS' and 'USER CREDENTIAL SUBMISSION' columns.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created URL Filtering profile. The URL filtering profile created in the previous step will be linked to the Profile Settings of the specified policy.</br>If the policy is not found on the device, the action will return an error.</li><li>The action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>",
+            "verbose": "This action does the following to block a URL:<ul><li>Create an URL Filtering profile object named '<b>Phantom URL List for [device_group]</b>' containing the URL to block.</br>If the profile is already present, then it will be updated to include the URL to block. IMPORTANT: For Version 9 and above, a URL Filtering profile no longer includes allow-list/block-list. The official workaround is to use a Custom URL category instead. Therefore, we create a new Custom URL category with the same name as the profile and link it to the profile. Then, We configure the profile to block the URL category on both 'SITE ACCESS' and 'USER CREDENTIAL SUBMISSION' columns.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created URL Filtering profile. The URL filtering profile created in the previous step will be linked to the Profile Settings of the specified policy.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>",
             "type": "contain",
             "identifier": "block_url",
             "read_only": false,
@@ -105,6 +105,12 @@
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 5
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 6
                 }
             },
             "output": [
@@ -140,6 +146,14 @@
                 {
                     "data_path": "action_result.parameter.audit_comment",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -194,7 +208,7 @@
         {
             "action": "unblock url",
             "description": "Unblock an URL",
-            "verbose": "For Version 8 and below, this action will remove the URL from the URL Filtering profile that was created/updated in the <b>block url</b> action. For Version 9 and above, this action will remove the URL from the Custom URL category that was created/updated in the <b>block url</b> action. The action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.",
+            "verbose": "For Version 8 and below, this action will remove the URL from the URL Filtering profile that was created/updated in the <b>block url</b> action. For Version 9 and above, this action will remove the URL from the Custom URL category that was created/updated in the <b>block url</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.",
             "type": "correct",
             "identifier": "unblock_url",
             "read_only": false,
@@ -219,6 +233,12 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 2
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 3
                 }
             },
             "output": [
@@ -237,6 +257,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
@@ -296,7 +324,7 @@
         {
             "action": "block application",
             "description": "Block an application",
-            "verbose": "This action does the following to block an application:<ul><li>Create an Application group named '<b>Phantom App List for [device_group]</b>' containing the application to block.</br>If the group is already present, then it will be updated to include the application.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created application group.</br>If the policy is not found on the device, the action will return an error.</li><li>The action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>To get a list of applications that can be blocked, execute the <b>list applications</b> action.",
+            "verbose": "This action does the following to block an application:<ul><li>Create an Application group named '<b>Phantom App List for [device_group]</b>' containing the application to block.</br>If the group is already present, then it will be updated to include the application.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created application group.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>To get a list of applications that can be blocked, execute the <b>list applications</b> action.",
             "type": "contain",
             "identifier": "block_application",
             "read_only": false,
@@ -340,6 +368,12 @@
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
                     "data_type": "string",
                     "order": 5
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 6
                 }
             },
             "output": [
@@ -375,6 +409,14 @@
                 {
                     "data_path": "action_result.parameter.audit_comment",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -429,7 +471,7 @@
         {
             "action": "unblock application",
             "description": "Unblock an application",
-            "verbose": "This action will remove the application from the Application group that was created/updated in the <b>block application</b> action. The action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.<br>Note: This action will pass for any non-existing application name as API doesn't return an error for an incorrect application name.",
+            "verbose": "This action will remove the application from the Application group that was created/updated in the <b>block application</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.<br>Note: This action will pass for any non-existing application name as API doesn't return an error for an incorrect application name.",
             "type": "correct",
             "identifier": "unblock_application",
             "read_only": false,
@@ -454,6 +496,12 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 2
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 3
                 }
             },
             "output": [
@@ -472,6 +520,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
@@ -531,7 +587,7 @@
         {
             "action": "block ip",
             "description": "Block an IP",
-            "verbose": "<p>This action uses a multistep approach to block an IP.  The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Phantom</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>The action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.",
+            "verbose": "<p>This action uses a multistep approach to block an IP. The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Phantom</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.",
             "type": "contain",
             "identifier": "block_ip",
             "read_only": false,
@@ -586,6 +642,12 @@
                     "data_type": "boolean",
                     "default": true,
                     "order": 7
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 8
                 }
             },
             "output": [
@@ -628,6 +690,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.should_add_tag",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
@@ -687,7 +757,7 @@
         {
             "action": "unblock ip",
             "description": "Unblock an IP",
-            "verbose": "This action will remove the address entry from the Address group that was created/updated in the <b>block ip</b> action.  This action behaves differently based upon whether <b>is_source_address</b> is true or false.  By default, it is false.<br>If <b>is_source_address</b> is false:<ul><li>The given IP address will be removed from the <b>Phantom Network List for [device_group]</b> Address Group.</li></ul>If <b>is_source_address</b> is true:<ul><li>The given IP address will be removed from the <b>PhantomNtwrkSrcLst[device_group]</b> Address Group.</li></ul>The action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.",
+            "verbose": "This action will remove the address entry from the Address group that was created/updated in the <b>block ip</b> action.  This action behaves differently based upon whether <b>is_source_address</b> is true or false.  By default, it is false.<br>If <b>is_source_address</b> is false:<ul><li>The given IP address will be removed from the <b>Phantom Network List for [device_group]</b> Address Group.</li></ul>If <b>is_source_address</b> is true:<ul><li>The given IP address will be removed from the <b>PhantomNtwrkSrcLst[device_group]</b> Address Group.</li></ul>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.",
             "type": "correct",
             "identifier": "unblock_ip",
             "read_only": false,
@@ -717,6 +787,12 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
                     "order": 3
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 4
                 }
             },
             "output": [
@@ -739,6 +815,14 @@
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "boolean",
                     "example_values": [
                         true,
@@ -1859,6 +1943,117 @@
                 "title": "Query"
             },
             "versions": "EQ(*)"
+        },
+        {
+            "action": "commit changes",
+            "description": "Commit changes to the firewall and device groups",
+            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group.<br>If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.<br> If <b>partial_commit_excluded_values</b> is provided, Partial commit will exclude those parts of the configuration.<br> If <b>partial_commit_no_locations</b> is provided, Partial commit will exclude pushing changes to those locations.<br> You can learn more about Partial commit usage below: <br><ul><li><a href='https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-cli-quick-start/use-the-cli/commit-configuration-changes' target='_blank'>Commit Configuration Changes</a></li><li><a href='https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations' target='_blank'>Panorama Commit Operations</a></li></ul>",
+            "type": "generic",
+            "identifier": "commit_changes",
+            "read_only": false,
+            "parameters": {
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "data_type": "boolean",
+                    "order": 1
+                },
+                "partial_commit_excluded_values": {
+                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit Excluded values",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "partial_commit_no_locations": {
+                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit no-locations",
+                    "data_type": "string",
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partial_commit_excluded_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "device-and-network shared-object",
+                        "device-and-network,shared-object"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partial_commit_no_locations",
+                    "data_type": "string",
+                    "example_values": [
+                        "no-wildfire-appliance no-wildfire-appliance-cluster no-template no-template-stack no-log-collector no-log-collector-group",
+                        "no-wildfire-appliance,no-wildfire-appliance-cluster,no-template"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "column_name": "Message",
+                    "column_order": 2,
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "Commit"
+            },
+            "versions": "EQ(*)"
         }
     ],
     "pip_dependencies": {
@@ -1885,11 +2080,11 @@
             },
             {
                 "module": "soupsieve",
-                "input_file": "wheels/py3/soupsieve-2.3.1-py3-none-any.whl"
+                "input_file": "wheels/py3/soupsieve-2.3.2.post1-py3-none-any.whl"
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.9-py2.py3-none-any.whl"
             },
             {
                 "module": "xmltodict",
