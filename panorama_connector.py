@@ -940,6 +940,7 @@ class PanoramaConnector(BaseConnector):
         """Perform any Policy updates on the xpath to the given Security Policy name
 
         Different updates are done on the xpath based on the given sec_policy_type.
+        The name can refer to different types of names (e.g. URL Filtering Profile name)
         """
         self.debug_print('Start _update_security_policy')
         if param['policy_type'] not in POLICY_TYPE_VALUE_LIST:
@@ -972,6 +973,8 @@ class PanoramaConnector(BaseConnector):
         else:
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_CREATE_UNKNOWN_TYPE_SEC_POL)
 
+        self.debug_print('PAPP-26654: _update_security_policy: Name %s' % name)
+        self.debug_print('PAPP-26654: element: %s' % element)
         status, rules_xpath = self._get_security_policy_xpath(param, action_result)
 
         if phantom.is_fail(status):
@@ -1191,23 +1194,30 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = BLOCK_URL_PROF_NAME.format(
             device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
+        self.debug_print('PAPP-26654: _block_url_9_and_above with url_prof_name: %s' % url_prof_name)
 
+        self.debug_print('PAPP-26654: Start S1: Add url to url category')
         status = self._add_url_to_url_category(param, action_result, url_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
+        self.debug_print('PAPP-26654: Done S1: Add url to url category')
 
-        status = self._set_url_filtering(param, action_result, url_prof_name)
+        self.debug_print('PAPP-26654: Start S2: URL filtering create and link to categroy')
+        url_filtering_prof_name = param.get('url_filtering_profile_name', '') or url_prof_name
+        self.debug_print('PAPP-26654: url_filtering_prof_name: %s' % url_filtering_prof_name)
+        status = self._set_url_filtering(param, action_result, url_prof_name, url_filtering_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
+        self.debug_print('PAPP-26654: Done S2: URL filtering create and link to categroy')
 
         # We need to capture the url filter message here before it gets updated below.
         url_filter_message = action_result.get_message()
 
         # Link the URL filtering profile to the given policy.
         if param.get('policy_name', ''):
-            status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_prof_name)
+            status = self._update_security_policy(param, SEC_POL_URL_TYPE, action_result, url_filtering_prof_name)
             if phantom.is_fail(status):
                 error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
                 return action_result.set_status(phantom.APP_ERROR, error_msg)
@@ -1225,7 +1235,7 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._handle_py_ver_compat_for_input_str(param[PAN_JSON_DEVICE_GRP]))
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
-        status = self._set_url_filtering(param, action_result, url_prof_name)
+        status = self._set_url_filtering(param, action_result, url_prof_name, url_prof_name)
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERR_MSG.format("blocking url", action_result.get_message()))
 
@@ -1265,17 +1275,17 @@ class PanoramaConnector(BaseConnector):
 
         return status
 
-    def _set_url_filtering(self, param, action_result, url_prof_name):
+    def _set_url_filtering(self, param, action_result, url_category_name, url_filtering_prof_name):
         """Link your newly created url category to the URL filtering profile with block status"""
-
-        xpath = URL_PROF_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
+        xpath = URL_PROF_XPATH.format(
+            config_xpath=self._get_config_xpath(param), url_profile_name=url_filtering_prof_name)
 
         # For Panorama 8 and below, we can simply add the url to the block list of the URL filtering.
         if self._get_pan_major_version() < 9:
             block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
             element = URL_PROF_ELEM.format(url=block_url)
         else:
-            element = URL_PROF_ELEM_9.format(url_category_name=url_prof_name)
+            element = URL_PROF_ELEM_9.format(url_category_name=url_category_name)
 
         data = {'type': 'config',
                 'action': 'set',
@@ -1283,8 +1293,17 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath,
                 'element': element}
 
+        self.debug_print('PAPP-26654: Setting a URL filtering profile with data: %s' % data)
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'set_url_filtering': response})
+        self.debug_print('PAPP-26654: response: %s' % response)
+
+        action_result.update_summary({
+            'set_url_filtering': {
+                'response': response,
+                'set_url_filtering_profile_name': url_filtering_prof_name,
+                'set_url_category_name': url_category_name,
+            }
+        })
 
         return status
 
