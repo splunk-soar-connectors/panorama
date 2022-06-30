@@ -1202,17 +1202,20 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
         self.debug_print('PAPP-26654: _block_url_9_and_above with url_prof_name: %s' % url_prof_name)
 
-        self.debug_print('PAPP-26654: Start S1: Add url to url category')
-        status = self._add_url_to_url_category(param, action_result, url_prof_name)
+        url_category_name = param.get('url_category_name', '') or url_prof_name
+        url_filtering_prof_name = param.get('url_filtering_profile_name', '') or url_prof_name
+        self.debug_print('PAPP-26654: url_category_name: %s' % url_category_name)
+        self.debug_print('PAPP-26654: url_filtering_prof_name: %s' % url_filtering_prof_name)
+
+        self.debug_print('PAPP-26654: Start S1: Add %s to url category' % url_category_name)
+        status = self._add_url_to_url_category(param, action_result, url_category_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
         self.debug_print('PAPP-26654: Done S1: Add url to url category')
 
-        self.debug_print('PAPP-26654: Start S2: URL filtering create and link to categroy')
-        url_filtering_prof_name = param.get('url_filtering_profile_name', '') or url_prof_name
         self.debug_print('PAPP-26654: url_filtering_prof_name: %s' % url_filtering_prof_name)
-        status = self._set_url_filtering(param, action_result, url_prof_name, url_filtering_prof_name)
+        status = self._set_url_filtering(param, action_result, url_category_name, url_filtering_prof_name)
         if phantom.is_fail(status):
             error_msg = PAN_ERR_MSG.format("blocking url", action_result.get_message())
             return action_result.set_status(phantom.APP_ERROR, error_msg)
@@ -1278,7 +1281,12 @@ class PanoramaConnector(BaseConnector):
                 'element': element}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'add_url_to_url_category': response})
+        action_result.update_summary({
+            'add_url_to_url_category': {
+                'response': response,
+                'url_category_name': url_category_name
+            }
+        })
 
         return status
 
