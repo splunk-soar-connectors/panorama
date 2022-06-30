@@ -1157,7 +1157,12 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath}
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({'delete_url_from_url_category': response})
+        action_result.update_summary({
+            'delete_url_from_url_category': {
+                'response': response,
+                'url_category_name': url_category_name
+            }
+        })
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERR_MSG.format("unblocking url", action_result.get_message()))
