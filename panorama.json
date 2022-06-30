@@ -5,7 +5,7 @@
     "publisher": "Splunk",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.3.0",
+    "app_version": "3.4.0",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
@@ -61,7 +61,7 @@
         {
             "action": "block url",
             "description": "Block an URL",
-            "verbose": "This action does the following to block a URL:<ul><li>Create an URL Filtering profile object named '<b>Phantom URL List for [device_group]</b>' containing the URL to block.</br>If the profile is already present, then it will be updated to include the URL to block. IMPORTANT: For Version 9 and above, a URL Filtering profile no longer includes allow-list/block-list. The official workaround is to use a Custom URL category instead. Therefore, we create a new Custom URL category with the same name as the profile and link it to the profile. Then, We configure the profile to block the URL category on both 'SITE ACCESS' and 'USER CREDENTIAL SUBMISSION' columns.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created URL Filtering profile. The URL filtering profile created in the previous step will be linked to the Profile Settings of the specified policy.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>",
+            "verbose": "This action does the following to block a URL:<ul><li>Create an URL Filtering profile object named '<b>Phantom URL List for [device_group]</b>' containing the URL to block. In order to use other names or update an existing URL Filtering profile, please provide a custom name with the input <b>url_filtering_profile_name</b>.</br>If the profile is already present, then it will be updated to include the URL to block. IMPORTANT: For Version 9 and above, a URL Filtering profile no longer includes allow-list/block-list. The official workaround is to use a Custom URL category instead. Therefore, we create a new Custom URL category with the same name as the profile and link it to the profile. Then, We configure the profile to block the URL category on both 'SITE ACCESS' and 'USER CREDENTIAL SUBMISSION' columns.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created URL Filtering profile. The URL filtering profile created in the previous step will be linked to the Profile Settings of the specified policy.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>",
             "type": "contain",
             "identifier": "block_url",
             "read_only": false,
@@ -111,6 +111,11 @@
                     "data_type": "boolean",
                     "default": true,
                     "order": 6
+                },
+                "url_filtering_profile_name": {
+                    "description": "The name of the URL Filtering profile to be used. Otherwise, the name will be the same as the name of the URL category",
+                    "data_type": "string",
+                    "order": 7
                 }
             },
             "output": [
@@ -153,6 +158,13 @@
                     "example_values": [
                         true,
                         false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.url_filtering_profile_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "My custom URL Filtering Profile name"
                     ]
                 },
                 {
