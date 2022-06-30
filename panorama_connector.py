@@ -1146,8 +1146,9 @@ class PanoramaConnector(BaseConnector):
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
         # Remove url from Objects -> Custom Objects -> URL Category
+        url_category_name = param.get('url_category_name', '') or url_prof_name
         xpath = "{0}{1}".format(
-            URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name),
+            URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_category_name=url_category_name),
             DEL_URL_CATEGORY_XPATH.format(url=block_url))
 
         data = {'type': 'config',
@@ -1253,7 +1254,7 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
 
-    def _add_url_to_url_category(self, param, action_result, url_prof_name):
+    def _add_url_to_url_category(self, param, action_result, url_category_name):
         """Add the given url to Objects > Custom Objects > URL Category > Phantom URL List for your device group
 
         The URL category is usually created prior to linking it to a URL filtering.
@@ -1261,7 +1262,8 @@ class PanoramaConnector(BaseConnector):
 
         block_url = self._handle_py_ver_compat_for_input_str(param[PAN_JSON_URL])
 
-        xpath = URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
+        xpath = URL_CATEGORY_XPATH.format(
+            config_xpath=self._get_config_xpath(param), url_category_name=url_category_name)
         element = URL_CATEGORY_ELEM.format(url=block_url)
 
         data = {'type': 'config',
