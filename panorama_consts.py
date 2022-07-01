@@ -114,7 +114,7 @@ URL_PROF_ELEM_9 += "<block><member>{url_category_name}</member></block>"
 URL_PROF_ELEM_9 += "</credential-enforcement>"
 URL_PROF_ELEM_9 += "<block><member>{url_category_name}</member></block>"
 
-URL_CATEGORY_XPATH = "{config_xpath}/profiles/custom-url-category/entry[@name='{url_profile_name}']"
+URL_CATEGORY_XPATH = "{config_xpath}/profiles/custom-url-category/entry[@name='{url_category_name}']"
 
 # We can make this work on version 8 and below as well by removing <type>URL List</type>.
 # However, </list><type>URL List</type> is required for version 9 and above.
