@@ -1157,11 +1157,11 @@ class PanoramaConnector(BaseConnector):
                 'xpath': xpath}
 
         status, response = self._make_rest_call(data, action_result)
+        response.update({
+            'url_category_name': url_category_name
+        })
         action_result.update_summary({
-            'delete_url_from_url_category': {
-                'response': response,
-                'url_category_name': url_category_name
-            }
+            'delete_url_from_url_category': response
         })
         if phantom.is_fail(status):
             return action_result.set_status(
@@ -1281,11 +1281,11 @@ class PanoramaConnector(BaseConnector):
                 'element': element}
 
         status, response = self._make_rest_call(data, action_result)
+        response.update({
+            'url_category_name': url_category_name
+        })
         action_result.update_summary({
-            'add_url_to_url_category': {
-                'response': response,
-                'url_category_name': url_category_name
-            }
+            'add_url_to_url_category': response
         })
 
         return status
@@ -1312,12 +1312,12 @@ class PanoramaConnector(BaseConnector):
         status, response = self._make_rest_call(data, action_result)
         self.debug_print('PAPP-26654: response: %s' % response)
 
+        response.update({
+            'set_url_filtering_profile_name': url_filtering_prof_name,
+            'set_url_category_name': url_category_name,
+        })
         action_result.update_summary({
-            'set_url_filtering': {
-                'response': response,
-                'set_url_filtering_profile_name': url_filtering_prof_name,
-                'set_url_category_name': url_category_name,
-            }
+            'set_url_filtering': response,
         })
 
         return status
