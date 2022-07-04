@@ -113,12 +113,12 @@
                     "order": 6
                 },
                 "url_filtering_profile_name": {
-                    "description": "The name of the URL Filtering profile to be used. Otherwise, the name will be the same as the name of the URL category",
+                    "description": "The name of the URL Filtering profile to be used. Otherwise, the name will be 'Phantom URL List for [device_group]'",
                     "data_type": "string",
                     "order": 7
                 },
                 "url_category_name": {
-                    "description": "The name of the URL Category to be used",
+                    "description": "The name of the URL Category to be used. Otherwise, the name will be 'Phantom URL List for [device_group]'",
                     "data_type": "string",
                     "order": 8
                 }
@@ -253,16 +253,21 @@
                     "order": 1,
                     "required": true
                 },
+                "url_category_name": {
+                    "description": "The name of the URL Category to be used. Otherwise, the name will be 'Phantom URL List for [device_group]'. IMPORTANT: This field works only on version 9 and above.",
+                    "data_type": "string",
+                    "order": 2
+                },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
                     "data_type": "boolean",
-                    "order": 2
+                    "order": 3
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
-                    "order": 3
+                    "order": 4
                 }
             },
             "output": [
@@ -278,6 +283,13 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.url_category_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "My custom URL Category name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
