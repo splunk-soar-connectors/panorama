@@ -40,6 +40,7 @@ class PanoramaConnector(BaseConnector):
     ACTION_ID_UNBLOCK_IP = "unblock_ip"
     ACTION_ID_LIST_APPS = "list_apps"
     ACTION_ID_RUN_QUERY = "run_query"
+    ACTION_ID_SET_URL_CATEGORY = "set_url_category"
 
     def __init__(self):
 
@@ -1825,6 +1826,19 @@ class PanoramaConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _handle_set_url_category(self, param):
+        status = self._get_key()
+        if phantom.is_fail(status):
+            return self.get_status()
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        url_category_name = param.get('url_category_name', '') or url_prof_name
+        self.debug_print('Start _handle_set_url_category')
+        self._add_url_to_url_category(param, action_result, url_category_name)
+        self.debug_print('Done _handle_set_url_category')
+        return action_result.get_status()
+
     def _commit_changes(self, param):
         # ensure we are authenticated
         status = self._get_key()
@@ -1867,6 +1881,8 @@ class PanoramaConnector(BaseConnector):
             result = self._run_query(param)
         elif action == 'commit_changes':
             result = self._commit_changes(param)
+        elif action == self.ACTION_ID_SET_URL_CATEGORY:
+            result = self._handle_set_url_category(param)
 
         return result
 
