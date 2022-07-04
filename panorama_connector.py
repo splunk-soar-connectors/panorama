@@ -1833,7 +1833,7 @@ class PanoramaConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        url_category_name = param.get('url_category_name', '') or url_prof_name
+        url_category_name = param['url_category_name']
         self.debug_print('Start _handle_set_url_category')
         self._add_url_to_url_category(param, action_result, url_category_name)
         self.debug_print('Done _handle_set_url_category')
