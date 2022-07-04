@@ -2082,7 +2082,7 @@
         {
             "action": "set url category",
             "description": "Add or update a URL category",
-            "verbose": "A new url can be added to an existing URL category or a new URL category with the input <b>url</b>.",
+            "verbose": "A new url can be added to an existing URL category or a new URL category with the input <b>url</b>.<br> IMPORTANT: There is no commit at the end. The action <b>commit config</b> can be chained after this action.",
             "type": "generic",
             "identifier": "set_url_category",
             "read_only": false,
