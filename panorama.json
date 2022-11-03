@@ -2,21 +2,18 @@
     "appid": "3d88e427-0e61-4311-a613-bbddeac532e0",
     "name": "Panorama",
     "description": "This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions",
-    "publisher": "Splunk",
+    "publisher": "Splunk Community",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.3.0",
+    "app_version": "4.0.0",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
     "product_name": "Panorama",
     "product_version_regex": ".*",
-    "latest_tested_versions": [
-        "On prem v10.1.0"
-    ],
-    "min_phantom_version": "5.2.0",
+    "min_phantom_version": "5.3.5",
     "python_version": "3",
-    "fips_compliant": true,
+    "fips_compliant": false,
     "logo": "logo_panorama.svg",
     "logo_dark": "logo_panorama_dark.svg",
     "license": "Copyright (c) 2016-2022 Splunk Inc.",
@@ -97,12 +94,12 @@
                     "order": 3
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 4
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
                     "order": 5
                 },
@@ -230,7 +227,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 2
                 },
@@ -360,12 +357,12 @@
                     "order": 3
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 4
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
                     "order": 5
                 },
@@ -493,7 +490,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 2
                 },
@@ -628,12 +625,12 @@
                     "order": 4
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 5
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
                     "order": 6
                 },
@@ -784,7 +781,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 },
@@ -1959,7 +1956,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 1
                 }
@@ -2083,8 +2080,6 @@
                 "filename": {
                     "description": "Filename of exported PCAP file",
                     "data_type": "string",
-                    "required": false,
-                    "primary": false,
                     "order": 4,
                     "name": "filename"
                 }
@@ -2124,7 +2119,11 @@
                 },
                 {
                     "data_path": "action_result.status",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
@@ -2161,7 +2160,7 @@
             },
             {
                 "module": "certifi",
-                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -2177,11 +2176,11 @@
             },
             {
                 "module": "soupsieve",
-                "input_file": "wheels/py3/soupsieve-2.3.2-py3-none-any.whl"
+                "input_file": "wheels/py3/soupsieve-2.3.2.post1-py3-none-any.whl"
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.9-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             },
             {
                 "module": "xmltodict",
