@@ -211,7 +211,7 @@ class PanoramaConnector(BaseConnector):
         if status != 'success':
             action_result.set_status(phantom.APP_ERROR, PAN_ERROR_REPLY_NOT_SUCCESS.format(status=status))
         else:
-            response_message = PAN_SUCCESS_REST_CALL_SUCCEEDED
+            response_message = PAN_SUCCESS_REST_CALL_PASSED
             action_result.set_status(phantom.APP_SUCCESS)
 
         code = response.get('@code')
@@ -1096,14 +1096,14 @@ class PanoramaConnector(BaseConnector):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking url", action_result.get_message()))
 
-        url_category_del_msg = action_result.get_message()
+        url_category_del_message = action_result.get_message()
 
         if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_msg))
+        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_message))
 
     def _unblock_url_9_and_above(self, param, action_result):
         self.debug_print("Removing the Blocked URL")
@@ -1130,14 +1130,14 @@ class PanoramaConnector(BaseConnector):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking url", action_result.get_message()))
 
-        block_list_del_msg = action_result.get_message()
+        block_list_del_message = action_result.get_message()
 
         if param.get('should_commit_changes', True):
             status = self._commit_and_commit_all(param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_msg))
+        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_message))
 
     def _block_url(self, param):
         status = self._get_key()
