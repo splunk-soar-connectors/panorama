@@ -2,21 +2,18 @@
     "appid": "3d88e427-0e61-4311-a613-bbddeac532e0",
     "name": "Panorama",
     "description": "This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions",
-    "publisher": "Splunk",
+    "publisher": "Splunk Community",
     "type": "firewall",
     "main_module": "panorama_connector.py",
-    "app_version": "3.3.0",
+    "app_version": "4.0.0",
     "utctime_updated": "2022-01-27T22:10:12.000000Z",
     "package_name": "phantom_panorama",
     "product_vendor": "Palo Alto Networks",
     "product_name": "Panorama",
     "product_version_regex": ".*",
-    "latest_tested_versions": [
-        "On prem v10.1.0"
-    ],
-    "min_phantom_version": "5.2.0",
+    "min_phantom_version": "5.3.5",
     "python_version": "3",
-    "fips_compliant": true,
+    "fips_compliant": false,
     "logo": "logo_panorama.svg",
     "logo_dark": "logo_panorama_dark.svg",
     "license": "Copyright (c) 2016-2022 Splunk Inc.",
@@ -97,12 +94,12 @@
                     "order": 3
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 4
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
                     "order": 5
                 },
@@ -230,7 +227,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 2
                 },
@@ -360,12 +357,12 @@
                     "order": 3
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 4
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
                     "order": 5
                 },
@@ -493,7 +490,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 2
                 },
@@ -628,12 +625,12 @@
                     "order": 4
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 5
                 },
                 "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters.",
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
                     "order": 6
                 },
@@ -784,7 +781,7 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 },
@@ -1947,7 +1944,7 @@
         {
             "action": "commit changes",
             "description": "Commit changes to the firewall and device groups",
-            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group.<br>If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.<br> If <b>partial_commit_excluded_values</b> is provided, Partial commit will exclude those parts of the configuration.<br> If <b>partial_commit_no_locations</b> is provided, Partial commit will exclude pushing changes to those locations.<br> You can learn more about Partial commit usage below: <br><ul><li><a href='https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-cli-quick-start/use-the-cli/commit-configuration-changes' target='_blank'>Commit Configuration Changes</a></li><li><a href='https://docs.paloaltonetworks.com/pan-os/8-1/pan-os-web-interface-help/panorama-web-interface/panorama-commit-operations' target='_blank'>Panorama Commit Operations</a></li></ul>",
+            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.",
             "type": "generic",
             "identifier": "commit_changes",
             "read_only": false,
@@ -1959,19 +1956,9 @@
                     "required": true
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default.",
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 1
-                },
-                "partial_commit_excluded_values": {
-                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit Excluded values",
-                    "data_type": "string",
-                    "order": 2
-                },
-                "partial_commit_no_locations": {
-                    "description": "A space-separated, comma-separated or line-separated list of Partial Commit no-locations",
-                    "data_type": "string",
-                    "order": 3
                 }
             },
             "output": [
@@ -1987,22 +1974,6 @@
                     "example_values": [
                         true,
                         false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.partial_commit_excluded_values",
-                    "data_type": "string",
-                    "example_values": [
-                        "device-and-network shared-object",
-                        "device-and-network,shared-object"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.partial_commit_no_locations",
-                    "data_type": "string",
-                    "example_values": [
-                        "no-wildfire-appliance no-wildfire-appliance-cluster no-template no-template-stack no-log-collector no-log-collector-group",
-                        "no-wildfire-appliance,no-wildfire-appliance-cluster,no-template"
                     ]
                 },
                 {
@@ -2054,6 +2025,131 @@
                 "title": "Commit"
             },
             "versions": "EQ(*)"
+        },
+        {
+            "action": "get threat pcap",
+            "identifier": "get_threat_pcap",
+            "description": "Export a Threat PCAP file",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "pcap_id": {
+                    "description": "PCAP ID required to fetch Threat PCAP",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "name": "pcap_id",
+                    "contains": [
+                        "panorama pcap id"
+                    ]
+                },
+                "device_name": {
+                    "description": "Device Name required to fetch Threat PCAP",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 1,
+                    "name": "device_name",
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                "session_id": {
+                    "description": "Session ID required to fetch Threat PCAP",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 2,
+                    "name": "session_id",
+                    "contains": [
+                        "panorama session id"
+                    ]
+                },
+                "search_time": {
+                    "description": "Search time that the Threat PCAP was received on the firewall (yyyy/mm/dd hr:min:sec)",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 3,
+                    "name": "search_time",
+                    "contains": [
+                        "timestamp"
+                    ]
+                },
+                "filename": {
+                    "description": "Filename of exported PCAP file",
+                    "data_type": "string",
+                    "order": 4,
+                    "name": "filename"
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.pcap_id",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama pcap id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_name",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.session_id",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama session id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.search_time",
+                    "data_type": "string",
+                    "contains": [
+                        "timestamp"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.filename",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
         }
     ],
     "pip_dependencies": {
@@ -2064,7 +2160,7 @@
             },
             {
                 "module": "certifi",
-                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -2084,7 +2180,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.9-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             },
             {
                 "module": "xmltodict",

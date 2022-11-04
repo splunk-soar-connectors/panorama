@@ -16,14 +16,6 @@
     You can use the commit API request to commit a candidate configuration to a firewall.
     Commit actions are called at the end of all Contain actions (e.g. BlockIP).
 </p>
-<p>
-    Contain and Correct actions can be run in parallel by making use of (1) the flag <b>should_commit_changes</b> and
-    (2) the action <b>commit changes</b>.
-    To run Contain or Correct actions in parallel, the actions should have <b>should_commit_changes</b> as False.
-    Once all Contain and Correct actions with disabled <b>should_commit_changes</b> are completed,
-    the action <b>commit changes</b> should be run.
-    This ensures there won't be any duplicated commits to the same device groups.
-</p>
 <p>You can learn more about Commit Configuration below: (API)</p>
 <ul>
     <li>
