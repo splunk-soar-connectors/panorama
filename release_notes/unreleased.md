@@ -1,2 +1,2 @@
 **Unreleased**
-* De-certifying and releasing as a community app
+* De-certified and released as a community app
