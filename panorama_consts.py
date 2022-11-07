@@ -12,27 +12,27 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-PAN_ERR_REPLY_FORMAT_KEY_MISSING = "None '{key}' missing in reply from device"
-PAN_ERR_REPLY_NOT_SUCCESS = "REST call returned '{status}'"
-PAN_ERR_UNABLE_TO_PARSE_REPLY = "Unable to parse reply from device"
-PAN_SUCC_TEST_CONNECTIVITY_PASSED = "Test connectivity passed"
-PAN_ERR_TEST_CONNECTIVITY_FAILED = "Test connectivity failed"
-PAN_SUCC_REST_CALL_SUCCEEDED = "REST Api call succeeded"
-PAN_ERR_CREATE_UNKNOWN_TYPE_SEC_POL = "Asked to create unknown type of security policy"
-PAN_ERR_INVALID_IP_FORMAT = "Invalid ip format"
-PAN_ERR_DEVICE_CONNECTIVITY = "Error in connecting to device"
-PAN_ERR_PARSE_POLICY_DATA = "Unable to parse security policy config"
-PAN_ERR_NO_POLICY_ENTRIES_FOUND = "Could not find any security policies to update"
-PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and "
+PAN_ERROR_REPLY_FORMAT_KEY_MISSING = "None '{key}' missing in reply from device"
+PAN_ERROR_REPLY_NOT_SUCCESS = "REST call returned '{status}'"
+PAN_ERROR_UNABLE_TO_PARSE_REPLY = "Unable to parse reply from device"
+PAN_SUCCESS_TEST_CONNECTIVITY_PASSED = "Test connectivity passed"
+PAN_ERROR_TEST_CONNECTIVITY_FAILED = "Test connectivity failed"
+PAN_SUCCESS_REST_CALL_PASSED = "REST Api call passed"
+PAN_ERROR_CREATE_UNKNOWN_TYPE_SEC_POL = "Asked to create unknown type of security policy"
+PAN_ERROR_INVALID_IP_FORMAT = "Invalid ip format"
+PAN_ERROR_DEVICE_CONNECTIVITY = "Error in connecting to device"
+PAN_ERROR_PARSE_POLICY_DATA = "Unable to parse security policy config"
+PAN_ERROR_NO_POLICY_ENTRIES_FOUND = "Could not find any security policies to update"
+PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and "
 "type '{policy_type}'.")
-PAN_ERR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
-PAN_ERR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
-PAN_ERR_NO_JOB_ID = "Could not find Job ID in response body"
-PAN_ERR_CODE_MESSAGE = "Error code unavailable"
-PAN_ERR_MESSAGE = "Unknown error occurred. Please check the asset configuration and|or action parameters"
-TYPE_ERR_MESSAGE = "Error occurred while connecting to the Panorama server. Please check the asset configuration and|or the action parameters"
-PARSE_ERR_MESSAGE = "Unable to parse the error message. Please check the asset configuration and|or action parameters"
-PAN_ERR_MSG = "Error occurred while {}. Details: {}"
+PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
+PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
+PAN_ERROR_NO_JOB_ID = "Could not find Job ID in response body"
+PAN_ERROR_CODE_MESSAGE = "Error code unavailable"
+PAN_ERROR_MESSAGE = "Unknown error occurred. Please check the asset configuration and|or action parameters"
+TYPE_ERROR_MESSAGE = "Error occurred while connecting to the Panorama server. Please check the asset configuration and|or the action parameters"
+PARSE_ERROR_MESSAGE = "Unable to parse the error message. Please check the asset configuration and|or action parameters"
+PAN_ERROR_MESSAGE = "Error occurred while {}. Details: {}"
 
 PAN_PROG_USING_BASE_URL = "Using base URL '{base_url}'"
 PAN_PROG_GOT_REPLY = "Got reply, parsing..."
@@ -152,6 +152,6 @@ COMMIT_ALL_DEV_GRP_DEV_CMD += '</shared-policy></commit-all>'
 POLICY_TYPE_VALUE_LIST = ["pre-rulebase", "post-rulebase"]
 LOG_TYPE_VALUE_LIST = ["traffic", "url", "corr", "data", "threat", "config", "system", "hipmatch", "wildfire", "corr-categ", "corr-detail"]
 DIRECTION_VALUE_LIST = ["backward", "forward"]
-VALUE_LIST_VALIDATION_MSG = "Please provide valid input from {} in '{}' action parameter"
+VALUE_LIST_VALIDATION_MESSAGE = "Please provide valid input from {} in '{}' action parameter"
 
 DEFAULT_TIMEOUT = 30
