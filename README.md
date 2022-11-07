@@ -1,12 +1,12 @@
 [comment]: # "Auto-generated SOAR connector documentation"
 # Panorama
 
-Publisher: Splunk  
-Connector Version: 3\.3\.0  
+Publisher: Splunk Community  
+Connector Version: 4\.0\.0  
 Product Vendor: Palo Alto Networks  
 Product Name: Panorama  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.2\.0  
+Minimum Product Version: 5\.3\.5  
 
 This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions
 
@@ -87,6 +87,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [list applications](#action-list-applications) - List the applications that the device knows about and can block  
 [run query](#action-run-query) - Run a query on Panorama  
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
+[get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity
@@ -117,8 +118,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **policy\_type** |  optional  | Block policy type | string | 
 **policy\_name** |  optional  | Policy to use | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
-**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters\. | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
+**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters | string | 
 **should\_commit\_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
@@ -151,7 +152,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **url** |  required  | URL to unblock | string |  `url` 
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
 **should\_commit\_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
@@ -183,8 +184,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **policy\_type** |  optional  | Block policy type | string | 
 **policy\_name** |  optional  | Policy to use | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
-**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters\. | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
+**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters | string | 
 **should\_commit\_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
@@ -217,7 +218,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **application** |  required  | Application to unblock | string |  `network application` 
 **device\_group** |  required  | Device group to configure or 'shared' | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
 **should\_commit\_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
@@ -250,8 +251,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
 **policy\_type** |  optional  | Block policy type | string | 
 **policy\_name** |  optional  | Policy to use | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
-**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters\. | string | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
+**audit\_comment** |  optional  | Audit comment to be used with the policy name\. Maximum 256 characters | string | 
 **should\_add\_tag** |  optional  | Whether a new tag should added as part of adding a new IP address | boolean | 
 **should\_commit\_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -288,7 +289,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **ip** |  required  | IP to unblock | string |  `ip` 
 **is\_source\_address** |  optional  | Source address | boolean | 
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
 **should\_commit\_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
@@ -523,7 +524,7 @@ The action then proceeds to commit the changes to Panorama, followed by a commit
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **device\_group** |  required  | Device group to configure, or 'shared' | string | 
-**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default\. | boolean | 
+**use\_partial\_commit** |  optional  | Whether to perform Partial commit admin\-level changes\. Config's username is included as the administrator name in the request\. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
@@ -534,5 +535,35 @@ action\_result\.data | string |
 action\_result\.status | string | 
 action\_result\.message | string | 
 action\_result\.summary | string | 
+summary\.total\_objects | numeric | 
+summary\.total\_objects\_successful | numeric |   
+
+## action: 'get threat pcap'
+Export a Threat PCAP file
+
+Type: **generic**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**pcap\_id** |  required  | PCAP ID required to fetch Threat PCAP | string |  `panorama pcap id` 
+**device\_name** |  required  | Device Name required to fetch Threat PCAP | string |  `panorama device name` 
+**session\_id** |  required  | Session ID required to fetch Threat PCAP | string |  `panorama session id` 
+**search\_time** |  required  | Search time that the Threat PCAP was received on the firewall \(yyyy/mm/dd hr\:min\:sec\) | string |  `timestamp` 
+**filename** |  optional  | Filename of exported PCAP file | string | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.parameter\.pcap\_id | string |  `panorama pcap id` 
+action\_result\.parameter\.device\_name | string |  `panorama device name` 
+action\_result\.parameter\.session\_id | string |  `panorama session id` 
+action\_result\.parameter\.search\_time | string |  `timestamp` 
+action\_result\.parameter\.filename | string | 
+action\_result\.status | string | 
+action\_result\.message | string | 
+action\_result\.data | string | 
+action\_result\.summary | numeric | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric | 
