@@ -11,7 +11,7 @@ Minimum Product Version: 5\.3\.5
 This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions
 
 [comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2016-2022 Splunk Inc."
+[comment]: # "  Copyright (c) 2016-2023 Splunk Inc."
 [comment]: # ""
 [comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
 [comment]: # ""
