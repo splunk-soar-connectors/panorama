@@ -155,3 +155,6 @@ DIRECTION_VALUE_LIST = ["backward", "forward"]
 VALUE_LIST_VALIDATION_MESSAGE = "Please provide valid input from {} in '{}' action parameter"
 
 DEFAULT_TIMEOUT = 30
+
+PAN_KEY_TOKEN = "key_token"
+PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
