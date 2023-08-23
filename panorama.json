@@ -11,7 +11,7 @@
     "product_vendor": "Palo Alto Networks",
     "product_name": "Panorama",
     "product_version_regex": ".*",
-    "min_phantom_version": "6.0.1",
+    "min_phantom_version": "6.0.2",
     "python_version": "3",
     "fips_compliant": false,
     "logo": "logo_panorama.svg",
