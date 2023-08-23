@@ -1,12 +1,15 @@
-import requests
-import panorama_consts as consts
-import xmltodict
-
-import phantom.app as phantom
-from phantom.action_result import ActionResult
-import encryption_helper
 import re
 import time
+
+import encryption_helper
+import phantom.app as phantom
+import requests
+import xmltodict
+
+from phantom.action_result import ActionResult
+
+import panorama_consts as consts
+
 
 class RetVal(tuple):
     """This class returns the tuple of two elements."""
@@ -25,14 +28,6 @@ class PanoramaUtils(object):
         if connector:
             connector.state = self._decrypt_state(connector.state)
             self._key = connector.state.get(consts.PAN_KEY_TOKEN)
-
-    def _get_addr_name(self, ip):
-
-        # Remove the slash in the ip if present, PAN does not like slash in the names
-        rem_slash = lambda x: re.sub(r'(.*)/(.*)', r'\1 mask \2', x)
-        name = "{0} {1}".format(rem_slash(ip), consts.PHANTOM_ADDRESS_NAME)
-
-        return name
     
     def _get_error_message_from_exception(self, e):
         """Get an appropriate error message from the exception.
@@ -886,7 +881,65 @@ class PanoramaUtils(object):
             state = {"app_version": self._connector.get_app_json().get("app_version")}
         return state
         
+
+    def _update_audit_comment(self, param, action_result):
+        """Create or Update Audit comment for the Policy rule
+
+        Precondition: The policy name must be provided
+        If the given Audit comment is empty, we won't be sending any update.
+        Adding an Audit comment does not require Commit after.
+        If Commit is called on a rule, the comments on that rule will be cleared.
+        Audit comments must be done on the same xpath as the associated Policy rule.
+        """
+        self._connector.debug_print('Start Create/Update Audit comment with param %s' % param)
+        audit_comment = param.get('audit_comment', '')
+        if not audit_comment:
+            self._connector.debug_print('No Audit comment to update')
+            return action_result.get_status()
+
+        if len(audit_comment) > 256:
+            error_message = "The length of an Audit comment can be at most 256 characters."
+            self._connector.debug_print(error_message)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
+
+        self._connector.debug_print('Audit comment to submit %s' % audit_comment)
+
+        # If the device entry name is missing, you won't see the comment on the Web UI.
+        # If "Require audit comment on policies" option is enabled, the rule_path must match the one used on commit config update. # noqa
+        status, rule_path = self._get_security_policy_xpath(param, action_result)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
+        cmd = (
+            '<set><audit-comment>'
+            '<comment>{audit_comment}</comment>'
+            '<xpath>{policy_rule_xpath}</xpath>'
+            '</audit-comment></set>'.format(audit_comment=audit_comment, policy_rule_xpath=rule_path))
+
+        self._connector.debug_print('Updating Audit comment with cmd: %s' % cmd)
+        data = {
+            'type': 'op',
+            'key': self._key,
+            'cmd': cmd
+        }
+
+        status, response = self._make_rest_call(data, action_result)
+        action_result.update_summary({'update_audit_comment': response})
+        if phantom.is_fail(status):
+            self._connector.debug_print('Failed to update audit comment for xpath {} with comment {}. Reason: {}'.format(
+                rule_path, audit_comment, action_result.get_message()))
+            return action_result.get_status()
+
+        self._connector.debug_print('Successfully Updated Audit comment')
+
+        return action_result.get_status()
+
         
-        
-        
-        
+    def _get_addr_name(self, ip):
+
+        # Remove the slash in the ip if present, PAN does not like slash in the names
+        rem_slash = lambda x: re.sub(r'(.*)/(.*)', r'\1 mask \2', x)
+
+        name = "{0} {1}".format(rem_slash(ip), consts.PHANTOM_ADDRESS_NAME)
+
+        return name
