@@ -1,4 +1,4 @@
-# File: panorama_.py
+# File: panorama_get_threat_pcap.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

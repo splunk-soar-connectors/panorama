@@ -88,6 +88,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [run query](#action-run-query) - Run a query on Panorama  
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
 [get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
+[list edl](#action-list-edl) - List External Dynamic List's  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity
@@ -566,4 +567,27 @@ action_result.message | string |  |
 action_result.data | string |  |  
 action_result.summary | numeric |  |  
 summary.total_objects | numeric |  |  
-summary.total_objects_successful | numeric |  |  
+summary.total_objects_successful | numeric |  |    
+
+## action: 'list edl'
+List External Dynamic List's
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**device_group** |  required  | Device group to configure, or 'shared' | string | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.device_group | string |  |  
+action_result.data.\*.@name | string |  `network application`  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 

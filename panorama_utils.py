@@ -881,6 +881,7 @@ class PanoramaUtils(object):
             state = {"app_version": self._connector.get_app_json().get("app_version")}
         return state
         
+
     def _update_audit_comment(self, param, action_result):
         """Create or Update Audit comment for the Policy rule
 
