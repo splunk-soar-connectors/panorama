@@ -46,6 +46,8 @@ PAN_JSON_URL = "url"
 PAN_JSON_APPLICATION = "application"
 PAN_JSON_IP = "ip"
 PAN_JSON_TOTAL_APPLICATIONS = "total_applications"
+PAN_JSON_TOTAL_EDL = "total_external_dynamic_lists"
+
 PAN_JSON_SEC_POLICY = "sec_policy"
 PAN_JSON_POLICY_TYPE = "policy_type"
 PAN_JSON_POLICY_NAME = "policy_name"
@@ -65,6 +67,7 @@ BLOCK_APP_GROUP_NAME = "Phantom App List for {device_group}"
 PHANTOM_ADDRESS_NAME = "Added By Phantom"
 PAN_DEV_GRP_SHARED = "shared"
 DEVICE_GRP_XPATH = "/config/devices/entry{formatted_device_entry_name}/device-group/entry[@name='{device_group}']"
+VSYS_XPATH = "/config/device/entry/vsys/entry"
 
 SEC_POL_URL_TYPE = "URL"
 SEC_POL_APP_TYPE = "App"
@@ -139,6 +142,7 @@ IP_ADDR_TAG_ELEM = "<tag><member>{tag}</member></tag>"
 TAG_CONTAINER_COMMENT = "Phantom Container ID"
 TAG_COLOR = "color7"
 TAG_XPATH = "{config_xpath}/tag"
+EDL_XPATH = "{config_xpath}/external-list"
 TAG_ELEM = "<entry name='{tag}'><color>{tag_color}</color><comments>{tag_comment}</comments></entry>"
 
 APP_LIST_XPATH = "/config/predefined/application"
@@ -155,3 +159,6 @@ DIRECTION_VALUE_LIST = ["backward", "forward"]
 VALUE_LIST_VALIDATION_MESSAGE = "Please provide valid input from {} in '{}' action parameter"
 
 DEFAULT_TIMEOUT = 30
+
+PAN_KEY_TOKEN = "key_token"
+PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
