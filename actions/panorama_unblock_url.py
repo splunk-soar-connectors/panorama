@@ -20,16 +20,16 @@ from actions import BaseAction
 
 class UnblockUrl(BaseAction):
 
-    def _unblock_url_8_and_below(self, param, action_result):
+    def _unblock_url_8_and_below(self):
 
         # Add the block url, will create the url profile if not present
-        block_url = param[PAN_JSON_URL]
-        url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=param[PAN_JSON_DEVICE_GRP])
+        block_url = self._param[PAN_JSON_URL]
+        url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._param[PAN_JSON_DEVICE_GRP])
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
         # Remove the given url from UrlFiltering > Profile > BlockList
         xpath = "{0}{1}".format(
-            URL_PROF_XPATH.format(config_xpath=self._connector.util._get_config_xpath(param), url_profile_name=url_prof_name),
+            URL_PROF_XPATH.format(config_xpath=self._connector.util._get_config_xpath(self._param), url_profile_name=url_prof_name),
             DEL_URL_XPATH.format(url=block_url))
         
         data = {'type': 'config',
@@ -37,53 +37,51 @@ class UnblockUrl(BaseAction):
                 'key': self._connector.util._key,
                 'xpath': xpath}
 
-        status, response = self._connector.util._make_rest_call(data, action_result)
-        action_result.update_summary({'delete_url_from_block_list': response})
+        status, response = self._connector.util._make_rest_call(data, self._action_result)
+        self._action_result.update_summary({'delete_url_from_block_list': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking url", action_result.get_message()))
+            return self._action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking url", self._action_result.get_message()))
 
-        url_category_del_message = action_result.get_message()
+        url_category_del_message = self._action_result.get_message()
 
-        if param.get('should_commit_changes', True):
-            status = self._connector.util._commit_and_commit_all(param, action_result)
+        if self._param.get('should_commit_changes', True):
+            status = self._connector.util._commit_and_commit_all(self._param, self._action_result)
             if phantom.is_fail(status):
-                return action_result.get_status()
+                return self._action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_message))
+        return self._action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_category_del_message))
 
-    def _unblock_url_9_and_above(self, param, action_result):
+    def _unblock_url_9_and_above(self):
 
         # Add the block url, will create the url profile if not present
-        block_url = param[PAN_JSON_URL]
+        block_url = self._param[PAN_JSON_URL]
         url_prof_name = BLOCK_URL_PROF_NAME.format(
-            device_group=param[PAN_JSON_DEVICE_GRP])
+            device_group=self._param[PAN_JSON_DEVICE_GRP])
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
         # Remove url from Objects -> Custom Objects -> URL Category
         xpath = "{0}{1}".format(
-            URL_CATEGORY_XPATH.format(config_xpath=self._connector.util._get_config_xpath(param), url_profile_name=url_prof_name),
+            URL_CATEGORY_XPATH.format(config_xpath=self._connector.util._get_config_xpath(self._param), url_profile_name=url_prof_name),
             DEL_URL_CATEGORY_XPATH.format(url=block_url))
-        self._connector.debug_print(f"==============   xpath  {xpath}")
-
         data = {'type': 'config',
                 'action': 'delete',
                 'key': self._connector.util._key,
                 'xpath': xpath}
 
-        status, response = self._connector.util._make_rest_call(data, action_result)
-        action_result.update_summary({'delete_url_from_url_category': response})
+        status, response = self._connector.util._make_rest_call(data, self._action_result)
+        self._action_result.update_summary({'delete_url_from_url_category': response})
         if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking url", action_result.get_message()))
+            return self._action_result.set_status(
+                phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking url", self._action_result.get_message()))
 
-        block_list_del_message = action_result.get_message()
+        block_list_del_message = self._action_result.get_message()
 
-        if param.get('should_commit_changes', True):
-            status = self._connector.util._commit_and_commit_all(param, action_result)
+        if self._param.get('should_commit_changes', True):
+            status = self._connector.util._commit_and_commit_all(self._param, self._action_result)
             if phantom.is_fail(status):
-                return action_result.get_status()
+                return self._action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_message))
+        return self._action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(block_list_del_message))
 
     def execute(self):
 
@@ -96,6 +94,6 @@ class UnblockUrl(BaseAction):
 
         major_version = self._connector.util._get_pan_major_version()
         if major_version < 9:
-            return self._unblock_url_8_and_below(self._param, self._action_result)
+            return self._unblock_url_8_and_below()
 
-        return self._unblock_url_9_and_above(self._param, self._action_result)
+        return self._unblock_url_9_and_above()
