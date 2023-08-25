@@ -823,16 +823,17 @@ class PanoramaUtils(object):
                 consts.PAN_ERROR_REPLY_FORMAT_KEY_MISSING.format(key='response/status')
             )
 
-        if status != 'success':
+        code = response.get('@code')
+
+        if status != 'success' or code not in [19,20]:
             action_result.set_status(
                 phantom.APP_ERROR, 
-                consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=status)
+                consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status="error")
             )
         else:
             response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
             action_result.set_status(phantom.APP_SUCCESS)
 
-        code = response.get('@code')
         if code is not None:
             response_message = "{} code: '{}'".format(response_message, code)
 
