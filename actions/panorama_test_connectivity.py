@@ -22,7 +22,7 @@ class TestConnectivityAction(BaseAction):
     def execute(self):
         
         #progress
-        self._connector.save_progress(consts.PAN_PROG_USING_BASE_URL, self._connector.base_url)
+        self._connector.save_progress(consts.PAN_PROG_USING_BASE_URL.format(base_url=self._connector.base_url))
 
         status =  self._connector.util._generate_token(self._action_result)
 

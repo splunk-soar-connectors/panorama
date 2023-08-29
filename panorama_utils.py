@@ -825,14 +825,15 @@ class PanoramaUtils(object):
 
         code = response.get('@code')
 
-        if status != 'success' or code not in [19,20]:
+        if status == "success" or code in ["19","20"]:
+            response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
+            action_result.set_status(phantom.APP_SUCCESS)
+        else:
             action_result.set_status(
                 phantom.APP_ERROR, 
                 consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status="error")
             )
-        else:
-            response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
-            action_result.set_status(phantom.APP_SUCCESS)
+            
 
         if code is not None:
             response_message = "{} code: '{}'".format(response_message, code)

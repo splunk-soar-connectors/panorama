@@ -162,3 +162,13 @@ DEFAULT_TIMEOUT = 30
 
 PAN_KEY_TOKEN = "key_token"
 PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
+
+PAN_EDL_TYPES = {
+    "Predefined IP List" : "predefined-ip",
+    "Predefined Url List" : "predefined-url",
+    "IP List" : "ip",
+    "Domain List" : "domain",
+    "URL List" : "url",
+    "Subscriber Identity List": "imsi",
+    "Equipment Identity List": "imei"
+}

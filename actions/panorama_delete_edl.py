@@ -18,7 +18,42 @@ import panorama_consts as consts
 from actions import BaseAction
 
 
-class UnblockUrl(BaseAction):
+class DeleteEdl(BaseAction):
     
     def execute(self):
-        print("name")
+        
+
+        self._connector.debug_print('Deleting EDL...')
+        edl_name =  self._param["name"]
+        
+        delete_xpath = f"{consts.EDL_XPATH.format(config_xpath=self._connector.util._get_config_xpath(self._param))}/entry[@name='{edl_name}']"
+        self._connector.debug_print(f"delete_xpath data : {delete_xpath}")
+     
+
+        data = {
+            'type': 'config',
+            'action': 'delete',
+            'key': self._connector.util._key,
+            'xpath':  delete_xpath,
+        }
+
+        status, response  =  self._connector.util._make_rest_call(data, self._action_result)
+
+        self._action_result.update_summary({'delete_edl': response})
+        if phantom.is_fail(status):
+            return self._action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("deleting edl", self._action_result.get_message()))
+        
+        message = self._action_result.get_message()
+
+        if self._param.get('should_commit_changes', True):
+            status = self._connector.util._commit_and_commit_all(self._param, self._action_result)
+            if phantom.is_fail(status):
+                return self._action_result.get_status()
+
+        return self._action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+        
+
+
+
+
+
