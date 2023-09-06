@@ -23,7 +23,6 @@ class CreateEdl(BaseAction):
 
     def generate_xml_string_for_edl(self):
 
-        edl_name = self._param["name"]
         source =  self._param["source"]
         edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"])
 
@@ -114,6 +113,10 @@ class CreateEdl(BaseAction):
                     recurring_dict[check_for_updates] = {
                         "day-of-month" : date_of_month,
                         "at" : at_hour
+                    }
+                elif check_for_updates == "daily":
+                    recurring_dict[check_for_updates] = {
+                        "at" :  at_hour
                     }
             else:
                 recurring_dict[check_for_updates] = None
