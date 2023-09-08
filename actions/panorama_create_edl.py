@@ -91,16 +91,16 @@ class CreateEdl(BaseAction):
                     }
                     
                 elif check_for_updates == "monthly":
-                    date_of_month = self._param.get("date_of_month", "")
+                    day_of_month = self._param.get("day_of_month")
 
-                    if not date_of_month:
+                    if not day_of_month:
                         self._action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list", 
-                            "date_of_month is a required key for the selected check update time"
+                            "day_of_month is a required key for the selected check update time"
                         ))
                         return phantom.APP_ERROR , {}
                     
-                    if not (date_of_month > 1 and date_of_month < 31) :
+                    if not (day_of_month > 1 and day_of_month < 31) :
                         self._action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list", 
                             "Invalid date, date must be in range 1-31"
@@ -108,10 +108,9 @@ class CreateEdl(BaseAction):
                         return phantom.APP_ERROR , {}
                     
                     # formatting date of month
-                    date_of_month = "%02d" % date_of_month
-
+                    day_of_month = str(day_of_month)
                     recurring_dict[check_for_updates] = {
-                        "day-of-month" : date_of_month,
+                        "day-of-month" : day_of_month,
                         "at" : at_hour
                     }
                 elif check_for_updates == "daily":
@@ -129,7 +128,7 @@ class CreateEdl(BaseAction):
             if expand_subdomain:
                 dict_for_xml["type"][edl_list_type]["expand-domain"] = "yes"
 
-        
+
         certificate_profile = self._param.get("certificate_profile", None)
         if certificate_profile:
             dict_for_xml["type"][edl_list_type]["certificate-profile"] = certificate_profile

@@ -2317,7 +2317,7 @@
                     ],
                     "order": 11
                 },
-                "date_of_month": {
+                "day_of_month": {
                     "description": "external dynamic list to be shared or not",
                     "data_type": "numeric",
                     "order": 12
@@ -2385,7 +2385,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.date_of_month",
+                    "data_path": "action_result.parameter.day_of_month",
                     "data_type": "string"
                 },
                 {
