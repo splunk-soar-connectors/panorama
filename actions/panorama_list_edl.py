@@ -16,36 +16,42 @@ import phantom.app as phantom
 
 import panorama_consts as consts
 from actions import BaseAction
+from phantom.action_result import ActionResult
+
 
 
 class ListEdl(BaseAction):
 
-    def execute(self):
+    def execute(self, connector):
+
+        # making action result object
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
         
         data = {
             "type": "config",
             'action': "get",
-            'key': self._connector.util._key,
-            'xpath': consts.EDL_XPATH.format(config_xpath=self._connector.util._get_config_xpath(self._param))
+            'key': self.connector.util._key,
+            'xpath': consts.EDL_XPATH.format(config_xpath=self.connector.util._get_config_xpath(self._param))
         }
 
-        status, response  =  self._connector.util._make_rest_call(data, self._action_result)
+        status, _  =  self.connector.util._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
-            return self._action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of application", self._action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of external dynamic list", action_result.get_message()))
 
-        result_data = self._action_result.get_data()
+        result_data = action_result.get_data()
         result_data = result_data.pop()
 
         try:
             result_data = result_data['external-list']['entry']
         except Exception as e:
-            error = self._connector.util._get_error_message_from_exception(e)
-            return self._action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            error = self.connector.util._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        self._action_result.update_summary({consts.PAN_JSON_TOTAL_EDL: len(result_data)})
+        action_result.update_summary({consts.PAN_JSON_TOTAL_EDL: len(result_data)})
 
-        self._action_result.update_data(result_data)
+        action_result.update_data(result_data)
 
-        return self._action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS)

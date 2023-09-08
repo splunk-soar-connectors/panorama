@@ -13,36 +13,40 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 import phantom.app as phantom
-import json
+from phantom.action_result import ActionResult
+
 
 import panorama_consts as consts
 from actions import BaseAction
 
 class ListEdl(BaseAction):
 
-    def execute(self):
+    def execute(self,connector):
 
-        self._connector.debug_print("starting list edl action")
+        self.connector.debug_print("starting list edl action")
 
-        status, _  =  self._connector.util._get_edl_data(self._param, self._action_result)
+        # making action result object
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        status, _  =  self.connector.util._get_edl_data(self._param, action_result)
 
         if phantom.is_fail(status):
-            return self._action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", self._action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message()))
 
-        result_data = self._action_result.get_data()
+        result_data = action_result.get_data()
         result_data = result_data.pop()
 
         if result_data["@total-count"] == "0":
-            return self._action_result.set_status(phantom.APP_ERROR, "No EDL found")
+            return action_result.set_status(phantom.APP_ERROR, "No EDL found")
 
         try:
             result_data = result_data['entry']
         except Exception as e:
-            error = self._connector.util._get_error_message_from_exception(e)
-            return self._action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            error = self.connector.util._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        self._action_result.update_summary({"message" : f"fetched data successfully"})
-        self._action_result.update_data([result_data])
+        action_result.update_summary({"message" : f"fetched data successfully"})
+        action_result.update_data([result_data])
 
-        return self._action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS)

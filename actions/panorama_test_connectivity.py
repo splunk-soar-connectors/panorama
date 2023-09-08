@@ -13,26 +13,29 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 import phantom.app as phantom
+from phantom.action_result import ActionResult
 
 import panorama_consts as consts
 from actions import BaseAction
 
 class TestConnectivityAction(BaseAction):
 
-    def execute(self):
+    def execute(self, connector):
+
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
         
         #progress
-        self._connector.save_progress(consts.PAN_PROG_USING_BASE_URL.format(base_url=self._connector.base_url))
+        connector.save_progress(consts.PAN_PROG_USING_BASE_URL.format(base_url=connector.base_url))
 
-        status =  self._connector.util._generate_token(self._action_result)
+        status =  connector.util._generate_token(action_result)
 
         if phantom.is_fail(status):
-            self._action_result.append_to_message(consts.PAN_ERROR_TEST_CONNECTIVITY_FAILED)
-            return self._action_result.get_status()
+            action_result.append_to_message(consts.PAN_ERROR_TEST_CONNECTIVITY_FAILED)
+            return action_result.get_status()
         
-        self._connector.save_progress(consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED)
+        connector.save_progress(consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED)
 
-        return self._action_result.set_status(
+        return action_result.set_status(
             phantom.APP_SUCCESS,
             consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED
         )
