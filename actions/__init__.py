@@ -13,18 +13,19 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-from phantom.action_result import ActionResult
+# from phantom.action_result import ActionResult
 
 
 class BaseAction:
     """Base Action class to generate the action objects."""
 
-    def __init__(self, connector, param):
+    def __init__(self, param):
         """Prepare constructor for actions.
 
         :param connector: Vision connector object
         :param param: Parameter dictionary
         """
-        self._connector = connector
-        self._action_result = connector.add_action_result(ActionResult(dict(param)))
+        # self._connector = connector
+        # self._action_result = connector.add_action_result(ActionResult(dict(param)))
+
         self._param = param

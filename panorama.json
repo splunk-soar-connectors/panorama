@@ -2847,6 +2847,2247 @@
                 "title": "List EDL"
             },
             "versions": "EQ(*)"
+        },
+        {
+            "action": "create policy",
+            "identifier": "create_policy",
+            "description": "Create a security policy rule",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "policy_name": {
+                    "description": "Name of the policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy rule name"
+                    ]
+                },
+                "rule-type": {
+                    "description": "Rule type of the policy rule.",
+                    "data_type": "string",
+                    "value_list": [
+                        "universal",
+                        "intrazone",
+                        "interzone"
+                    ],
+                    "default": "universal",
+                    "required": true,
+                    "primary": true,
+                    "order": 1,
+                    "name": "Rule Type"
+                },
+                "device_group": {
+                    "description": "Device group for which to create the policy rule.",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 0,
+                    "name": "Device Group"
+                },
+                "policy_type": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 0,
+                    "name": "Policy Type"
+                },
+                "from": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 0,
+                    "name": "Source Zone"
+                },
+                "to": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 0,
+                    "name": "Destination Zone"
+                },
+                "description": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Description"
+                },
+                "source": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "default": "any",
+                    "name": "Source Address"
+                },
+                "destination": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "default": "any",
+                    "name": "Destination Address"
+                },
+                "source-user": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Source User"
+                },
+                "source-hip": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "default": "any",
+                    "name,": "Source Device"
+                },
+                "destination-hip": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "default": "any",
+                    "name,": "Destination Device"
+                },
+                "action": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "value_list": [
+                        "allow",
+                        "deny",
+                        "drop",
+                        "reset client",
+                        "reset server",
+                        "reset both client and server"
+                    ],
+                    "order": 0,
+                    "name": "Action Type"
+                },
+                "negate-source": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "default": false,
+                    "order": 0,
+                    "name": "Negate Source"
+                },
+                "negate-destination": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "default": false,
+                    "order": 0,
+                    "name": "Negate Destination"
+                },
+                "application": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 0,
+                    "name": "Application"
+                },
+                "where": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "where"
+                },
+                "dst": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "dst"
+                },
+                "tag": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Tags",
+                    "allow_list": true
+                },
+                "category": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "category",
+                    "allow_list": true
+                },
+                "log-setting": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Log Forwarding",
+                    "allow_list": true
+                },
+                "disable": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "default": false,
+                    "order": 0,
+                    "name": "Disable"
+                },
+                "icmp-unreachable": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "default": false,
+                    "order": 0,
+                    "name": "ICMP Unreachable"
+                },
+                "service": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 0,
+                    "name": "Service"
+                },
+                "profile-setting": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "value_list":["profiles","group"],
+                    "order": 0,
+                    "name": "Profile Setting"
+                },
+                "target": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name,": "Target"
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 14
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 15
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.rule-type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.from",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.to",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source-user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source-user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source-hip",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination-hip",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.action",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.negate-source",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.negate-destination",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.application",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": " action_result.parameter.where",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.dst",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.log-setting",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.disable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.category",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.icmp-unreachable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.service",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.profile-setting",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.target",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "432"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "04:54:34"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/25 04:54:34"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/25 04:54:58"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Commit"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.details.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "Configuration committed successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "443"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "04:55:01"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/25 04:55:01"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/25 04:55:01"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "CommitAll"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.sched",
+                    "data_type": "string",
+                    "example_values": [
+                        "None"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "dg1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.warnings",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.push_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "shared-policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.create a policy rule.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.create a policy rule.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.create a policy rule.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 03:15:29"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.vsys",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "FAIL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "commit failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.tstart",
+                    "data_type": "string",
+                    "example_values": [
+                        "03:14:54"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@cmd",
+                    "data_type": "string",
+                    "example_values": [
+                        "push-data"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dname",
+                    "data_type": "string",
+                    "example_values": [
+                        "007951000393837"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@jobid",
+                    "data_type": "string",
+                    "example_values": [
+                        "169"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "harsh_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@result",
+                    "data_type": "string",
+                    "example_values": [
+                        "error"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
+                    "data_type": "string",
+                    "example_values": [
+                        "harsh_splunk_phantom_template_stack"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.app-warn",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation."
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.serial-no",
+                    "data_type": "string",
+                    "example_values": [
+                        "007951000393837"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.devicename",
+                    "data_type": "string",
+                    "example_values": [
+                        "PA-VM"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.multi-vsys",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "custom block policy",
+            "identifier": "custom_block_policy",
+            "description": "Create a custom block security policy rule.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "policy_name": {
+                    "description": "Name of the policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy rule name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group for which to create the policy rule.",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 0,
+                    "name": "Device Group"
+                },
+                "policy_type": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 0,
+                    "name": "Policy Type"
+                },
+                "direction": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "value_list": [
+                        "from",
+                        "to",
+                        "both"
+                    ],
+                    "order": 0,
+                    "name": "Description"
+                },
+                "object_value": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "name": "Description"
+                },
+                "object_type": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "value_list": [
+                        "ip",
+                        "address-group",
+                        "edl",
+                        "url-category",
+                        "application"
+                    ],
+                    "order": 0,
+                    "name": "Description"
+                },
+                "description": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Description"
+                },
+                "tag": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Tags",
+                    "allow_list": true
+                },
+                "icmp-unreachable": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "default": false,
+                    "order": 0,
+                    "name": "ICMP Unreachable"
+                },
+                "target": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name,": "Target"
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 14
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 15
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.direction",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.object_value",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.object_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.icmp-unreachable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.target",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "string"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "move policy",
+            "identifier": "move_policy",
+            "description": "Move a security policy rule.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "policy_name": {
+                    "description": "Name of the policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy rule name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group for which to create the policy rule.",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 0,
+                    "name": "Current Device Group"
+                },
+                "dst_device_group": {
+                    "description": "Device group for which to create the policy rule.",
+                    "data_type": "string",
+                    "required": false,
+                    "default": "shared",
+                    "order": 0,
+                    "name": "Destination Device Group"
+                },
+                "policy_type": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 0,
+                    "name": "Current Policy Type"
+                },
+                "dst_policy_type": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 0,
+                    "name": "Destination Policy Type"
+                },
+                "where": {
+                    "description": "where to move the policy in the device group",
+                    "data_type": "string",
+                    "required": false,
+                    "value_list": [
+                        "before",
+                        "after",
+                        "top",
+                        "bottom"
+                    ],
+                    "order": 0,
+                    "name": "Description"
+                },
+                "dst": {
+                    "description": "reference to which the policy needs to be moved.",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Destination"
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 14
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 15
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.*.response.@to",
+                    "data_type": "string",
+                    "example_values": [
+                        "/config/shared/pre-rulebase/security/rules"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@from",
+                    "data_type": "string",
+                    "example_values": [
+                        "/config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "dhwani_test_block_rule"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.dst_device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.where",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.dst",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.dst_policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.move policy rule.response.@to",
+                    "data_type": "string",
+                    "example_values": [
+                        "/config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.move policy rule.response.@from",
+                    "data_type": "string",
+                    "example_values": [
+                        "/config/shared/pre-rulebase/security/rules"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.move policy rule.response.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "dhwani_test_block_rule"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.move policy rule.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.move policy rule.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.move policy rule.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "227"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "22:13:51"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 22:13:51"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 22:14:19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Commit"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.details.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "Configuration committed successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "238"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "22:14:22"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 22:14:22"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 22:14:22"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "CommitAll"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.sched",
+                    "data_type": "string",
+                    "example_values": [
+                        "None"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "dg1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.warnings",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.push_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "shared-policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 22:14:29"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.vsys",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "FAIL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "commit failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.tstart",
+                    "data_type": "string",
+                    "example_values": [
+                        "22:14:22"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@cmd",
+                    "data_type": "string",
+                    "example_values": [
+                        "push-data"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dname",
+                    "data_type": "string",
+                    "example_values": [
+                        "007951000393837"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@jobid",
+                    "data_type": "string",
+                    "example_values": [
+                        "239"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "harsh_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@result",
+                    "data_type": "string",
+                    "example_values": [
+                        "error"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
+                    "data_type": "string",
+                    "example_values": [
+                        "harsh_splunk_phantom_template_stack"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.app-warn",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn.entry.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "{ \"uuid\" : \"e4ced49a-58db-40f5-aa5d-400bc1579da8\", \"serial\" : \"007951000393837\", \"rulename\" : \"test_rule_1\", \"ruletype\" : \"security\", \"vsys\" : [{ \"id\" : \"vsys1\", \"dgid\" : 43, \"shadowed-rule\" : [ \"Social Media Block\", \"dhwani_test\"]}]}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn.entry.*.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "e4ced49a-58db-40f5-aa5d-400bc1579da8"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.serial-no",
+                    "data_type": "string",
+                    "example_values": [
+                        "007951000393837"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.devicename",
+                    "data_type": "string",
+                    "example_values": [
+                        "PA-VM"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.multi-vsys",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "modify policy",
+            "identifier": "modify_policy",
+            "description": "Modify a security policy rule",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "policy_name": {
+                    "description": "Name of the policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy rule name"
+                    ]
+                },
+                "rule-type": {
+                    "description": "Rule type of the policy rule.",
+                    "data_type": "string",
+                    "value_list": [
+                        "universal",
+                        "intrazone",
+                        "interzone"
+                    ],
+                    "default": "universal",
+                    "required": true,
+                    "primary": true,
+                    "order": 1,
+                    "name": "Rule Type"
+                },
+                "device_group": {
+                    "description": "Device group for which to create the policy rule.",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 0,
+                    "name": "Device Group"
+                },
+                "policy_type": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 0,
+                    "name": "Policy Type"
+                },
+                "from": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Source Zone"
+                },
+                "to": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Destination Zone"
+                },
+                "description": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Description"
+                },
+                "source": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Source Address"
+                },
+                "destination": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Destination Address"
+                },
+                "source-user": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Source User"
+                },
+                "source-hip": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name,": "Source Device"
+                },
+                "destination-hip": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name,": "Destination Device"
+                },
+                "action": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "value_list": [
+                        "allow",
+                        "deny",
+                        "drop",
+                        "reset client",
+                        "reset server",
+                        "reset both client and server"
+                    ],
+                    "order": 0,
+                    "name": "Action Type"
+                },
+                "negate-source": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "order": 0,
+                    "name": "Negate Source"
+                },
+                "negate-destination": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "order": 0,
+                    "name": "Negate Destination"
+                },
+                "application": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Application"
+                },
+                "tag": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Tags",
+                    "allow_list": true
+                },
+                "category": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "category",
+                    "allow_list": true
+                },
+                "log-setting": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Log Forwarding",
+                    "allow_list": true
+                },
+                "disable": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "order": 0,
+                    "name": "Disable"
+                },
+                "icmp-unreachable": {
+                    "description": "",
+                    "data_type": "boolean",
+                    "required": false,
+                    "order": 0,
+                    "name": "ICMP Unreachable"
+                },
+                "service": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name": "Service"
+                },
+                "profile-setting": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "value_list":["profiles","group"],
+                    "order": 0,
+                    "name": "Profile Setting"
+                },
+                "target": {
+                    "description": "",
+                    "data_type": "string",
+                    "required": false,
+                    "order": 0,
+                    "name,": "Target"
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 14
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 15
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete policy",
+            "description": "Delete a security policy rule",
+            "type": "generic",
+            "identifier": "delete_policy",
+            "read_only": false,
+            "parameters": {
+                "policy_name": {
+                    "description": "Name of the policy rule to delete",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy rule name"
+                    ]
+                },
+                "policy_type": {
+                    "description": "Pre rule or Post rule",
+                    "data_type": "string",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 1,
+                    "required": true
+                },
+                "device_group": {
+                    "description": "Device group where the policy rule is present",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 2,
+                    "name": "Device Group"
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 3
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "640"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "03:31:30"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/29 03:31:30"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/29 03:31:54"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Commit"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.details.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "Configuration committed successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "651"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "03:31:57"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/29 03:31:57"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/08/29 03:31:57"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "CommitAll"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.sched",
+                    "data_type": "string",
+                    "example_values": [
+                        "None"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "dg1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.warnings",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.push_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "shared-policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/06 22:12:56"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.vsys",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "FAIL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "commit failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.tstart",
+                    "data_type": "string",
+                    "example_values": [
+                        "22:12:50"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@cmd",
+                    "data_type": "string",
+                    "example_values": [
+                        "push-data"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dname",
+                    "data_type": "string",
+                    "example_values": [
+                        "007951000393837"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@jobid",
+                    "data_type": "string",
+                    "example_values": [
+                        "214"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "harsh_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@result",
+                    "data_type": "string",
+                    "example_values": [
+                        "error"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
+                    "data_type": "string",
+                    "example_values": [
+                        "harsh_splunk_phantom_template_stack"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.app-warn",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn.entry.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "{ \"uuid\" : \"e4ced49a-58db-40f5-aa5d-400bc1579da8\", \"serial\" : \"007951000393837\", \"rulename\" : \"test_rule_1\", \"ruletype\" : \"security\", \"vsys\" : [{ \"id\" : \"vsys1\", \"dgid\" : 43, \"shadowed-rule\" : [ \"Social Media Block\", \"dhwani_test\"]}]}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn.entry.*.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "e4ced49a-58db-40f5-aa5d-400bc1579da8"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.serial-no",
+                    "data_type": "string",
+                    "example_values": [
+                        "007951000393837"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.devicename",
+                    "data_type": "string",
+                    "example_values": [
+                        "PA-VM"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.multi-vsys",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "string"
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Delete Policy",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
         }
     ],
     "pip_dependencies": {
@@ -2864,6 +5105,10 @@
                 "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
             },
             {
+                "module": "dict2xml",
+                "input_file": "wheels/py3/dict2xml-1.7.3-py3-none-any.whl"
+            },
+            {
                 "module": "idna",
                 "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
             },
@@ -2878,6 +5123,46 @@
             {
                 "module": "urllib3",
                 "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
+            },
+            {
+                "module": "xmltodict",
+                "input_file": "wheels/shared/xmltodict-0.12.0-py2.py3-none-any.whl"
+            }
+        ]
+    },
+    "pip39_dependencies": {
+        "wheel": [
+            {
+                "module": "beautifulsoup4",
+                "input_file": "wheels/py3/beautifulsoup4-4.9.1-py3-none-any.whl"
+            },
+            {
+                "module": "certifi",
+                "input_file": "wheels/py3/certifi-2023.7.22-py3-none-any.whl"
+            },
+            {
+                "module": "chardet",
+                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
+            },
+            {
+                "module": "dict2xml",
+                "input_file": "wheels/py3/dict2xml-1.7.3-py3-none-any.whl"
+            },
+            {
+                "module": "idna",
+                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
+            },
+            {
+                "module": "requests",
+                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
+            },
+            {
+                "module": "soupsieve",
+                "input_file": "wheels/py3/soupsieve-2.4.1-py3-none-any.whl"
+            },
+            {
+                "module": "urllib3",
+                "input_file": "wheels/shared/urllib3-1.26.16-py2.py3-none-any.whl"
             },
             {
                 "module": "xmltodict",

@@ -91,6 +91,11 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [list edl](#action-list-edl) - List External Dynamic List's  
 [create edl](#action-create-edl) - Create an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
+[create policy](#action-create-policy) - Create a security policy rule  
+[custom block policy](#action-custom-block-policy) - Create a custom block security policy rule.  
+[move policy](#action-move-policy) - Move a security policy rule.  
+[modify policy](#action-modify-policy) - Modify a security policy rule  
+[delete policy](#action-delete-policy) - Delete a security policy rule  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity
@@ -670,4 +675,406 @@ action_result.data | string |  |
 action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
+## action: 'create policy'
+Create a security policy rule
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
+**rule-type** |  required  | Rule type of the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**policy_type** |  required  |  | string | 
+**from** |  required  |  | string | 
+**to** |  required  |  | string | 
+**description** |  optional  |  | string | 
+**source** |  required  |  | string | 
+**destination** |  required  |  | string | 
+**source-user** |  optional  |  | string | 
+**source-hip** |  required  |  | string | 
+**destination-hip** |  required  |  | string | 
+**action** |  required  |  | string | 
+**negate-source** |  optional  |  | boolean | 
+**negate-destination** |  optional  |  | boolean | 
+**application** |  required  |  | string | 
+**where** |  optional  |  | string | 
+**dst** |  optional  |  | string | 
+**tag** |  optional  |  | string | 
+**category** |  optional  |  | string | 
+**log-setting** |  optional  |  | string | 
+**disable** |  optional  |  | boolean | 
+**icmp-unreachable** |  optional  |  | boolean | 
+**service** |  required  |  | string | 
+**profile-setting** |  optional  |  | string | 
+**target** |  optional  |  | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary | string |  |  
+action_result.status | string |  |  
+action_result.message | string |  |  
+action_result.parameter.policy_name | string |  |  
+action_result.parameter.rule-type | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.from | string |  |  
+action_result.parameter.to | string |  |  
+action_result.parameter.description | string |  |  
+action_result.parameter.source | string |  |  
+action_result.parameter.destination | string |  |  
+action_result.parameter.source-user | string |  |  
+action_result.parameter.source-user | string |  |  
+action_result.parameter.source-hip | string |  |  
+action_result.parameter.destination-hip | string |  |  
+action_result.parameter.action | string |  |  
+action_result.parameter.negate-source | string |  |  
+action_result.parameter.negate-destination | string |  |  
+action_result.parameter.application | string |  |  
+ action_result.parameter.where | string |  |  
+action_result.parameter.dst | string |  |  
+action_result.parameter.tag | string |  |  
+action_result.parameter.log-setting | string |  |  
+action_result.parameter.disable | string |  |  
+action_result.parameter.category | string |  |  
+action_result.parameter.icmp-unreachable | string |  |  
+action_result.parameter.service | string |  |  
+action_result.parameter.profile-setting | string |  |  
+action_result.parameter.target | string |  |  
+action_result.parameter.use_partial_commit | string |  |  
+action_result.parameter.should_commit_changes | string |  |  
+summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.id | string |  |   432 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   04:54:34 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/25 04:54:34 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/25 04:54:58 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   443 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   04:55:01 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/08/25 04:55:01 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/08/25 04:55:01 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.create a policy rule.response.msg | string |  |   command succeeded 
+action_result.summary.create a policy rule.response.@code | string |  |   20 
+action_result.summary.create a policy rule.response.@status | string |  |   success 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 03:15:29 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   03:14:54 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   169 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation. 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
+
+## action: 'custom block policy'
+Create a custom block security policy rule.
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
+**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**policy_type** |  required  |  | string | 
+**direction** |  optional  |  | string | 
+**object_value** |  required  |  | string | 
+**object_type** |  required  |  | string | 
+**description** |  optional  |  | string | 
+**tag** |  optional  |  | string | 
+**icmp-unreachable** |  optional  |  | boolean | 
+**target** |  optional  |  | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary | string |  |  
+action_result.status | string |  |  
+action_result.message | string |  |  
+action_result.parameter.policy_name | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.direction | string |  |  
+action_result.parameter.object_value | string |  |  
+action_result.parameter.object_type | string |  |  
+action_result.parameter.description | string |  |  
+action_result.parameter.tag | string |  |  
+action_result.parameter.icmp-unreachable | string |  |  
+action_result.parameter.target | string |  |  
+action_result.parameter.use_partial_commit | string |  |  
+action_result.parameter.should_commit_changes | string |  |    
+
+## action: 'move policy'
+Move a security policy rule.
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
+**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**dst_device_group** |  optional  | Device group for which to create the policy rule. | string | 
+**policy_type** |  required  |  | string | 
+**dst_policy_type** |  optional  |  | string | 
+**where** |  optional  | where to move the policy in the device group | string | 
+**dst** |  optional  | reference to which the policy needs to be moved. | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.data.\*.response.@to | string |  |   /config/shared/pre-rulebase/security/rules 
+action_result.data.\*.response.@from | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
+action_result.data.\*.response.member | string |  |   dhwani_test_block_rule 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary | string |  |  
+action_result.status | string |  |  
+action_result.message | string |  |  
+action_result.parameter.policy_name | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.dst_device_group | string |  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.where | string |  |  
+action_result.parameter.dst | string |  |  
+action_result.parameter.use_partial_commit | string |  |  
+action_result.parameter.should_commit_changes | string |  |  
+action_result.parameter.dst_policy_type | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
+action_result.summary.move policy rule.response.@to | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
+action_result.summary.move policy rule.response.@from | string |  |   /config/shared/pre-rulebase/security/rules 
+action_result.summary.move policy rule.response.member | string |  |   dhwani_test_block_rule 
+action_result.summary.move policy rule.response.@status | string |  |   success 
+action_result.summary.move policy rule.response.msg | string |  |   command succeeded 
+action_result.summary.move policy rule.response.@code | string |  |   20 
+action_result.summary.commit_config.finished_job.id | string |  |   227 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   22:13:51 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/06 22:13:51 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/06 22:14:19 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   238 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   22:14:22 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/06 22:14:22 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/06 22:14:22 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 22:14:29 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:14:22 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   239 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
+
+## action: 'modify policy'
+Modify a security policy rule
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
+**rule-type** |  required  | Rule type of the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**policy_type** |  required  |  | string | 
+**from** |  optional  |  | string | 
+**to** |  optional  |  | string | 
+**description** |  optional  |  | string | 
+**source** |  optional  |  | string | 
+**destination** |  optional  |  | string | 
+**source-user** |  optional  |  | string | 
+**source-hip** |  optional  |  | string | 
+**destination-hip** |  optional  |  | string | 
+**action** |  optional  |  | string | 
+**negate-source** |  optional  |  | boolean | 
+**negate-destination** |  optional  |  | boolean | 
+**application** |  optional  |  | string | 
+**tag** |  optional  |  | string | 
+**category** |  optional  |  | string | 
+**log-setting** |  optional  |  | string | 
+**disable** |  optional  |  | boolean | 
+**icmp-unreachable** |  optional  |  | boolean | 
+**service** |  optional  |  | string | 
+**profile-setting** |  optional  |  | string | 
+**target** |  optional  |  | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary | string |  |  
+action_result.status | string |  |    
+
+## action: 'delete policy'
+Delete a security policy rule
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**policy_name** |  required  | Name of the policy rule to delete | string |  `panorama policy rule name` 
+**policy_type** |  required  | Pre rule or Post rule | string | 
+**device_group** |  required  | Device group where the policy rule is present | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.id | string |  |   640 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   03:31:30 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/29 03:31:30 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/29 03:31:54 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   651 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:31:57 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/08/29 03:31:57 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/08/29 03:31:57 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 22:12:56 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:12:50 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   214 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary | string |  |  
+action_result.status | string |  |  
+action_result.message | string |  |  
+action_result.parameter.policy_name | string |  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.use_partial_commit | string |  |  
+action_result.parameter.should_commit_changes | string |  |  

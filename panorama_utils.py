@@ -1,6 +1,7 @@
 import re
 import time
 
+import dict2xml
 import encryption_helper
 import phantom.app as phantom
 import requests
@@ -964,3 +965,58 @@ class PanoramaUtils(object):
         name = "{0} {1}".format(rem_slash(ip), consts.PHANTOM_ADDRESS_NAME)
 
         return name
+
+    def _get_action_element(self, param):
+        element = ""
+        status=False
+        for params in param.keys():
+            if param[params]:
+                if params in ['rule-type', 'description', 'action', 'target', 'profile-setting']:
+                    status, result = self.element_prep(params, param[params])
+                elif isinstance(param[params],bool) and params not in ['use_partial_commit', 'should_commit_changes']:
+                    status, result = self.element_prep(params, param[params], is_bool=True)
+                elif params in ['from', 'to', 'source', 'destination', 'source-user', 'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']:
+                    status, result = self.element_prep(params, param[params], member=True)
+                if status:
+                    element += result
+                    status=False
+        return element
+
+    def element_prep(self, param_name, param_val=None, member=False, is_bool=False):
+
+        temp_element = dict
+        status = True
+        if param_val:
+            param_list=[]
+            try:
+                param_list = param_val.split(",")
+            except Exception as e:
+                pass
+            if param_name == "target":
+                if len(param_list) > 1:
+                    temp_dict = {}
+                    temp_dict["devices"] = param_val
+                    param_val = dict2xml.dict2xml(temp_dict)       
+                temp_element = f'<{param_name}><devices><entry name ="{param_val}"/></devices></{param_name}>'
+                return status, temp_element
+            elif param_name == "profile-setting":
+                temp_element = temp_element = f'<{param_name}><{param_val}/></{param_name}>'
+                return status, temp_element
+            elif is_bool:
+                if param_val:
+                    param_val = "yes"
+                else:
+                    param_val = "no"
+            if member:
+                if len(param_list) > 1:
+                    temp_dict = {}
+                    temp_dict["member"] = param_list
+                    param_val = dict2xml.dict2xml(temp_dict)
+                else:
+                    param_val = f'<member>{param_val}</member>'
+
+            temp_element = f'<{param_name}>{param_val}</{param_name}>'
+        if len(temp_element) == 0:
+            status = False
+
+        return status, temp_element

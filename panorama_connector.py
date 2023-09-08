@@ -15,28 +15,15 @@
 #
 #
 # Phantom imports
-import os
-from importlib import import_module
-import re
-import shutil
 import sys
-import time
-import uuid
-from datetime import datetime
-
-from actions import BaseAction
+from importlib import import_module
 
 import phantom.app as phantom
-import phantom.rules as phrules
-import requests
-import xmltodict
-from bs4 import UnicodeDammit
-from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
-from panorama_utils import PanoramaUtils
-from phantom.vault import Vault
 
 import panorama_consts as consts
+from actions import BaseAction
+from panorama_utils import PanoramaUtils
 
 
 class PanoramaConnector(BaseConnector):
@@ -52,16 +39,6 @@ class PanoramaConnector(BaseConnector):
         self.is_state_updated = False
         self.base_url = None
         self.key = None
-        
-        # # undefined
-        # self._dev_sys_key = None
-
-        # # old params
-        # self._base_url = None
-        # self._key = None
-        # self._version = None
-        # self._param = None
-        # self._device_groups = {}
 
     def initialize(self):
 
@@ -81,7 +58,7 @@ class PanoramaConnector(BaseConnector):
         # Create the util object and use it throughout the action lifecycle
         self.util = PanoramaUtils(self)
         return phantom.APP_SUCCESS
-    
+
 
     def finalize(self):
         if self.is_state_updated:
@@ -102,26 +79,11 @@ class PanoramaConnector(BaseConnector):
 
         base_action_sub_classes = BaseAction.__subclasses__()
         self.debug_print(f"Finding action module: {action_name}")
-        for action_class in base_action_sub_classes:
-            if action_class.__module__ == action_name:
-                action = action_class(self, param)
-                return action.execute()
-
-        action_id = self.get_action_identifier()
-        # self.debug_print("action_id", self.get_action_identifier())
-
-        action_name = f"actions.panorama_{action_id}"
-        import_module(action_name, package="actions")
-
-        base_action_sub_classes = BaseAction.__subclasses__()
-        # self.debug_print(f"Finding action module: {action_name}")
-        for action_class in base_action_sub_classes:
-            if action_class.__module__ == action_name:
-                action = action_class(self, param)
-                return action.execute()
-
-        # self.debug_print("Action not implemented"
-        return phantom.APP_ERROR
+        try:
+            action = base_action_sub_classes[0](param)
+            return action.execute(self)
+        except:
+            return phantom.APP_ERROR
 
 
 if __name__ == '__main__':
@@ -135,12 +97,9 @@ if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         in_json = f.read()
         in_json = json.loads(in_json)
-        print(json.dumps(in_json, indent=4))
 
         connector = PanoramaConnector()
         connector.print_progress_message = True
         result = connector._handle_action(json.dumps(in_json), None)
-
-        print(result)
 
     sys.exit(0)
