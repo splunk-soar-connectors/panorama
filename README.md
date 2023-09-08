@@ -614,7 +614,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **check_for_updates** |  optional  | After what interval to check for updates | string | 
 **at_hour** |  optional  | external dynamic list to be shared or not | numeric | 
 **day** |  optional  | external dynamic list to be shared or not | string | 
-**date_of_month** |  optional  | external dynamic list to be shared or not | numeric | 
+**day_of_month** |  optional  | external dynamic list to be shared or not | numeric | 
 **exception_list** |  optional  | list of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -633,7 +633,7 @@ action_result.parameter.certificate_profile | string |  |
 action_result.parameter.check_for_updates | string |  |  
 action_result.parameter.at_hour | string |  |  
 action_result.parameter.day | string |  |  
-action_result.parameter.date_of_month | string |  |  
+action_result.parameter.day_of_month | string |  |  
 action_result.parameter.exception_list | string |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.parameter.use_partial_commit | boolean |  |  
