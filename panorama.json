@@ -2227,6 +2227,80 @@
             "versions": "EQ(*)"
         },
         {
+            "action" : "reference edl",
+            "identifier": "reference_edl",
+            "description": "Create an External Dynamic List",
+            "read_only": true,
+            "type": "investigate",
+            "parameters": {
+                "name": {
+                    "description": "Name of external dynamic list",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true
+                },
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json",
+                "title": "Reference EDL"
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "create edl",
             "identifier": "create_edl",
             "description": "Create an External Dynamic List",
@@ -2273,7 +2347,10 @@
                 },
                 "expand_for_subdomains": {
                     "description": "Automatically expand to include subdomains",
-                    "data_type": "boolean",
+                    "data_type" : "string",
+                    "value_list":[
+                        "yes","no"
+                    ],
                     "order": 5
                 },
                 "disable_override": {
@@ -2363,6 +2440,233 @@
                 {
                     "data_path": "action_result.parameter.expand_for_subdomains",
                     "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.disable_override",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.certificate_profile",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.check_for_updates",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.at_hour",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.day",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.day_of_month",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.exception_list",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "List EDL"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "modify edl",
+            "identifier": "modify_edl",
+            "description": "Modify an External Dynamic List",
+            "read_only": true,
+            "type": "investigate",
+            "parameters": {
+                "name": {
+                    "description": "Name of external dynamic list",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true
+                },
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true
+                },
+                "description": {
+                    "description": "Description of external dynamic list",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "list_type": {
+                    "description": "Type of external dynamic list",
+                    "data_type": "string",
+                    "value_list": [
+                        "Predefined IP List",
+                        "Predefined URL List",
+                        "IP List",
+                        "Domain List",
+                        "URL List",
+                        "Subscriber Identity List",
+                        "Equipment Identity List"
+                    ],
+                    "order": 3
+                },
+                "source": {
+                    "description": "Source",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "expand_for_subdomains": {
+                    "description": "Automatically expand to include subdomains",
+                    "data_type": "string",
+                    "value_list":[
+                        "yes",
+                        "no"
+                    ],
+                    "order": 5
+                },
+                "disable_override": {
+                    "description": "external dynamic list to be shared or not",
+                    "data_type": "string",
+                    "value_list":[
+                        "yes",
+                        "no"
+                    ],
+                    "order": 7
+                },
+                "certificate_profile": {
+                    "description": "certificate profile for the edl",
+                    "data_type": "string",
+                    "order": 8
+                },
+                "check_for_updates": {
+                    "description": "After what interval to check for updates",
+                    "data_type": "string",
+                    "value_list": [
+                        "five-minute",
+                        "hourly",
+                        "daily",
+                        "weekly",
+                        "monthly"
+                    ],
+                    "order": 9
+                },
+                "at_hour": {
+                    "description": "external dynamic list to be shared or not",
+                    "data_type": "numeric",
+                    "order": 10
+                },
+                "day": {
+                    "description": "external dynamic list to be shared or not",
+                    "data_type": "string",
+                    "value_list": [
+                        "monday",
+                        "tuesday",
+                        "wednesday",
+                        "thursday",
+                        "friday",
+                        "saturday",
+                        "sunday"
+                    ],
+                    "order": 11
+                },
+                "day_of_month": {
+                    "description": "external dynamic list to be shared or not",
+                    "data_type": "numeric",
+                    "order": 12
+                },
+                "exception_list" : {
+                    "description": "list of exceptions (comma separated values)",
+                    "data_type": "string",
+                    "order": 13
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 14
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 15
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.list_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.expand_for_subdomains",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",

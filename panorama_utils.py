@@ -98,7 +98,7 @@ class PanoramaUtils(object):
 
         if device_group.lower() == consts.PAN_DEV_GRP_SHARED:
             return "/config/shared"
-        
+
         formatted_device_entry_name = ""
         if device_entry_name:
             formatted_device_entry_name = "[@name='{}']".format(device_entry_name)
@@ -882,11 +882,30 @@ class PanoramaUtils(object):
             self._connector.debug_print("Error occurred while decrypting the state file.", e)
             state = {"app_version": self._connector.get_app_json().get("app_version")}
         return state
+    
+    def _get_edl_data(self,param, action_result):
+
+        edl_name = param["name"]
+        get_edl_xpath = f"{consts.EDL_XPATH.format(config_xpath=self._get_config_xpath(param))}/entry[@name='{edl_name}']"
         
+        data = {
+            "type": "config",
+            'action': "get",
+            'key': self._key,
+            'xpath': get_edl_xpath
+        }
+
+        status, response  =  self._make_rest_call(data, action_result)
+
+        if phantom.is_fail(status):
+            return phantom.APP_ERROR, {}
+
+        return phantom.APP_SUCCESS, response
+
 
     def _update_audit_comment(self, param, action_result):
-        """Create or Update Audit comment for the Policy rule
-
+        """
+        Create or Update Audit comment for the Policy rule
         Precondition: The policy name must be provided
         If the given Audit comment is empty, we won't be sending any update.
         Adding an Audit comment does not require Commit after.
