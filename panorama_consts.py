@@ -24,7 +24,7 @@ PAN_ERROR_DEVICE_CONNECTIVITY = "Error in connecting to device"
 PAN_ERROR_PARSE_POLICY_DATA = "Unable to parse security policy config"
 PAN_ERROR_NO_POLICY_ENTRIES_FOUND = "Could not find any security policies to update"
 PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and "
-"type '{policy_type}'.")
+                                           "type '{policy_type}'.")
 PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
 PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
 PAN_ERROR_NO_JOB_ID = "Could not find Job ID in response body"
@@ -154,6 +154,7 @@ COMMIT_ALL_DEV_GRP_DEV_CMD += '</shared-policy></commit-all>'
 
 # Constants relating to value_list check
 POLICY_TYPE_VALUE_LIST = ["pre-rulebase", "post-rulebase"]
+RULE_TYPE_VALUE_LIST = ["universal", "intrazone", "interzone"]
 LOG_TYPE_VALUE_LIST = ["traffic", "url", "corr", "data", "threat", "config", "system", "hipmatch", "wildfire", "corr-categ", "corr-detail"]
 DIRECTION_VALUE_LIST = ["backward", "forward"]
 VALUE_LIST_VALIDATION_MESSAGE = "Please provide valid input from {} in '{}' action parameter"
@@ -164,11 +165,60 @@ PAN_KEY_TOKEN = "key_token"
 PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
 
 PAN_EDL_TYPES = {
-    "Predefined IP List" : "predefined-ip",
-    "Predefined Url List" : "predefined-url",
-    "IP List" : "ip",
-    "Domain List" : "domain",
-    "URL List" : "url",
+    "Predefined IP List": "predefined-ip",
+    "Predefined Url List": "predefined-url",
+    "IP List": "ip",
+    "Domain List": "domain",
+    "URL List": "url",
     "Subscriber Identity List": "imsi",
     "Equipment Identity List": "imei"
+}
+
+# Constants related to Policy rule
+PAN_JSON_NAME = "policy_name"
+PAN_JSON_POLICY_TYPE = "policy_type"
+PAN_JSON_RULE_TYPE = "rule_type"
+PAN_JSON_ACTION_TYPE = "action"
+PAN_JSON_SOURCE_ZONE = "from"
+PAN_JSON_DESTINATION_ADDRESS = "destination"
+PAN_JSON_SOURCE_ADDRESS = "source"
+PAN_JSON_DESTINATION_ZONE = "to"
+PAN_JSON_DESCRIPTION = "description"
+PAN_JSON_SOURCE = "source"
+PAN_JSON_DESTINATION = "destination"
+PAN_JSON_NEGATE_SOURCE = "negate-source"
+PAN_JSON_NEGATE_DESTINATION = "negate-destination"
+PAN_JSON_APPLICATION = "application"
+PAN_JSON_WHERE = "where"
+PAN_JSON_DST = "dst"
+PAN_JSON_TAGS = "tag"
+PAN_JSON_CATEGORY = "category"
+PAN_JSON_LOG_FORWARDING = "log-setting"
+PAN_JSON_DISABLE = "disable"
+PAN_JSON_ICMP_UNREACHABLE = "icmp-unreachable"
+PAN_JSON_SERVICE = "service"
+PAN_JSON_PROFILE_SETTING = "profile-setting"
+PAN_JSON_TARGET = "target"
+PAN_JSON_SOURCE_USER = "source-user"
+
+PAN_JSON_OBJ_TYPE = "object_type"
+PAN_JSON_OBJ_VAL = "object_value"
+PAN_JSON_DIR = "direction"
+
+OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
+
+param_mapping = {
+    "rule_type": "rule-type",
+    "source_user": "source-user",
+    "source_device": "source-hip",
+    "destination_device": "destination-hip",
+    "negate_source": "negate-source",
+    "negate_destination": "negate-destination",
+    "log_forwarding": "log-setting",
+    "icmp_unreachable": "icmp-unreachable",
+    "profile_setting": "profile-setting",
+    "source_address": "source",
+    "destination_address": "destination",
+    "source_zone": "to",
+    "destination_zone": "from"
 }
