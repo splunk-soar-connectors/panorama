@@ -89,7 +89,9 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
 [get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
 [list edl](#action-list-edl) - List External Dynamic List's  
+[reference edl](#action-reference-edl) - Create an External Dynamic List  
 [create edl](#action-create-edl) - Create an External Dynamic List  
+[modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
 [create policy](#action-create-policy) - Create a security policy rule  
 [custom block policy](#action-custom-block-policy) - Create a custom block security policy rule.  
@@ -599,6 +601,30 @@ action_result.summary | string |  |
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
+## action: 'reference edl'
+Create an External Dynamic List
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of external dynamic list | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
 ## action: 'create edl'
 Create an External Dynamic List
 
@@ -613,7 +639,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description of external dynamic list | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source | string | 
-**expand_for_subdomains** |  optional  | Automatically expand to include subdomains | boolean | 
+**expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
 **disable_override** |  optional  | external dynamic list to be shared or not | boolean | 
 **certificate_profile** |  optional  | certificate profile for the edl | string | 
 **check_for_updates** |  optional  | After what interval to check for updates | string | 
@@ -633,6 +659,56 @@ action_result.parameter.description | string |  |
 action_result.parameter.list_type | string |  |  
 action_result.parameter.source | boolean |  |  
 action_result.parameter.expand_for_subdomains | boolean |  |  
+action_result.parameter.disable_override | string |  |  
+action_result.parameter.certificate_profile | string |  |  
+action_result.parameter.check_for_updates | string |  |  
+action_result.parameter.at_hour | string |  |  
+action_result.parameter.day | string |  |  
+action_result.parameter.day_of_month | string |  |  
+action_result.parameter.exception_list | string |  |  
+action_result.parameter.should_commit_changes | boolean |  |  
+action_result.parameter.use_partial_commit | boolean |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
+## action: 'modify edl'
+Modify an External Dynamic List
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of external dynamic list | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**description** |  optional  | Description of external dynamic list | string | 
+**list_type** |  optional  | Type of external dynamic list | string | 
+**source** |  optional  | Source | string | 
+**expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
+**disable_override** |  optional  | external dynamic list to be shared or not | string | 
+**certificate_profile** |  optional  | certificate profile for the edl | string | 
+**check_for_updates** |  optional  | After what interval to check for updates | string | 
+**at_hour** |  optional  | external dynamic list to be shared or not | numeric | 
+**day** |  optional  | external dynamic list to be shared or not | string | 
+**day_of_month** |  optional  | external dynamic list to be shared or not | numeric | 
+**exception_list** |  optional  | list of exceptions (comma separated values) | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.description | string |  |  
+action_result.parameter.list_type | string |  |  
+action_result.parameter.source | string |  |  
+action_result.parameter.expand_for_subdomains | string |  |  
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.certificate_profile | string |  |  
 action_result.parameter.check_for_updates | string |  |  
