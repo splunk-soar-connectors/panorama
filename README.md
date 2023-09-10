@@ -640,12 +640,12 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source | string | 
 **expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
-**disable_override** |  optional  | external dynamic list to be shared or not | boolean | 
+**disable_override** |  optional  | external dynamic list to be shared or not | string | 
 **certificate_profile** |  optional  | certificate profile for the edl | string | 
 **check_for_updates** |  optional  | After what interval to check for updates | string | 
-**at_hour** |  optional  | external dynamic list to be shared or not | numeric | 
+**at_hour** |  optional  | external dynamic list to be shared or not | string | 
 **day** |  optional  | external dynamic list to be shared or not | string | 
-**day_of_month** |  optional  | external dynamic list to be shared or not | numeric | 
+**day_of_month** |  optional  | external dynamic list to be shared or not | string | 
 **exception_list** |  optional  | list of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -693,9 +693,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **disable_override** |  optional  | external dynamic list to be shared or not | string | 
 **certificate_profile** |  optional  | certificate profile for the edl | string | 
 **check_for_updates** |  optional  | After what interval to check for updates | string | 
-**at_hour** |  optional  | external dynamic list to be shared or not | numeric | 
+**at_hour** |  optional  | external dynamic list to be shared or not | string | 
 **day** |  optional  | external dynamic list to be shared or not | string | 
-**day_of_month** |  optional  | external dynamic list to be shared or not | numeric | 
+**day_of_month** |  optional  | external dynamic list to be shared or not | string | 
 **exception_list** |  optional  | list of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
