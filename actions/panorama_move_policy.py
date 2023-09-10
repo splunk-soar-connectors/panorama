@@ -22,7 +22,7 @@ from panorama_consts import (PAN_ERROR_MESSAGE, PAN_JSON_DEVICE_GRP, PAN_JSON_DS
 
 class MovePolicy(BaseAction):
 
-    def execute(self,connector):
+    def execute(self, connector):
 
         connector.debug_print("Inside Move policy action")
 
@@ -30,7 +30,7 @@ class MovePolicy(BaseAction):
 
         policy_name = self._param[PAN_JSON_POLICY_NAME]
         dst_device_group = self._param.get("dst_device_group", None)
-        curr_device_group=self._param[PAN_JSON_DEVICE_GRP]
+        curr_device_group = self._param[PAN_JSON_DEVICE_GRP]
         curr_pre_post = self._param[PAN_JSON_POLICY_TYPE]
         dst_pre_post = self._param.get("dst_policy_type", None)
         where = self._param.get(PAN_JSON_WHERE, None)
@@ -38,13 +38,18 @@ class MovePolicy(BaseAction):
 
         # validate policy type
         if curr_pre_post not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE))
+            return action_result.set_status(
+                phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
+            )
 
         if dst_pre_post and dst_pre_post not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, "dst_pre_post"))
+            return action_result.set_status(
+                phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, "dst_pre_post")
+            )
 
-        if (dst_pre_post and not dst_device_group) or (not dst_pre_post and dst_device_group) :
-            return action_result.set_status(phantom.APP_ERROR, "both 'dst_pre_post' and 'dst_device_group' are dependent hence either provide value for both or none.")
+        if (dst_pre_post and not dst_device_group) or (not dst_pre_post and dst_device_group):
+            return action_result.set_status(
+                phantom.APP_ERROR, "both 'dst_pre_post' and 'dst_device_group' are dependent hence either provide value for both or none.")
 
         if not where and not dst_pre_post and not dst_device_group:
             return action_result.set_status(phantom.APP_ERROR, "either 'where' or 'dst_device group' and 'dst_pre_post' is required.")
@@ -58,14 +63,15 @@ class MovePolicy(BaseAction):
         }
 
         if dst_device_group:
-            param={
-                PAN_JSON_DEVICE_GRP:dst_device_group,
-                PAN_JSON_POLICY_NAME:policy_name,
-                PAN_JSON_POLICY_TYPE:dst_pre_post
+            param = {
+                PAN_JSON_DEVICE_GRP: dst_device_group,
+                PAN_JSON_POLICY_NAME: policy_name,
+                PAN_JSON_POLICY_TYPE: dst_pre_post
             }
-            xpath=f"{connector.util._get_security_policy_xpath(param,action_result,True)[1]}"
-            param[PAN_JSON_DEVICE_GRP]=curr_device_group
-            element = f'<selected-list><source xpath="{connector.util._get_security_policy_xpath(param,action_result,True)[1]}"><member>{policy_name}</member></source></selected-list><all-errors>no</all-errors>'
+            xpath = f"{connector.util._get_security_policy_xpath(param,action_result,True)[1]}"
+            param[PAN_JSON_DEVICE_GRP] = curr_device_group
+            element = f'<selected-list><source xpath="{connector.util._get_security_policy_xpath(param,action_result,True)[1]}">\
+                <member>{policy_name}</member></source></selected-list><all-errors>no</all-errors>'
             data.update(
                 {
                     'action': 'multi-move',
@@ -86,7 +92,7 @@ class MovePolicy(BaseAction):
             )
         status, response = connector.util._make_rest_call(data, action_result)
         action_result.add_data(response)
-        message=action_result.get_message()
+        message = action_result.get_message()
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
         if self._param.get('should_commit_changes', True):

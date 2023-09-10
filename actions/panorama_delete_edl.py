@@ -13,47 +13,41 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 import phantom.app as phantom
+from phantom.action_result import ActionResult
 
 import panorama_consts as consts
 from actions import BaseAction
 
 
 class DeleteEdl(BaseAction):
-    
-    def execute(self):
-        
 
-        self._connector.debug_print('Deleting EDL...')
-        edl_name =  self._param["name"]
-        
-        delete_xpath = f"{consts.EDL_XPATH.format(config_xpath=self._connector.util._get_config_xpath(self._param))}/entry[@name='{edl_name}']"
-        self._connector.debug_print(f"delete_xpath data : {delete_xpath}")
-     
+    def execute(self, connector):
+
+        # making action result object
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        edl_name = self._param["name"]
+
+        delete_xpath = f"{consts.EDL_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param))}/entry[@name='{edl_name}']"
 
         data = {
             'type': 'config',
             'action': 'delete',
-            'key': self._connector.util._key,
+            'key': connector.util._key,
             'xpath':  delete_xpath,
         }
 
-        status, response  =  self._connector.util._make_rest_call(data, self._action_result)
+        status, response = connector.util._make_rest_call(data, action_result)
 
-        self._action_result.update_summary({'delete_edl': response})
+        action_result.update_summary({'delete_edl': response})
         if phantom.is_fail(status):
-            return self._action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("deleting edl", self._action_result.get_message()))
-        
-        message = self._action_result.get_message()
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("deleting edl", action_result.get_message()))
+
+        message = action_result.get_message()
 
         if self._param.get('should_commit_changes', True):
-            status = self._connector.util._commit_and_commit_all(self._param, self._action_result)
+            status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
-                return self._action_result.get_status()
+                return action_result.get_status()
 
-        return self._action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
-        
-
-
-
-
-
+        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))

@@ -6,7 +6,6 @@ import encryption_helper
 import phantom.app as phantom
 import requests
 import xmltodict
-
 from phantom.action_result import ActionResult
 
 import panorama_consts as consts
@@ -29,7 +28,7 @@ class PanoramaUtils(object):
         if connector:
             connector.state = self._decrypt_state(connector.state)
             self._key = connector.state.get(consts.PAN_KEY_TOKEN)
-    
+
     def _get_error_message_from_exception(self, e):
         """Get an appropriate error message from the exception.
 
@@ -56,19 +55,19 @@ class PanoramaUtils(object):
             error_text = f"Error code: {error_code}. Error message: {error_msg}"
 
         return error_text
-    
+
     def _load_pan_version(self, action_result):
-        
+
         self._connector.debug_print("Inside load pan version function")
         data = {
-            "type": "version", 
+            "type": "version",
             "key": self._key
         }
-        
+
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message())
             )
         self._connector.debug_print("after make rest call")
@@ -86,7 +85,7 @@ class PanoramaUtils(object):
 
         return status
 
-    def _get_config_xpath(self, param , device_entry_name = ""):
+    def _get_config_xpath(self, param, device_entry_name=""):
         """Return the xpath to the specified device group
 
         device_entry_name should default to 'localhost.localdomain'.
@@ -103,28 +102,24 @@ class PanoramaUtils(object):
         formatted_device_entry_name = ""
         if device_entry_name:
             formatted_device_entry_name = "[@name='{}']".format(device_entry_name)
-        
-        return consts.DEVICE_GRP_XPATH.format(
-            formatted_device_entry_name = formatted_device_entry_name,
-            device_group=device_group
-        )
 
-    
+        return consts.DEVICE_GRP_XPATH.format(formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
+
     def _make_rest_call(self, data, action_result):
 
         self._connector.debug_print("Making rest call")
 
         try:
             response = requests.post(
-                self._connector.base_url, 
-                data=data, 
-                verify= self._connector.config[phantom.APP_JSON_VERIFY], 
+                self._connector.base_url,
+                data=data,
+                verify=self._connector.config[phantom.APP_JSON_VERIFY],
                 timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
             self._connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY, e)
             return (action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_DEVICE_CONNECTIVITY,
                 self._get_error_message_from_exception(e)
             ), e)
@@ -138,7 +133,7 @@ class PanoramaUtils(object):
         except Exception as e:
             self._connector.save_progress(consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY)
             return (action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY,
                 self._get_error_message_from_exception(e)),
                 xml)
@@ -172,7 +167,7 @@ class PanoramaUtils(object):
         action_result.update_summary({'add_url_to_url_category': response})
 
         return status
-    
+
     def _generate_token(self, action_result):
 
         # get credentials to generate a key
@@ -180,18 +175,18 @@ class PanoramaUtils(object):
         password = self._connector.config["password"]
 
         data = {
-            "type" : "keygen",
-            "user" : username,
-            "password" : password
+            "type": "keygen",
+            "user": username,
+            "password": password
         }
 
         self._connector.debug_print("Make a rest call to generate key token")
         try:
-            response =  requests.post(
+            response = requests.post(
                 self._connector.base_url,
-                data= data,
-                verify= self._connector.config.get("verify_server_cert", True),
-                timeout= consts.DEFAULT_TIMEOUT
+                data=data,
+                verify=self._connector.config.get("verify_server_cert", True),
+                timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
             self._connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY)
@@ -201,25 +196,25 @@ class PanoramaUtils(object):
                 self._get_error_message_from_exception(e)
             )
         self._connector.debug_print("Done making a rest call to generate key token")
-        
+
         xml = response.text
 
         # parse xml response into dict
         try:
-            response_dict =  xmltodict.parse(xml)
+            response_dict = xmltodict.parse(xml)
         except Exception as e:
             return action_result.set_status(
                 phantom.APP_ERROR,
                 consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY,
                 self._get_error_message_from_exception(e)
             )
-        
+
         response = response_dict.get("response")
 
         if response is None:
             message = consts.PAN_ERROR_REPLY_FORMAT_KEY_MISSING.format(key=response)
             return action_result.set_status(phantom.APP_ERROR, message)
-        
+
         status = response.get("@status")
 
         if status is None:
@@ -229,7 +224,7 @@ class PanoramaUtils(object):
         if status != "success":
             message = consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=status)
             return action_result.set_status(phantom.APP_ERROR, message)
-        
+
         result = response.get('result')
 
         if result is None:
@@ -243,10 +238,9 @@ class PanoramaUtils(object):
             return action_result.set_status(phantom.APP_ERROR, message)
 
         self._key = key
-        self._connector.state[consts.PAN_KEY_TOKEN] =  self._key
+        self._connector.state[consts.PAN_KEY_TOKEN] = self._key
         self._connector.is_state_updated = True
         return phantom.APP_SUCCESS
-
 
     def _add_commit_status(self, job, action_result):
         """Update the given result based on the given Finish job
@@ -269,7 +263,7 @@ class PanoramaUtils(object):
                 status_string = '{}{}'.format(status_string, '\n'.join(job['details']['line']))
             except Exception as e:
                 self._connector.debug_print(
-                    "Parsing commit status dict, handled exception", 
+                    "Parsing commit status dict, handled exception",
                     self._get_error_message_from_exception(e)
                 )
 
@@ -376,7 +370,7 @@ class PanoramaUtils(object):
                 self._connector.debug_print("Failed to find a finished job. Reason: %s" % e)
                 error = self._get_error_message_from_exception(e)
                 return action_result.set_status(
-                    phantom.APP_ERROR, 
+                    phantom.APP_ERROR,
                     "Error occurred while processing response from server. {}".format(error)
                 )
 
@@ -387,7 +381,7 @@ class PanoramaUtils(object):
 
         self._connector.debug_print("DONE Committing Config changes")
         return action_result.get_status()
-    
+
     def _get_all_device_groups(self, param, action_result):
         """Get all the device groups configured on the system"""
 
@@ -436,24 +430,21 @@ class PanoramaUtils(object):
         action_result.set_status(phantom.APP_ERROR)
 
         return phantom.APP_SUCCESS, device_groups
-    
+
     def _get_device_commit_details_string(self, commit_all_device_details):
 
-        try:
-            if type(commit_all_device_details) == str or type(commit_all_device_details) == unicode:
-                return commit_all_device_details
-        except:
-            if type(commit_all_device_details) == str:
-                return commit_all_device_details
+        if type(commit_all_device_details) == str:
+            return commit_all_device_details
 
         if type(commit_all_device_details) == dict:
             try:
                 return "{0}, warnings: {1}".format('\n'.join(commit_all_device_details['msg']['errors']['line']),
                         '\n'.join(commit_all_device_details['msg']['warnings']['line']))
             except Exception as e:
-                self._connector.debug_print("Parsing commit all device details dict, handled exception", self._get_error_message_from_exception(e))
+                self._connector.debug_print("Parsing commit all device details dict, handled exception",
+                                            self._get_error_message_from_exception(e))
                 return "UNKNOWN"
-    
+
     def _parse_device_group_job_response(self, job, action_result):
 
         status_string = ''
@@ -468,7 +459,7 @@ class PanoramaUtils(object):
             devices = job['devices']['entry']
         except Exception as e:
             self._connector.debug_print(
-                "Parsing commit all message, handled exception", 
+                "Parsing commit all message, handled exception",
                 self._get_error_message_from_exception(e)
             )
             devices = []
@@ -489,7 +480,8 @@ class PanoramaUtils(object):
                         self._get_device_commit_details_string(device['details']))
                 status_string = "{0}<li>{1}</li>".format(status_string, device_status)
             except Exception as e:
-                self._connector.debug_print("Parsing commit all message for a single device, handled exception", self._get_error_message_from_exception(e))
+                self._connector.debug_print("Parsing commit all message for a single device, handled exception",
+                                            self._get_error_message_from_exception(e))
 
         status_string = '{}</ul>'.format(status_string)
 
@@ -639,7 +631,7 @@ class PanoramaUtils(object):
         self._connector.debug_print('Done Commit actions')
 
         return action_result.get_status()
-    
+
     def _get_security_policy_xpath(self, param, action_result):
         """Return the xpath to the given Security Policy name"""
         try:
@@ -655,7 +647,7 @@ class PanoramaUtils(object):
                 self._get_error_message_from_exception(e)), None)
 
         return (phantom.APP_SUCCESS, rules_xpath)
-    
+
     def _does_policy_exist(self, param, action_result):
 
         status, rules_xpath = self._get_security_policy_xpath(param, action_result)
@@ -694,7 +686,7 @@ class PanoramaUtils(object):
             return (phantom.APP_SUCCESS, False)
 
         return (phantom.APP_SUCCESS, True)
-    
+
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
         """
         Perform any Policy updates on the xpath to the given Security Policy name
@@ -718,7 +710,7 @@ class PanoramaUtils(object):
 
         if not policy_present:
             return action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE
             )
 
@@ -737,7 +729,7 @@ class PanoramaUtils(object):
             element = consts.URL_PROF_SEC_POL_ELEM.format(url_prof_name=name)
         else:
             return action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_CREATE_UNKNOWN_TYPE_SEC_POL
             )
 
@@ -745,7 +737,7 @@ class PanoramaUtils(object):
 
         if phantom.is_fail(status):
             return action_result.get_status()
-        
+
         data = {
             'type': 'config',
             'action': 'set',
@@ -767,7 +759,7 @@ class PanoramaUtils(object):
 
         self._connector.debug_print('Done _update_security_policy')
         return phantom.APP_SUCCESS
-    
+
     def _parse_response_msg(self, response, action_result, response_message):
 
         msg = response.get("msg")
@@ -792,16 +784,12 @@ class PanoramaUtils(object):
             return
 
         # parse it as a string
-        try:
-            if type(msg) == str or type(msg) == unicode:
-                response_message = "{} message: '{}'".format(response_message, msg)
-                action_result.append_to_message(msg)
-        except:
-            if type(msg) == str:
-                response_message = "{} message: '{}'".format(response_message, msg)
-                action_result.append_to_message(msg)
+        if type(msg) == str:
+            response_message = "{} message: '{}'".format(response_message, msg)
+            action_result.append_to_message(msg)
+
         return response_message
-    
+
     def _parse_response(self, response_dict, action_result):
 
         # multiple keys could be present even if the response is a failure
@@ -812,7 +800,7 @@ class PanoramaUtils(object):
 
         if response is None:
             return action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_REPLY_FORMAT_KEY_MISSING.format(key='response')
             )
 
@@ -820,21 +808,20 @@ class PanoramaUtils(object):
 
         if status is None:
             return action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_REPLY_FORMAT_KEY_MISSING.format(key='response/status')
             )
 
         code = response.get('@code')
 
-        if status == "success" or code in ["19","20"]:
+        if status == "success" or code in ["19", "20"]:
             response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
             action_result.set_status(phantom.APP_SUCCESS)
         else:
             action_result.set_status(
-                phantom.APP_ERROR, 
+                phantom.APP_ERROR,
                 consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status="error")
             )
-            
 
         if code is not None:
             response_message = "{} code: '{}'".format(response_message, code)
@@ -849,7 +836,7 @@ class PanoramaUtils(object):
             action_result.add_data(result)
 
         return action_result.get_status()
-    
+
     def _get_pan_major_version(self):
         # version follows this format '7.1.4'.
         return int(self._version.split('.')[0])
@@ -883,12 +870,12 @@ class PanoramaUtils(object):
             self._connector.debug_print("Error occurred while decrypting the state file.", e)
             state = {"app_version": self._connector.get_app_json().get("app_version")}
         return state
-    
-    def _get_edl_data(self,param, action_result):
+
+    def _get_edl_data(self, param, action_result):
 
         edl_name = param["name"]
         get_edl_xpath = f"{consts.EDL_XPATH.format(config_xpath=self._get_config_xpath(param))}/entry[@name='{edl_name}']"
-        
+
         data = {
             "type": "config",
             'action': "get",
@@ -896,13 +883,12 @@ class PanoramaUtils(object):
             'xpath': get_edl_xpath
         }
 
-        status, response  =  self._make_rest_call(data, action_result)
+        status, response = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return phantom.APP_ERROR, {}
 
         return phantom.APP_SUCCESS, response
-
 
     def _update_audit_comment(self, param, action_result):
         """
@@ -956,7 +942,6 @@ class PanoramaUtils(object):
 
         return action_result.get_status()
 
-        
     def _get_addr_name(self, ip):
 
         # Remove the slash in the ip if present, PAN does not like slash in the names
@@ -968,18 +953,19 @@ class PanoramaUtils(object):
 
     def _get_action_element(self, param):
         element = ""
-        status=False
+        status = False
         for params in param.keys():
             if param[params]:
                 if params in ['rule-type', 'description', 'action', 'target', 'profile-setting']:
                     status, result = self.element_prep(params, param[params])
-                elif isinstance(param[params],bool) and params not in ['use_partial_commit', 'should_commit_changes']:
+                elif isinstance(param[params], bool) and params not in ['use_partial_commit', 'should_commit_changes']:
                     status, result = self.element_prep(params, param[params], is_bool=True)
-                elif params in ['from', 'to', 'source', 'destination', 'source-user', 'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']:
+                elif params in ['from', 'to', 'source', 'destination', 'source-user', 'service',
+                                'source-hip', 'destination-hip', 'application', 'tag', 'category']:
                     status, result = self.element_prep(params, param[params], member=True)
                 if status:
                     element += result
-                    status=False
+                    status = False
         return element
 
     def element_prep(self, param_name, param_val=None, member=False, is_bool=False):
@@ -987,16 +973,16 @@ class PanoramaUtils(object):
         temp_element = dict
         status = True
         if param_val:
-            param_list=[]
+            param_list = []
             try:
                 param_list = param_val.split(",")
-            except Exception as e:
+            except Exception:
                 pass
             if param_name == "target":
                 if len(param_list) > 1:
                     temp_dict = {}
                     temp_dict["devices"] = param_val
-                    param_val = dict2xml.dict2xml(temp_dict)       
+                    param_val = dict2xml.dict2xml(temp_dict)
                 temp_element = f'<{param_name}><devices><entry name ="{param_val}"/></devices></{param_name}>'
                 return status, temp_element
             elif param_name == "profile-setting":

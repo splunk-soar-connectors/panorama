@@ -12,16 +12,18 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-import phantom.app as phantom
 import datetime
+import os
 import shutil
+import uuid
+
+import phantom.app as phantom
+import phantom.rules as phrules
 import requests
+from phantom.vault import Vault
+
 import panorama_consts as consts
 from actions import BaseAction
-from phantom.vault import Vault
-import phantom.rules as phrules
-import os
-import uuid
 
 
 class GetThreatPcap(BaseAction):
@@ -70,7 +72,6 @@ class GetThreatPcap(BaseAction):
         # Set the action_result status to error, the handler function will most probably return as is
         return phantom.APP_ERROR, None
 
-
     def _make_rest_download(self, params, method="get"):
 
         self._connector.debug_print("Making rest call")
@@ -82,12 +83,11 @@ class GetThreatPcap(BaseAction):
 
         try:
             response = request_method(
-                self._connector.base_url, 
-                params=params, 
-                verify=self._connector.config[phantom.APP_JSON_VERIFY], 
+                self._connector.base_url,
+                params=params,
+                verify=self._connector.config[phantom.APP_JSON_VERIFY],
                 timeout=consts.DEFAULT_TIMEOUT
             )
-
         except Exception as e:
             self._connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY, e)
             return (
@@ -101,7 +101,7 @@ class GetThreatPcap(BaseAction):
             return True, response.content
 
         return self._action_result.set_status(
-            phantom.APP_SUCCESS, 
+            phantom.APP_SUCCESS,
             f"Unable to get PCAP - {response.text}"
             )
 
@@ -147,5 +147,3 @@ class GetThreatPcap(BaseAction):
         self._action_result.set_summary({"message": "PCAP file added successfully to the vault"})
 
         return self._action_result.set_status(phantom.APP_SUCCESS)
-
-

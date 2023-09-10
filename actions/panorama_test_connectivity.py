@@ -18,29 +18,24 @@ from phantom.action_result import ActionResult
 import panorama_consts as consts
 from actions import BaseAction
 
+
 class TestConnectivityAction(BaseAction):
 
     def execute(self, connector):
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
-        
-        #progress
+
         connector.save_progress(consts.PAN_PROG_USING_BASE_URL.format(base_url=connector.base_url))
 
-        status =  connector.util._generate_token(action_result)
+        status = connector.util._generate_token(action_result)
 
         if phantom.is_fail(status):
             action_result.append_to_message(consts.PAN_ERROR_TEST_CONNECTIVITY_FAILED)
             return action_result.get_status()
-        
+
         connector.save_progress(consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED)
 
         return action_result.set_status(
             phantom.APP_SUCCESS,
             consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED
         )
-
-
-        
-
-        

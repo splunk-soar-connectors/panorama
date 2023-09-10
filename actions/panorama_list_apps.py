@@ -13,6 +13,7 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 import phantom.app as phantom
+from phantom.action_result import ActionResult
 
 import panorama_consts as consts
 from actions import BaseAction
@@ -20,32 +21,34 @@ from actions import BaseAction
 
 class ListApps(BaseAction):
 
-    def execute(self):
+    def execute(self, connector):
+
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         # Add the address to the phantom address group
         data = {
             "type": "config",
             'action': "get",
-            'key': self._connector.util._key,
+            'key': connector.util._key,
             'xpath': consts.APP_LIST_XPATH
         }
 
-        status, response = self._connector.util._make_rest_call(data, self._action_result)
+        status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
-            return self._action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of application", self._action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of application", action_result.get_message()))
 
         # Move things around, so that result data is an array of applications
-        result_data = self._action_result.get_data()
+        result_data = action_result.get_data()
         result_data = result_data.pop()
         try:
             result_data = result_data['application']['entry']
         except Exception as e:
-            error = self._connector.util._get_error_message_from_exception(e)
-            return self._action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            error = connector.util._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        self._action_result.update_summary({consts.PAN_JSON_TOTAL_APPLICATIONS: len(result_data)})
+        action_result.update_summary({consts.PAN_JSON_TOTAL_APPLICATIONS: len(result_data)})
 
-        self._action_result.update_data(result_data)
+        action_result.update_data(result_data)
 
-        return self._action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS)

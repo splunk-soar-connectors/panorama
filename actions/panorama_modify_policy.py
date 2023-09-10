@@ -19,11 +19,11 @@ from actions.panorama_create_policy import CreatePolicy
 
 class ModifyPolicy(BaseAction):
 
-    def execute(self,connector):
+    def execute(self, connector):
 
         connector.debug_print("Inside Modify policy action")
 
         policy_rule_obj = CreatePolicy(self._param)
-        response=policy_rule_obj.execute(connector)
+        response = policy_rule_obj.execute(connector)
 
         return response

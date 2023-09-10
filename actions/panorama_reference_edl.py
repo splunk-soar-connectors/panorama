@@ -15,20 +15,20 @@
 import phantom.app as phantom
 from phantom.action_result import ActionResult
 
-
 import panorama_consts as consts
 from actions import BaseAction
 
+
 class ListEdl(BaseAction):
 
-    def execute(self,connector):
+    def execute(self, connector):
 
         self.connector.debug_print("starting list edl action")
 
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        status, _  =  self.connector.util._get_edl_data(self._param, action_result)
+        status, _ = self.connector.util._get_edl_data(self._param, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(
@@ -46,7 +46,7 @@ class ListEdl(BaseAction):
             error = self.connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        action_result.update_summary({"message" : f"fetched data successfully"})
+        action_result.update_summary({"message": "fetched data successfully"})
         action_result.update_data([result_data])
 
         return action_result.set_status(phantom.APP_SUCCESS)

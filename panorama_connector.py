@@ -53,12 +53,10 @@ class PanoramaConnector(BaseConnector):
 
         self.base_url = "https://{}/api/".format(self.config[phantom.APP_JSON_DEVICE])
 
-
         self._dev_sys_key = "device-group"
         # Create the util object and use it throughout the action lifecycle
         self.util = PanoramaUtils(self)
         return phantom.APP_SUCCESS
-
 
     def finalize(self):
         if self.is_state_updated:
@@ -67,7 +65,6 @@ class PanoramaConnector(BaseConnector):
             self.save_state(self.state)
         return phantom.APP_SUCCESS
 
-
     def handle_action(self, param):
 
         action_id = self.get_action_identifier()
@@ -75,7 +72,6 @@ class PanoramaConnector(BaseConnector):
 
         action_name = f"actions.panorama_{action_id}"
         import_module(action_name, package="actions")
-
 
         base_action_sub_classes = BaseAction.__subclasses__()
         self.debug_print(f"Finding action module: {action_name}")

@@ -13,11 +13,10 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 import phantom.app as phantom
+from phantom.action_result import ActionResult
 
 import panorama_consts as consts
 from actions import BaseAction
-from phantom.action_result import ActionResult
-
 
 
 class ListEdl(BaseAction):
@@ -27,7 +26,6 @@ class ListEdl(BaseAction):
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        
         data = {
             "type": "config",
             'action': "get",
@@ -35,7 +33,7 @@ class ListEdl(BaseAction):
             'xpath': consts.EDL_XPATH.format(config_xpath=self.connector.util._get_config_xpath(self._param))
         }
 
-        status, _  =  self.connector.util._make_rest_call(data, action_result)
+        status, _ = self.connector.util._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(

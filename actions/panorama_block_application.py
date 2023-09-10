@@ -13,15 +13,20 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 import phantom.app as phantom
+from phantom.action_result import ActionResult
+
 import panorama_consts as consts
 from actions import BaseAction
 
 
 class BlockApplication(BaseAction):
 
-    def execute(self):
+    def execute(self, connector):
 
-        self._connector.debug_print("Creating the Application Group")
+        connector.debug_print("Creating the Application Group")
+
+        # making action result object
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         block_app = self._param[consts.PAN_JSON_APPLICATION]
 
@@ -33,29 +38,30 @@ class BlockApplication(BaseAction):
         data = {
             "type": "config",
             "action": "set",
-            "key": self._connector.util._key,
-            "xpath": consts.APP_GRP_XPATH.format(config_xpath=self._connector.util._get_config_xpath(self._param),
+            "key": connector.util._key,
+            "xpath": consts.APP_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param),
                                               app_group_name=app_group_name),
             "element": consts.APP_GRP_ELEM.format(app_name=block_app)}
 
-        status, response = self._connector.util._make_rest_call(data, self._action_result)
-        self._action_result.update_summary({"add_application_to_application_group": response})
+        status, response = connector.util._make_rest_call(data, action_result)
+        action_result.update_summary({"add_application_to_application_group": response})
 
         if phantom.is_fail(status):
-            return self._action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking application", self._action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking application", action_result.get_message())
+            )
 
-        message = self._action_result.get_message()
+        message = action_result.get_message()
 
         if self._param.get("policy_name", ""):
-            status = self._connector.util._update_security_policy(self._param, consts.SEC_POL_APP_TYPE, self._action_result, app_group_name)
+            status = connector.util._update_security_policy(self._param, consts.SEC_POL_APP_TYPE, action_result, app_group_name)
             if phantom.is_fail(status):
-                return self._action_result.set_status(phantom.APP_ERROR,
-                                                consts.PAN_ERROR_MESSAGE.format("blocking application", self._action_result.get_message()))
+                return action_result.set_status(phantom.APP_ERROR,
+                                                consts.PAN_ERROR_MESSAGE.format("blocking application", action_result.get_message()))
 
         if self._param.get("should_commit_changes", True):
-            status = self._connector.util._commit_and_commit_all(self._param, self._action_result)
+            status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
-                return self._action_result.get_status()
+                return action_result.get_status()
 
-        return self._action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
-
+        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))

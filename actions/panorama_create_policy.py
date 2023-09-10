@@ -16,7 +16,6 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-# from panorama_consts import PAN_JSON_POLICY_NAME, PAN_JSON_RULE_TYPE, PAN_JSON_ACTION_TYPE, PAN_JSON_POLICY_TYPE, PAN_JSON_SOURCE_ZONE,  PAN_JSON_DESTINATION_ZONE, PAN_JSON_DESCRIPTION, PAN_JSON_SOURCE, PAN_JSON_DESTINATION, PAN_JSON_NEGATE_SOURCE, PAN_JSON_NEGATE_DESTINATION, PAN_JSON_APPLICATION, PAN_JSON_WHERE, PAN_JSON_DST, PAN_JSON_TAGS, PAN_JSON_CATEGORY, PAN_JSON_LOG_FORWARDING, PAN_JSON_DISABLE, PAN_JSON_ICMP_UNREACHABLE, PAN_JSON_SERVICE, PAN_JSON_PROFILE_SETTING, PAN_JSON_TARGET, PAN_JSON_SOURCE_USER, PAN_JSON_DEVICE_GRP,PAN_ERROR_MESSAGE
 from panorama_consts import *
 
 
@@ -35,7 +34,9 @@ class CreatePolicy(BaseAction):
 
         # validate policy type
         if policy_type and policy_type.lower() not in POLICY_TYPE_VALUE_LIST:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE))
+            return action_result.set_status(
+                phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
+            )
 
         # validate object type in case of create custom block policy
         if self._param.get(PAN_JSON_OBJ_TYPE) and self._param.get(PAN_JSON_OBJ_TYPE) not in OBJ_TYPE_VALUE_LIST:
