@@ -23,12 +23,12 @@ class ListEdl(BaseAction):
 
     def execute(self, connector):
 
-        self.connector.debug_print("starting list edl action")
+        connector.debug_print("starting list edl action")
 
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        status, _ = self.connector.util._get_edl_data(self._param, action_result)
+        status, _ = connector.util._get_edl_data(self._param, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(
@@ -43,7 +43,7 @@ class ListEdl(BaseAction):
         try:
             result_data = result_data['entry']
         except Exception as e:
-            error = self.connector.util._get_error_message_from_exception(e)
+            error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
         action_result.update_summary({"message": "fetched data successfully"})

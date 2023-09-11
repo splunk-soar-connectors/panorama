@@ -29,11 +29,11 @@ class ListEdl(BaseAction):
         data = {
             "type": "config",
             'action': "get",
-            'key': self.connector.util._key,
-            'xpath': consts.EDL_XPATH.format(config_xpath=self.connector.util._get_config_xpath(self._param))
+            'key': connector.util._key,
+            'xpath': consts.EDL_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param))
         }
 
-        status, _ = self.connector.util._make_rest_call(data, action_result)
+        status, _ = connector.util._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(
@@ -45,7 +45,7 @@ class ListEdl(BaseAction):
         try:
             result_data = result_data['external-list']['entry']
         except Exception as e:
-            error = self.connector.util._get_error_message_from_exception(e)
+            error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
         action_result.update_summary({consts.PAN_JSON_TOTAL_EDL: len(result_data)})
