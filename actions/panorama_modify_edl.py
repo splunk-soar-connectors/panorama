@@ -115,56 +115,49 @@ class ModifyEdl(BaseAction):
         recurring_dict = {}
         if edl_list_type not in ["predefined-ip", "predefined-url"]:
 
-            valid_values = {"five-minute", "hourly", "weekly", "monthly", "daily"}
-
+            valid_cfu_values = {"five-minute", "hourly", "weekly", "monthly", "daily"}
             old_check_for_updates = ""
+            old_at_hour = None
+            old_day_of_week = None
+            old_day_of_month = None
             if old_edl_list_type not in ["predefined-ip", "predefined-url"]:
                 for key in existing_data["type"][old_edl_list_type]["recurring"].keys():
-                    if key in valid_values:
+                    if key in valid_cfu_values:
                         old_check_for_updates = key
                         break
 
+                # fetch data for recurring params
+                if old_check_for_updates in ["weekly", "monthly", "daily"]:
+                    # fetch at_hour data from existing data
+                    old_at_hour = existing_data["type"][old_edl_list_type]["recurring"][old_check_for_updates].get("at")
+
+                    if old_check_for_updates == "weekly":
+                        # fetch day_of_week data from existing data
+                        old_day_of_week = existing_data["type"][old_edl_list_type]["recurring"][old_check_for_updates].get("day-of-week")
+
+                    elif old_check_for_updates == "monthly":
+                        # fetch day_of_week data from existing data
+                        old_day_of_month = existing_data["type"][old_edl_list_type]["recurring"][old_check_for_updates].get("day-of-month")
+
             # if user has not provided value for check_for_updates
             if not check_for_updates:
-                check_for_updates = old_check_for_updates
-
-                # if check_for_updates has no values return error
-                if not check_for_updates:
+                if not old_check_for_updates:
                     return action_result.set_status(
                         phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list",
                             "check_for_updates is a required key for the selected edl type"
                         )), ""
+                check_for_updates = old_check_for_updates
 
-            old_at_hour = None
-            old_day_of_week = None
-            old_day_of_month = None
-
-            if old_check_for_updates not in ["five-minute", "hourly"]:
-
-                # fetch at_hour data from existing data
-                old_at_hour = existing_data["type"][old_edl_list_type]["recurring"][old_check_for_updates].get("at")
-
-                if old_check_for_updates == "weekly":
-                    # fetch day_of_week data from existing data
-                    old_day_of_week = existing_data["type"][old_edl_list_type]["recurring"][old_check_for_updates].get("day-of-week")
-
-                elif old_check_for_updates == "monthly":
-                    # fetch day_of_week data from existing data
-                    old_day_of_month = existing_data["type"][old_edl_list_type]["recurring"][old_check_for_updates].get("day-of-month")
-
-            if check_for_updates not in ["five-minute", "hourly"]:
+            if check_for_updates in ["weekly", "monthly", "daily"]:
 
                 if not at_hour:
-                    at_hour = old_at_hour if old_at_hour else None
-
-                    # if at_hour has no values return error
-                    if not at_hour:
+                    if not old_at_hour:
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list",
                             "at_hour is a required key for the selected check update time"
                         )), ""
-
+                    at_hour = old_at_hour
                     if isinstance(at_hour, dict):
                         at_hour = at_hour.get("#text")
 
@@ -180,17 +173,14 @@ class ModifyEdl(BaseAction):
                 at_hour = "%02d" % at_hour
 
                 if check_for_updates == "weekly":
-
                     # check if date_of_week is provided or not
                     if not day_of_week:
-                        day_of_week = old_day_of_week
-                        # if day_of_week has no values return error
-                        if not day_of_week:
+                        if not old_day_of_week:
                             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                                 "modifying external dynamic list",
                                 "day_of_week is a required key for the selected check update time"
                             )), ""
-
+                        day_of_week = old_day_of_week
                         if isinstance(day_of_week, dict):
                             day_of_week = day_of_week.get("#text")
 
@@ -202,16 +192,12 @@ class ModifyEdl(BaseAction):
                 elif check_for_updates == "monthly":
                     # check if day_of_month is provided or not
                     if not day_of_month:
-
-                        day_of_month = old_day_of_month
-
-                        # if day_of_month has no values return error
-                        if not day_of_month:
+                        if not old_day_of_month:
                             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                                 "modifying external dynamic list",
                                 "day_of_month is a required key for the selected check update time"
                             )), ""
-
+                        day_of_month = old_day_of_month
                         if isinstance(day_of_month, dict):
                             day_of_month = day_of_month.get("#text")
 
@@ -249,7 +235,6 @@ class ModifyEdl(BaseAction):
 
                 if isinstance(expand_subdomain, dict):
                     expand_subdomain = expand_subdomain.get("#text")
-
                 if expand_subdomain:
                     dict_for_xml["entry"]["type"][edl_list_type]["expand-domain"] = expand_subdomain
 
@@ -260,7 +245,6 @@ class ModifyEdl(BaseAction):
 
             if isinstance(certificate_profile, dict):
                 certificate_profile = certificate_profile.get("#text")
-
             if certificate_profile:
                 dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
 
@@ -300,8 +284,8 @@ class ModifyEdl(BaseAction):
 
                 if isinstance(disable_override, dict):
                     disable_override = disable_override.get("#text")
-
-                dict_for_xml["entry"]["disable-override"] = disable_override
+                if disable_override:
+                    dict_for_xml["entry"]["disable-override"] = disable_override
 
         # convert dict to xml
         element_xml = xmltodict.unparse(dict_for_xml, short_empty_elements=True)

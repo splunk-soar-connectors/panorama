@@ -44,7 +44,7 @@ class CreateEdl(BaseAction):
         recurring_dict = {}
         if edl_list_type not in ["predefined-ip", "predefined-url"]:
 
-            check_for_updates = self._param.get("check_for_updates", "")
+            check_for_updates = self._param.get("check_for_updates")
 
             if not check_for_updates:
                 return action_result.set_status(
@@ -53,7 +53,7 @@ class CreateEdl(BaseAction):
                         "check_for_updates is a required key for the selected edl type"
                     )), {}
 
-            if check_for_updates not in ["five-minute", "hourly"]:
+            if check_for_updates in ["weekly", "monthly", "daily"]:
 
                 at_hour = self._param.get("at_hour")
 
@@ -74,7 +74,7 @@ class CreateEdl(BaseAction):
                 at_hour = "%02d" % at_hour
 
                 if check_for_updates == "weekly":
-                    day_of_week = self._param.get("day", "")
+                    day_of_week = self._param.get("day")
 
                     if not day_of_week:
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
