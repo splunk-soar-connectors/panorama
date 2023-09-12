@@ -85,6 +85,25 @@ class PanoramaUtils(object):
 
         return status
 
+    def _validate_string(self, action_result, string_to_validate, param_name, max_len):
+        regex = "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
+        string_len = len(string_to_validate)
+
+        if not (string_len > 0 and string_len < max_len):
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                f"Invalid length for {param_name} parameter, max length of string can be 31"
+            )
+
+        if not re.search(regex, string_to_validate):
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                f"Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
+                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"
+            )
+
+        return phantom.APP_SUCCESS
+
     def _get_config_xpath(self, param, device_entry_name=""):
         """Return the xpath to the specified device group
 
@@ -793,7 +812,6 @@ class PanoramaUtils(object):
     def _parse_response(self, response_dict, action_result):
 
         # multiple keys could be present even if the response is a failure
-        self._connector.debug_print('response_dict', response_dict)
 
         response = response_dict.get('response')
         response_message = None
@@ -814,7 +832,7 @@ class PanoramaUtils(object):
 
         code = response.get('@code')
 
-        if status == "success" or code in ["19", "20"]:
+        if status == "success" and code in ["19", "20"]:
             response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
             action_result.set_status(phantom.APP_SUCCESS)
         else:

@@ -26,6 +26,11 @@ class ListEdl(BaseAction):
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
+        device_group = self._param["device_group"]
+        status = connector.util._validate_string(action_result, device_group, "device group", 31)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
         data = {
             "type": "config",
             'action': "get",
@@ -43,13 +48,17 @@ class ListEdl(BaseAction):
         result_data = result_data.pop()
 
         try:
-            result_data = result_data['external-list']['entry']
+            result_data = result_data["external-list"].get("entry")
+            if not result_data:
+                return action_result.set_status(phantom.APP_ERROR, "No edl's found in the device group")
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        action_result.update_summary({consts.PAN_JSON_TOTAL_EDL: len(result_data)})
+        if isinstance(result_data, dict):
+            result_data = [result_data]
 
+        action_result.update_summary({consts.PAN_JSON_TOTAL_EDL: len(result_data)})
         action_result.update_data(result_data)
 
         return action_result.set_status(phantom.APP_SUCCESS)
