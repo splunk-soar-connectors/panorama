@@ -98,6 +98,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [move policy](#action-move-policy) - Move a security policy rule.  
 [modify policy](#action-modify-policy) - Modify a security policy rule  
 [delete policy](#action-delete-policy) - Delete a security policy rule  
+[create address](#action-create-address) - Create an address on the panorama platform  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity
@@ -1153,4 +1154,78 @@ action_result.parameter.policy_name | string |  |
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.device_group | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
-action_result.parameter.should_commit_changes | string |  |  
+action_result.parameter.should_commit_changes | string |  |    
+
+## action: 'create address'
+Create an address on the panorama platform
+
+Type: **generic**  
+Read only: **False**
+
+<p>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></p>
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of address | string | 
+**ip** |  required  | IP address | string |  `ip`  `ipv6` 
+**tags** |  optional  | Tags want to apply on an address | string | 
+**disable_override** |  optional  | Dissable override on an address | boolean | 
+**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**description** |  optional  | Description of address | string | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  |  
+action_result.parameter.ip | string |  `ip`  `ipv6`  |  
+action_result.parameter.tags | string |  |  
+action_result.parameter.disable_override | boolean |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.use_partial_commit | boolean |  |  
+action_result.parameter.should_commit_changes | boolean |  |  
+action_result.parameter.description | string |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.id | string |  |   622 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   03:06:14 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/11 03:06:14 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/11 03:06:40 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.create_address.response.msg | string |  |   command succeeded 
+action_result.summary.create_address.response.@code | string |  |   20 
+action_result.summary.create_address.response.@status | string |  |   success 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   633 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:06:43 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/11 03:06:43 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/11 03:06:43 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   share 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
