@@ -145,6 +145,11 @@ TAG_XPATH = "{config_xpath}/tag"
 EDL_XPATH = "{config_xpath}/external-list"
 TAG_ELEM = "<entry name='{tag}'><color>{tag_color}</color><comments>{tag_comment}</comments></entry>"
 
+START_TAG = "<entry name='{tag}'>"
+END_TAG = "</entry>"
+TAG_COMMENT = "Tag created from phantom"
+ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
+
 APP_LIST_XPATH = "/config/predefined/application"
 COMMIT_ALL_DEV_GRP_DEV_CMD = '<commit-all><shared-policy>'
 COMMIT_ALL_DEV_GRP_DEV_CMD += '<device-group>'

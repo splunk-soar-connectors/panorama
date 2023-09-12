@@ -1,6 +1,6 @@
 import re
 import time
-
+import ipaddress
 import dict2xml
 import encryption_helper
 import phantom.app as phantom
@@ -1024,3 +1024,107 @@ class PanoramaUtils(object):
             status = False
 
         return status, temp_element
+
+    def _get_ip_type(self, connector, action_result, ip_address):
+        """ Figure out the type of IP
+
+        Args:
+            ip_address (_type_): IP address
+            action_result (_type_): action result object
+
+        Returns:
+            ip_type: Type of given IP address
+        """
+        connector.debug_print(f"Starting checking type of - {ip_address}")
+        if ip_address.find('/') != -1:
+            ip_type = 'ip-netmask'
+        elif ip_address.find('-') != -1:
+            ip_type = 'ip-range'
+        elif self._is_ip(ip_address):
+            ip_type = 'ip-netmask'
+        elif self._validate_fqdn(ip_address):
+            ip_type = 'fqdn'
+        else:
+            action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_INVALID_IP_FORMAT)
+            return phantom.APP_ERROR, None
+        connector.debug_print(f"Ending checking type of - {ip_address}")
+        return phantom.APP_SUCCESS, ip_type
+
+    def _create_tag(self, connector, action_result, param, tags, comment=consts.TAG_COMMENT, color=None):
+        """ Create tag based on provided parameters
+
+        Args:
+            connector: Phanotm connector object
+            action_result: Phanotm action result object
+            param (dict): parameters dictonary
+            tags (str): Tags that need to create
+            comment (str, optional): Comment added in tag. Defaults to consts.TAG_COMMENT.
+            color (str, optional): Color provided to tag. Defaults to None.
+
+        Returns:
+            APP_SUCCESS/APP_ERROR: Phantom success/error boolen object
+            xml_tag_string = XML string regarding tag
+        """
+        xml_tag_string = None
+        if tags:
+            xml_tag_string = "<tag>"
+
+            for tag in tags:
+                connector.debug_print(f'Adding {tag} tag...')
+
+                element_xml = consts.START_TAG.format(tag=tag)
+                if color:
+                    element_xml += "<color>{color}</color>".format(color=color)
+                if comment:
+                    element_xml += "<comments>{tag_comment}</comments>".format(tag_comment=comment)
+                element_xml += consts.END_TAG
+
+                data = {
+                    'type': 'config',
+                    'action': 'set',
+                    'key': self._key,
+                    'xpath': consts.TAG_XPATH.format(config_xpath=self._get_config_xpath(param)),
+                    'element': element_xml
+                }
+                status, response = self._make_rest_call(data, action_result)
+                summary = ({'add_tag': response})
+                if phantom.is_fail(status):
+                    action_result.update_summary({'add_address_entry': summary})
+                    return action_result.get_status(), None
+
+                connector.debug_print(f'Done adding {tag} tag...')
+                xml_tag_string += f"<member>{tag}</member>"
+
+            xml_tag_string += "</tag>"
+
+        return phantom.APP_SUCCESS, xml_tag_string
+
+    def _is_ip(self, input_ip_address):
+        """
+        Function that checks given address and return True if address is valid IPv4 or IPV6 address.
+
+        :param input_ip_address: IP address
+        :return: status (success/failure)
+        """
+
+        try:
+            ipaddress.ip_address(input_ip_address)
+        except Exception:
+            return False
+        return True
+
+    def _validate_fqdn(self, dn):
+        """ Validating FQDN
+        Args:
+            dn : Hostname
+        Returns:
+            true/false(boolean) : True/False
+        """
+
+        if dn.endswith('.'):
+            dn = dn[:-1]
+        if len(dn) < 1 or len(dn) > 253:
+            return False
+        ldh_re = re.compile('^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$',
+                            re.IGNORECASE)
+        return all(ldh_re.match(x) for x in dn.split('.'))

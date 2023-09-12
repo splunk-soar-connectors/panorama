@@ -5099,6 +5099,391 @@
                 "height": 5
             },
             "versions": "EQ(*)"
+        },
+        {
+            "action": "create address",
+            "identifier": "create_address",
+            "description": "Create an address on the panorama platform",
+            "verbose": "<p>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></p>",
+            "read_only": false,
+            "type": "generic",
+            "parameters": {
+                "name": {
+                    "description": "Name of address",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true
+                },
+                "ip": {
+                    "description": "IP address",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true,
+                    "contains": [
+                        "ip",
+                        "ipv6"
+                    ]
+                },
+                "tags": {
+                    "description": "Tags want to apply on an address",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "disable_override": {
+                    "description": "Dissable override on an address",
+                    "data_type": "boolean",
+                    "order": 3
+                },
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 4,
+                    "required": true
+                },
+                "description": {
+                    "description": "Description of address",
+                    "data_type": "string",
+                    "order": 5
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 6
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 7
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "column_name": "Address Name",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.ip",
+                    "data_type": "string",
+                    "column_name": "IP",
+                    "column_order": 1,
+                    "contains": [
+                        "ip",
+                        "ipv6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.tags",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.disable_override",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "622"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "03:06:14"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/11 03:06:14"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/11 03:06:40"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Commit"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.details.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "Configuration committed successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.create_address.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.create_address.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.create_address.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "633"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "03:06:43"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/11 03:06:43"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/11 03:06:43"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "CommitAll"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.sched",
+                    "data_type": "string",
+                    "example_values": [
+                        "None"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "share"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "NO"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.warnings",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.push_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "shared-policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "Create Address"
+            },
+            "versions": "EQ(*)"
         }
     ],
     "pip_dependencies": {
