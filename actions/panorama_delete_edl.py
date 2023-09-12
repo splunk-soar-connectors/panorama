@@ -28,6 +28,10 @@ class DeleteEdl(BaseAction):
 
         edl_name = self._param["name"]
 
+        status = connector.util._validate_string(action_result, edl_name, "name", 63)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
         delete_xpath = f"{consts.EDL_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param))}/entry[@name='{edl_name}']"
 
         data = {
