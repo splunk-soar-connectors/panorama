@@ -5112,7 +5112,10 @@
                     "description": "Name of address",
                     "data_type": "string",
                     "order": 0,
-                    "required": true
+                    "required": true,
+                    "contains": [
+                        "panorama address name"
+                    ]
                 },
                 "ip": {
                     "description": "IP address",
@@ -5124,36 +5127,39 @@
                         "ipv6"
                     ]
                 },
-                "tags": {
-                    "description": "Tags want to apply on an address",
+                "description": {
+                    "description": "Description of address",
                     "data_type": "string",
                     "order": 2
                 },
-                "disable_override": {
-                    "description": "Dissable override on an address",
-                    "data_type": "boolean",
+                "tags": {
+                    "description": "Tags want to apply on an address",
+                    "data_type": "string",
                     "order": 3
                 },
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 4,
-                    "required": true
+                    "required": true,
+                    "contains": [
+                        "panorama device name"
+                    ]
                 },
-                "description": {
-                    "description": "Description of address",
-                    "data_type": "string",
+                "disable_override": {
+                    "description": "Dissable override on an address",
+                    "data_type": "boolean",
                     "order": 5
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 6
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
-                    "order": 6
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
                     "order": 7
                 }
             },
@@ -5162,7 +5168,10 @@
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
                     "column_name": "Address Name",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "panorama address name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.ip",
@@ -5184,7 +5193,12 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 2,
+                    "contains": [
+                        "panorama device name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -5482,6 +5496,209 @@
                 "width": 12,
                 "height": 5,
                 "title": "Create Address"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "reference address",
+            "identifier": "refrence_address",
+            "description": "Fetch address details for the supplied address name",
+            "read_only": true,
+            "type": "investigate",
+            "parameters": {
+                "name": {
+                    "description": "Name of address",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true,
+                    "contains": [
+                        "panorama address name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "column_name": "Address name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama address name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Reference Address",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete address",
+            "identifier": "delete_address",
+            "description": "Delete address details for the supplied address name",
+            "read_only": true,
+            "type": "investigate",
+            "parameters": {
+                "name": {
+                    "description": "Name of address",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true,
+                    "contains": [
+                        "panorama address name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 2
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "column_name": "Address Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama address name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Delete Address",
+                "type": "table",
+                "height": 5
             },
             "versions": "EQ(*)"
         }

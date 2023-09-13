@@ -99,6 +99,8 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [modify policy](#action-modify-policy) - Modify a security policy rule  
 [delete policy](#action-delete-policy) - Delete a security policy rule  
 [create address](#action-create-address) - Create an address on the panorama platform  
+[reference address](#action-reference-address) - Fetch address details for the supplied address name  
+[delete address](#action-delete-address) - Delete address details for the supplied address name  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity
@@ -1167,23 +1169,23 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string | 
+**name** |  required  | Name of address | string |  `panorama address name` 
 **ip** |  required  | IP address | string |  `ip`  `ipv6` 
-**tags** |  optional  | Tags want to apply on an address | string | 
-**disable_override** |  optional  | Dissable override on an address | boolean | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
 **description** |  optional  | Description of address | string | 
-**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**tags** |  optional  | Tags want to apply on an address | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**disable_override** |  optional  | Dissable override on an address | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  |  
+action_result.parameter.name | string |  `panorama address name`  |  
 action_result.parameter.ip | string |  `ip`  `ipv6`  |  
 action_result.parameter.tags | string |  |  
 action_result.parameter.disable_override | boolean |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device name`  |  
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.parameter.description | string |  |  
@@ -1228,4 +1230,56 @@ action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
 action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0   
+
+## action: 'reference address'
+Fetch address details for the supplied address name
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of address | string |  `panorama address name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  `panorama address name`  |  
+action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
+## action: 'delete address'
+Delete address details for the supplied address name
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of address | string |  `panorama address name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  `panorama address name`  |  
+action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.use_partial_commit | boolean |  |  
+action_result.parameter.should_commit_changes | boolean |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
