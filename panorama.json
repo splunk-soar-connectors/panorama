@@ -5595,8 +5595,8 @@
             "action": "delete address",
             "identifier": "delete_address",
             "description": "Delete address details for the supplied address name",
-            "read_only": true,
-            "type": "investigate",
+            "read_only": false,
+            "type": "generic",
             "parameters": {
                 "name": {
                     "description": "Name of address",
