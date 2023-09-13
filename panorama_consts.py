@@ -227,3 +227,28 @@ param_mapping = {
     "source_zone": "to",
     "destination_zone": "from"
 }
+
+
+PAN_ERR_MSG = {
+    "400": "Bad request",
+    "403": "Forbidden",
+    "1": "Unknown command",
+    "2": "Internal error",
+    "3": "Internal error",
+    "4": "Internal error",
+    "5": "Internal error",
+    "6": "Bad Xpath",
+    "7": "Object not present",
+    "8": "Object not unique",
+    "10": "Reference count not zero",
+    "11": "Internal error",
+    "12": "Invalid object",
+    "13": "Object not found",
+    "14": "Operation not possible",
+    "15": "Operation denied",
+    "16": "Unauthorized",
+    "17": "Invalid command",
+    "18": "Malformed command",
+    "21": "Internal error",
+    "22": "Session timed out"
+}

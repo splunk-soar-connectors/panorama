@@ -813,7 +813,6 @@ class PanoramaUtils(object):
     def _parse_response(self, response_dict, action_result):
 
         # multiple keys could be present even if the response is a failure
-
         response = response_dict.get('response')
         response_message = None
 
@@ -837,10 +836,20 @@ class PanoramaUtils(object):
             response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
             action_result.set_status(phantom.APP_SUCCESS)
         else:
-            action_result.set_status(
-                phantom.APP_ERROR,
-                consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status="error")
-            )
+            error_msg = consts.PAN_ERR_MSG.get(code)
+
+            self._connector.debug_print(f"final error msg : {error_msg}")
+
+            if error_msg:
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=error_msg)
+                )
+            else:
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status="error")
+                )
 
         if code is not None:
             response_message = "{} code: '{}'".format(response_message, code)
