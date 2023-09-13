@@ -1259,8 +1259,8 @@ summary.total_objects_successful | numeric |  |   1
 ## action: 'delete address'
 Delete address details for the supplied address name
 
-Type: **investigate**  
-Read only: **True**
+Type: **generic**  
+Read only: **False**
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
