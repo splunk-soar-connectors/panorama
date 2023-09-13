@@ -166,7 +166,6 @@ class CreateEdl(BaseAction):
         element_xml = element_xml.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n", "")
 
         # if its not shared group
-        device_group = self._param["device_group"]
         if device_group != "shared":
             disable_override = self._param.get("disable_override")
             # disable override

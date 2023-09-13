@@ -29,8 +29,13 @@ class ListEdl(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         edl_name = self._param["name"]
+        device_group = self._param["device_group"]
 
         status = connector.util._validate_string(action_result, edl_name, "name", 63)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
+        status = connector.util._validate_string(action_result, device_group, "device group", 31)
         if phantom.is_fail(status):
             return action_result.get_status()
 

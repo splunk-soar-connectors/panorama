@@ -1,6 +1,7 @@
+import ipaddress
 import re
 import time
-import ipaddress
+
 import dict2xml
 import encryption_helper
 import phantom.app as phantom
@@ -89,10 +90,10 @@ class PanoramaUtils(object):
         regex = "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
         string_len = len(string_to_validate)
 
-        if not (string_len > 0 and string_len < max_len):
+        if not (string_len > 0 and string_len <= max_len):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                f"Invalid length for {param_name} parameter, max length of string can be 31"
+                f"Invalid length for {param_name} parameter, max length of string can be {max_len}"
             )
 
         if not re.search(regex, string_to_validate):
