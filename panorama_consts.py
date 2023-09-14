@@ -179,6 +179,13 @@ PAN_EDL_TYPES = {
     "Equipment Identity List": "imei"
 }
 
+PAN_EDL_TYPES_STR = " The valid list types for EDL are : Predefined IP List, Predefined Url\
+      List, IP List, Domain List, URL List, Subscriber Identity List, Equipment Identity List"
+
+PAN_EDL_CHECK_UPDATE_STR = "The valid values for check for update are : five-minute, hourly, daily, weekly, monthly"
+
+PAN_EDL_WEEK_DAY_STR = "The valid values for day are : monday, tuesday, wednesday, thursday, friday, saturday, sunday"
+
 # Constants related to Policy rule
 PAN_JSON_NAME = "policy_name"
 PAN_JSON_POLICY_TYPE = "policy_type"

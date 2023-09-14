@@ -77,6 +77,13 @@ class ModifyEdl(BaseAction):
 
         # fetch edl type if updated
         if edl_list_type:
+            if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei"]:
+                return action_result.set_status(
+                    phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating external dynamic list",
+                        f"Invalid list type for edl, please enter a valid list type. {consts.PAN_EDL_TYPES_STR}"
+                    )), {}
+
             edl_list_type = consts.PAN_EDL_TYPES.get(edl_list_type)
         else:
             if old_edl_list_type:
@@ -149,6 +156,13 @@ class ModifyEdl(BaseAction):
                         )), ""
                 check_for_updates = old_check_for_updates
 
+            if check_for_updates not in ["five-minute", "hourly", "daily", "weekly", "monthly"]:
+                return action_result.set_status(
+                    phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating external dynamic list",
+                        f"Invalid check for update value, please enter a check for update value. {consts.PAN_EDL_CHECK_UPDATE_STR}"
+                    )), {}
+
             if check_for_updates in ["weekly", "monthly", "daily"]:
 
                 if not at_hour:
@@ -183,6 +197,13 @@ class ModifyEdl(BaseAction):
                         day_of_week = old_day_of_week
                         if isinstance(day_of_week, dict):
                             day_of_week = day_of_week.get("#text")
+
+                    if day_of_week not in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
+                        return action_result.set_status(
+                            phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                                "creating external dynamic list",
+                                f"Invalid day value, please enter a valid day value. {consts.PAN_EDL_WEEK_DAY_STR}"
+                            )), {}
 
                     recurring_dict[check_for_updates] = {
                         "day-of-week": day_of_week,
@@ -228,6 +249,12 @@ class ModifyEdl(BaseAction):
             dict_for_xml["entry"]["type"][edl_list_type]["recurring"] = recurring_dict
 
         if edl_list_type == "domain":
+            if expand_subdomain not in ["yes", "no", None]:
+                return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                            "creating external dynamic list",
+                            "Invalid value for expand subdomain, the value can contain value either yes or no"
+                        )), {}
+
             if expand_subdomain:
                 dict_for_xml["entry"]["type"][edl_list_type]["expand-domain"] = expand_subdomain
             else:
@@ -276,6 +303,11 @@ class ModifyEdl(BaseAction):
         device_group = self._param["device_group"]
         if device_group != "shared":
             disable_override = self._param.get("disable_override")
+            if disable_override not in ["yes", "no", None]:
+                return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating external dynamic list",
+                        "Invalid value for expand disable override, the value can contain value either yes or no"
+                    )), {}
 
             if disable_override:
                 dict_for_xml["entry"]["disable-override"] = disable_override
