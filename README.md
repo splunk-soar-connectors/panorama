@@ -631,7 +631,7 @@ summary.total_objects_successful | numeric |  |   1
 ## action: 'create edl'
 Create an External Dynamic List
 
-Type: **investigate**  
+Type: **generic**  
 Read only: **True**
 
 #### Action Parameters
@@ -681,7 +681,7 @@ summary.total_objects_successful | numeric |  |   1
 ## action: 'modify edl'
 Modify an External Dynamic List
 
-Type: **investigate**  
+Type: **generic**  
 Read only: **True**
 
 #### Action Parameters
@@ -731,7 +731,7 @@ summary.total_objects_successful | numeric |  |   1
 ## action: 'delete edl'
 Delete an External Dynamic List
 
-Type: **investigate**  
+Type: **generic**  
 Read only: **True**
 
 #### Action Parameters
