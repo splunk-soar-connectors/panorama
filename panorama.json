@@ -2305,7 +2305,7 @@
             "identifier": "create_edl",
             "description": "Create an External Dynamic List",
             "read_only": true,
-            "type": "investigate",
+            "type": "generic",
             "parameters": {
                 "name": {
                     "description": "Name of external dynamic list",
@@ -2534,7 +2534,7 @@
             "identifier": "modify_edl",
             "description": "Modify an External Dynamic List",
             "read_only": true,
-            "type": "investigate",
+            "type": "generic",
             "parameters": {
                 "name": {
                     "description": "Name of external dynamic list",
@@ -2761,7 +2761,7 @@
             "identifier": "delete_edl",
             "description": "Delete an External Dynamic List",
             "read_only": true,
-            "type": "investigate",
+            "type": "generic",
             "parameters": {
                 "name": {
                     "description": "Name of external dynamic list",
