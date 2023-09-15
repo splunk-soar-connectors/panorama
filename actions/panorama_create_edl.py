@@ -45,6 +45,13 @@ class CreateEdl(BaseAction):
         # edl description
         edl_description = self._param.get("description", "")
         if edl_description:
+            if len(edl_description) > 255:
+                return action_result.set_status(
+                    phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating external dynamic list",
+                        "Length of description for edl is over the limit, edl can have 255 characters at max"
+                    )), {}
+
             dict_for_xml["type"][edl_list_type]["description"] = edl_description
 
         # check if recurring is required
