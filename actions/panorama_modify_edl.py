@@ -276,7 +276,8 @@ class ModifyEdl(BaseAction):
                 dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
 
         if exception_list:
-            exception_list = exception_list.split(",")
+            exception_list = [x.strip() for x in exception_list.split(',')]
+            exception_list = list(filter(None, exception_list))
             if exception_list:
                 dict_for_xml["entry"]["type"][edl_list_type]["exception-list"] = {
                     "member": exception_list

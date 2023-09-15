@@ -141,8 +141,8 @@ class CreateEdl(BaseAction):
             dict_for_xml["type"][edl_list_type]["recurring"] = recurring_dict
 
         if edl_list_type == "domain":
-            expand_subdomain = self._param.get("expand_for_subdomains")
-            if expand_subdomain not in ["yes", "no", None]:
+            expand_subdomain = self._param.get("expand_for_subdomains", "no")
+            if expand_subdomain not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         "Invalid value for expand subdomain, the value can contain value either yes or no"
@@ -157,7 +157,8 @@ class CreateEdl(BaseAction):
 
         exception_list = self._param.get("exception_list", "")
         if exception_list:
-            exception_list = exception_list.split(",")
+            exception_list = [x.strip() for x in exception_list.split(',')]
+            exception_list = list(filter(None, exception_list))
             if exception_list:
                 dict_for_xml["type"][edl_list_type]["exception-list"] = {
                     "member": exception_list
@@ -194,8 +195,8 @@ class CreateEdl(BaseAction):
 
         # if its not shared group
         if device_group != "shared":
-            disable_override = self._param.get("disable_override")
-            if disable_override not in ["yes", "no", None]:
+            disable_override = self._param.get("disable_override", "no")
+            if disable_override not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         "Invalid value for expand disable override, the value can contain value either yes or no"
