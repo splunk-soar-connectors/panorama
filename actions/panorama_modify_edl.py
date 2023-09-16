@@ -134,6 +134,16 @@ class ModifyEdl(BaseAction):
         recurring_dict = {}
         if edl_list_type not in ["predefined-ip", "predefined-url"]:
 
+            if certificate_profile:
+                dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
+            else:
+                certificate_profile = existing_data["type"][old_edl_list_type].get("certificate-profile")
+
+                if isinstance(certificate_profile, dict):
+                    certificate_profile = certificate_profile.get("#text")
+                if certificate_profile:
+                    dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
+
             valid_cfu_values = {"five-minute", "hourly", "weekly", "monthly", "daily"}
             old_check_for_updates = ""
             old_at_hour = None
@@ -276,16 +286,6 @@ class ModifyEdl(BaseAction):
                     expand_subdomain = expand_subdomain.get("#text")
                 if expand_subdomain:
                     dict_for_xml["entry"]["type"][edl_list_type]["expand-domain"] = expand_subdomain
-
-        if certificate_profile:
-            dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
-        else:
-            certificate_profile = existing_data["type"][old_edl_list_type].get("certificate-profile")
-
-            if isinstance(certificate_profile, dict):
-                certificate_profile = certificate_profile.get("#text")
-            if certificate_profile:
-                dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
 
         if exception_list:
             exception_list = [x.strip() for x in exception_list.split(',')]

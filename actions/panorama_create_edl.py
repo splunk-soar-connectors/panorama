@@ -65,6 +65,10 @@ class CreateEdl(BaseAction):
         recurring_dict = {}
         if edl_list_type not in ["predefined-ip", "predefined-url"]:
 
+            certificate_profile = self._param.get("certificate_profile", None)
+            if certificate_profile:
+                dict_for_xml["type"][edl_list_type]["certificate-profile"] = certificate_profile
+
             check_for_updates = self._param.get("check_for_updates")
 
             if not check_for_updates:
@@ -164,10 +168,6 @@ class CreateEdl(BaseAction):
 
             if expand_subdomain:
                 dict_for_xml["type"][edl_list_type]["expand-domain"] = expand_subdomain
-
-        certificate_profile = self._param.get("certificate_profile", None)
-        if certificate_profile:
-            dict_for_xml["type"][edl_list_type]["certificate-profile"] = certificate_profile
 
         exception_list = self._param.get("exception_list", "")
         if exception_list:
