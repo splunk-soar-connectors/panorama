@@ -27,6 +27,13 @@ class CreateEdl(BaseAction):
         source = self._param["source"]
         edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"])
 
+        if len(source) > 255:
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                    "creating external dynamic list",
+                    "Length of source for edl is over the limit, edl source can have 255 characters at max"
+                )), {}
+
         if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei"]:
             return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
@@ -49,7 +56,7 @@ class CreateEdl(BaseAction):
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
-                        "Length of description for edl is over the limit, edl can have 255 characters at max"
+                        "Length of description for edl is over the limit, edl description can have 255 characters at max"
                     )), {}
 
             dict_for_xml["type"][edl_list_type]["description"] = edl_description
