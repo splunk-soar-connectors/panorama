@@ -25,7 +25,7 @@ class CreateEdl(BaseAction):
     def generate_xml_string_for_edl(self, action_result):
 
         source = self._param["source"]
-        edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"])
+        edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"], "ip")
 
         if len(source) > 255:
             return action_result.set_status(
@@ -69,15 +69,7 @@ class CreateEdl(BaseAction):
             if certificate_profile:
                 dict_for_xml["type"][edl_list_type]["certificate-profile"] = certificate_profile
 
-            check_for_updates = self._param.get("check_for_updates")
-
-            if not check_for_updates:
-                return action_result.set_status(
-                    phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
-                        "check_for_updates is a required key for the selected edl type"
-                    )), {}
-
+            check_for_updates = self._param.get("check_for_updates", "Five-minute")
             check_for_updates = check_for_updates.lower()
             if check_for_updates not in ["five-minute", "hourly", "daily", "weekly", "monthly"]:
                 return action_result.set_status(
@@ -88,13 +80,7 @@ class CreateEdl(BaseAction):
 
             if check_for_updates in ["weekly", "monthly", "daily"]:
 
-                at_hour = self._param.get("at_hour")
-
-                if not at_hour:
-                    return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
-                        "at_hour is a required key for the selected check update time"
-                    )), {}
+                at_hour = self._param.get("at_hour", "0")
 
                 at_hour = int(at_hour)
                 if not (at_hour >= 0 and at_hour < 24):
@@ -107,14 +93,7 @@ class CreateEdl(BaseAction):
                 at_hour = "%02d" % at_hour
 
                 if check_for_updates == "weekly":
-                    day_of_week = self._param.get("day")
-
-                    if not day_of_week:
-                        return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                            "creating external dynamic list",
-                            "day_of_week is a required key for the selected check update time"
-                        )), {}
-
+                    day_of_week = self._param.get("day", "Sunday")
                     day_of_week = day_of_week.lower()
                     if day_of_week not in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
                         return action_result.set_status(
