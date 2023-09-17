@@ -67,6 +67,12 @@ class CreateEdl(BaseAction):
 
             certificate_profile = self._param.get("certificate_profile", None)
             if certificate_profile:
+                if len(certificate_profile) > 31:
+                    return action_result.set_status(
+                        phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                            "creating external dynamic list",
+                            "Length of certificate profile for edl is over the limit, edl description can have 31 characters at max"
+                        )), {}
                 dict_for_xml["type"][edl_list_type]["certificate-profile"] = certificate_profile
 
             check_for_updates = self._param.get("check_for_updates", "Five-minute")
@@ -82,7 +88,14 @@ class CreateEdl(BaseAction):
 
                 at_hour = self._param.get("at_hour", "0")
 
-                at_hour = int(at_hour)
+                try:
+                    at_hour = int(at_hour)
+                except Exception:
+                    return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating external dynamic list",
+                        "Invalid datatype for hour, hour must be integer and in range 00-23"
+                    )), {}
+
                 if not (at_hour >= 0 and at_hour < 24):
                     return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
@@ -116,7 +129,13 @@ class CreateEdl(BaseAction):
                             "day_of_month is a required key for the selected check update time"
                         )), {}
 
-                    day_of_month = int(day_of_month)
+                    try:
+                        day_of_month = int(day_of_month)
+                    except Exception:
+                        return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                            "creating external dynamic list",
+                            "Invalid datetype for data, date must be integer and in range 1-31"
+                        )), {}
                     if not (day_of_month > 1 and day_of_month < 31):
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list",

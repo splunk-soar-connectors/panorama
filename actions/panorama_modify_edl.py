@@ -143,6 +143,12 @@ class ModifyEdl(BaseAction):
         if edl_list_type not in ["predefined-ip", "predefined-url"]:
 
             if certificate_profile:
+                if len(certificate_profile) > 31:
+                    return action_result.set_status(
+                        phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                            "creating external dynamic list",
+                            "Length of certificate profile for edl is over the limit, edl description can have 31 characters at max"
+                        )), {}
                 dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
             else:
                 certificate_profile = existing_data["type"][old_edl_list_type].get("certificate-profile")
