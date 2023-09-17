@@ -2350,20 +2350,20 @@
                     "description": "Automatically expand to include subdomains",
                     "data_type": "string",
                     "value_list": [
-                        "yes",
-                        "no"
+                        "Yes",
+                        "No"
                     ],
-                    "default": "no",
+                    "default": "No",
                     "order": 5
                 },
                 "disable_override": {
                     "description": "external dynamic list to be shared or not",
                     "data_type": "string",
                     "value_list": [
-                        "yes",
-                        "no"
+                        "Yes",
+                        "No"
                     ],
-                    "default": "no",
+                    "default": "No",
                     "order": 7
                 },
                 "certificate_profile": {
@@ -2375,13 +2375,13 @@
                     "description": "After what interval to check for updates",
                     "data_type": "string",
                     "value_list": [
-                        "five-minute",
-                        "hourly",
-                        "daily",
-                        "weekly",
-                        "monthly"
+                        "Five-minute",
+                        "Hourly",
+                        "Daily",
+                        "Weekly",
+                        "Monthly"
                     ],
-                    "default": "five-minute",
+                    "default": "Five-minute",
                     "order": 9
                 },
                 "at_hour": {
@@ -2394,15 +2394,15 @@
                     "description": "external dynamic list to be shared or not",
                     "data_type": "string",
                     "value_list": [
-                        "monday",
-                        "tuesday",
-                        "wednesday",
-                        "thursday",
-                        "friday",
-                        "saturday",
-                        "sunday"
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
                     ],
-                    "default": "sunday",
+                    "default": "Sunday",
                     "order": 11
                 },
                 "day_of_month": {
@@ -2582,8 +2582,8 @@
                     "description": "Automatically expand to include subdomains",
                     "data_type": "string",
                     "value_list": [
-                        "yes",
-                        "no"
+                        "Yes",
+                        "No"
                     ],
                     "order": 5
                 },
@@ -2591,8 +2591,8 @@
                     "description": "external dynamic list to be shared or not",
                     "data_type": "string",
                     "value_list": [
-                        "yes",
-                        "no"
+                        "Yes",
+                        "No"
                     ],
                     "order": 7
                 },
@@ -2605,11 +2605,11 @@
                     "description": "After what interval to check for updates",
                     "data_type": "string",
                     "value_list": [
-                        "five-minute",
-                        "hourly",
-                        "daily",
-                        "weekly",
-                        "monthly"
+                        "Five-minute",
+                        "Hourly",
+                        "Daily",
+                        "Weekly",
+                        "Monthly"
                     ],
                     "order": 9
                 },
@@ -2622,13 +2622,13 @@
                     "description": "external dynamic list to be shared or not",
                     "data_type": "string",
                     "value_list": [
-                        "monday",
-                        "tuesday",
-                        "wednesday",
-                        "thursday",
-                        "friday",
-                        "saturday",
-                        "sunday"
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
                     ],
                     "order": 11
                 },

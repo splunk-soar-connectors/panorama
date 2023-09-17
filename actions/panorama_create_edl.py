@@ -78,6 +78,7 @@ class CreateEdl(BaseAction):
                         "check_for_updates is a required key for the selected edl type"
                     )), {}
 
+            check_for_updates = check_for_updates.lower()
             if check_for_updates not in ["five-minute", "hourly", "daily", "weekly", "monthly"]:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
@@ -114,6 +115,7 @@ class CreateEdl(BaseAction):
                             "day_of_week is a required key for the selected check update time"
                         )), {}
 
+                    day_of_week = day_of_week.lower()
                     if day_of_week not in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
                         return action_result.set_status(
                             phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
@@ -160,6 +162,7 @@ class CreateEdl(BaseAction):
 
         if edl_list_type == "domain":
             expand_subdomain = self._param.get("expand_for_subdomains", "no")
+            expand_subdomain = expand_subdomain.lower()
             if expand_subdomain not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
@@ -210,6 +213,7 @@ class CreateEdl(BaseAction):
         # if its not shared group
         if device_group != "shared":
             disable_override = self._param.get("disable_override", "no")
+            disable_override = disable_override.lower()
             if disable_override not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",

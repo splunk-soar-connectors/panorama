@@ -33,14 +33,22 @@ class ModifyEdl(BaseAction):
         source = self._param.get("source")
         edl_list_type = self._param.get("list_type")
         edl_description = self._param.get("description")
-        check_for_updates = self._param.get("check_for_updates")
         at_hour = self._param.get("at_hour")
-        day_of_week = self._param.get("day")
         day_of_month = self._param.get("day_of_month")
-        expand_subdomain = self._param.get("expand_for_subdomains")
         certificate_profile = self._param.get("certificate_profile")
         exception_list = self._param.get("exception_list")
+
+        check_for_updates = self._param.get("check_for_updates")
+        check_for_updates = check_for_updates.lower() if check_for_updates else None
+
+        day_of_week = self._param.get("day")
+        day_of_week = day_of_week.lower() if day_of_week else None
+
+        expand_subdomain = self._param.get("expand_for_subdomains")
+        expand_subdomain = expand_subdomain.lower() if expand_subdomain else None
+
         disable_override = self._param.get("disable_override")
+        disable_override = disable_override.lower() if disable_override else None
 
         param_data_list = [source, edl_list_type, edl_description, check_for_updates, at_hour,
                            day_of_week, day_of_month, expand_subdomain, certificate_profile, exception_list, disable_override]
@@ -315,7 +323,6 @@ class ModifyEdl(BaseAction):
         # if its not shared group
         device_group = self._param["device_group"]
         if device_group != "shared":
-            disable_override = self._param.get("disable_override")
             if disable_override not in ["yes", "no", None]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
