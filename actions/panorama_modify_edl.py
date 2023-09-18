@@ -85,14 +85,13 @@ class ModifyEdl(BaseAction):
 
         # fetch edl type if updated
         if edl_list_type:
-            if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei"]:
+            edl_list_type = consts.PAN_EDL_TYPES.get(edl_list_type)
+            if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei", None]:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         f"Invalid list type for edl, please enter a valid list type. {consts.PAN_EDL_TYPES_STR}"
                     )), {}
-
-            edl_list_type = consts.PAN_EDL_TYPES.get(edl_list_type)
         else:
             if old_edl_list_type:
                 edl_list_type = old_edl_list_type
