@@ -438,7 +438,7 @@ class PanoramaUtils(object):
         except Exception as e:
             self._connector.debug_print('Failed to extracted device_groups from %s. Reason: %s' % (device_groups_config, e))
             return (action_result.set_status(phantom.APP_ERROR,
-                "Unable to parse response for the device group listing"), self._get_error_message_from_exception(e))
+                                             "Unable to parse response for the device group listing"), self._get_error_message_from_exception(e))
 
         try:
             device_groups = [x['@name'] for x in device_groups]
@@ -459,7 +459,7 @@ class PanoramaUtils(object):
         if type(commit_all_device_details) == dict:
             try:
                 return "{0}, warnings: {1}".format('\n'.join(commit_all_device_details['msg']['errors']['line']),
-                        '\n'.join(commit_all_device_details['msg']['warnings']['line']))
+                                                   '\n'.join(commit_all_device_details['msg']['warnings']['line']))
             except Exception as e:
                 self._connector.debug_print("Parsing commit all device details dict, handled exception",
                                             self._get_error_message_from_exception(e))
@@ -497,7 +497,7 @@ class PanoramaUtils(object):
                     device_group_status |= phantom.APP_SUCCESS
 
                 device_status = "Device Name: {0}, Result: {1}, Details: {2}".format(device['devicename'], device['result'],
-                        self._get_device_commit_details_string(device['details']))
+                                                                                     self._get_device_commit_details_string(device['details']))
                 status_string = "{0}<li>{1}</li>".format(status_string, device_status)
             except Exception as e:
                 self._connector.debug_print("Parsing commit all message for a single device, handled exception",
@@ -664,7 +664,7 @@ class PanoramaUtils(object):
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
             return (action_result.set_status(phantom.APP_ERROR, "Unable to create xpath to the security policies",
-                self._get_error_message_from_exception(e)), None)
+                                             self._get_error_message_from_exception(e)), None)
 
         return (phantom.APP_SUCCESS, rules_xpath)
 
@@ -767,7 +767,7 @@ class PanoramaUtils(object):
         }
 
         status, response = self._make_rest_call(data, action_result)
-        action_result.update_summary({ "update_security_policy": response })
+        action_result.update_summary({"update_security_policy": response})
 
         if phantom.is_fail(status):
             return action_result.get_status()
@@ -973,7 +973,7 @@ class PanoramaUtils(object):
     def _get_addr_name(self, ip):
 
         # Remove the slash in the ip if present, PAN does not like slash in the names
-        rem_slash = lambda x: re.sub(r'(.*)/(.*)', r'\1 mask \2', x)
+        def rem_slash(x): return re.sub(r'(.*)/(.*)', r'\1 mask \2', x)
 
         name = "{0} {1}".format(rem_slash(ip), consts.PHANTOM_ADDRESS_NAME)
 
@@ -984,12 +984,11 @@ class PanoramaUtils(object):
         status = False
         for params in param.keys():
             if param[params]:
-                if params in ['rule-type', 'description', 'action', 'target', 'profile-setting']:
+                if params in consts.SEC_POLICY_REQ_PARAM_LIST:
                     status, result = self.element_prep(params, param[params])
-                elif isinstance(param[params], bool) and params not in ['use_partial_commit', 'should_commit_changes']:
+                elif isinstance(param[params], bool) and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
                     status, result = self.element_prep(params, param[params], is_bool=True)
-                elif params in ['from', 'to', 'source', 'destination', 'source-user', 'service',
-                                'source-hip', 'destination-hip', 'application', 'tag', 'category']:
+                elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
                     status, result = self.element_prep(params, param[params], member=True)
                 if status:
                     element += result
@@ -1000,15 +999,16 @@ class PanoramaUtils(object):
 
         temp_element = dict
         status = True
+        temp_dict = {}
         if param_val:
             param_list = []
             try:
                 param_list = param_val.split(",")
+                param_list = [value.strip() for value in param_list if value.strip()]
             except Exception:
                 pass
             if param_name == "target":
                 if len(param_list) > 1:
-                    temp_dict = {}
                     temp_dict["devices"] = param_val
                     param_val = dict2xml.dict2xml(temp_dict)
                 temp_element = f'<{param_name}><devices><entry name ="{param_val}"/></devices></{param_name}>'
@@ -1023,7 +1023,6 @@ class PanoramaUtils(object):
                     param_val = "no"
             if member:
                 if len(param_list) > 1:
-                    temp_dict = {}
                     temp_dict["member"] = param_list
                     param_val = dict2xml.dict2xml(temp_dict)
                 else:

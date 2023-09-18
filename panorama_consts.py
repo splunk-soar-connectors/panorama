@@ -190,34 +190,25 @@ PAN_EDL_WEEK_DAY_STR = "The valid values for day are : monday, tuesday, wednesda
 PAN_JSON_NAME = "policy_name"
 PAN_JSON_POLICY_TYPE = "policy_type"
 PAN_JSON_RULE_TYPE = "rule_type"
-PAN_JSON_ACTION_TYPE = "action"
-PAN_JSON_SOURCE_ZONE = "from"
-PAN_JSON_DESTINATION_ADDRESS = "destination"
-PAN_JSON_SOURCE_ADDRESS = "source"
-PAN_JSON_DESTINATION_ZONE = "to"
-PAN_JSON_DESCRIPTION = "description"
-PAN_JSON_SOURCE = "source"
-PAN_JSON_DESTINATION = "destination"
 PAN_JSON_NEGATE_SOURCE = "negate-source"
 PAN_JSON_NEGATE_DESTINATION = "negate-destination"
-PAN_JSON_APPLICATION = "application"
 PAN_JSON_WHERE = "where"
 PAN_JSON_DST = "dst"
 PAN_JSON_TAGS = "tag"
-PAN_JSON_CATEGORY = "category"
-PAN_JSON_LOG_FORWARDING = "log-setting"
 PAN_JSON_DISABLE = "disable"
 PAN_JSON_ICMP_UNREACHABLE = "icmp-unreachable"
-PAN_JSON_SERVICE = "service"
-PAN_JSON_PROFILE_SETTING = "profile-setting"
-PAN_JSON_TARGET = "target"
-PAN_JSON_SOURCE_USER = "source-user"
+PAN_JSON_DESTINATION_ADDRESS = "destination_address"
+PAN_JSON_CATEGORY = "category"
 
 PAN_JSON_OBJ_TYPE = "object_type"
 PAN_JSON_OBJ_VAL = "object_value"
 PAN_JSON_DIR = "direction"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
+SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting']
+SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
+SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user',
+                             'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
 
 param_mapping = {
     "rule_type": "rule-type",
@@ -232,7 +223,8 @@ param_mapping = {
     "source_address": "source",
     "destination_address": "destination",
     "source_zone": "to",
-    "destination_zone": "from"
+    "destination_zone": "from",
+    "disable": "disabled"
 }
 
 

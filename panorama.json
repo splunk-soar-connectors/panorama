@@ -2872,12 +2872,9 @@
                     "required": true,
                     "primary": true,
                     "order": 0,
-                    "name": "Policy Name",
-                    "contains": [
-                        "panorama policy rule name"
-                    ]
+                    "name": "Policy Name"
                 },
-                "rule-type": {
+                "rule_type": {
                     "description": "Rule type of the policy rule.",
                     "data_type": "string",
                     "value_list": [
@@ -2896,11 +2893,11 @@
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
-                    "order": 0,
+                    "order": 2,
                     "name": "Device Group"
                 },
                 "policy_type": {
-                    "description": "",
+                    "description": "Rule base to create the policy in.",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -2908,75 +2905,72 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 0,
+                    "order": 3,
                     "name": "Policy Type"
                 },
-                "from": {
-                    "description": "",
+                "source_zone": {
+                    "description": "source zone of policy.",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
-                    "order": 0,
+                    "order": 4,
                     "name": "Source Zone"
                 },
-                "to": {
-                    "description": "",
+                "destination_zone": {
+                    "description": "destination zone of policy.",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
-                    "order": 0,
+                    "order": 5,
                     "name": "Destination Zone"
                 },
                 "description": {
-                    "description": "",
+                    "description": "policy description",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 6,
                     "name": "Description"
                 },
-                "source": {
-                    "description": "",
+                "source_address": {
+                    "description": "source address of policy.",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 7,
                     "default": "any",
                     "name": "Source Address"
                 },
-                "destination": {
-                    "description": "",
+                "destination_address": {
+                    "description": "destination address of policy.",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 8,
                     "default": "any",
                     "name": "Destination Address"
                 },
-                "source-user": {
-                    "description": "",
+                "source_user": {
+                    "description": "source user for policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 9,
                     "name": "Source User"
                 },
-                "source-hip": {
-                    "description": "",
+                "source_device": {
+                    "description": "source device for policy.",
                     "data_type": "string",
-                    "required": true,
-                    "order": 0,
+                    "order": 10,
                     "default": "any",
                     "name,": "Source Device"
                 },
-                "destination-hip": {
-                    "description": "",
+                "destination_device": {
+                    "description": "destination device for policy.",
                     "data_type": "string",
-                    "required": true,
-                    "order": 0,
+                    "order": 11,
                     "default": "any",
                     "name,": "Destination Device"
                 },
                 "action": {
-                    "description": "",
+                    "description": "action for the policy.",
                     "data_type": "string",
                     "required": true,
+                    "default": "allow",
                     "value_list": [
                         "allow",
                         "deny",
@@ -2985,23 +2979,21 @@
                         "reset server",
                         "reset both client and server"
                     ],
-                    "order": 0,
+                    "order": 12,
                     "name": "Action Type"
                 },
-                "negate-source": {
+                "negate_source": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
                     "default": false,
-                    "order": 0,
+                    "order": 27,
                     "name": "Negate Source"
                 },
-                "negate-destination": {
+                "negate_destination": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
                     "default": false,
-                    "order": 0,
+                    "order": 13,
                     "name": "Negate Destination"
                 },
                 "application": {
@@ -3009,61 +3001,61 @@
                     "data_type": "string",
                     "required": true,
                     "default": "any",
-                    "order": 0,
+                    "order": 26,
                     "name": "Application"
                 },
                 "where": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "default": "after",
+                    "value_list": [
+                        "before",
+                        "after",
+                        "top",
+                        "bottom"
+                    ],
+                    "order": 14,
                     "name": "where"
                 },
                 "dst": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 15,
                     "name": "dst"
                 },
                 "tag": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 16,
                     "name": "Tags",
                     "allow_list": true
                 },
                 "category": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 17,
                     "name": "category",
                     "allow_list": true
                 },
-                "log-setting": {
+                "log_forwarding": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 18,
                     "name": "Log Forwarding",
                     "allow_list": true
                 },
                 "disable": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
                     "default": false,
-                    "order": 0,
+                    "order": 19,
                     "name": "Disable"
                 },
-                "icmp-unreachable": {
+                "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
                     "default": false,
-                    "order": 0,
+                    "order": 20,
                     "name": "ICMP Unreachable"
                 },
                 "service": {
@@ -3071,37 +3063,41 @@
                     "data_type": "string",
                     "required": true,
                     "default": "any",
-                    "order": 0,
+                    "order": 21,
                     "name": "Service"
                 },
-                "profile-setting": {
+                "profile_setting": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
                     "value_list": [
                         "profiles",
                         "group"
                     ],
-                    "order": 0,
+                    "order": 22,
                     "name": "Profile Setting"
                 },
                 "target": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 23,
                     "name,": "Target"
+                },
+                "audit_comment": {
+                    "description": "",
+                    "data_type": "string",
+                    "order": 23,
+                    "name,": "audit comment"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 14
+                    "order": 24
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
-                    "order": 15
+                    "order": 25
                 }
             },
             "output": [
@@ -3143,7 +3139,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.rule-type",
+                    "data_path": "action_result.parameter.rule_type",
                     "data_type": "string"
                 },
                 {
@@ -3155,11 +3151,11 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.from",
+                    "data_path": "action_result.parameter.source_zone",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.to",
+                    "data_path": "action_result.parameter.destination_zone",
                     "data_type": "string"
                 },
                 {
@@ -3167,27 +3163,23 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.source",
+                    "data_path": "action_result.parameter.source_address",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.destination",
+                    "data_path": "action_result.parameter.destination_address",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.source-user",
+                    "data_path": "action_result.parameter.source_user",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.source-user",
+                    "data_path": "action_result.parameter.source_device",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.source-hip",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.destination-hip",
+                    "data_path": "action_result.parameter.destination_device",
                     "data_type": "string"
                 },
                 {
@@ -3195,11 +3187,11 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.negate-source",
+                    "data_path": "action_result.parameter.negate_source",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.negate-destination",
+                    "data_path": "action_result.parameter.negate_destination",
                     "data_type": "string"
                 },
                 {
@@ -3207,7 +3199,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": " action_result.parameter.where",
+                    "data_path": "action_result.parameter.where",
                     "data_type": "string"
                 },
                 {
@@ -3219,7 +3211,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.log-setting",
+                    "data_path": "action_result.parameter.log_forwarding",
                     "data_type": "string"
                 },
                 {
@@ -3231,7 +3223,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.icmp-unreachable",
+                    "data_path": "action_result.parameter.icmp_unreachable",
                     "data_type": "string"
                 },
                 {
@@ -3239,7 +3231,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.profile-setting",
+                    "data_path": "action_result.parameter.profile_setting",
                     "data_type": "string"
                 },
                 {
@@ -3636,18 +3628,15 @@
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "order": 0,
-                    "name": "Policy Name",
-                    "contains": [
-                        "panorama policy rule name"
-                    ]
+                    "order": 1,
+                    "name": "Policy Name"
                 },
                 "device_group": {
                     "description": "Device group for which to create the policy rule.",
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
-                    "order": 0,
+                    "order": 2,
                     "name": "Device Group"
                 },
                 "policy_type": {
@@ -3659,26 +3648,46 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 0,
+                    "order": 3,
                     "name": "Policy Type"
+                },
+                "rule_type": {
+                    "description": "Rule type of the policy rule.",
+                    "data_type": "string",
+                    "value_list": [
+                        "universal",
+                        "intrazone",
+                        "interzone"
+                    ],
+                    "default": "universal",
+                    "required": true,
+                    "primary": true,
+                    "order": 1,
+                    "name": "Rule Type"
+                },
+                "log_forwarding": {
+                    "description": "",
+                    "data_type": "string",
+                    "order": 18,
+                    "name": "Log Forwarding",
+                    "allow_list": true
                 },
                 "direction": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
                     "value_list": [
                         "from",
                         "to",
                         "both"
                     ],
-                    "order": 0,
+                    "order": 4,
                     "name": "Description"
                 },
                 "object_value": {
                     "description": "",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 5,
                     "name": "Description"
                 },
                 "object_type": {
@@ -3692,38 +3701,59 @@
                         "url-category",
                         "application"
                     ],
-                    "order": 0,
+                    "order": 6,
                     "name": "Description"
                 },
                 "description": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 7,
                     "name": "Description"
                 },
                 "tag": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 8,
                     "name": "Tags",
                     "allow_list": true
                 },
-                "icmp-unreachable": {
+                "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
                     "default": false,
-                    "order": 0,
+                    "order": 9,
                     "name": "ICMP Unreachable"
                 },
                 "target": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 10,
                     "name,": "Target"
+                },
+                "where": {
+                    "description": "",
+                    "data_type": "string",
+                    "default": "after",
+                    "value_list": [
+                        "before",
+                        "after",
+                        "top",
+                        "bottom"
+                    ],
+                    "order": 11,
+                    "name": "where"
+                },
+                "dst": {
+                    "description": "",
+                    "data_type": "string",
+                    "order": 12,
+                    "name": "dst"
+                },
+                "audit_comment": {
+                    "description": "",
+                    "data_type": "string",
+                    "order": 13,
+                    "name,": "audit comment"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -3804,7 +3834,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.icmp-unreachable",
+                    "data_path": "action_result.parameter.icmp_unreachable",
                     "data_type": "string"
                 },
                 {
@@ -3838,10 +3868,7 @@
                     "required": true,
                     "primary": true,
                     "order": 0,
-                    "name": "Policy Name",
-                    "contains": [
-                        "panorama policy rule name"
-                    ]
+                    "name": "Policy Name"
                 },
                 "device_group": {
                     "description": "Device group for which to create the policy rule.",
@@ -3854,7 +3881,6 @@
                 "dst_device_group": {
                     "description": "Device group for which to create the policy rule.",
                     "data_type": "string",
-                    "required": false,
                     "default": "shared",
                     "order": 0,
                     "name": "Destination Device Group"
@@ -3874,7 +3900,6 @@
                 "dst_policy_type": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
                     "default": "pre-rulebase",
                     "value_list": [
                         "pre-rulebase",
@@ -3886,7 +3911,7 @@
                 "where": {
                     "description": "where to move the policy in the device group",
                     "data_type": "string",
-                    "required": false,
+                    "default": "after",
                     "value_list": [
                         "before",
                         "after",
@@ -3894,12 +3919,11 @@
                         "bottom"
                     ],
                     "order": 0,
-                    "name": "Description"
+                    "name": "where"
                 },
                 "dst": {
                     "description": "reference to which the policy needs to be moved.",
                     "data_type": "string",
-                    "required": false,
                     "order": 0,
                     "name": "Destination"
                 },
@@ -4403,12 +4427,9 @@
                     "required": true,
                     "primary": true,
                     "order": 0,
-                    "name": "Policy Name",
-                    "contains": [
-                        "panorama policy rule name"
-                    ]
+                    "name": "Policy Name"
                 },
-                "rule-type": {
+                "rule_type": {
                     "description": "Rule type of the policy rule.",
                     "data_type": "string",
                     "value_list": [
@@ -4427,11 +4448,11 @@
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
-                    "order": 0,
+                    "order": 2,
                     "name": "Device Group"
                 },
                 "policy_type": {
-                    "description": "",
+                    "description": "Rule base to create the policy in.",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -4439,69 +4460,72 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 0,
+                    "order": 3,
                     "name": "Policy Type"
                 },
-                "from": {
-                    "description": "",
+                "source_zone": {
+                    "description": "source zone of policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "required": true,
+                    "default": "any",
+                    "order": 4,
                     "name": "Source Zone"
                 },
-                "to": {
-                    "description": "",
+                "destination_zone": {
+                    "description": "destination zone of policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "required": true,
+                    "default": "any",
+                    "order": 5,
                     "name": "Destination Zone"
                 },
                 "description": {
-                    "description": "",
+                    "description": "policy description",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 6,
                     "name": "Description"
                 },
-                "source": {
-                    "description": "",
+                "source_address": {
+                    "description": "source address of policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "required": true,
+                    "order": 7,
+                    "default": "any",
                     "name": "Source Address"
                 },
-                "destination": {
-                    "description": "",
+                "destination_address": {
+                    "description": "destination address of policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "required": true,
+                    "order": 8,
+                    "default": "any",
                     "name": "Destination Address"
                 },
-                "source-user": {
-                    "description": "",
+                "source_user": {
+                    "description": "source user for policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 9,
                     "name": "Source User"
                 },
-                "source-hip": {
-                    "description": "",
+                "source_device": {
+                    "description": "source device for policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 10,
+                    "default": "any",
                     "name,": "Source Device"
                 },
-                "destination-hip": {
-                    "description": "",
+                "destination_device": {
+                    "description": "destination device for policy.",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 11,
+                    "default": "any",
                     "name,": "Destination Device"
                 },
                 "action": {
-                    "description": "",
+                    "description": "action for the policy.",
                     "data_type": "string",
-                    "required": false,
+                    "required": true,
+                    "default": "allow",
                     "value_list": [
                         "allow",
                         "deny",
@@ -4510,103 +4534,106 @@
                         "reset server",
                         "reset both client and server"
                     ],
-                    "order": 0,
+                    "order": 12,
                     "name": "Action Type"
                 },
-                "negate-source": {
+                "negate_source": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
-                    "order": 0,
+                    "default": false,
+                    "order": 27,
                     "name": "Negate Source"
                 },
-                "negate-destination": {
+                "negate_destination": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
-                    "order": 0,
+                    "default": false,
+                    "order": 13,
                     "name": "Negate Destination"
                 },
                 "application": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "required": true,
+                    "default": "any",
+                    "order": 26,
                     "name": "Application"
                 },
                 "tag": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 16,
                     "name": "Tags",
                     "allow_list": true
                 },
                 "category": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 17,
                     "name": "category",
                     "allow_list": true
                 },
-                "log-setting": {
+                "log_forwarding": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 18,
                     "name": "Log Forwarding",
                     "allow_list": true
                 },
                 "disable": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
-                    "order": 0,
+                    "default": false,
+                    "order": 19,
                     "name": "Disable"
                 },
-                "icmp-unreachable": {
+                "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "required": false,
-                    "order": 0,
+                    "default": false,
+                    "order": 20,
                     "name": "ICMP Unreachable"
                 },
                 "service": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "required": true,
+                    "default": "any",
+                    "order": 21,
                     "name": "Service"
                 },
-                "profile-setting": {
+                "profile_setting": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
                     "value_list": [
                         "profiles",
                         "group"
                     ],
-                    "order": 0,
+                    "order": 22,
                     "name": "Profile Setting"
                 },
                 "target": {
                     "description": "",
                     "data_type": "string",
-                    "required": false,
-                    "order": 0,
+                    "order": 23,
                     "name,": "Target"
+                },
+                "audit_comment": {
+                    "description": "",
+                    "data_type": "string",
+                    "order": 23,
+                    "name,": "audit comment"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 14
+                    "order": 24
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
-                    "order": 15
+                    "order": 25
                 }
             },
             "output": [
@@ -4632,11 +4659,119 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
                     "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.rule_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_zone",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination_zone",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_address",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination_address",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_device",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination_device",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.action",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.negate_source",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.negate_destination",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.application",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.log_forwarding",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.disable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.category",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.icmp_unreachable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.service",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.profile_setting",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.target",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "string"
                 }
             ],
@@ -4658,10 +4793,7 @@
                     "required": true,
                     "primary": true,
                     "order": 0,
-                    "name": "Policy Name",
-                    "contains": [
-                        "panorama policy rule name"
-                    ]
+                    "name": "Policy Name"
                 },
                 "policy_type": {
                     "description": "Pre rule or Post rule",
@@ -5110,7 +5242,7 @@
             "action": "create address",
             "identifier": "create_address",
             "description": "Create an address on the panorama platform",
-            "verbose": "<p>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></p>",
+            "verbose": "<p>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask\u2014Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32\u2014Indicates one address.</li><li>192.168.80.0/24\u2014Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range\u2014Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask\u2014Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN\u2014Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></p>",
             "read_only": false,
             "type": "generic",
             "parameters": {

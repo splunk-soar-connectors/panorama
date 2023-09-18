@@ -163,9 +163,9 @@ class CreateEdl(BaseAction):
             expand_subdomain = expand_subdomain.lower()
             if expand_subdomain not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
-                        "Invalid value for expand subdomain, the value can contain value either yes or no"
-                    )), {}
+                    "creating external dynamic list",
+                    "Invalid value for expand subdomain, the value can contain value either yes or no"
+                )), {}
 
             if expand_subdomain:
                 dict_for_xml["type"][edl_list_type]["expand-domain"] = expand_subdomain
@@ -214,9 +214,9 @@ class CreateEdl(BaseAction):
             disable_override = disable_override.lower()
             if disable_override not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
-                        "Invalid value for expand disable override, the value can contain value either yes or no"
-                    )), {}
+                    "creating external dynamic list",
+                    "Invalid value for expand disable override, the value can contain value either yes or no"
+                )), {}
 
             # disable override
             if disable_override:
