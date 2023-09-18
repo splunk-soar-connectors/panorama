@@ -211,7 +211,13 @@ class ModifyEdl(BaseAction):
                     if isinstance(at_hour, dict):
                         at_hour = at_hour.get("#text")
 
-                at_hour = int(at_hour)
+                try:
+                    at_hour = int(at_hour)
+                except Exception:
+                    return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "modifying external dynamic list",
+                        "Invalid datatype for hour, hour must be integer and in range 00-23"
+                    )), ""
 
                 if not (at_hour >= 0 and at_hour < 24):
                     return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
@@ -257,8 +263,13 @@ class ModifyEdl(BaseAction):
                         day_of_month = old_day_of_month
                         if isinstance(day_of_month, dict):
                             day_of_month = day_of_month.get("#text")
-
-                    day_of_month = int(day_of_month)
+                    try:
+                        day_of_month = int(day_of_month)
+                    except Exception:
+                        return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                            "modifying external dynamic list",
+                            "Invalid datatype for hour, hour must be integer and in range 1-31"
+                        )), ""
 
                     if not (day_of_month > 1 and day_of_month < 31):
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
