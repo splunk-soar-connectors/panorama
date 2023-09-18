@@ -765,32 +765,33 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
-**rule-type** |  required  | Rule type of the policy rule. | string | 
+**policy_name** |  required  | Name of the policy rule | string | 
+**rule_type** |  required  | Rule type of the policy rule. | string | 
 **device_group** |  required  | Device group for which to create the policy rule. | string | 
-**policy_type** |  required  |  | string | 
-**from** |  required  |  | string | 
-**to** |  required  |  | string | 
-**description** |  optional  |  | string | 
-**source** |  required  |  | string | 
-**destination** |  required  |  | string | 
-**source-user** |  optional  |  | string | 
-**source-hip** |  required  |  | string | 
-**destination-hip** |  required  |  | string | 
-**action** |  required  |  | string | 
-**negate-source** |  optional  |  | boolean | 
-**negate-destination** |  optional  |  | boolean | 
+**policy_type** |  required  | Rule base to create the policy in. | string | 
+**source_zone** |  required  | source zone of policy. | string | 
+**destination_zone** |  required  | destination zone of policy. | string | 
+**description** |  optional  | policy description | string | 
+**source_address** |  required  | source address of policy. | string | 
+**destination_address** |  required  | destination address of policy. | string | 
+**source_user** |  optional  | source user for policy. | string | 
+**source_device** |  optional  | source device for policy. | string | 
+**destination_device** |  optional  | destination device for policy. | string | 
+**action** |  required  | action for the policy. | string | 
+**negate_source** |  optional  |  | boolean | 
+**negate_destination** |  optional  |  | boolean | 
 **application** |  required  |  | string | 
 **where** |  optional  |  | string | 
 **dst** |  optional  |  | string | 
 **tag** |  optional  |  | string | 
 **category** |  optional  |  | string | 
-**log-setting** |  optional  |  | string | 
+**log_forwarding** |  optional  |  | string | 
 **disable** |  optional  |  | boolean | 
-**icmp-unreachable** |  optional  |  | boolean | 
+**icmp_unreachable** |  optional  |  | boolean | 
 **service** |  required  |  | string | 
-**profile-setting** |  optional  |  | string | 
+**profile_setting** |  optional  |  | string | 
 **target** |  optional  |  | string | 
+**audit_comment** |  optional  |  | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -804,31 +805,30 @@ action_result.summary | string |  |
 action_result.status | string |  |  
 action_result.message | string |  |  
 action_result.parameter.policy_name | string |  |  
-action_result.parameter.rule-type | string |  |  
+action_result.parameter.rule_type | string |  |  
 action_result.parameter.device_group | string |  |  
 action_result.parameter.policy_type | string |  |  
-action_result.parameter.from | string |  |  
-action_result.parameter.to | string |  |  
+action_result.parameter.source_zone | string |  |  
+action_result.parameter.destination_zone | string |  |  
 action_result.parameter.description | string |  |  
-action_result.parameter.source | string |  |  
-action_result.parameter.destination | string |  |  
-action_result.parameter.source-user | string |  |  
-action_result.parameter.source-user | string |  |  
-action_result.parameter.source-hip | string |  |  
-action_result.parameter.destination-hip | string |  |  
+action_result.parameter.source_address | string |  |  
+action_result.parameter.destination_address | string |  |  
+action_result.parameter.source_user | string |  |  
+action_result.parameter.source_device | string |  |  
+action_result.parameter.destination_device | string |  |  
 action_result.parameter.action | string |  |  
-action_result.parameter.negate-source | string |  |  
-action_result.parameter.negate-destination | string |  |  
+action_result.parameter.negate_source | string |  |  
+action_result.parameter.negate_destination | string |  |  
 action_result.parameter.application | string |  |  
- action_result.parameter.where | string |  |  
+action_result.parameter.where | string |  |  
 action_result.parameter.dst | string |  |  
 action_result.parameter.tag | string |  |  
-action_result.parameter.log-setting | string |  |  
+action_result.parameter.log_forwarding | string |  |  
 action_result.parameter.disable | string |  |  
 action_result.parameter.category | string |  |  
-action_result.parameter.icmp-unreachable | string |  |  
+action_result.parameter.icmp_unreachable | string |  |  
 action_result.parameter.service | string |  |  
-action_result.parameter.profile-setting | string |  |  
+action_result.parameter.profile_setting | string |  |  
 action_result.parameter.target | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
 action_result.parameter.should_commit_changes | string |  |  
@@ -897,16 +897,21 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
+**policy_name** |  required  | Name of the policy rule | string | 
 **device_group** |  required  | Device group for which to create the policy rule. | string | 
 **policy_type** |  required  |  | string | 
+**rule_type** |  required  | Rule type of the policy rule. | string | 
+**log_forwarding** |  optional  |  | string | 
 **direction** |  optional  |  | string | 
 **object_value** |  required  |  | string | 
 **object_type** |  required  |  | string | 
 **description** |  optional  |  | string | 
 **tag** |  optional  |  | string | 
-**icmp-unreachable** |  optional  |  | boolean | 
+**icmp_unreachable** |  optional  |  | boolean | 
 **target** |  optional  |  | string | 
+**where** |  optional  |  | string | 
+**dst** |  optional  |  | string | 
+**audit_comment** |  optional  |  | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -927,7 +932,7 @@ action_result.parameter.object_value | string |  |
 action_result.parameter.object_type | string |  |  
 action_result.parameter.description | string |  |  
 action_result.parameter.tag | string |  |  
-action_result.parameter.icmp-unreachable | string |  |  
+action_result.parameter.icmp_unreachable | string |  |  
 action_result.parameter.target | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
 action_result.parameter.should_commit_changes | string |  |    
@@ -941,7 +946,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
+**policy_name** |  required  | Name of the policy rule | string | 
 **device_group** |  required  | Device group for which to create the policy rule. | string | 
 **dst_device_group** |  optional  | Device group for which to create the policy rule. | string | 
 **policy_type** |  required  |  | string | 
@@ -1039,30 +1044,31 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule | string |  `panorama policy rule name` 
-**rule-type** |  required  | Rule type of the policy rule. | string | 
+**policy_name** |  required  | Name of the policy rule | string | 
+**rule_type** |  required  | Rule type of the policy rule. | string | 
 **device_group** |  required  | Device group for which to create the policy rule. | string | 
-**policy_type** |  required  |  | string | 
-**from** |  optional  |  | string | 
-**to** |  optional  |  | string | 
-**description** |  optional  |  | string | 
-**source** |  optional  |  | string | 
-**destination** |  optional  |  | string | 
-**source-user** |  optional  |  | string | 
-**source-hip** |  optional  |  | string | 
-**destination-hip** |  optional  |  | string | 
-**action** |  optional  |  | string | 
-**negate-source** |  optional  |  | boolean | 
-**negate-destination** |  optional  |  | boolean | 
-**application** |  optional  |  | string | 
+**policy_type** |  required  | Rule base to create the policy in. | string | 
+**source_zone** |  required  | source zone of policy. | string | 
+**destination_zone** |  required  | destination zone of policy. | string | 
+**description** |  optional  | policy description | string | 
+**source_address** |  required  | source address of policy. | string | 
+**destination_address** |  required  | destination address of policy. | string | 
+**source_user** |  optional  | source user for policy. | string | 
+**source_device** |  optional  | source device for policy. | string | 
+**destination_device** |  optional  | destination device for policy. | string | 
+**action** |  required  | action for the policy. | string | 
+**negate_source** |  optional  |  | boolean | 
+**negate_destination** |  optional  |  | boolean | 
+**application** |  required  |  | string | 
 **tag** |  optional  |  | string | 
 **category** |  optional  |  | string | 
-**log-setting** |  optional  |  | string | 
+**log_forwarding** |  optional  |  | string | 
 **disable** |  optional  |  | boolean | 
-**icmp-unreachable** |  optional  |  | boolean | 
-**service** |  optional  |  | string | 
-**profile-setting** |  optional  |  | string | 
+**icmp_unreachable** |  optional  |  | boolean | 
+**service** |  required  |  | string | 
+**profile_setting** |  optional  |  | string | 
 **target** |  optional  |  | string | 
+**audit_comment** |  optional  |  | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1072,8 +1078,35 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
+action_result.message | string |  |  
 action_result.summary | string |  |  
-action_result.status | string |  |    
+action_result.status | string |  |  
+action_result.parameter.policy_name | string |  |  
+action_result.parameter.rule_type | string |  |  
+action_result.parameter.device_group | string |  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.source_zone | string |  |  
+action_result.parameter.destination_zone | string |  |  
+action_result.parameter.description | string |  |  
+action_result.parameter.source_address | string |  |  
+action_result.parameter.destination_address | string |  |  
+action_result.parameter.source_user | string |  |  
+action_result.parameter.source_device | string |  |  
+action_result.parameter.destination_device | string |  |  
+action_result.parameter.action | string |  |  
+action_result.parameter.negate_source | string |  |  
+action_result.parameter.negate_destination | string |  |  
+action_result.parameter.application | string |  |  
+action_result.parameter.tag | string |  |  
+action_result.parameter.log_forwarding | string |  |  
+action_result.parameter.disable | string |  |  
+action_result.parameter.category | string |  |  
+action_result.parameter.icmp_unreachable | string |  |  
+action_result.parameter.service | string |  |  
+action_result.parameter.profile_setting | string |  |  
+action_result.parameter.target | string |  |  
+action_result.parameter.use_partial_commit | string |  |  
+action_result.parameter.should_commit_changes | string |  |    
 
 ## action: 'delete policy'
 Delete a security policy rule
@@ -1084,7 +1117,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule to delete | string |  `panorama policy rule name` 
+**policy_name** |  required  | Name of the policy rule to delete | string | 
 **policy_type** |  required  | Pre rule or Post rule | string | 
 **device_group** |  required  | Device group where the policy rule is present | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
