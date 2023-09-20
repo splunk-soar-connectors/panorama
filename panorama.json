@@ -4438,7 +4438,6 @@
                         "interzone"
                     ],
                     "default": "universal",
-                    "required": true,
                     "primary": true,
                     "order": 1,
                     "name": "Rule Type"
@@ -4466,7 +4465,6 @@
                 "source_zone": {
                     "description": "source zone of policy.",
                     "data_type": "string",
-                    "required": true,
                     "default": "any",
                     "order": 4,
                     "name": "Source Zone"
@@ -4474,7 +4472,6 @@
                 "destination_zone": {
                     "description": "destination zone of policy.",
                     "data_type": "string",
-                    "required": true,
                     "default": "any",
                     "order": 5,
                     "name": "Destination Zone"
@@ -4488,7 +4485,6 @@
                 "source_address": {
                     "description": "source address of policy.",
                     "data_type": "string",
-                    "required": true,
                     "order": 7,
                     "default": "any",
                     "name": "Source Address"
@@ -4496,7 +4492,6 @@
                 "destination_address": {
                     "description": "destination address of policy.",
                     "data_type": "string",
-                    "required": true,
                     "order": 8,
                     "default": "any",
                     "name": "Destination Address"
@@ -4524,7 +4519,6 @@
                 "action": {
                     "description": "action for the policy.",
                     "data_type": "string",
-                    "required": true,
                     "default": "allow",
                     "value_list": [
                         "allow",
@@ -4554,7 +4548,6 @@
                 "application": {
                     "description": "",
                     "data_type": "string",
-                    "required": true,
                     "default": "any",
                     "order": 26,
                     "name": "Application"
@@ -4597,7 +4590,6 @@
                 "service": {
                     "description": "",
                     "data_type": "string",
-                    "required": true,
                     "default": "any",
                     "order": 21,
                     "name": "Service"
@@ -5233,6 +5225,86 @@
             "render": {
                 "width": 12,
                 "title": "Delete Policy",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create address group",
+            "description": "create address group",
+            "type": "generic",
+            "identifier": "create_address_group",
+            "read_only": false,
+            "parameters":{
+                "address_grp_name": {
+                    "description": "Name of theaddress group to be created.",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "name": "address name"
+                },
+                "device_group": {
+                    "description": "device group to create the address group in.",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "name": "device group"
+                },
+                "dissable_override": {
+                    "description": "whether to disable override the address group or not.",
+                    "data_type": "boolean",
+                    "order": 0,
+                    "name": "device group"
+                },
+                "type": {
+                    "description": "type of the address group.",
+                    "data_type": "string",
+                    "default":"static",
+                    "value_list":[
+                        "static",
+                        "dynamic"
+                    ],
+                    "required": true,
+                    "order": 0,
+                    "name": "type"
+                },
+                "description": {
+                    "description": "description for the address group.",
+                    "data_type": "string",
+                    "order": 0,
+                    "name": "description"
+                },
+                "address_or_match": {
+                    "description": "address list if the type is static and match criteria if type is dynamic.",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "name": "address or match"
+                },
+                "tag": {
+                    "description": "list of tags to mark the address group under.",
+                    "data_type": "string",
+                    "order": 0,
+                    "name": "tag"
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 3
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 4
+                }
+
+            },
+            "output":[],
+            "render": {
+                "width": 12,
+                "title": "Create Address Group",
                 "type": "table",
                 "height": 5
             },
