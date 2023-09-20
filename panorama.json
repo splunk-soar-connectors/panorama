@@ -106,7 +106,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 6
                 }
             },
@@ -234,7 +234,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 3
                 }
             },
@@ -369,7 +369,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 6
                 }
             },
@@ -497,7 +497,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 3
                 }
             },
@@ -643,7 +643,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 8
                 }
             },
@@ -788,7 +788,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 4
                 }
             },
@@ -2423,7 +2423,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 15
                 }
             },
@@ -2650,7 +2650,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 15
                 }
             },
@@ -2789,7 +2789,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 3
                 }
             },
@@ -3096,7 +3096,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 25
                 }
             },
@@ -3763,7 +3763,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 15
                 }
             },
@@ -3935,7 +3935,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 15
                 }
             },
@@ -4624,7 +4624,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 25
                 }
             },
@@ -4813,7 +4813,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 4
                 }
             },
@@ -5296,7 +5296,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 4
                 }
 
@@ -5369,7 +5369,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 7
                 }
             },
@@ -5834,7 +5834,7 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": true,
+                    "default": false,
                     "order": 3
                 }
             },
