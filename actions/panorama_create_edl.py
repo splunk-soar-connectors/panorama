@@ -22,7 +22,7 @@ from actions import BaseAction
 
 class CreateEdl(BaseAction):
 
-    def generate_xml_string_for_edl(self, action_result):
+    def generate_dict_for_xml(self, action_result):
 
         source = self._param["source"]
         edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"], "ip")
@@ -197,9 +197,17 @@ class CreateEdl(BaseAction):
         if phantom.is_fail(status):
             return action_result.get_status()
 
+        # get existing data of edl
+        status, _ = connector.util._get_edl_data(self._param, action_result)
+        if phantom.is_success(status):
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                "Creating external dynamic list",
+                "EDL already exists"
+            )), {}
+
         create_xpath = f"{consts.EDL_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param))}/entry[@name='{edl_name}']"
 
-        xml_status, result_dict = self.generate_xml_string_for_edl(action_result)
+        xml_status, result_dict = self.generate_dict_for_xml(action_result)
 
         if phantom.is_fail(xml_status):
             return action_result.get_status()
