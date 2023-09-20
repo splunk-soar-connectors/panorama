@@ -40,10 +40,10 @@ class DeletePolicy(BaseAction):
             'xpath': xpath[1]
         }
         status, response = connector.util._make_rest_call(data, action_result)
-        if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("delete policy rule", action_result.get_message()))
-
         message = action_result.get_message()
+        if phantom.is_fail(status):
+            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("delete policy rule", message))
+
         action_result.add_data(response)
 
         if self._param.get('should_commit_changes', True):
