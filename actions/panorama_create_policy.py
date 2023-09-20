@@ -50,6 +50,8 @@ class CreatePolicy(BaseAction):
         self._param[PAN_JSON_NEGATE_SOURCE] = self._param.get(PAN_JSON_NEGATE_SOURCE, False)
         self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION, False)
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
+        description = self._param.get("description", None)
+        tag = self._param.get("tag", None)
 
         status = connector.util._validate_string(action_result, device_grp, PAN_JSON_DEVICE_GRP, 31)
         if phantom.is_fail(status):
@@ -61,6 +63,14 @@ class CreatePolicy(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR,
                 action_result.get_message())
+
+        if description and len(description) > 1024:
+            return action_result.set_status(
+                phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
+
+        if tag and len(tag.split(",")) > 64:
+            return action_result.set_status(
+                phantom.APP_ERROR, "Only 64 tags at maximum can be added to a policy rule.")
 
         for param in self._param.copy():
             if param in param_mapping:
