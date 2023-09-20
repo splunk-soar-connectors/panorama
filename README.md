@@ -98,6 +98,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [move policy](#action-move-policy) - Move a security policy rule.  
 [modify policy](#action-modify-policy) - Modify a security policy rule  
 [delete policy](#action-delete-policy) - Delete a security policy rule  
+[create address group](#action-create-address-group) - create address group  
 [create address](#action-create-address) - Create an address on the panorama platform  
 [reference address](#action-reference-address) - Fetch address details for the supplied address name  
 [delete address](#action-delete-address) - Delete address details for the supplied address name  
@@ -1045,27 +1046,27 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**rule_type** |  required  | Rule type of the policy rule. | string | 
+**rule_type** |  optional  | Rule type of the policy rule. | string | 
 **device_group** |  required  | Device group for which to create the policy rule. | string | 
 **policy_type** |  required  | Rule base to create the policy in. | string | 
-**source_zone** |  required  | source zone of policy. | string | 
-**destination_zone** |  required  | destination zone of policy. | string | 
+**source_zone** |  optional  | source zone of policy. | string | 
+**destination_zone** |  optional  | destination zone of policy. | string | 
 **description** |  optional  | policy description | string | 
-**source_address** |  required  | source address of policy. | string | 
-**destination_address** |  required  | destination address of policy. | string | 
+**source_address** |  optional  | source address of policy. | string | 
+**destination_address** |  optional  | destination address of policy. | string | 
 **source_user** |  optional  | source user for policy. | string | 
 **source_device** |  optional  | source device for policy. | string | 
 **destination_device** |  optional  | destination device for policy. | string | 
-**action** |  required  | action for the policy. | string | 
+**action** |  optional  | action for the policy. | string | 
 **negate_source** |  optional  |  | boolean | 
 **negate_destination** |  optional  |  | boolean | 
-**application** |  required  |  | string | 
+**application** |  optional  |  | string | 
 **tag** |  optional  |  | string | 
 **category** |  optional  |  | string | 
 **log_forwarding** |  optional  |  | string | 
 **disable** |  optional  |  | boolean | 
 **icmp_unreachable** |  optional  |  | boolean | 
-**service** |  required  |  | string | 
+**service** |  optional  |  | string | 
 **profile_setting** |  optional  |  | string | 
 **target** |  optional  |  | string | 
 **audit_comment** |  optional  |  | string | 
@@ -1190,6 +1191,28 @@ action_result.parameter.policy_type | string |  |
 action_result.parameter.device_group | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
 action_result.parameter.should_commit_changes | string |  |    
+
+## action: 'create address group'
+create address group
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**address_grp_name** |  required  | Name of theaddress group to be created. | string | 
+**device_group** |  required  | device group to create the address group in. | string | 
+**dissable_override** |  optional  | whether to disable override the address group or not. | boolean | 
+**type** |  required  | type of the address group. | string | 
+**description** |  optional  | description for the address group. | string | 
+**address_or_match** |  required  | address list if the type is static and match criteria if type is dynamic. | string | 
+**tag** |  optional  | list of tags to mark the address group under. | string | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+No Output  
 
 ## action: 'create address'
 Create an address on the panorama platform
