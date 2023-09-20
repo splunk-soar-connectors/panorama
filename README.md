@@ -1203,7 +1203,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **address_grp_name** |  required  | Name of theaddress group to be created. | string | 
 **device_group** |  required  | device group to create the address group in. | string | 
-**dissable_override** |  optional  | whether to disable override the address group or not. | boolean | 
+**disable_override** |  optional  | whether to disable override the address group or not. | boolean | 
 **type** |  required  | type of the address group. | string | 
 **description** |  optional  | description for the address group. | string | 
 **address_or_match** |  required  | address list if the type is static and match criteria if type is dynamic. | string | 
