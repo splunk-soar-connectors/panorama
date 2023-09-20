@@ -3007,7 +3007,6 @@
                 "where": {
                     "description": "",
                     "data_type": "string",
-                    "default": "after",
                     "value_list": [
                         "before",
                         "after",
@@ -3733,7 +3732,6 @@
                 "where": {
                     "description": "",
                     "data_type": "string",
-                    "default": "after",
                     "value_list": [
                         "before",
                         "after",
@@ -3911,7 +3909,6 @@
                 "where": {
                     "description": "where to move the policy in the device group",
                     "data_type": "string",
-                    "default": "after",
                     "value_list": [
                         "before",
                         "after",
@@ -5251,7 +5248,7 @@
                     "order": 0,
                     "name": "device group"
                 },
-                "dissable_override": {
+                "disable_override": {
                     "description": "whether to disable override the address group or not.",
                     "data_type": "boolean",
                     "order": 0,
