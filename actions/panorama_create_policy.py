@@ -69,7 +69,7 @@ class CreatePolicy(BaseAction):
                 del self._param[param]
 
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
-        if policy_present and connector.get_action_identifier() == "modify_policy":
+        if policy_present and connector.get_action_identifier() != "modify_policy":
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "A policy with this name already exists. Please use another policy name."
