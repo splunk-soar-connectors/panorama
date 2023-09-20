@@ -21,7 +21,7 @@ from panorama_consts import *
 
 class CreatePolicy(BaseAction):
 
-    def make_rest_call_helper(self,connector,xpath,element,action_result,where=None,dst=None):
+    def make_rest_call_helper(self, connector, xpath, element, action_result, where=None, dst=None):
         data = {
             'type': 'config',
             'action': 'set',
@@ -32,62 +32,47 @@ class CreatePolicy(BaseAction):
         if where and dst:
             data.update({'where': where, 'dst': dst})
         status, response = connector.util._make_rest_call(data, action_result)
-        return status,response
+        return status, response
 
     def execute(self, connector):
 
         connector.debug_print("Inside Create policy rule action")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
-
-        self._param[PAN_JSON_DISABLE]=self._param.get(PAN_JSON_DISABLE,False)
-        where = self._param.get(PAN_JSON_WHERE,None)
-        dst = self._param.get(PAN_JSON_DST,None)
+        self._param[PAN_JSON_DISABLE] = self._param.get(PAN_JSON_DISABLE, False)
+        where = self._param.get(PAN_JSON_WHERE, None)
+        dst = self._param.get(PAN_JSON_DST, None)
         policy_type = self._param.get(PAN_JSON_POLICY_TYPE)
-        policy_name=self._param[PAN_JSON_POLICY_NAME]
+        policy_name = self._param[PAN_JSON_POLICY_NAME]
         rule_type = self._param.get(PAN_JSON_RULE_TYPE)
-        audit_comment=self._param.get("audit_comment",None)
-        self._param["should_commit_changes"]=self._param.get("should_commit_changes",False)
-        self._param[PAN_JSON_NEGATE_SOURCE]=self._param.get(PAN_JSON_NEGATE_SOURCE,False)
-        self._param[PAN_JSON_NEGATE_DESTINATION]=self._param.get(PAN_JSON_NEGATE_DESTINATION,False)
+        audit_comment = self._param.get("audit_comment", None)
+        self._param["should_commit_changes"] = self._param.get("should_commit_changes", False)
+        self._param[PAN_JSON_NEGATE_SOURCE] = self._param.get(PAN_JSON_NEGATE_SOURCE, False)
+        self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION, False)
+        device_grp = self._param[PAN_JSON_DEVICE_GRP]
 
-        device_grp=self._param[PAN_JSON_DEVICE_GRP]
+        status = connector.util._validate_string(action_result, device_grp, PAN_JSON_DEVICE_GRP, 63)
+        if phantom.is_fail(status):
+            return action_result.set_status(
+                phantom.APP_ERROR, action_result.action_result.get_message())
 
-        status,message = connector.util._validate_string(action_result,device_grp,PAN_JSON_DEVICE_GRP,63)
+        status = connector.util._validate_string(action_result, policy_name, PAN_JSON_POLICY_NAME, 63)
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                message)
-
-        status,message = connector.util._validate_string(action_result,policy_name,PAN_JSON_POLICY_NAME,63)
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                message)
+                action_result.get_message())
 
         for param in self._param.copy():
             if param in param_mapping:
-                new_key=param_mapping[param]
-                self._param[new_key]=self._param[param]
+                new_key = param_mapping[param]
+                self._param[new_key] = self._param[param]
                 del self._param[param]
 
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
-        action_result.set_data_size(0)
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                PAN_ERROR_MESSAGE.format("blocking ip", action_result.get_message())
-            )
-
-        if policy_present and connector.get_action_identifier()!="modify_policy":
+        if policy_present and connector.get_action_identifier() == "modify_policy":
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "A policy with this name already exists. Please use another policy name."
-            )
-        elif not policy_present and connector.get_action_identifier()=="modify_policy":
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE
             )
 
         # validate policy type
@@ -107,44 +92,39 @@ class CreatePolicy(BaseAction):
         if where in ["before", "after"] and not dst:
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
 
-
         element = connector.util._get_action_element(self._param)
         xpath = connector.util._get_security_policy_xpath(self._param, action_result)[1]
-        status, response = self.make_rest_call_helper(connector,xpath,element,action_result,where,dst)
-
+        status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
         action_result.add_data(response)
         message = action_result.get_message()
 
         if ("tag" and "not a valid") in message:
-            tags= [value.strip() for value in self._param.get("tag","").split(',') if value.strip()]
-            status,_=connector.util._create_tag(connector,action_result,self._param,tags)
+            tags = [value.strip() for value in self._param.get("tag", "").split(',') if value.strip()]
+            status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
 
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
             else:
-                status, response = self.make_rest_call_helper(connector,xpath,element,action_result,where,dst)
+                status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
             action_result.add_data(response)
             message = action_result.get_message()
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
 
-
         if audit_comment:
-            status=connector.util._update_audit_comment(self._param, action_result)
+            status = connector.util._update_audit_comment(self._param, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
 
-
         if self._param["disabled"]:
-            element="<disabled>yes</disabled>"
-            status,response= self.make_rest_call_helper(connector,xpath,element,action_result,where,dst)
+            element = "<disabled>yes</disabled>"
+            status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
             action_result.add_data(response)
             message = action_result.get_message()
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
-
 
         if self._param["should_commit_changes"]:
             status = connector.util._commit_and_commit_all(self._param, action_result)
