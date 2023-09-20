@@ -51,7 +51,7 @@ class CreatePolicy(BaseAction):
         self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION, False)
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
 
-        status = connector.util._validate_string(action_result, device_grp, PAN_JSON_DEVICE_GRP, 63)
+        status = connector.util._validate_string(action_result, device_grp, PAN_JSON_DEVICE_GRP, 31)
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, action_result.action_result.get_message())
