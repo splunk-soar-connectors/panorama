@@ -88,6 +88,8 @@ class PanoramaUtils(object):
 
     def _validate_string(self, action_result, string_to_validate, param_name, max_len):
         regex = "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
+        if param_name == "tag":
+            regex = "^[^'\]\[]*$"
         string_len = len(string_to_validate)
 
         if not (string_len > 0 and string_len <= max_len):
@@ -95,14 +97,17 @@ class PanoramaUtils(object):
                 phantom.APP_ERROR,
                 f"Invalid length for {param_name} parameter, max length of string can be {max_len}"
             )
+        
 
         if not re.search(regex, string_to_validate):
+            if param_name=="tag":
+                message=" ' [ ] are not supported characters for tag names"
+            else:
+                message=consts.VALIDATE_STRING_ERROR_MSG.format(param_name)
             return action_result.set_status(
                 phantom.APP_ERROR,
-                f"Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
-                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"
+                message
             )
-
         return phantom.APP_SUCCESS
 
     def _get_config_xpath(self, param, device_entry_name=""):
@@ -652,15 +657,19 @@ class PanoramaUtils(object):
 
         return action_result.get_status()
 
-    def _get_security_policy_xpath(self, param, action_result):
+    def _get_security_policy_xpath(self, param, action_result, param_name=None):
         """Return the xpath to the given Security Policy name"""
         try:
             config_xpath = self._get_config_xpath(param)
             rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(
                 config_xpath=config_xpath,
-                policy_type=param[consts.PAN_JSON_POLICY_TYPE]
+                policy_type=param.get(consts.PAN_JSON_POLICY_TYPE)
             )
-            policy_name = param[consts.PAN_JSON_POLICY_NAME]
+            policy_name = param.get(consts.PAN_JSON_POLICY_NAME)
+            if param_name == "address_group":
+                rules_xpath = '{config_xpath}/address-group'.format(config_xpath=config_xpath)
+                policy_name = param.get("address_grp_name")
+
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
             return (action_result.set_status(phantom.APP_ERROR, "Unable to create xpath to the security policies",
@@ -997,14 +1006,17 @@ class PanoramaUtils(object):
 
     def element_prep(self, param_name, param_val=None, member=False, is_bool=False):
 
-        temp_element = dict
-        status = True
+        temp_element = ""
         temp_dict = {}
         if param_val:
+            status = True
             param_list = []
             try:
                 param_list = param_val.split(",")
                 param_list = [value.strip() for value in param_list if value.strip()]
+                if len(param_list) == 0:
+                    status = False
+                    return status, temp_element
             except Exception:
                 pass
             if param_name == "target":
@@ -1014,7 +1026,10 @@ class PanoramaUtils(object):
                 temp_element = f'<{param_name}><devices><entry name ="{param_val}"/></devices></{param_name}>'
                 return status, temp_element
             elif param_name == "profile-setting":
-                temp_element = temp_element = f'<{param_name}><{param_val}/></{param_name}>'
+                temp_element = f'<{param_name}><{param_val}/></{param_name}>'
+                return status, temp_element
+            elif param_name == "dynamic":
+                param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
                 return status, temp_element
             elif is_bool:
                 if param_val:
@@ -1029,9 +1044,8 @@ class PanoramaUtils(object):
                     param_val = f'<member>{param_val}</member>'
 
             temp_element = f'<{param_name}>{param_val}</{param_name}>'
-        if len(temp_element) == 0:
+        else:
             status = False
-
         return status, temp_element
 
     def _get_ip_type(self, connector, action_result, ip_address):
