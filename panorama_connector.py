@@ -20,6 +20,7 @@ from importlib import import_module
 
 import phantom.app as phantom
 from phantom.base_connector import BaseConnector
+from phantom.action_result import ActionResult
 
 import panorama_consts as consts
 from actions import BaseAction
@@ -75,6 +76,13 @@ class PanoramaConnector(BaseConnector):
 
         base_action_sub_classes = BaseAction.__subclasses__()
         self.debug_print(f"Finding action module: {action_name}")
+
+        # Checking common parameters
+        action_result = self.add_action_result(ActionResult(dict(param)))
+        status = self.util._common_param_check(action_result, param)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
         try:
             action = base_action_sub_classes[0](param)
             return action.execute(self)

@@ -53,17 +53,6 @@ class CreatePolicy(BaseAction):
         description = self._param.get("description", None)
         tag = self._param.get("tag", None)
 
-        status = connector.util._validate_string(action_result, device_grp, PAN_JSON_DEVICE_GRP, 31)
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR, action_result.action_result.get_message())
-
-        status = connector.util._validate_string(action_result, policy_name, PAN_JSON_POLICY_NAME, 63)
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                action_result.get_message())
-
         if description and len(description) > 1024:
             return action_result.set_status(
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")

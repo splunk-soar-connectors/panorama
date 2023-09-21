@@ -5708,7 +5708,7 @@
         },
         {
             "action": "reference address",
-            "identifier": "refrence_address",
+            "identifier": "reference_address",
             "description": "Fetch address details for the supplied address name",
             "read_only": true,
             "type": "investigate",
