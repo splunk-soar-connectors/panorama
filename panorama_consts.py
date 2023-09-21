@@ -254,3 +254,7 @@ PAN_ERR_MSG = {
     "21": "Internal error",
     "22": "Session timed out"
 }
+
+ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
+VALIDATE_STRING_ERROR_MSG = "Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
+                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"

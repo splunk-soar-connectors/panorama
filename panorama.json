@@ -2985,14 +2985,24 @@
                 "negate_source": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 27,
                     "name": "Negate Source"
                 },
                 "negate_destination": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 13,
                     "name": "Negate Destination"
                 },
@@ -4531,14 +4541,24 @@
                 "negate_source": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 27,
                     "name": "Negate Source"
                 },
                 "negate_destination": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 13,
                     "name": "Negate Destination"
                 },
