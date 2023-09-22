@@ -19,7 +19,7 @@ from actions import BaseAction
 from panorama_consts import *
 
 
-class CreatePolicy(BaseAction):
+class CreateAddressGroup(BaseAction):
 
     def make_rest_call_helper(self, connector, xpath, element, action_result, where=None, dst=None):
         data = {
