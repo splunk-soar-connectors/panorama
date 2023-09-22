@@ -111,7 +111,7 @@ class PanoramaUtils(object):
             regex = "^[^'\]\[]*$"
         string_len = len(string_to_validate)
 
-        if not (string_len > 0 and string_len <= max_len):
+        if not (0 < string_len <= max_len):
             return action_result.set_status(
                 phantom.APP_ERROR,
                 f"Invalid length for {param_name} parameter, max length of string can be {max_len}"
@@ -121,7 +121,7 @@ class PanoramaUtils(object):
             if param_name == "tag":
                 message = " ' [ ] are not supported characters for tag names"
             else:
-                message = consts.VALIDATE_STRING_ERROR_MSG.format(param_name)
+                message = consts.VALIDATE_STRING_ERROR_MSG.format(param_name=param_name)
             return action_result.set_status(
                 phantom.APP_ERROR,
                 message
