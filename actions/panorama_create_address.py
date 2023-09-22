@@ -71,10 +71,6 @@ class CreateAddress(BaseAction):
 
         address_name = self._param["name"]
 
-        status = connector.util._validate_string(action_result, self._param["device_group"], "device group", 31)
-        if phantom.is_fail(status):
-            return action_result.get_status()
-
         create_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), name=address_name)}"
 
         xml_status, element_xml = self._generate_xml_string_for_address(connector=connector, action_result=action_result)

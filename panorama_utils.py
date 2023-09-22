@@ -58,6 +58,14 @@ class PanoramaUtils(object):
         return error_text
 
     def _load_pan_version(self, action_result):
+        """Load the current version of panorama
+
+        Args:
+            action_result : Object of ActionResult class
+
+        Returns:
+            phantom.APP_ERROR/phantom.APP_SUCCESS: Boolean value of app status
+        """
 
         self._connector.debug_print("Inside load pan version function")
         data = {
@@ -87,7 +95,20 @@ class PanoramaUtils(object):
         return status
 
     def _validate_string(self, action_result, string_to_validate, param_name, max_len):
+        """ Validate given param input string
+
+        Args:
+            action_result : Object of ActionResult class
+            string_to_validate : string that need to validate
+            param_name : parameter name
+            max_len : Maximum allowed length of string
+
+        Returns:
+            status: phantom.APP_ERROR/phantom.APP_SUCCESS
+        """
         regex = "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
+        if param_name == "tag":
+            regex = "^[^'\]\[]*$"
         string_len = len(string_to_validate)
 
         if not (string_len > 0 and string_len <= max_len):
@@ -97,12 +118,14 @@ class PanoramaUtils(object):
             )
 
         if not re.search(regex, string_to_validate):
+            if param_name == "tag":
+                message = " ' [ ] are not supported characters for tag names"
+            else:
+                message = consts.VALIDATE_STRING_ERROR_MSG.format(param_name)
             return action_result.set_status(
                 phantom.APP_ERROR,
-                f"Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
-                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"
+                message
             )
-
         return phantom.APP_SUCCESS
 
     def _get_config_xpath(self, param, device_entry_name=""):
@@ -123,6 +146,15 @@ class PanoramaUtils(object):
         return consts.DEVICE_GRP_XPATH.format(formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
 
     def _make_rest_call(self, data, action_result):
+        """ This function is used to make the REST call.
+
+        Args:
+            data : dictionary of request body
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message), response obtained by making an API call
+        """
 
         self._connector.debug_print("Making rest call")
 
@@ -185,6 +217,14 @@ class PanoramaUtils(object):
         return status
 
     def _generate_token(self, action_result):
+        """ This function is used to generate key
+
+        Args:
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message)
+        """
 
         # get credentials to generate a key
         username = self._connector.config["username"]
@@ -262,7 +302,7 @@ class PanoramaUtils(object):
         """Update the given result based on the given Finish job
 
         :param job: job returned from performing Commit action. The job is already in Finish state
-        :param action_result:
+        :param action_result: Object of ActionResult class
         """
         self._connector.debug_print('Update action result with the finished job: %s' % job)
 
@@ -399,7 +439,15 @@ class PanoramaUtils(object):
         return action_result.get_status()
 
     def _get_all_device_groups(self, param, action_result):
-        """Get all the device groups configured on the system"""
+        """ Get all the device groups configured on the system
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message), list of device groups
+        """
 
         self._connector.debug_print('Start retrieving all device groups')
 
@@ -596,7 +644,15 @@ class PanoramaUtils(object):
         return action_result.get_status()
 
     def _commit_and_commit_all(self, param, action_result):
-        """Commit Config changes and Commit Device Group changes"""
+        """ Commit Config changes and Commit Device Group changes
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message)
+        """
 
         self._connector.debug_print('Start Commit actions')
 
@@ -648,15 +704,19 @@ class PanoramaUtils(object):
 
         return action_result.get_status()
 
-    def _get_security_policy_xpath(self, param, action_result):
+    def _get_security_policy_xpath(self, param, action_result, param_name=None):
         """Return the xpath to the given Security Policy name"""
         try:
             config_xpath = self._get_config_xpath(param)
             rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(
                 config_xpath=config_xpath,
-                policy_type=param[consts.PAN_JSON_POLICY_TYPE]
+                policy_type=param.get(consts.PAN_JSON_POLICY_TYPE)
             )
-            policy_name = param[consts.PAN_JSON_POLICY_NAME]
+            policy_name = param.get(consts.PAN_JSON_POLICY_NAME)
+            if param_name == "address_group":
+                rules_xpath = '{config_xpath}/address-group'.format(config_xpath=config_xpath)
+                policy_name = param.get("address_grp_name")
+
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
             return (action_result.set_status(phantom.APP_ERROR, "Unable to create xpath to the security policies",
@@ -665,6 +725,15 @@ class PanoramaUtils(object):
         return (phantom.APP_SUCCESS, rules_xpath)
 
     def _does_policy_exist(self, param, action_result):
+        """ Checking the policy is exist or not
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
+        """
 
         status, rules_xpath = self._get_security_policy_xpath(param, action_result)
         if phantom.is_fail(status):
@@ -777,6 +846,16 @@ class PanoramaUtils(object):
         return phantom.APP_SUCCESS
 
     def _parse_response_msg(self, response, action_result, response_message):
+        """ Parse and append response message into action result
+
+        Args:
+            response : Response dictionary
+            action_result : Object of ActionResult class
+            response_message : response messages that need to be append response message into action result
+
+        Returns:
+            Return response message if available else return None
+        """
 
         msg = response.get("msg")
 
@@ -807,6 +886,15 @@ class PanoramaUtils(object):
         return response_message
 
     def _parse_response(self, response_dict, action_result):
+        """ Parse the response obtained by making an API call and add in into data
+
+        Args:
+            response_dict : response dictionary of REST call
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message)
+        """
 
         # multiple keys could be present even if the response is a failure
         response = response_dict.get('response')
@@ -894,6 +982,16 @@ class PanoramaUtils(object):
         return state
 
     def _get_edl_data(self, param, action_result):
+        """Getting the data of given eld
+
+        Args:
+            param : Parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            status: Phantom app status
+            response: Dictionary of response
+        """
 
         edl_name = param["name"]
         get_edl_xpath = f"{consts.EDL_XPATH.format(config_xpath=self._get_config_xpath(param))}/entry[@name='{edl_name}']"
@@ -979,26 +1077,29 @@ class PanoramaUtils(object):
         for params in param.keys():
             if param[params]:
                 if params in consts.SEC_POLICY_REQ_PARAM_LIST:
-                    status, result = self.element_prep(params, param[params])
+                    status, result = self._element_prep(params, param[params])
                 elif isinstance(param[params], bool) and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
-                    status, result = self.element_prep(params, param[params], is_bool=True)
+                    status, result = self._element_prep(params, param[params], is_bool=True)
                 elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
-                    status, result = self.element_prep(params, param[params], member=True)
+                    status, result = self._element_prep(params, param[params], member=True)
                 if status:
                     element += result
                     status = False
         return element
 
-    def element_prep(self, param_name, param_val=None, member=False, is_bool=False):
+    def _element_prep(self, param_name, param_val=None, member=False, is_bool=False):
 
-        temp_element = dict
-        status = True
+        temp_element = ""
         temp_dict = {}
         if param_val:
+            status = True
             param_list = []
             try:
                 param_list = param_val.split(",")
                 param_list = [value.strip() for value in param_list if value.strip()]
+                if len(param_list) == 0:
+                    status = False
+                    return status, temp_element
             except Exception:
                 pass
             if param_name == "target":
@@ -1008,7 +1109,10 @@ class PanoramaUtils(object):
                 temp_element = f'<{param_name}><devices><entry name ="{param_val}"/></devices></{param_name}>'
                 return status, temp_element
             elif param_name == "profile-setting":
-                temp_element = temp_element = f'<{param_name}><{param_val}/></{param_name}>'
+                temp_element = f'<{param_name}><{param_val}/></{param_name}>'
+                return status, temp_element
+            elif param_name == "dynamic":
+                param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
                 return status, temp_element
             elif is_bool:
                 if param_val:
@@ -1023,17 +1127,16 @@ class PanoramaUtils(object):
                     param_val = f'<member>{param_val}</member>'
 
             temp_element = f'<{param_name}>{param_val}</{param_name}>'
-        if len(temp_element) == 0:
+        else:
             status = False
-
         return status, temp_element
 
     def _get_ip_type(self, connector, action_result, ip_address):
         """ Figure out the type of IP
 
         Args:
-            ip_address (_type_): IP address
-            action_result (_type_): action result object
+            ip_address : IP address
+            action_result : Object of ActionResult class
 
         Returns:
             ip_type: Type of given IP address
@@ -1057,15 +1160,15 @@ class PanoramaUtils(object):
         """ Create tag based on provided parameters
 
         Args:
-            connector: Phanotm connector object
-            action_result: Phanotm action result object
-            param (dict): parameters dictonary
+            connector: phantom connector object
+            action_result: Object of ActionResult class
+            param (dict): parameters dictionary
             tags (str): Tags that need to create
             comment (str, optional): Comment added in tag. Defaults to consts.TAG_COMMENT.
             color (str, optional): Color provided to tag. Defaults to None.
 
         Returns:
-            APP_SUCCESS/APP_ERROR: Phantom success/error boolen object
+            APP_SUCCESS/APP_ERROR: Phantom success/error boolean object
             xml_tag_string = XML string regarding tag
         """
         xml_tag_string = None
@@ -1131,3 +1234,30 @@ class PanoramaUtils(object):
         ldh_re = re.compile('^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$',
                             re.IGNORECASE)
         return all(ldh_re.match(x) for x in dn.split('.'))
+
+    def _common_param_check(self, action_result, param):
+        """ Validate the common parameters
+
+        Args:
+            param : dictionary of parameters
+
+        Returns:
+            True/False: action status
+        """
+        self._connector.debug_print("Validating common parameters...")
+        # Validation for device group parameter if present
+        if param.get(consts.PAN_JSON_DEVICE_GRP):
+            status = self._validate_string(
+                action_result, param[consts.PAN_JSON_DEVICE_GRP], " ".join(consts.PAN_JSON_DEVICE_GRP.split("_")), consts.MAX_DEVICE_GRP_NAME_LEN
+            )
+            if phantom.is_fail(status):
+                return action_result.get_status()
+
+        # Validation for device group parameter if present
+        if param.get(consts.EDL_ADR_POLICY_NAME):
+            status = self._validate_string(
+                action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN
+            )
+            if phantom.is_fail(status):
+                return action_result.get_status()
+        return phantom.APP_SUCCESS

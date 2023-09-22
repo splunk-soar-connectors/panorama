@@ -1,4 +1,4 @@
-# File: refrence_address.py
+# File: reference_address.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -27,10 +27,6 @@ class CreateAddress(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         address_name = self._param["name"]
-
-        status = connector.util._validate_string(action_result, self._param["device_group"], "device group", 31)
-        if phantom.is_fail(status):
-            return action_result.get_status()
 
         get_address_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), name=address_name)}"
 

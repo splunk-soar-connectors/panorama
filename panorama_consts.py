@@ -73,6 +73,9 @@ SEC_POL_URL_TYPE = "URL"
 SEC_POL_APP_TYPE = "App"
 SEC_POL_IP_TYPE = "IP"
 
+EDL_ADR_POLICY_NAME = "name"
+MAX_NAME_LEN = 63
+MAX_DEVICE_GRP_NAME_LEN = 31
 MAX_NODE_NAME_LEN = 31
 MAX_QUERY_COUNT = 5000
 
@@ -251,3 +254,7 @@ PAN_ERR_MSG = {
     "21": "Internal error",
     "22": "Session timed out"
 }
+
+ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
+VALIDATE_STRING_ERROR_MSG = "Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
+                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"

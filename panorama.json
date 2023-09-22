@@ -2985,14 +2985,24 @@
                 "negate_source": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 27,
                     "name": "Negate Source"
                 },
                 "negate_destination": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 13,
                     "name": "Negate Destination"
                 },
@@ -4531,14 +4541,24 @@
                 "negate_source": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 27,
                     "name": "Negate Source"
                 },
                 "negate_destination": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
+                    "default": "none",
+                    "value_list":[
+                        "none",
+                        "true",
+                        "false"
+                    ],
                     "order": 13,
                     "name": "Negate Destination"
                 },
@@ -5708,7 +5728,7 @@
         },
         {
             "action": "reference address",
-            "identifier": "refrence_address",
+            "identifier": "reference_address",
             "description": "Fetch address details for the supplied address name",
             "read_only": true,
             "type": "investigate",
