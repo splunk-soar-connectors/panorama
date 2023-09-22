@@ -78,10 +78,12 @@ class PanoramaConnector(BaseConnector):
         self.debug_print(f"Finding action module: {action_name}")
 
         # Checking common parameters
-        action_result = self.add_action_result(ActionResult(dict(param)))
-        status = self.util._common_param_check(action_result, param)
+        # Creating temporary temp_action_result object for validating common params
+        temp_action_result = self.add_action_result(ActionResult(dict(param)))
+        status = self.util._common_param_check(temp_action_result, param)
         if phantom.is_fail(status):
-            return action_result.get_status()
+            return temp_action_result.get_status()
+        self.remove_action_result(temp_action_result)
 
         try:
             action = base_action_sub_classes[0](param)

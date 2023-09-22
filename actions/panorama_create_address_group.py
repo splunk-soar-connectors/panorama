@@ -57,6 +57,12 @@ class CreatePolicy(BaseAction):
             return action_result.set_status(phantom.APP_ERROR,
                                             f"'{self._param['type']}'Please enter a valid value for 'type' field as 'static' or 'dynamic'")
 
+        status = connector.util._validate_string(action_result, self._param["address_grp_name"], "address_grp_name", 63)
+        if phantom.is_fail(status):
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                action_result.action_result.get_message())
+
         element = connector.util._get_action_element(self._param)
         if self._param["type"] == "dynamic":
             status, temp_element = connector.util._element_prep(

@@ -1260,4 +1260,13 @@ class PanoramaUtils(object):
             )
             if phantom.is_fail(status):
                 return action_result.get_status()
+
+        # Validation for device group parameter if present
+        if param.get(consts.PAN_JSON_TAGS):
+            status = self._validate_string(
+                action_result, param[consts.PAN_JSON_TAGS], consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN
+            )
+            if phantom.is_fail(status):
+                return action_result.get_status()
+
         return phantom.APP_SUCCESS
