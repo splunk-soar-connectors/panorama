@@ -174,7 +174,7 @@ PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the ass
 
 PAN_EDL_TYPES = {
     "Predefined IP List": "predefined-ip",
-    "Predefined Url List": "predefined-url",
+    "Predefined URL List": "predefined-url",
     "IP List": "ip",
     "Domain List": "domain",
     "URL List": "url",

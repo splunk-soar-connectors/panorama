@@ -25,7 +25,4 @@ class BaseAction:
         :param connector: Vision connector object
         :param param: Parameter dictionary
         """
-        # self._connector = connector
-        # self._action_result = connector.add_action_result(ActionResult(dict(param)))
-
         self._param = param

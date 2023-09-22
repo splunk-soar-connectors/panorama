@@ -96,12 +96,13 @@ class ModifyEdl(BaseAction):
             edl_list_type = old_edl_list_type
 
         # fetch source if updated
-        if source and len(source) > 255:
-            return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                    "creating external dynamic list",
-                    "Length of source for edl is over the limit, edl source can have 255 characters at max"
-                )), {}
+        if source:
+            if len(source) > 255:
+                return action_result.set_status(
+                    phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating external dynamic list",
+                        "Length of source for edl is over the limit, edl source can have 255 characters at max"
+                    )), {}
         else:
             source = existing_data["type"][old_edl_list_type]["url"]
             if isinstance(source, dict):
