@@ -96,7 +96,7 @@ class CreateEdl(BaseAction):
                         "Invalid datatype for hour, hour must be integer and in range 00-23"
                     )), {}
 
-                if not (at_hour >= 0 and at_hour < 24):
+                if not (0 <= at_hour <= 23):
                     return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         "Invalid hour, hour must be in range 00-23"
@@ -136,7 +136,7 @@ class CreateEdl(BaseAction):
                             "creating external dynamic list",
                             "Invalid datetype for data, date must be integer and in range 1-31"
                         )), {}
-                    if not (day_of_month > 1 and day_of_month < 31):
+                    if not ( 1 <= day_of_month <= 31):
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list",
                             "Invalid date, date must be in range 1-31"
@@ -198,7 +198,7 @@ class CreateEdl(BaseAction):
             return action_result.get_status()
 
         # get existing data of edl
-        status, _ = connector.util._get_edl_data(self._param, action_result)
+        status = connector.util._get_edl_data(self._param, action_result)
         if phantom.is_success(status):
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                 "Creating external dynamic list",

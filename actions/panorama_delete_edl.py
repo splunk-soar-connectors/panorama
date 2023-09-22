@@ -50,11 +50,11 @@ class DeleteEdl(BaseAction):
 
         action_result.update_summary({'delete_edl': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("deleting edl", action_result.get_message()))
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("delete edl", action_result.get_message()))
 
         message = action_result.get_message()
 
-        if self._param.get('should_commit_changes', True):
+        if self._param.get('should_commit_changes', False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()

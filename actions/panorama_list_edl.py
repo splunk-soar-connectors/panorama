@@ -42,7 +42,7 @@ class ListEdl(BaseAction):
 
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of external dynamic list", action_result.get_message()))
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(connector.get_action_identifier(), action_result.get_message()))
 
         result_data = action_result.get_data()
         result_data = result_data.pop()
@@ -50,7 +50,7 @@ class ListEdl(BaseAction):
         try:
             result_data = result_data["external-list"].get("entry")
             if not result_data:
-                return action_result.set_status(phantom.APP_ERROR, "No edl's found in the device group")
+                return action_result.set_status(phantom.APP_ERROR, "No EDLs found in the device group")
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))

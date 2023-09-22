@@ -14,7 +14,7 @@
 # and limitations under the License.
 PAN_ERROR_REPLY_FORMAT_KEY_MISSING = "None '{key}' missing in reply from device"
 PAN_ERROR_REPLY_NOT_SUCCESS = "REST call returned '{status}'"
-PAN_ERROR_UNABLE_TO_PARSE_REPLY = "Unable to parse reply from device"
+PAN_ERROR_UNABLE_TO_PARSE_REPLY = "Unable to parse reply from device : {error}"
 PAN_SUCCESS_TEST_CONNECTIVITY_PASSED = "Test connectivity passed"
 PAN_ERROR_TEST_CONNECTIVITY_FAILED = "Test connectivity failed"
 PAN_SUCCESS_REST_CALL_PASSED = "REST Api call passed"

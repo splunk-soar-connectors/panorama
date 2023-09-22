@@ -39,7 +39,7 @@ class ListEdl(BaseAction):
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        status, _ = connector.util._get_edl_data(self._param, action_result)
+        status = connector.util._get_edl_data(self._param, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(
@@ -49,7 +49,7 @@ class ListEdl(BaseAction):
         result_data = result_data.pop()
 
         if result_data["@total-count"] == "0":
-            return action_result.set_status(phantom.APP_ERROR, "No EDL found")
+            return action_result.set_status(phantom.APP_ERROR, "EDL object doesn't exist")
 
         try:
             result_data = result_data['entry']

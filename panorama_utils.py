@@ -69,8 +69,9 @@ class PanoramaUtils(object):
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message())
+                consts.PAN_ERROR_MESSAGE.format(self._connector.get_action_identifier(), action_result.get_message())
             )
+
         self._connector.debug_print("after make rest call")
         result_data = action_result.get_data()
         if len(result_data) == 0:
@@ -79,7 +80,6 @@ class PanoramaUtils(object):
         result_data = result_data.pop(0)
         # Version should be in this format '7.1.4', where the 1st digit determines the major version.
         self._version = result_data.get('sw-version')
-        self._connector.debug_print(f"software version found : {self._version}")
 
         if not self._version:
             return phantom.APP_ERROR
@@ -109,9 +109,6 @@ class PanoramaUtils(object):
         """Return the xpath to the specified device group
 
         device_entry_name should default to 'localhost.localdomain'.
-        TODO (Ravenclaw): We've been using blank device_entry_name, which works for our test suite.
-        We need to look into using the valid device_entry_name later. This can be done as per customer request.
-        Source: https://live.paloaltonetworks.com/t5/automation-api-discussions/xml-api-do-we-need-to-specify-quot-localhost-localdomain-quot-in/m-p/470501#M2965 # noqa
         """
 
         device_group = param[consts.PAN_JSON_DEVICE_GRP]
@@ -154,9 +151,8 @@ class PanoramaUtils(object):
             self._connector.save_progress(consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY)
             return (action_result.set_status(
                 phantom.APP_ERROR,
-                consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY,
-                self._get_error_message_from_exception(e)),
-                xml)
+                consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY.format(error=self._get_error_message_from_exception(e))),
+            )
 
         status = self._parse_response(response_dict, action_result)
         if phantom.is_fail(status):
@@ -283,7 +279,7 @@ class PanoramaUtils(object):
                 status_string = '{}{}'.format(status_string, '\n'.join(job['details']['line']))
             except Exception as e:
                 self._connector.debug_print(
-                    "Parsing commit status dict, handled exception",
+                    "Parsing commit status dict",
                     self._get_error_message_from_exception(e)
                 )
 
@@ -347,12 +343,12 @@ class PanoramaUtils(object):
             return action_result.set_status(phantom.APP_ERROR, error_message)
 
         job_id = result_data.get('job')
-        self._connector.debug_print("Successful committed change with job_id: %s" % job_id)
 
         if not job_id:
             self._connector.debug_print("Failed to commit Config changes. Reason: NO job id")
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_NO_JOB_ID)
 
+        self._connector.debug_print("Successful committed change with job_id: %s" % job_id)
         self._connector.debug_print("Commit Job id: %s" % job_id)
 
         # Keep querying Job info until we find a Finished job
@@ -461,7 +457,7 @@ class PanoramaUtils(object):
                 return "{0}, warnings: {1}".format('\n'.join(commit_all_device_details['msg']['errors']['line']),
                                                    '\n'.join(commit_all_device_details['msg']['warnings']['line']))
             except Exception as e:
-                self._connector.debug_print("Parsing commit all device details dict, handled exception",
+                self._connector.debug_print("Parsing commit all device details dict, ",
                                             self._get_error_message_from_exception(e))
                 return "UNKNOWN"
 
@@ -479,7 +475,7 @@ class PanoramaUtils(object):
             devices = job['devices']['entry']
         except Exception as e:
             self._connector.debug_print(
-                "Parsing commit all message, handled exception",
+                "Parsing commit all message, ",
                 self._get_error_message_from_exception(e)
             )
             devices = []
@@ -500,7 +496,7 @@ class PanoramaUtils(object):
                                                                                      self._get_device_commit_details_string(device['details']))
                 status_string = "{0}<li>{1}</li>".format(status_string, device_status)
             except Exception as e:
-                self._connector.debug_print("Parsing commit all message for a single device, handled exception",
+                self._connector.debug_print("Parsing commit all message for a single device, ",
                                             self._get_error_message_from_exception(e))
 
         status_string = '{}</ul>'.format(status_string)
@@ -699,7 +695,7 @@ class PanoramaUtils(object):
         try:
             total_count = int(result_data[0]['@total-count'])
         except Exception as e:
-            self._connector.debug_print("_does_policy_exist handled exception: ", e)
+            self._connector.debug_print("_does_policy_exist: ", e)
             return (phantom.APP_SUCCESS, False)
 
         if not total_count:
@@ -838,8 +834,6 @@ class PanoramaUtils(object):
         else:
             error_msg = consts.PAN_ERR_MSG.get(code)
 
-            self._connector.debug_print(f"final error msg : {error_msg}")
-
             if error_msg:
                 action_result.set_status(
                     phantom.APP_ERROR,
@@ -911,12 +905,12 @@ class PanoramaUtils(object):
             'xpath': get_edl_xpath
         }
 
-        status, response = self._make_rest_call(data, action_result)
+        status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
-            return phantom.APP_ERROR, {}
+            return phantom.APP_ERROR
 
-        return phantom.APP_SUCCESS, response
+        return phantom.APP_SUCCESS
 
     def _update_audit_comment(self, param, action_result):
         """

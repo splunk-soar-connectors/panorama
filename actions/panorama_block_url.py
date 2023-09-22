@@ -95,8 +95,7 @@ class BlockUrl(BaseAction):
         url_prof_name = url_prof_name[:consts.MAX_NODE_NAME_LEN].strip()
 
         status = connector.util._add_url_to_url_category(
-            self._param,
-            action_result, url_prof_name
+            self._param, action_result, url_prof_name
         )
 
         if phantom.is_fail(status):

@@ -59,7 +59,7 @@ class ModifyEdl(BaseAction):
             "No values to update, please provide valid values to be updated"), ""
 
         # get existing data of edl
-        status, _ = connector.util._get_edl_data(self._param, action_result)
+        status = connector.util._get_edl_data(self._param, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(
@@ -76,7 +76,7 @@ class ModifyEdl(BaseAction):
                     "modifying external dynamic list", connector.util._get_error_message_from_exception(e))), ""
 
         if existing_data["@total-count"] == "0":
-            return action_result.set_status(phantom.APP_ERROR, "No such edl found"), ""
+            return action_result.set_status(phantom.APP_ERROR, "EDL object doesn't exist"), ""
 
         existing_data = existing_data.get("entry")
 
@@ -86,24 +86,22 @@ class ModifyEdl(BaseAction):
         # fetch edl type if updated
         if edl_list_type:
             edl_list_type = consts.PAN_EDL_TYPES.get(edl_list_type)
-            if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei", None]:
+            if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei"]:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         f"Invalid list type for edl, please enter a valid list type. {consts.PAN_EDL_TYPES_STR}"
                     )), {}
-        else:
-            if old_edl_list_type:
-                edl_list_type = old_edl_list_type
+        elif old_edl_list_type:
+            edl_list_type = old_edl_list_type
 
         # fetch source if updated
-        if source:
-            if len(source) > 255:
-                return action_result.set_status(
-                    phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
-                        "Length of source for edl is over the limit, edl source can have 255 characters at max"
-                    )), {}
+        if source and len(source) > 255:
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                    "creating external dynamic list",
+                    "Length of source for edl is over the limit, edl source can have 255 characters at max"
+                )), {}
         else:
             source = existing_data["type"][old_edl_list_type]["url"]
             if isinstance(source, dict):
@@ -218,7 +216,7 @@ class ModifyEdl(BaseAction):
                         "Invalid datatype for hour, hour must be integer and in range 00-23"
                     )), ""
 
-                if not (at_hour >= 0 and at_hour < 24):
+                if not (0 <= at_hour <= 23):
                     return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "modifying external dynamic list",
                         "Invalid hour, hour must be in range 00-23"
@@ -267,10 +265,10 @@ class ModifyEdl(BaseAction):
                     except Exception:
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "modifying external dynamic list",
-                            "Invalid datatype for hour, hour must be integer and in range 1-31"
+                            "Invalid datatype for day of month, day of month must be integer and in range 1-31"
                         )), ""
 
-                    if not (day_of_month > 1 and day_of_month < 31):
+                    if not (1 <= day_of_month <= 31):
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list",
                             "Invalid date, date must be in range 1-31"
@@ -395,9 +393,9 @@ class ModifyEdl(BaseAction):
 
         status, response = connector.util._make_rest_call(data, action_result)
 
-        action_result.update_summary({'create_edl': response})
+        action_result.update_summary({'modify_edl': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("create edl", action_result.get_message()))
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("modify edl", action_result.get_message()))
 
         message = action_result.get_message()
 
