@@ -12,3 +12,17 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
+
+# from phantom.action_result import ActionResult
+
+
+class BaseAction:
+    """Base Action class to generate the action objects."""
+
+    def __init__(self, param):
+        """Prepare constructor for actions.
+
+        :param connector: Vision connector object
+        :param param: Parameter dictionary
+        """
+        self._param = param
