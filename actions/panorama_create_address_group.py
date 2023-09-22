@@ -36,11 +36,10 @@ class CreatePolicy(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("Inside Create address group action")
+        connector.debug_print("Inside create address group action.")
 
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
-        self._param["disable_override"] = self._param.get("disable_override", False)
-        self._param["disable-override"] = self._param["disable_override"]
+        self._param["disable-override"] = self._param.get("disable_override", False)
         del self._param["disable_override"]
 
         if device_grp == "shared" and self._param["disable-override"]:
@@ -55,53 +54,33 @@ class CreatePolicy(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         if self._param["type"] not in ADD_GRP_TYPE_VAL_LIST:
-            return action_result.set_status(phantom.APP_ERROR, f"'{self._param['type']}\
-                                            'Please enter a valid value for 'type' field as 'static' or 'dynamic'")
-
-        status = connector.util._validate_string(action_result, self._param[PAN_JSON_DEVICE_GRP], PAN_JSON_DEVICE_GRP, 31)
-
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                action_result.action_result.get_message())
-
-        status = connector.util._validate_string(action_result, self._param["address_grp_name"], "address_grp_name", 63)
-
-        if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                action_result.action_result.get_message())
-
-        if self._param.get("tag", None):
-            status = connector.util._validate_string(action_result, self._param["tag"], "tag", 127)
-
-            if phantom.is_fail(status):
-                return action_result.set_status(
-                    phantom.APP_ERROR,
-                    action_result.action_result.get_message())
+            return action_result.set_status(phantom.APP_ERROR,
+                                            f"'{self._param['type']}'Please enter a valid value for 'type' field as 'static' or 'dynamic'")
 
         element = connector.util._get_action_element(self._param)
-
         if self._param["type"] == "dynamic":
-            status, temp_element = connector.util.element_prep("dynamic", param_val=self._param["address_or_match"], member=False, is_bool=False)
+            status, temp_element = connector.util._element_prep(
+                "dynamic", param_val=self._param["address_or_match"], member=False, is_bool=False)
             element += temp_element
         else:
-            status, temp_element = connector.util.element_prep(param_name="static", param_val=self._param["address_or_match"], member=True)
+            status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param["address_or_match"], member=True)
             element += temp_element
 
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
 
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
-
         message = action_result.get_message()
 
         if "not a valid" in message and "tag" in message:
             tags = [value.strip() for value in self._param.get("tag", "").split(',') if value.strip()]
+
             status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
+
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
             else:
                 status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
+
             message = action_result.get_message()
 
         if phantom.is_fail(status):
