@@ -28,7 +28,7 @@ class ListEdl(BaseAction):
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        status, _ = connector.util._get_edl_data(self._param, action_result)
+        status = connector.util._get_edl_data(self._param, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(

@@ -25,7 +25,7 @@ class CreateEdl(BaseAction):
     def generate_dict_for_xml(self, action_result):
 
         source = self._param["source"]
-        edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"], "ip")
+        edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"])
 
         if len(source) > 255:
             return action_result.set_status(
