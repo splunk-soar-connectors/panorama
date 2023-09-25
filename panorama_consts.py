@@ -255,6 +255,7 @@ PAN_ERR_MSG = {
     "21": "Internal error",
     "22": "Session timed out"
 }
+PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
 
 ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
 VALIDATE_STRING_ERROR_MSG = "Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\

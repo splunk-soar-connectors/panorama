@@ -67,7 +67,6 @@ class PanoramaUtils(object):
             phantom.APP_ERROR/phantom.APP_SUCCESS: Boolean value of app status
         """
 
-        self._connector.debug_print("Inside load pan version function")
         data = {
             "type": "version",
             "key": self._key
@@ -108,7 +107,7 @@ class PanoramaUtils(object):
         """
         regex = "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
         if param_name == "tag":
-            regex = "^[^'\]\[]*$"
+            regex = r"^[^'\]\[]*$"
         string_len = len(string_to_validate)
 
         if not (0 < string_len <= max_len):
@@ -790,7 +789,7 @@ class PanoramaUtils(object):
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                consts.PAN_ERROR_MESSAGE.format("blocking ip", action_result.get_message())
+                consts.PAN_ERROR_MESSAGE.format(self._connector.get_action_identifier(), action_result.get_message())
             )
 
         if not policy_present:
@@ -915,23 +914,21 @@ class PanoramaUtils(object):
             )
 
         code = response.get('@code')
+        error_msg = consts.PAN_ERR_MSG.get(code) if (code and code not in ["19", "20"]) else consts.PAN_CODE_NOT_PRESENT_MSG
 
-        if status == "success" and code in ["19", "20"]:
+        if status == "success":
             response_message = consts.PAN_SUCCESS_REST_CALL_PASSED
             action_result.set_status(phantom.APP_SUCCESS)
-        else:
-            error_msg = consts.PAN_ERR_MSG.get(code)
-
-            if error_msg:
+            if code and code not in ["19", "20"]:
                 action_result.set_status(
                     phantom.APP_ERROR,
                     consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=error_msg)
                 )
-            else:
-                action_result.set_status(
-                    phantom.APP_ERROR,
-                    consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status="error")
-                )
+        else:
+            action_result.set_status(
+                phantom.APP_ERROR,
+                consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=error_msg)
+            )
 
         if code is not None:
             response_message = "{} code: '{}'".format(response_message, code)
