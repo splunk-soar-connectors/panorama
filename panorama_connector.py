@@ -87,8 +87,10 @@ class PanoramaConnector(BaseConnector):
 
         try:
             action = base_action_sub_classes[0](param)
+            self.debug_print(f"action ---> {action}, base_action_sub_classes[0] ---> {base_action_sub_classes}")
             return action.execute(self)
-        except:
+        except Exception as e:
+            self.debug_print(f"Exception in connector ---> {e}")
             return phantom.APP_ERROR
 
 

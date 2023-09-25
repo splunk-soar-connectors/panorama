@@ -28,7 +28,8 @@ class GetAddressGroup(BaseAction):
 
         address_group_name = self._param["name"]
 
-        get_address_xpath = f"{consts.REF_ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), address_group_name=address_group_name)}"
+        get_address_xpath = f"""{consts.REF_ADDR_GRP_XPATH.format(
+            config_xpath=connector.util._get_config_xpath(self._param), address_group_name=address_group_name)}"""
 
         data = {
             "type": "config",
@@ -39,7 +40,8 @@ class GetAddressGroup(BaseAction):
 
         status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message()))
 
         result_data = action_result.get_data()
         result_data = result_data.pop()
