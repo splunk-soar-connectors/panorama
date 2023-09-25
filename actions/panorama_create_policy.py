@@ -39,6 +39,7 @@ class CreatePolicy(BaseAction):
         connector.debug_print("Inside Create policy rule action")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
         self._param[PAN_JSON_DISABLE] = self._param.get(PAN_JSON_DISABLE, False)
         where = self._param.get(PAN_JSON_WHERE, None)
         dst = self._param.get(PAN_JSON_DST, None)
@@ -67,13 +68,24 @@ class CreatePolicy(BaseAction):
                 self._param[new_key] = self._param[param]
                 del self._param[param]
 
+        if self._param["negate-source"] not in ["none", "true", "false"]:
+            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
+        if self._param["negate-destination"] not in ["none", "true", "false"]:
+            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"],
+                                                                                                    "negate_destination"))
+        connector.debug_print("6")
+        if self._param["negate-source"] == "none":
+            del self._param["negate-source"]
+
+        if self._param["negate-destination"] == "none":
+            del self._param["negate-destination"]
+
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
         if policy_present and connector.get_action_identifier() != "modify_policy":
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "A policy with this name already exists. Please use another policy name."
             )
-
         # validate policy type
         if policy_type and policy_type.lower() not in POLICY_TYPE_VALUE_LIST:
             return action_result.set_status(
@@ -87,18 +99,6 @@ class CreatePolicy(BaseAction):
         # validate rule type
         if rule_type and rule_type.lower() not in RULE_TYPE_VALUE_LIST:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(RULE_TYPE_VALUE_LIST, PAN_JSON_RULE_TYPE))
-
-        if self._param["negate_source"] not in ["none", "true", "false"]:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
-        if self._param["negate_destination"] not in ["none", "true", "false"]:
-            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"],
-                                                                                                     "negate_destination"))
-
-        if self._param["negate_source"] == "none":
-            del self._param["negate_source"]
-
-        if self._param["negate_destination"] == "none":
-            del self._param["negate_destination"]
 
         if where in ["before", "after"] and not dst:
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
