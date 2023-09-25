@@ -5728,7 +5728,7 @@
                 "disable_override": {
                     "description": "Dissable override on an address",
                     "data_type": "string",
-                    "value_list":[
+                    "value_list": [
                         "yes",
                         "no"
                     ],

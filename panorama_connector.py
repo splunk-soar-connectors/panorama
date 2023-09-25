@@ -19,8 +19,8 @@ import sys
 from importlib import import_module
 
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
 from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 import panorama_consts as consts
 from actions import BaseAction
@@ -87,10 +87,8 @@ class PanoramaConnector(BaseConnector):
 
         try:
             action = base_action_sub_classes[0](param)
-            self.debug_print(f"action ---> {action}, base_action_sub_classes[0] ---> {base_action_sub_classes}")
             return action.execute(self)
-        except Exception as e:
-            self.debug_print(f"Exception in connector ---> {e}")
+        except:
             return phantom.APP_ERROR
 
 
