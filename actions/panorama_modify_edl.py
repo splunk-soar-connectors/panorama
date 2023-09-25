@@ -337,7 +337,7 @@ class ModifyEdl(BaseAction):
 
         # if its not shared group
         device_group = self._param["device_group"]
-        if device_group != "shared":
+        if device_group.lower() != "shared":
             if disable_override not in ["yes", "no", None]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
