@@ -1,4 +1,4 @@
-# File: reference_address.py
+# File: reference_address_group.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -19,16 +19,16 @@ import panorama_consts as consts
 from actions import BaseAction
 
 
-class GetAddress(BaseAction):
+class GetAddressGroup(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting reference address action")
+        connector.debug_print("starting reference address groups action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        address_name = self._param["name"]
+        address_group_name = self._param["name"]
 
-        get_address_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), name=address_name)}"
+        get_address_xpath = f"{consts.REF_ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), address_group_name=address_group_name)}"
 
         data = {
             "type": "config",
@@ -39,13 +39,13 @@ class GetAddress(BaseAction):
 
         status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address", action_result.get_message()))
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message()))
 
         result_data = action_result.get_data()
         result_data = result_data.pop()
 
         if result_data.get("@total-count") == "0":
-            return action_result.set_status(phantom.APP_ERROR, "No Address found")
+            return action_result.set_status(phantom.APP_ERROR, "No address group found")
 
         try:
             result_data = result_data.get('entry')
@@ -53,7 +53,7 @@ class GetAddress(BaseAction):
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        action_result.update_summary({"message": "fetched data successfully"})
+        action_result.update_summary({"message": "successfully fetched address group details"})
         action_result.update_data([result_data])
 
         return action_result.set_status(phantom.APP_SUCCESS)

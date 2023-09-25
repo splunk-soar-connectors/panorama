@@ -1248,7 +1248,7 @@ class PanoramaUtils(object):
         Returns:
             True/False: action status
         """
-        self._connector.debug_print("Validating common parameters...")
+        self._connector.debug_print("start validating common parameters...")
         # Validation for device group parameter if present
         if param.get(consts.PAN_JSON_DEVICE_GRP):
             status = self._validate_string(
@@ -1272,5 +1272,5 @@ class PanoramaUtils(object):
             )
             if phantom.is_fail(status):
                 return action_result.get_status()
-
+        self._connector.debug_print("validated common parameters...")
         return phantom.APP_SUCCESS

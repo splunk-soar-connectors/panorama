@@ -5403,6 +5403,283 @@
             "versions": "EQ(*)"
         },
         {
+            "action": "list address groups",
+            "description": "List the address groups",
+            "type": "investigate",
+            "identifier": "list_address_groups",
+            "read_only": true,
+            "parameters": {
+                "device_group": {
+                    "description": "Device group name, or 'shared'",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "List Address Groups"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "reference address group",
+            "description": "Get the address group",
+            "type": "investigate",
+            "identifier": "reference_address_group",
+            "read_only": true,
+            "parameters": {
+                "name": {
+                    "description": "Name of address group",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true,
+                    "contains": [
+                        "panorama address group name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group name, or 'shared'",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "column_name": "Address Group Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama address group name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "Reference Address Group"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete address group",
+            "identifier": "delete_address_group",
+            "description": "Delete address group for the supplied address group name",
+            "read_only": false,
+            "type": "generic",
+            "parameters": {
+                "name": {
+                    "description": "Name of address group",
+                    "data_type": "string",
+                    "order": 0,
+                    "required": true,
+                    "contains": [
+                        "panorama address group name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group to configure, or 'shared'",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 2
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": false,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "column_name": "Address Group Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama address group name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
+                    "contains": [
+                        "panorama device name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Delete Address Group",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "create address",
             "identifier": "create_address",
             "description": "Create an address on the panorama platform",
