@@ -520,6 +520,12 @@ class PanoramaUtils(object):
 
         try:
             devices = job['devices']['entry']
+        except TypeError as e:
+            self._connector.debug_print(
+                "Parsing commit all message, ",
+                self._get_error_message_from_exception(e)
+            )
+            devices = []
         except Exception as e:
             self._connector.debug_print(
                 "Parsing commit all message, ",
@@ -634,7 +640,7 @@ class PanoramaUtils(object):
                 return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
             # send the % progress
-            self.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
+            self._connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
 
             time.sleep(2)
 
@@ -723,7 +729,7 @@ class PanoramaUtils(object):
 
         return (phantom.APP_SUCCESS, rules_xpath)
 
-    def _does_policy_exist(self, param, action_result):
+    def _does_policy_exist(self, param, action_result, param_name=None):
         """ Checking the policy is exist or not
 
         Args:
@@ -733,8 +739,10 @@ class PanoramaUtils(object):
         Returns:
             Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
         """
-
-        status, rules_xpath = self._get_security_policy_xpath(param, action_result)
+        if param_name == 'address_group':
+            status, rules_xpath = self._get_security_policy_xpath(param, action_result, param_name='address_group')
+        else:
+            status, rules_xpath = self._get_security_policy_xpath(param, action_result)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -929,7 +937,6 @@ class PanoramaUtils(object):
                 phantom.APP_ERROR,
                 consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=error_msg)
             )
-
         if code is not None:
             response_message = "{} code: '{}'".format(response_message, code)
 
@@ -1124,7 +1131,7 @@ class PanoramaUtils(object):
                     param_val = f'<member>{param_val}</member>'
 
             temp_element = f'<{param_name}>{param_val}</{param_name}>'
-        else:
+        elif len(param_val) == 0:
             status = False
         return status, temp_element
 

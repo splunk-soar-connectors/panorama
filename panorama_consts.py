@@ -219,8 +219,6 @@ param_mapping = {
     "source_user": "source-user",
     "source_device": "source-hip",
     "destination_device": "destination-hip",
-    "negate_source": "negate-source",
-    "negate_destination": "negate-destination",
     "log_forwarding": "log-setting",
     "icmp_unreachable": "icmp-unreachable",
     "profile_setting": "profile-setting",
@@ -260,3 +258,4 @@ PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
 ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
 VALIDATE_STRING_ERROR_MSG = "Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
                       can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"
+PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"

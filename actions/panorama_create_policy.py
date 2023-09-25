@@ -39,7 +39,6 @@ class CreatePolicy(BaseAction):
         connector.debug_print("Inside Create policy rule action")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
-
         self._param[PAN_JSON_DISABLE] = self._param.get(PAN_JSON_DISABLE, False)
         where = self._param.get(PAN_JSON_WHERE, None)
         dst = self._param.get(PAN_JSON_DST, None)
@@ -51,37 +50,31 @@ class CreatePolicy(BaseAction):
         self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION, False)
         description = self._param.get("description", None)
         tag = self._param.get("tag", None)
-        self._param["negate_source"] = self._param.get("negate_source").lower()
-        self._param["negate_destination"] = self._param.get("negate_destination").lower()
-
+        self._param["negate-source"] = self._param.get("negate_source", "none")
+        self._param["negate-destination"] = self._param.get("negate_destination", "none")
         if description and len(description) > 1024:
             return action_result.set_status(
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
-
         if tag and len(tag.split(",")) > 64:
             return action_result.set_status(
                 phantom.APP_ERROR, "Only 64 tags at maximum can be added to a policy rule.")
-
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
                 self._param[new_key] = self._param[param]
                 del self._param[param]
-
-        if self._param["negate-source"] not in ["none", "true", "false"]:
+        if self._param["negate-source"].lower() not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
-        if self._param["negate-destination"] not in ["none", "true", "false"]:
+        if self._param["negate-destination"].lower() not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"],
                                                                                                     "negate_destination"))
-        connector.debug_print("6")
         if self._param["negate-source"] == "none":
             del self._param["negate-source"]
-
         if self._param["negate-destination"] == "none":
             del self._param["negate-destination"]
-
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
         if policy_present and connector.get_action_identifier() != "modify_policy":
+
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "A policy with this name already exists. Please use another policy name."
@@ -121,13 +114,13 @@ class CreatePolicy(BaseAction):
             message = action_result.get_message()
 
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
+            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
 
         if audit_comment:
             status = connector.util._update_audit_comment(self._param, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
 
         if self._param["disabled"]:
             element = "<disabled>yes</disabled>"
@@ -135,9 +128,9 @@ class CreatePolicy(BaseAction):
             action_result.add_data(response)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
 
-        if self._param["should_commit_changes"]:
+        if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()

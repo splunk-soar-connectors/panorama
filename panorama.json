@@ -5356,12 +5356,10 @@
                 "type": {
                     "description": "type of the address group.",
                     "data_type": "string",
-                    "default": "static",
                     "value_list": [
                         "static",
                         "dynamic"
                     ],
-                    "required": false,
                     "order": 0,
                     "name": "type"
                 },
@@ -5374,7 +5372,6 @@
                 "address_or_match": {
                     "description": "address list if the type is static and match criteria if type is dynamic.",
                     "data_type": "string",
-                    "required": false,
                     "order": 0,
                     "name": "address or match"
                 },
