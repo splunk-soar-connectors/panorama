@@ -341,7 +341,7 @@ class ModifyEdl(BaseAction):
             if disable_override not in ["yes", "no", None]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
-                        "Invalid value for expand disable override, the value can contain value either yes or no"
+                        "Invalid value for disable override, the value can contain value either yes or no"
                     )), {}
 
             if disable_override:

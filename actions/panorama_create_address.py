@@ -57,10 +57,14 @@ class CreateAddress(BaseAction):
 
         # if its not shared group
         device_group = self._param["device_group"]
-        if device_group != "shared":
-            disable_override = self._param.get("disable_override")
-            override = "yes" if disable_override else "no"
-            xml_string += f"<disable-override>{override}</disable-override>"
+        if device_group.lower() != "shared":
+            disable_override = self._param.get("disable_override", "no")
+            if disable_override not in ["yes", "no"]:
+                return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
+                        "creating address",
+                        "Invalid value for expand disable override, the value can contain value either yes or no"
+                    ))
+            xml_string += f"<disable-override>{disable_override}</disable-override>"
 
         return phantom.APP_SUCCESS, xml_string
 

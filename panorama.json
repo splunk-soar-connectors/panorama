@@ -5450,7 +5450,12 @@
                 },
                 "disable_override": {
                     "description": "Dissable override on an address",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list":[
+                        "yes",
+                        "no"
+                    ],
+                    "default": "no",
                     "order": 5
                 },
                 "use_partial_commit": {
