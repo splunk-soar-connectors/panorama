@@ -53,23 +53,32 @@ class CreateAddressGroup(BaseAction):
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        if self._param["type"] not in ADD_GRP_TYPE_VAL_LIST:
-            return action_result.set_status(phantom.APP_ERROR,
-                                            f"'{self._param['type']}'Please enter a valid value for 'type' field as 'static' or 'dynamic'")
+        grp_type = self._param.get("type")
+        address_or_match = self._param.get("address_or_match")
 
-        status = connector.util._validate_string(action_result, self._param["address_grp_name"], "address_grp_name", 63)
-        if phantom.is_fail(status):
+        if (grp_type and not address_or_match) or (address_or_match and not grp_type):
+            return action_result.set_status(phantom.APP_ERROR,
+                                            "Parameters 'type' and 'address_or_match' are inter-dependent \
+                                                hence please provide input for both or none.")
+
+        status, add_grp_present = connector.util._does_policy_exist(self._param, action_result, param_name='address_group')
+        if add_grp_present and connector.get_action_identifier() != "modify_address_group":
             return action_result.set_status(
                 phantom.APP_ERROR,
-                action_result.action_result.get_message())
+                "An address group with this name already exists. Please use another name."
+            )
+
+        if self._param.get("type") not in ADD_GRP_TYPE_VAL_LIST and connector.get_action_identifier() != "modify_address_group":
+            return action_result.set_status(phantom.APP_ERROR,
+                                            "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
 
         element = connector.util._get_action_element(self._param)
-        if self._param["type"] == "dynamic":
+        if self._param.get("type") == "dynamic":
             status, temp_element = connector.util._element_prep(
                 "dynamic", param_val=self._param["address_or_match"], member=False, is_bool=False)
             element += temp_element
         else:
-            status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param["address_or_match"], member=True)
+            status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param.get("address_or_match"), member=True)
             element += temp_element
 
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
@@ -97,4 +106,4 @@ class CreateAddressGroup(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successfully created address group: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, f"Successfull: {message}")

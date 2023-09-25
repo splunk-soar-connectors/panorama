@@ -1131,7 +1131,7 @@ class PanoramaUtils(object):
                     param_val = f'<member>{param_val}</member>'
 
             temp_element = f'<{param_name}>{param_val}</{param_name}>'
-        elif len(param_val) == 0:
+        elif not param_val:
             status = False
         return status, temp_element
 
