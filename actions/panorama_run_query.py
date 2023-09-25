@@ -72,7 +72,7 @@ class RunQuery(BaseAction):
         data = {
             "type": "log",
             "log-type": log_type,
-            "key": self._key,
+            "key": connector.util._key,
             "query": query,
             "skip": min_offset - 1,
             "nlogs": offset_diff,
@@ -104,13 +104,14 @@ class RunQuery(BaseAction):
         data = {
             "type": "op",
             "key": connector.util._key,
-            "cmd": "<show><query><result><id>{job}</id></result></query></show>".format(job=job_id)}
+            "cmd": "<show><query><result><id>{job}</id></result></query></show>".format(job=job_id)
+        }
 
         while True:
 
             status_action_result = ActionResult()
 
-            status, _ = self._make_rest_call(data, status_action_result)
+            status, _ = connector.util._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
                 action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
