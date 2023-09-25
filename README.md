@@ -100,6 +100,9 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [delete policy](#action-delete-policy) - Delete a security policy rule  
 [create address group](#action-create-address-group) - create address group  
 [modify address group](#action-modify-address-group) - modify address group  
+[list address groups](#action-list-address-groups) - List the address groups  
+[reference address group](#action-reference-address-group) - Get the address group  
+[delete address group](#action-delete-address-group) - Delete address group for the supplied address group name  
 [create address](#action-create-address) - Create an address on the panorama platform  
 [reference address](#action-reference-address) - Fetch address details for the supplied address name  
 [delete address](#action-delete-address) - Delete address details for the supplied address name  
@@ -1236,6 +1239,80 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 
 #### Action Output
 No Output  
+
+## action: 'list address groups'
+List the address groups
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device name` 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
+## action: 'reference address group'
+Get the address group
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of address group | string |  `panorama address group name` 
+**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device name` 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  `panorama address group name`  |  
+action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
+## action: 'delete address group'
+Delete address group for the supplied address group name
+
+Type: **generic**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**name** |  required  | Name of address group | string |  `panorama address group name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
+**should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.name | string |  `panorama address group name`  |  
+action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.use_partial_commit | boolean |  |  
+action_result.parameter.should_commit_changes | boolean |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'create address'
 Create an address on the panorama platform
