@@ -1253,7 +1253,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description of address | string | 
 **tags** |  optional  | Tags want to apply on an address | string | 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
-**disable_override** |  optional  | Dissable override on an address | boolean | 
+**disable_override** |  optional  | Dissable override on an address | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
