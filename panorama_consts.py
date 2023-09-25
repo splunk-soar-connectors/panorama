@@ -139,7 +139,7 @@ DEL_APP_XPATH = "/members/member[text()='{app_name}']"
 ADDR_GRP_XPATH = "{config_xpath}/address-group/entry[@name='{ip_group_name}']"
 ADDR_GRP_ELEM = "<static><member>{addr_name}</member></static>"
 DEL_ADDR_GRP_XPATH = "/static/member[text()='{addr_name}']"
-GET_ADDR_GRP_XPATH  = "{config_xpath}/address-group"
+GET_ADDR_GRP_XPATH = "{config_xpath}/address-group"
 REF_ADDR_GRP_XPATH = "{config_xpath}/address-group/entry[@name='{address_group_name}']"
 
 IP_ADDR_XPATH = "{config_xpath}/address/entry[@name='{ip_addr_name}']"
