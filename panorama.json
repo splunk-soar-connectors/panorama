@@ -2225,7 +2225,7 @@
                     "column_name": "EDL",
                     "column_order": 0,
                     "contains": [
-                        "network application"
+                        "panorama edl name"
                     ]
                 },
                 {
@@ -3268,6 +3268,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.source_zone",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
                     "data_type": "string"
                 },
                 {
@@ -4814,6 +4818,10 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.parameter.policy_type",
                     "data_type": "string"
                 },
@@ -5402,7 +5410,11 @@
                 },
                 "disable_override": {
                     "description": "whether to disable override the address group or not.",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list" : [
+                        "yes",
+                        "no"
+                    ],
                     "order": 0,
                     "name": "device group"
                 },
@@ -5448,7 +5460,87 @@
                     "order": 4
                 }
             },
-            "output": [],
+            "output": [
+                {
+                    "data_path": "action_result.parameter.address_grp_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.disable_override",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.address_or_match",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
             "render": {
                 "width": 12,
                 "title": "Create Address Group",
@@ -5484,7 +5576,11 @@
                 },
                 "disable_override": {
                     "description": "whether to disable override the address group or not.",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "yes",
+                        "no"
+                    ],
                     "order": 0,
                     "name": "device group"
                 },
@@ -5654,7 +5750,7 @@
                     "column_name": "Device Group",
                     "column_order": 1,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 {
@@ -5757,7 +5853,7 @@
                     "column_name": "Device Group",
                     "column_order": 1,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 {
@@ -5909,7 +6005,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",
-                    "data_type": "boolean"
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
@@ -5917,7 +6013,7 @@
                     "column_name": "Device Group",
                     "column_order": 2,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 {
@@ -6262,7 +6358,7 @@
                     "column_name": "Device Group",
                     "column_order": 1,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 {
