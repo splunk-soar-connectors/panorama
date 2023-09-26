@@ -77,7 +77,11 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "policy_type": {
                     "description": "Block policy type",
@@ -122,7 +126,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -224,7 +231,11 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -250,7 +261,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -340,7 +354,11 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "policy_type": {
                     "description": "Block policy type",
@@ -385,7 +403,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -487,7 +508,11 @@
                     "description": "Device group to configure or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -513,7 +538,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -608,7 +636,11 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 2,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "policy_type": {
                     "description": "Block policy type",
@@ -663,7 +695,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -778,7 +813,11 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 2,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -804,7 +843,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.is_source_address",
@@ -1953,7 +1995,11 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 0,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -1966,7 +2012,10 @@
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
                     "column_name": "Device Group",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -2162,13 +2211,20 @@
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 }
             },
             "output": [
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.@name",
@@ -2237,23 +2293,37 @@
                     "description": "Name of external dynamic list",
                     "data_type": "string",
                     "order": 0,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 }
             },
             "output": [
                 {
                     "data_path": "action_result.parameter.name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.status",
@@ -2311,13 +2381,21 @@
                     "description": "Name of external dynamic list",
                     "data_type": "string",
                     "order": 0,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "description": {
                     "description": "Description of external dynamic list",
@@ -2430,11 +2508,17 @@
             "output": [
                 {
                     "data_path": "action_result.parameter.name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.description",
@@ -2546,13 +2630,21 @@
                     "description": "Name of external dynamic list",
                     "data_type": "string",
                     "order": 0,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "description": {
                     "description": "Description of external dynamic list",
@@ -2657,11 +2749,17 @@
             "output": [
                 {
                     "data_path": "action_result.parameter.name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.description",
@@ -2773,13 +2871,21 @@
                     "description": "Name of external dynamic list",
                     "data_type": "string",
                     "order": 0,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
                     "order": 1,
-                    "required": true
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -2798,11 +2904,18 @@
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
                     "column_name": "EDL Name",
-                    "column_order": 0
+                    "column_order": 0,
+                    "primary": true,
+                    "contains": [
+                        "panorama edl name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -2894,7 +3007,11 @@
                     "required": true,
                     "default": "shared",
                     "order": 2,
-                    "name": "Device Group"
+                    "name": "Device Group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "policy_type": {
                     "description": "Rule base to create the policy in.",
@@ -3153,7 +3270,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -3646,7 +3766,11 @@
                     "required": true,
                     "default": "shared",
                     "order": 2,
-                    "name": "Device Group"
+                    "name": "Device Group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "policy_type": {
                     "description": "",
@@ -3815,7 +3939,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -3884,7 +4011,11 @@
                     "required": true,
                     "default": "shared",
                     "order": 0,
-                    "name": "Current Device Group"
+                    "name": "Current Device Group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "dst_device_group": {
                     "description": "Device group for which to create the policy rule.",
@@ -3993,7 +4124,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.dst_device_group",
@@ -4455,7 +4589,11 @@
                     "required": true,
                     "default": "shared",
                     "order": 2,
-                    "name": "Device Group"
+                    "name": "Device Group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "policy_type": {
                     "description": "Rule base to create the policy in.",
@@ -4689,7 +4827,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -4820,7 +4961,11 @@
                     "required": true,
                     "default": "shared",
                     "order": 2,
-                    "name": "Device Group"
+                    "name": "Device Group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -5228,7 +5373,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -5266,7 +5414,11 @@
                     "data_type": "string",
                     "required": true,
                     "order": 0,
-                    "name": "device group"
+                    "name": "device group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "disable_override": {
                     "description": "whether to disable override the address group or not.",
@@ -5345,7 +5497,11 @@
                     "data_type": "string",
                     "required": true,
                     "order": 0,
-                    "name": "device group"
+                    "name": "device group",
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
                 },
                 "disable_override": {
                     "description": "whether to disable override the address group or not.",
@@ -5414,8 +5570,9 @@
                     "data_type": "string",
                     "order": 0,
                     "required": true,
+                    "primary": true,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 }
             },
@@ -5426,7 +5583,7 @@
                     "column_name": "Device Group",
                     "column_order": 1,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 {
@@ -5497,8 +5654,9 @@
                     "data_type": "string",
                     "order": 0,
                     "required": true,
+                    "primary": true,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 }
             },
@@ -5589,8 +5747,9 @@
                     "data_type": "string",
                     "order": 1,
                     "required": true,
+                    "primary": true,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 "use_partial_commit": {
@@ -5721,8 +5880,9 @@
                     "data_type": "string",
                     "order": 4,
                     "required": true,
+                    "primary": true,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 "disable_override": {
@@ -6104,8 +6264,9 @@
                     "data_type": "string",
                     "order": 1,
                     "required": true,
+                    "primary": true,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 }
             },
@@ -6196,8 +6357,9 @@
                     "data_type": "string",
                     "order": 1,
                     "required": true,
+                    "primary": true,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 "use_partial_commit": {
@@ -6228,7 +6390,7 @@
                     "column_name": "Device Group",
                     "column_order": 1,
                     "contains": [
-                        "panorama device name"
+                        "panorama device group"
                     ]
                 },
                 {
