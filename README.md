@@ -133,7 +133,7 @@ This action does the following to block a URL:<ul><li>Create an URL Filtering pr
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **url** |  required  | URL to block | string |  `url` 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **policy_type** |  optional  | Block policy type | string | 
 **policy_name** |  optional  | Policy to use | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -144,7 +144,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.url | string |  `url`  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
@@ -169,7 +169,7 @@ For Version 8 and below, this action will remove the URL from the URL Filtering 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **url** |  required  | URL to unblock | string |  `url` 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -177,7 +177,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.url | string |  `url`  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.data | string |  |  
@@ -199,7 +199,7 @@ This action does the following to block an application:<ul><li>Create an Applica
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **application** |  required  | Application to block | string |  `network application` 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **policy_type** |  optional  | Block policy type | string | 
 **policy_name** |  optional  | Policy to use | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -210,7 +210,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.application | string |  `network application`  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
@@ -235,7 +235,7 @@ This action will remove the application from the Application group that was crea
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **application** |  required  | Application to unblock | string |  `network application` 
-**device_group** |  required  | Device group to configure or 'shared' | string | 
+**device_group** |  required  | Device group to configure or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -243,7 +243,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.application | string |  `network application`  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.data | string |  |  
@@ -266,7 +266,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **ip** |  required  | IP to block | string |  `ip` 
 **is_source_address** |  optional  | Source address | boolean | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **policy_type** |  optional  | Block policy type | string | 
 **policy_name** |  optional  | Policy to use | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -279,7 +279,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.ip | string |  `ip`  |  
 action_result.parameter.is_source_address | boolean |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
@@ -306,7 +306,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **ip** |  required  | IP to unblock | string |  `ip` 
 **is_source_address** |  optional  | Source address | boolean | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -314,7 +314,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.ip | string |  `ip`  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.is_source_address | boolean |  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
@@ -541,13 +541,13 @@ The action then proceeds to commit the changes to Panorama, followed by a commit
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.status | string |  |   success  failed 
@@ -595,12 +595,12 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.data.\*.@name | string |  `network application`  |  
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
@@ -618,14 +618,14 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.name | string |  `panorama edl name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
@@ -642,8 +642,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source | string | 
@@ -661,8 +661,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.name | string |  `panorama edl name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.description | string |  |  
 action_result.parameter.list_type | string |  |  
 action_result.parameter.source | boolean |  |  
@@ -692,8 +692,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source | string | 
@@ -711,8 +711,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.name | string |  `panorama edl name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.description | string |  |  
 action_result.parameter.list_type | string |  |  
 action_result.parameter.source | string |  |  
@@ -742,16 +742,16 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string | 
-**device_group** |  required  | Device group to configure, or 'shared' | string | 
+**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.name | string |  `panorama edl name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
@@ -772,7 +772,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
 **rule_type** |  required  | Rule type of the policy rule. | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in. | string | 
 **source_zone** |  required  | source zone of policy. | string | 
 **destination_zone** |  required  | destination zone of policy. | string | 
@@ -811,7 +811,7 @@ action_result.status | string |  |
 action_result.message | string |  |  
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.rule_type | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.source_zone | string |  |  
 action_result.parameter.destination_zone | string |  |  
@@ -903,7 +903,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
 **policy_type** |  required  |  | string | 
 **rule_type** |  required  | Rule type of the policy rule. | string | 
 **log_forwarding** |  optional  |  | string | 
@@ -930,7 +930,7 @@ action_result.summary | string |  |
 action_result.status | string |  |  
 action_result.message | string |  |  
 action_result.parameter.policy_name | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.direction | string |  |  
 action_result.parameter.object_value | string |  |  
@@ -952,7 +952,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
 **dst_device_group** |  optional  | Device group for which to create the policy rule. | string | 
 **policy_type** |  required  |  | string | 
 **dst_policy_type** |  optional  |  | string | 
@@ -972,7 +972,7 @@ action_result.summary | string |  |
 action_result.status | string |  |  
 action_result.message | string |  |  
 action_result.parameter.policy_name | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.dst_device_group | string |  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.where | string |  |  
@@ -1051,7 +1051,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
 **rule_type** |  optional  | Rule type of the policy rule. | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in. | string | 
 **source_zone** |  optional  | source zone of policy. | string | 
 **destination_zone** |  optional  | destination zone of policy. | string | 
@@ -1088,7 +1088,7 @@ action_result.summary | string |  |
 action_result.status | string |  |  
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.rule_type | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.source_zone | string |  |  
 action_result.parameter.destination_zone | string |  |  
@@ -1124,7 +1124,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule to delete | string | 
 **policy_type** |  required  | Pre rule or Post rule | string | 
-**device_group** |  required  | Device group where the policy rule is present | string | 
+**device_group** |  required  | Device group where the policy rule is present | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1192,7 +1192,7 @@ action_result.status | string |  |
 action_result.message | string |  |  
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.policy_type | string |  |  
-action_result.parameter.device_group | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | string |  |  
 action_result.parameter.should_commit_changes | string |  |    
 
@@ -1206,7 +1206,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **address_grp_name** |  required  | Name of theaddress group to be created. | string | 
-**device_group** |  required  | device group to create the address group in. | string | 
+**device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
 **disable_override** |  optional  | whether to disable override the address group or not. | boolean | 
 **type** |  required  | type of the address group. | string | 
 **description** |  optional  | description for the address group. | string | 
@@ -1228,7 +1228,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **address_grp_name** |  required  | Name of theaddress group to be created. | string | 
-**device_group** |  required  | device group to create the address group in. | string | 
+**device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
 **disable_override** |  optional  | whether to disable override the address group or not. | boolean | 
 **type** |  optional  | type of the address group. | string | 
 **description** |  optional  | description for the address group. | string | 
@@ -1249,12 +1249,12 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device name` 
+**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
@@ -1272,7 +1272,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group | string |  `panorama address group name` 
-**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device name` 
+**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1296,7 +1296,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group | string |  `panorama address group name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1329,7 +1329,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **ip** |  required  | IP address | string |  `ip`  `ipv6` 
 **description** |  optional  | Description of address | string | 
 **tags** |  optional  | Tags want to apply on an address | string | 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **disable_override** |  optional  | Dissable override on an address | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -1398,7 +1398,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1422,7 +1422,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device name` 
+**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1430,7 +1430,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.name | string |  `panorama address name`  |  
-action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
