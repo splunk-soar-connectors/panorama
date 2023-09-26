@@ -601,7 +601,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.data.\*.@name | string |  `network application`  |  
+action_result.data.\*.@name | string |  `panorama edl name`  |  
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
@@ -814,6 +814,7 @@ action_result.parameter.rule_type | string |  |
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.source_zone | string |  |  
+action_result.parameter.audit_comment | string |  |  
 action_result.parameter.destination_zone | string |  |  
 action_result.parameter.description | string |  |  
 action_result.parameter.source_address | string |  |  
@@ -1089,6 +1090,7 @@ action_result.status | string |  |
 action_result.parameter.policy_name | string |  |  
 action_result.parameter.rule_type | string |  |  
 action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.audit_comment | string |  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.source_zone | string |  |  
 action_result.parameter.destination_zone | string |  |  
@@ -1207,7 +1209,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **address_grp_name** |  required  | Name of theaddress group to be created. | string | 
 **device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
-**disable_override** |  optional  | whether to disable override the address group or not. | boolean | 
+**disable_override** |  optional  | whether to disable override the address group or not. | string | 
 **type** |  required  | type of the address group. | string | 
 **description** |  optional  | description for the address group. | string | 
 **address_or_match** |  required  | address list if the type is static and match criteria if type is dynamic. | string | 
@@ -1216,7 +1218,23 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
-No Output  
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.address_grp_name | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.disable_override | string |  |  
+action_result.parameter.type | string |  |  
+action_result.parameter.description | string |  |  
+action_result.parameter.address_or_match | string |  |  
+action_result.parameter.tag | string |  |  
+action_result.parameter.use_partial_commit | boolean |  |  
+action_result.parameter.should_commit_changes | boolean |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.summary | string |  |  
+action_result.message | string |  |   Created global table successfully 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'modify address group'
 modify address group
@@ -1229,7 +1247,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **address_grp_name** |  required  | Name of theaddress group to be created. | string | 
 **device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
-**disable_override** |  optional  | whether to disable override the address group or not. | boolean | 
+**disable_override** |  optional  | whether to disable override the address group or not. | string | 
 **type** |  optional  | type of the address group. | string | 
 **description** |  optional  | description for the address group. | string | 
 **address_or_match** |  optional  | address list if the type is static and match criteria if type is dynamic. | string | 
@@ -1278,7 +1296,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.name | string |  `panorama address group name`  |  
-action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
@@ -1304,7 +1322,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.name | string |  `panorama address group name`  |  
-action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
@@ -1340,8 +1358,8 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action_result.parameter.name | string |  `panorama address name`  |  
 action_result.parameter.ip | string |  `ip`  `ipv6`  |  
 action_result.parameter.tags | string |  |  
-action_result.parameter.disable_override | boolean |  |  
-action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.disable_override | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.parameter.description | string |  |  
@@ -1404,7 +1422,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.name | string |  `panorama address name`  |  
-action_result.parameter.device_group | string |  `panorama device name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
