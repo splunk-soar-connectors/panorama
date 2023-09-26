@@ -138,8 +138,7 @@ class BlockUrl(BaseAction):
 
         major_version = connector.util._get_pan_major_version()
 
-        # if major_version < 9 :
-        if major_version > 9:
+        if major_version < 9:
             return self._block_url_8_and_below(connector, action_result)
-        else:
-            return self._block_url_9_and_above(connector, action_result)
+
+        return self._block_url_9_and_above(connector, action_result)
