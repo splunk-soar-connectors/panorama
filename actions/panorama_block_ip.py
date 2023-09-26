@@ -142,7 +142,7 @@ class BlockIp(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        if self._param.get('should_commit_changes', True):
+        if self._param.get('should_commit_changes', False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
