@@ -27,8 +27,7 @@
         "verify_server_cert": {
             "description": "Verify server certificate",
             "data_type": "boolean",
-            "order": 1,
-            "default": false
+            "order": 1
         },
         "username": {
             "description": "Username",
@@ -106,7 +105,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 6
                 }
             },
@@ -234,7 +232,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 3
                 }
             },
@@ -369,7 +366,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 6
                 }
             },
@@ -497,7 +493,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 3
                 }
             },
@@ -643,7 +638,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 8
                 }
             },
@@ -788,7 +782,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 4
                 }
             },
@@ -2423,7 +2416,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 15
                 }
             },
@@ -2650,7 +2642,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 15
                 }
             },
@@ -2789,7 +2780,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 3
                 }
             },
@@ -3056,14 +3046,12 @@
                 "disable": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 19,
                     "name": "Disable"
                 },
                 "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 20,
                     "name": "ICMP Unreachable"
                 },
@@ -3105,7 +3093,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 25
                 }
             },
@@ -3729,7 +3716,6 @@
                 "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 9,
                     "name": "ICMP Unreachable"
                 },
@@ -3771,7 +3757,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 15
                 }
             },
@@ -3942,7 +3927,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 15
                 }
             },
@@ -4593,14 +4577,12 @@
                 "disable": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 19,
                     "name": "Disable"
                 },
                 "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 20,
                     "name": "ICMP Unreachable"
                 },
@@ -4641,7 +4623,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 25
                 }
             },
@@ -4830,7 +4811,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 4
                 }
             },
@@ -5313,7 +5293,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 4
                 }
             },
@@ -5389,7 +5368,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 4
                 }
             },
@@ -5601,7 +5579,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 3
                 }
             },
@@ -5743,7 +5720,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 7
                 }
             },
@@ -6208,7 +6184,6 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "default": false,
                     "order": 3
                 }
             },
