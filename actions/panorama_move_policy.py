@@ -47,12 +47,13 @@ class MovePolicy(BaseAction):
                 phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, "dst_pre_post")
             )
 
-        if (dst_pre_post and not dst_device_group) or (not dst_pre_post and dst_device_group):
-            return action_result.set_status(
-                phantom.APP_ERROR, "both 'dst_pre_post' and 'dst_device_group' are dependent hence either provide value for both or none.")
+        if dst_pre_post and not dst_device_group:
+            dst_device_group = curr_device_group
+        elif not dst_pre_post and dst_device_group:
+            dst_pre_post = curr_pre_post
 
         if not where and not dst_pre_post and not dst_device_group:
-            return action_result.set_status(phantom.APP_ERROR, "either 'where' or 'dst_device group' and 'dst_pre_post' is required.")
+            return action_result.set_status(phantom.APP_ERROR, "either 'where' or 'dst_device group' or 'dst_pre_post' is required.")
 
         if where in ["before", "after"] and not dst:
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")

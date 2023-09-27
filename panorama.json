@@ -4586,7 +4586,7 @@
                 "policy_type": {
                     "description": "Rule base to create the policy in.",
                     "data_type": "string",
-                    "required": true,
+                    "required": false,
                     "default": "pre-rulebase",
                     "value_list": [
                         "pre-rulebase",
@@ -4598,14 +4598,12 @@
                 "source_zone": {
                     "description": "source zone of policy.",
                     "data_type": "string",
-                    "default": "any",
                     "order": 4,
                     "name": "Source Zone"
                 },
                 "destination_zone": {
                     "description": "destination zone of policy.",
                     "data_type": "string",
-                    "default": "any",
                     "order": 5,
                     "name": "Destination Zone"
                 },
@@ -4619,14 +4617,12 @@
                     "description": "source address of policy.",
                     "data_type": "string",
                     "order": 7,
-                    "default": "any",
                     "name": "Source Address"
                 },
                 "destination_address": {
                     "description": "destination address of policy.",
                     "data_type": "string",
                     "order": 8,
-                    "default": "any",
                     "name": "Destination Address"
                 },
                 "source_user": {
@@ -4639,20 +4635,17 @@
                     "description": "source device for policy.",
                     "data_type": "string",
                     "order": 10,
-                    "default": "any",
                     "name,": "Source Device"
                 },
                 "destination_device": {
                     "description": "destination device for policy.",
                     "data_type": "string",
                     "order": 11,
-                    "default": "any",
                     "name,": "Destination Device"
                 },
                 "action": {
                     "description": "action for the policy.",
                     "data_type": "string",
-                    "default": "allow",
                     "value_list": [
                         "allow",
                         "deny",
@@ -4691,7 +4684,6 @@
                 "application": {
                     "description": "",
                     "data_type": "string",
-                    "default": "any",
                     "order": 26,
                     "name": "Application"
                 },
@@ -4731,7 +4723,6 @@
                 "service": {
                     "description": "",
                     "data_type": "string",
-                    "default": "any",
                     "order": 21,
                     "name": "Service"
                 },
@@ -5411,9 +5402,9 @@
                 "disable_override": {
                     "description": "whether to disable override the address group or not.",
                     "data_type": "string",
-                    "value_list" : [
-                        "yes",
-                        "no"
+                    "value_list": [
+                        "Yes",
+                        "No"
                     ],
                     "order": 0,
                     "name": "device group"
