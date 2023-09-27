@@ -48,6 +48,7 @@ class UnblockApplication(BaseAction):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking application", action_result.get_message()))
 
+        connector.debug_print("fetching response msg")
         message = action_result.get_message()
 
         if self._param.get('should_commit_changes', False):

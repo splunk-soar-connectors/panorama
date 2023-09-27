@@ -129,6 +129,7 @@ class BlockUrl(BaseAction):
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
+        connector.debug_print("Starting block url action")
         status = connector.util._load_pan_version(action_result)
 
         if phantom.is_fail(status):
@@ -136,6 +137,7 @@ class BlockUrl(BaseAction):
                 phantom.APP_ERROR,
                 consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
+        connector.debug_print("Getting major version of panorama")
         major_version = connector.util._get_pan_major_version()
 
         if major_version < 9:

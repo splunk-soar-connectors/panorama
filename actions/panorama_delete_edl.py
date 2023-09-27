@@ -26,6 +26,8 @@ class DeleteEdl(BaseAction):
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
+        connector.debug_print("Starting delete edl action")
+
         edl_name = self._param["name"]
 
         delete_xpath = f"{consts.EDL_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param))}/entry[@name='{edl_name}']"
@@ -43,6 +45,7 @@ class DeleteEdl(BaseAction):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("delete edl", action_result.get_message()))
 
+        connector.debug_print("fetching response msg")
         message = action_result.get_message()
 
         if self._param.get('should_commit_changes', False):

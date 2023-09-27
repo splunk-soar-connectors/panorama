@@ -367,6 +367,8 @@ class ModifyEdl(BaseAction):
         # create an action_result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
+        connector.debug_print("Starting modify edl action")
+
         edl_name = self._param["name"]
 
         xml_status, element_xml_string = self._generate_xml_string_for_edl(connector, action_result)
@@ -389,6 +391,7 @@ class ModifyEdl(BaseAction):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("modify edl", action_result.get_message()))
 
+        connector.debug_print("fetching response msg")
         message = action_result.get_message()
 
         if self._param.get('should_commit_changes', False):

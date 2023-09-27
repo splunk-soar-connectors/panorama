@@ -183,7 +183,7 @@ class CreateEdl(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting create EDL action")
+        connector.debug_print("Starting create EDL action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         edl_name = self._param["name"]
@@ -237,6 +237,7 @@ class CreateEdl(BaseAction):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("create edl", action_result.get_message()))
 
+        connector.debug_print("fetching response msg")
         message = action_result.get_message()
 
         if self._param.get('should_commit_changes', False):

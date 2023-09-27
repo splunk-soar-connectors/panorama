@@ -19,11 +19,11 @@ import panorama_consts as consts
 from actions import BaseAction
 
 
-class ListEdl(BaseAction):
+class ReferenceEdl(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting list edl action")
+        connector.debug_print("starting reference edl action")
 
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
@@ -34,6 +34,7 @@ class ListEdl(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message()))
 
+        connector.debug_print("fetching result data")
         result_data = action_result.get_data()
         result_data = result_data.pop()
 

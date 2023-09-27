@@ -23,10 +23,10 @@ class BlockApplication(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("Creating the Application Group")
-
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        connector.debug_print("Starting block application action")
 
         block_app = self._param[consts.PAN_JSON_APPLICATION]
 
@@ -51,6 +51,7 @@ class BlockApplication(BaseAction):
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking application", action_result.get_message())
             )
 
+        connector.debug_print("fetching response data")
         message = action_result.get_message()
 
         if self._param.get("policy_name", ""):

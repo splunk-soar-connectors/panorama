@@ -26,6 +26,8 @@ class ListEdl(BaseAction):
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
+        connector.debug_print("starting list edl action")
+
         data = {
             "type": "config",
             'action': "get",
@@ -39,6 +41,7 @@ class ListEdl(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(connector.get_action_identifier(), action_result.get_message()))
 
+        connector.debug_print("fetching result data")
         result_data = action_result.get_data()
         result_data = result_data.pop()
 

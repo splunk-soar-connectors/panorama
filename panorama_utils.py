@@ -94,7 +94,6 @@ class PanoramaUtils(object):
                 consts.PAN_ERROR_MESSAGE.format(self._connector.get_action_identifier(), action_result.get_message())
             )
 
-        self._connector.debug_print("after make rest call")
         result_data = action_result.get_data()
         if len(result_data) == 0:
             return phantom.APP_ERROR
@@ -171,7 +170,6 @@ class PanoramaUtils(object):
         """
 
         self._connector.debug_print("Making rest call")
-
         try:
             response = requests.post(
                 self._connector.base_url,

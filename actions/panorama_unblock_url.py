@@ -96,6 +96,7 @@ class UnblockUrl(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
+        connector.debug_print("Getting major version of panorama")
         major_version = connector.util._get_pan_major_version()
         if major_version < 9:
             return self._unblock_url_8_and_below(connector, action_result)
