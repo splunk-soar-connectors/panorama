@@ -2203,7 +2203,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
-                    "order": 1,
+                    "order": 0,
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -2428,19 +2428,19 @@
                     "order": 5
                 },
                 "disable_override": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "Whether to disable override the edl or not",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
                         "No"
                     ],
                     "default": "No",
-                    "order": 7
+                    "order": 6
                 },
                 "certificate_profile": {
-                    "description": "certificate profile for the edl",
+                    "description": "Certificate Profile to be used for the edl",
                     "data_type": "string",
-                    "order": 8
+                    "order": 7
                 },
                 "check_for_updates": {
                     "description": "After what interval to check for updates",
@@ -2453,16 +2453,16 @@
                         "Monthly"
                     ],
                     "default": "Five-minute",
-                    "order": 9
+                    "order": 8
                 },
                 "at_hour": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "At what hour of the day to check for updates",
                     "data_type": "string",
                     "default": "0",
-                    "order": 10
+                    "order": 9
                 },
                 "day": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "On which specific day to check for updates",
                     "data_type": "string",
                     "value_list": [
                         "Monday",
@@ -2474,27 +2474,27 @@
                         "Sunday"
                     ],
                     "default": "Sunday",
-                    "order": 11
+                    "order": 10
                 },
                 "day_of_month": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "On which specific date of month to check for updates",
                     "data_type": "string",
-                    "order": 12
+                    "order": 11
                 },
                 "exception_list": {
-                    "description": "list of exceptions (comma separated values)",
+                    "description": "List of exceptions (comma separated values)",
                     "data_type": "string",
-                    "order": 13
+                    "order": 12
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 14
+                    "order": 13
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 15
+                    "order": 14
                 }
             },
             "output": [
@@ -2672,18 +2672,18 @@
                     "order": 5
                 },
                 "disable_override": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "Whether to disable override the edl or not",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
                         "No"
                     ],
-                    "order": 7
+                    "order": 6
                 },
                 "certificate_profile": {
-                    "description": "certificate profile for the edl",
+                    "description": "Certificate Profile to be used for the edl",
                     "data_type": "string",
-                    "order": 8
+                    "order": 7
                 },
                 "check_for_updates": {
                     "description": "After what interval to check for updates",
@@ -2695,15 +2695,15 @@
                         "Weekly",
                         "Monthly"
                     ],
-                    "order": 9
+                    "order": 8
                 },
                 "at_hour": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "At what hour of the day to check for updates",
                     "data_type": "string",
-                    "order": 10
+                    "order": 9
                 },
                 "day": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "On which specific day to check for updates",
                     "data_type": "string",
                     "value_list": [
                         "Monday",
@@ -2714,27 +2714,27 @@
                         "Saturday",
                         "Sunday"
                     ],
-                    "order": 11
+                    "order": 10
                 },
                 "day_of_month": {
-                    "description": "external dynamic list to be shared or not",
+                    "description": "On which specific date of month to check for updates",
                     "data_type": "string",
-                    "order": 12
+                    "order": 11
                 },
                 "exception_list": {
-                    "description": "list of exceptions (comma separated values)",
+                    "description": "List of exceptions (comma separated values)",
                     "data_type": "string",
-                    "order": 13
+                    "order": 12
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 14
+                    "order": 13
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 15
+                    "order": 14
                 }
             },
             "output": [
@@ -2978,7 +2978,7 @@
                     "name": "Policy Name"
                 },
                 "rule_type": {
-                    "description": "Rule type of the policy rule.",
+                    "description": "Rule type of the policy rule",
                     "data_type": "string",
                     "value_list": [
                         "universal",
@@ -2992,7 +2992,7 @@
                     "name": "Rule Type"
                 },
                 "device_group": {
-                    "description": "Device group for which to create the policy rule.",
+                    "description": "Device group for which to create the policy rule",
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
@@ -3004,7 +3004,7 @@
                     ]
                 },
                 "policy_type": {
-                    "description": "Rule base to create the policy in.",
+                    "description": "Rule base to create the policy in",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -3016,7 +3016,7 @@
                     "name": "Policy Type"
                 },
                 "source_zone": {
-                    "description": "source zone of policy.",
+                    "description": "Source zone of policy",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
@@ -3024,7 +3024,7 @@
                     "name": "Source Zone"
                 },
                 "destination_zone": {
-                    "description": "destination zone of policy.",
+                    "description": "Destination zone of policy",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
@@ -3032,13 +3032,13 @@
                     "name": "Destination Zone"
                 },
                 "description": {
-                    "description": "policy description",
+                    "description": "Policy description",
                     "data_type": "string",
                     "order": 6,
                     "name": "Description"
                 },
                 "source_address": {
-                    "description": "source address of policy.",
+                    "description": "Source address of policy",
                     "data_type": "string",
                     "required": true,
                     "order": 7,
@@ -3046,7 +3046,7 @@
                     "name": "Source Address"
                 },
                 "destination_address": {
-                    "description": "destination address of policy.",
+                    "description": "Destination address of policy",
                     "data_type": "string",
                     "required": true,
                     "order": 8,
@@ -3054,27 +3054,27 @@
                     "name": "Destination Address"
                 },
                 "source_user": {
-                    "description": "source user for policy.",
+                    "description": "Source user for policy",
                     "data_type": "string",
                     "order": 9,
                     "name": "Source User"
                 },
                 "source_device": {
-                    "description": "source device for policy.",
+                    "description": "Source device for policy",
                     "data_type": "string",
                     "order": 10,
                     "default": "any",
                     "name,": "Source Device"
                 },
                 "destination_device": {
-                    "description": "destination device for policy.",
+                    "description": "Destination device for policy",
                     "data_type": "string",
                     "order": 11,
                     "default": "any",
                     "name,": "Destination Device"
                 },
                 "action": {
-                    "description": "action for the policy.",
+                    "description": "Action for the policy",
                     "data_type": "string",
                     "required": true,
                     "default": "allow",
@@ -3739,7 +3739,7 @@
         {
             "action": "custom block policy",
             "identifier": "custom_block_policy",
-            "description": "Create a custom block security policy rule.",
+            "description": "Create a custom block security policy rule",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -3748,15 +3748,15 @@
                     "data_type": "string",
                     "required": true,
                     "primary": true,
-                    "order": 1,
+                    "order": 0,
                     "name": "Policy Name"
                 },
                 "device_group": {
-                    "description": "Device group for which to create the policy rule.",
+                    "description": "Device group for which to create the policy rule",
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
-                    "order": 2,
+                    "order": 1,
                     "name": "Device Group",
                     "primary": true,
                     "contains": [
@@ -3772,11 +3772,11 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 3,
+                    "order": 2,
                     "name": "Policy Type"
                 },
                 "rule_type": {
-                    "description": "Rule type of the policy rule.",
+                    "description": "Rule type of the policy rule",
                     "data_type": "string",
                     "value_list": [
                         "universal",
@@ -3786,13 +3786,13 @@
                     "default": "universal",
                     "required": true,
                     "primary": true,
-                    "order": 1,
+                    "order": 3,
                     "name": "Rule Type"
                 },
                 "log_forwarding": {
                     "description": "",
                     "data_type": "string",
-                    "order": 18,
+                    "order": 4,
                     "name": "Log Forwarding",
                     "allow_list": true
                 },
@@ -3804,14 +3804,14 @@
                         "to",
                         "both"
                     ],
-                    "order": 4,
+                    "order": 5,
                     "name": "Description"
                 },
                 "object_value": {
                     "description": "",
                     "data_type": "string",
                     "required": true,
-                    "order": 5,
+                    "order": 6,
                     "name": "Description"
                 },
                 "object_type": {
@@ -3825,32 +3825,32 @@
                         "url-category",
                         "application"
                     ],
-                    "order": 6,
+                    "order": 7,
                     "name": "Description"
                 },
                 "description": {
                     "description": "",
                     "data_type": "string",
-                    "order": 7,
+                    "order": 8,
                     "name": "Description"
                 },
                 "tag": {
                     "description": "",
                     "data_type": "string",
-                    "order": 8,
+                    "order": 9,
                     "name": "Tags",
                     "allow_list": true
                 },
                 "icmp_unreachable": {
                     "description": "",
                     "data_type": "boolean",
-                    "order": 9,
+                    "order": 10,
                     "name": "ICMP Unreachable"
                 },
                 "target": {
                     "description": "",
                     "data_type": "string",
-                    "order": 10,
+                    "order": 11,
                     "name,": "Target"
                 },
                 "where": {
@@ -3862,30 +3862,30 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 11,
+                    "order": 12,
                     "name": "where"
                 },
                 "dst": {
                     "description": "",
                     "data_type": "string",
-                    "order": 12,
+                    "order": 13,
                     "name": "dst"
                 },
                 "audit_comment": {
                     "description": "",
                     "data_type": "string",
-                    "order": 13,
+                    "order": 14,
                     "name,": "audit comment"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 14
+                    "order": 15
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 15
+                    "order": 16
                 }
             },
             "output": [
@@ -3982,7 +3982,7 @@
         {
             "action": "move policy",
             "identifier": "move_policy",
-            "description": "Move a security policy rule.",
+            "description": "Move a security policy rule",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -3995,11 +3995,11 @@
                     "name": "Policy Name"
                 },
                 "device_group": {
-                    "description": "Device group for which to create the policy rule.",
+                    "description": "Device group for which to create the policy rule",
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
-                    "order": 0,
+                    "order": 1,
                     "name": "Current Device Group",
                     "primary": true,
                     "contains": [
@@ -4007,10 +4007,10 @@
                     ]
                 },
                 "dst_device_group": {
-                    "description": "Device group for which to create the policy rule.",
+                    "description": "Device group for which to create the policy rule",
                     "data_type": "string",
                     "default": "shared",
-                    "order": 0,
+                    "order": 2,
                     "name": "Destination Device Group"
                 },
                 "policy_type": {
@@ -4022,7 +4022,7 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 0,
+                    "order": 3,
                     "name": "Current Policy Type"
                 },
                 "dst_policy_type": {
@@ -4033,11 +4033,11 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 0,
+                    "order": 4,
                     "name": "Destination Policy Type"
                 },
                 "where": {
-                    "description": "where to move the policy in the device group",
+                    "description": "Where to move the policy in the device group",
                     "data_type": "string",
                     "value_list": [
                         "before",
@@ -4045,24 +4045,24 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 0,
+                    "order": 5,
                     "name": "where"
                 },
                 "dst": {
-                    "description": "reference to which the policy needs to be moved.",
+                    "description": "Reference to which the policy needs to be moved",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 6,
                     "name": "Destination"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 14
+                    "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 15
+                    "order": 8
                 }
             },
             "output": [
@@ -4559,7 +4559,7 @@
                     "name": "Policy Name"
                 },
                 "rule_type": {
-                    "description": "Rule type of the policy rule.",
+                    "description": "Rule type of the policy rule",
                     "data_type": "string",
                     "value_list": [
                         "universal",
@@ -4572,7 +4572,7 @@
                     "name": "Rule Type"
                 },
                 "device_group": {
-                    "description": "Device group for which to create the policy rule.",
+                    "description": "Device group for which to create the policy rule",
                     "data_type": "string",
                     "required": true,
                     "default": "shared",
@@ -4584,7 +4584,7 @@
                     ]
                 },
                 "policy_type": {
-                    "description": "Rule base to create the policy in.",
+                    "description": "Rule base to create the policy in",
                     "data_type": "string",
                     "required": false,
                     "default": "pre-rulebase",
@@ -4596,55 +4596,55 @@
                     "name": "Policy Type"
                 },
                 "source_zone": {
-                    "description": "source zone of policy.",
+                    "description": "Source zone of policy",
                     "data_type": "string",
                     "order": 4,
                     "name": "Source Zone"
                 },
                 "destination_zone": {
-                    "description": "destination zone of policy.",
+                    "description": "Destination zone of policy",
                     "data_type": "string",
                     "order": 5,
                     "name": "Destination Zone"
                 },
                 "description": {
-                    "description": "policy description",
+                    "description": "Policy description",
                     "data_type": "string",
                     "order": 6,
                     "name": "Description"
                 },
                 "source_address": {
-                    "description": "source address of policy.",
+                    "description": "Source address of policy",
                     "data_type": "string",
                     "order": 7,
                     "name": "Source Address"
                 },
                 "destination_address": {
-                    "description": "destination address of policy.",
+                    "description": "Destination address of policy",
                     "data_type": "string",
                     "order": 8,
                     "name": "Destination Address"
                 },
                 "source_user": {
-                    "description": "source user for policy.",
+                    "description": "Source user for policy",
                     "data_type": "string",
                     "order": 9,
                     "name": "Source User"
                 },
                 "source_device": {
-                    "description": "source device for policy.",
+                    "description": "Source device for policy",
                     "data_type": "string",
                     "order": 10,
                     "name,": "Source Device"
                 },
                 "destination_device": {
-                    "description": "destination device for policy.",
+                    "description": "Destination device for policy",
                     "data_type": "string",
                     "order": 11,
                     "name,": "Destination Device"
                 },
                 "action": {
-                    "description": "action for the policy.",
+                    "description": "Action for the policy",
                     "data_type": "string",
                     "value_list": [
                         "allow",
@@ -5054,7 +5054,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
                     "data_type": "string",
                     "example_values": [
-                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer"
                     ]
                 },
                 {
@@ -5376,23 +5376,23 @@
         },
         {
             "action": "create address group",
-            "description": "create address group",
+            "description": "Create an address group",
             "type": "generic",
             "identifier": "create_address_group",
             "read_only": false,
             "parameters": {
                 "address_grp_name": {
-                    "description": "Name of theaddress group to be created.",
+                    "description": "Name of theaddress group to be created",
                     "data_type": "string",
                     "required": true,
                     "order": 0,
                     "name": "address name"
                 },
                 "device_group": {
-                    "description": "device group to create the address group in.",
+                    "description": "Device group to create the address group in",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 1,
                     "name": "device group",
                     "primary": true,
                     "contains": [
@@ -5400,17 +5400,17 @@
                     ]
                 },
                 "disable_override": {
-                    "description": "whether to disable override the address group or not.",
+                    "description": "Whether to disable override the address group or not",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
                         "No"
                     ],
-                    "order": 0,
+                    "order": 2,
                     "name": "device group"
                 },
                 "type": {
-                    "description": "type of the address group.",
+                    "description": "Type of the address group",
                     "data_type": "string",
                     "default": "static",
                     "value_list": [
@@ -5418,37 +5418,37 @@
                         "dynamic"
                     ],
                     "required": true,
-                    "order": 0,
+                    "order": 3,
                     "name": "type"
                 },
                 "description": {
-                    "description": "description for the address group.",
+                    "description": "Description for the address group",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 4,
                     "name": "description"
                 },
                 "address_or_match": {
-                    "description": "address list if the type is static and match criteria if type is dynamic.",
+                    "description": "Address list if the type is static and match criteria if type is dynamic",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 5,
                     "name": "address or match"
                 },
                 "tag": {
-                    "description": "list of tags to mark the address group under.",
+                    "description": "List of tags to mark the address group under",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 6,
                     "name": "tag"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 3
+                    "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 4
+                    "order": 8
                 }
             },
             "output": [
@@ -5542,23 +5542,23 @@
         },
         {
             "action": "modify address group",
-            "description": "modify address group",
+            "description": "Modify an address group",
             "type": "generic",
             "identifier": "modify_address_group",
             "read_only": false,
             "parameters": {
                 "address_grp_name": {
-                    "description": "Name of theaddress group to be created.",
+                    "description": "Name of theaddress group to be created",
                     "data_type": "string",
                     "required": true,
                     "order": 0,
                     "name": "address name"
                 },
                 "device_group": {
-                    "description": "device group to create the address group in.",
+                    "description": "Device group to create the address group in",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 1,
                     "name": "device group",
                     "primary": true,
                     "contains": [
@@ -5566,52 +5566,52 @@
                     ]
                 },
                 "disable_override": {
-                    "description": "whether to disable override the address group or not.",
+                    "description": "Whether to disable override the address group or not",
                     "data_type": "string",
                     "value_list": [
                         "yes",
                         "no"
                     ],
-                    "order": 0,
+                    "order": 2,
                     "name": "device group"
                 },
                 "type": {
-                    "description": "type of the address group.",
+                    "description": "Type of the address group",
                     "data_type": "string",
                     "value_list": [
                         "static",
                         "dynamic"
                     ],
-                    "order": 0,
+                    "order": 3,
                     "name": "type"
                 },
                 "description": {
-                    "description": "description for the address group.",
+                    "description": "Description for the address group",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 4,
                     "name": "description"
                 },
                 "address_or_match": {
-                    "description": "address list if the type is static and match criteria if type is dynamic.",
+                    "description": "Address list if the type is static and match criteria if type is dynamic",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 5,
                     "name": "address or match"
                 },
                 "tag": {
-                    "description": "list of tags to mark the address group under.",
+                    "description": "List of tags to mark the address group under",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 6,
                     "name": "tag"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 3
+                    "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 4
+                    "order": 8
                 }
             },
             "output": [],
@@ -5717,7 +5717,7 @@
                 "device_group": {
                     "description": "Device group name, or 'shared'",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 1,
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -5950,7 +5950,7 @@
                     ]
                 },
                 "disable_override": {
-                    "description": "Dissable override on an address",
+                    "description": "Whether to disable override the address or not",
                     "data_type": "string",
                     "value_list": [
                         "yes",
