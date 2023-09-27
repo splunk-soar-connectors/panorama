@@ -1,4 +1,4 @@
-# File: panorama_modify_policy.py
+# File: panorama_modify_address_group.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
