@@ -1082,7 +1082,8 @@ class PanoramaUtils(object):
             if param[params]:
                 if params in consts.SEC_POLICY_REQ_PARAM_LIST:
                     status, result = self._element_prep(params, param[params])
-                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination"]) and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
+                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination"]) \
+                        and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], is_bool=True)
                 elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], member=True)
@@ -1185,7 +1186,12 @@ class PanoramaUtils(object):
             xml_tag_string = "<tag>"
 
             for tag in tags:
-                connector.debug_print(f'Adding {tag} tag...')
+
+                status = self._validate_string(action_result, tag, consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN)
+                if phantom.is_fail(status):
+                    return action_result.get_status()
+
+                connector.debug_print(f'Creating - {tag} tag...')
 
                 element_xml = consts.START_TAG.format(tag=tag)
                 if color:
