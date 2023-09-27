@@ -1053,7 +1053,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **policy_name** |  required  | Name of the policy rule | string | 
 **rule_type** |  optional  | Rule type of the policy rule. | string | 
 **device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in. | string | 
+**policy_type** |  optional  | Rule base to create the policy in. | string | 
 **source_zone** |  optional  | source zone of policy. | string | 
 **destination_zone** |  optional  | destination zone of policy. | string | 
 **description** |  optional  | policy description | string | 
