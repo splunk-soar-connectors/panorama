@@ -5392,22 +5392,12 @@
                     "description": "device group to create the address group in.",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 1,
                     "name": "device group",
                     "primary": true,
                     "contains": [
                         "panorama device group"
                     ]
-                },
-                "disable_override": {
-                    "description": "whether to disable override the address group or not.",
-                    "data_type": "string",
-                    "value_list": [
-                        "Yes",
-                        "No"
-                    ],
-                    "order": 0,
-                    "name": "device group"
                 },
                 "type": {
                     "description": "type of the address group.",
@@ -5418,37 +5408,47 @@
                         "dynamic"
                     ],
                     "required": true,
-                    "order": 0,
+                    "order": 2,
                     "name": "type"
-                },
-                "description": {
-                    "description": "description for the address group.",
-                    "data_type": "string",
-                    "order": 0,
-                    "name": "description"
                 },
                 "address_or_match": {
                     "description": "address list if the type is static and match criteria if type is dynamic.",
                     "data_type": "string",
                     "required": true,
-                    "order": 0,
+                    "order": 3,
                     "name": "address or match"
+                },
+                "description": {
+                    "description": "description for the address group.",
+                    "data_type": "string",
+                    "order": 4,
+                    "name": "description"
+                },
+                "disable_override": {
+                    "description": "whether to disable override the address group or not.",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
+                    "order": 5,
+                    "name": "device group"
                 },
                 "tag": {
                     "description": "list of tags to mark the address group under.",
                     "data_type": "string",
-                    "order": 0,
+                    "order": 6,
                     "name": "tag"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 3
+                    "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 4
+                    "order": 8
                 }
             },
             "output": [
