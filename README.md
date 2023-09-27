@@ -944,7 +944,12 @@ action_result.parameter.tag | string |  |
 action_result.parameter.icmp_unreachable | string |  |  
 action_result.parameter.target | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
-action_result.parameter.should_commit_changes | string |  |    
+action_result.parameter.should_commit_changes | string |  |  
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'move policy'
 Move a security policy rule
@@ -1116,7 +1121,12 @@ action_result.parameter.service | string |  |
 action_result.parameter.profile_setting | string |  |  
 action_result.parameter.target | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
-action_result.parameter.should_commit_changes | string |  |    
+action_result.parameter.should_commit_changes | string |  |  
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete policy'
 Delete a security policy rule
