@@ -1209,10 +1209,10 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **address_grp_name** |  required  | Name of theaddress group to be created. | string | 
 **device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
-**disable_override** |  optional  | whether to disable override the address group or not. | string | 
 **type** |  required  | type of the address group. | string | 
-**description** |  optional  | description for the address group. | string | 
 **address_or_match** |  required  | address list if the type is static and match criteria if type is dynamic. | string | 
+**description** |  optional  | description for the address group. | string | 
+**disable_override** |  optional  | whether to disable override the address group or not. | string | 
 **tag** |  optional  | list of tags to mark the address group under. | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 

@@ -1,4 +1,4 @@
-# File: panorama_create_policy.py
+# File: panorama_create_address_group.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -38,13 +38,6 @@ class CreateAddressGroup(BaseAction):
 
         connector.debug_print("Inside create address group action.")
 
-        device_grp = self._param[PAN_JSON_DEVICE_GRP]
-        self._param["disable-override"] = self._param.get("disable_override", False)
-        del self._param["disable_override"]
-
-        if device_grp == "shared" and self._param["disable-override"]:
-            del self._param["disable-override"]
-
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
@@ -52,6 +45,16 @@ class CreateAddressGroup(BaseAction):
                 del self._param[param]
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        device_grp = self._param[PAN_JSON_DEVICE_GRP]
+        if self._param["disable-override"].lower() not in ["yes", "no"]:
+            return action_result.set_status(phantom.APP_ERROR,
+                                            "Please enter a valid value for 'disable-override' parameter from ['yes','no']")
+        # self._param["disable-override"] = self._param.get("disable_override", "no")
+        # del self._param["disable_override"]
+
+        if device_grp == "shared" and self._param["disable-override"]:
+            del self._param["disable-override"]
 
         grp_type = self._param.get("type")
         address_or_match = self._param.get("address_or_match")

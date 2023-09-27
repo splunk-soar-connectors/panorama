@@ -210,6 +210,7 @@ PAN_JSON_CATEGORY = "category"
 PAN_JSON_OBJ_TYPE = "object_type"
 PAN_JSON_OBJ_VAL = "object_value"
 PAN_JSON_DIR = "direction"
+PAN_JSON_POL_SOURCE_ADD = "source_address"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
 SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting']

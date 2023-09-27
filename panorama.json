@@ -5399,16 +5399,6 @@
                         "panorama device group"
                     ]
                 },
-                "disable_override": {
-                    "description": "Whether to disable override the address group or not",
-                    "data_type": "string",
-                    "value_list": [
-                        "Yes",
-                        "No"
-                    ],
-                    "order": 2,
-                    "name": "device group"
-                },
                 "type": {
                     "description": "Type of the address group",
                     "data_type": "string",
@@ -5418,21 +5408,31 @@
                         "dynamic"
                     ],
                     "required": true,
-                    "order": 3,
+                    "order": 2,
                     "name": "type"
-                },
-                "description": {
-                    "description": "Description for the address group",
-                    "data_type": "string",
-                    "order": 4,
-                    "name": "description"
                 },
                 "address_or_match": {
                     "description": "Address list if the type is static and match criteria if type is dynamic",
                     "data_type": "string",
                     "required": true,
-                    "order": 5,
+                    "order": 3,
                     "name": "address or match"
+                },
+                "description": {
+                    "description": "description for the address group.",
+                    "data_type": "string",
+                    "order": 4,
+                    "name": "description"
+                },
+                "disable_override": {
+                    "description": "whether to disable override the address group or not.",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
+                    "order": 5,
+                    "name": "device group"
                 },
                 "tag": {
                     "description": "List of tags to mark the address group under",

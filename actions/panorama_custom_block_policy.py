@@ -1,4 +1,4 @@
-# File: panorama_create_custom_block_policy.py
+# File: panorama_custom_block_policy.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -15,7 +15,7 @@
 from actions import BaseAction
 from actions.panorama_create_policy import CreatePolicy
 from panorama_consts import (PAN_JSON_APPLICATION, PAN_JSON_CATEGORY, PAN_JSON_DESTINATION_ADDRESS, PAN_JSON_DIR, PAN_JSON_OBJ_TYPE,
-                             PAN_JSON_OBJ_VAL, PAN_JSON_SOURCE_ADDRESS)
+                             PAN_JSON_OBJ_VAL, PAN_JSON_POL_SOURCE_ADD)
 
 
 class CustomBlockPolicy(BaseAction):
@@ -26,13 +26,34 @@ class CustomBlockPolicy(BaseAction):
 
         if self._param[PAN_JSON_OBJ_TYPE] in ['ip', 'address-group', 'edl']:
             if self._param[PAN_JSON_DIR] == "from":
-                self._param[PAN_JSON_SOURCE_ADDRESS] = self._param[PAN_JSON_OBJ_VAL]
-            else:
+                self._param[PAN_JSON_POL_SOURCE_ADD] = self._param[PAN_JSON_OBJ_VAL]
+                self._param[PAN_JSON_DESTINATION_ADDRESS] = "any"
+
+            elif self._param[PAN_JSON_DIR] == "to":
                 self._param[PAN_JSON_DESTINATION_ADDRESS] = self._param[PAN_JSON_OBJ_VAL]
+                self._param[PAN_JSON_POL_SOURCE_ADD] = "any"
+
+            elif self._param[PAN_JSON_DIR] == "both":
+                self._param[PAN_JSON_POL_SOURCE_ADD] = self._param[PAN_JSON_OBJ_VAL]
+                self._param[PAN_JSON_DESTINATION_ADDRESS] = self._param[PAN_JSON_OBJ_VAL]
+
+            self._param["application"] = "any"
+
         elif self._param[PAN_JSON_OBJ_TYPE] == "application":
             self._param[PAN_JSON_APPLICATION] = self._param[PAN_JSON_OBJ_VAL]
+            self._param[PAN_JSON_DESTINATION_ADDRESS] = "any"
+            self._param[PAN_JSON_POL_SOURCE_ADD] = "any"
+
         elif self._param[PAN_JSON_OBJ_TYPE] == "url-category":
             self._param[PAN_JSON_CATEGORY] = self._param[PAN_JSON_OBJ_VAL]
+            self._param["application"] = "any"
+            self._param[PAN_JSON_DESTINATION_ADDRESS] = "any"
+            self._param[PAN_JSON_POL_SOURCE_ADD] = "any"
+
+        self._param["service"] = "any"
+        self._param["source_zone"] = "any"
+        self._param["destination_zone"] = "any"
+        self._param["action"] = "drop"
 
         policy_rule_obj = CreatePolicy(self._param)
         response = policy_rule_obj.execute(connector)
