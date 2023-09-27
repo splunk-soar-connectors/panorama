@@ -94,12 +94,12 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
 [create policy](#action-create-policy) - Create a security policy rule  
-[custom block policy](#action-custom-block-policy) - Create a custom block security policy rule.  
-[move policy](#action-move-policy) - Move a security policy rule.  
+[custom block policy](#action-custom-block-policy) - Create a custom block security policy rule  
+[move policy](#action-move-policy) - Move a security policy rule  
 [modify policy](#action-modify-policy) - Modify a security policy rule  
 [delete policy](#action-delete-policy) - Delete a security policy rule  
-[create address group](#action-create-address-group) - create address group  
-[modify address group](#action-modify-address-group) - modify address group  
+[create address group](#action-create-address-group) - Create an address group  
+[modify address group](#action-modify-address-group) - Modify an address group  
 [list address groups](#action-list-address-groups) - List the address groups  
 [reference address group](#action-reference-address-group) - Get the address group  
 [delete address group](#action-delete-address-group) - Delete address group for the supplied address group name  
@@ -648,13 +648,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source | string | 
 **expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
-**disable_override** |  optional  | external dynamic list to be shared or not | string | 
-**certificate_profile** |  optional  | certificate profile for the edl | string | 
+**disable_override** |  optional  | Whether to disable override the edl or not | string | 
+**certificate_profile** |  optional  | Certificate Profile to be used for the edl | string | 
 **check_for_updates** |  optional  | After what interval to check for updates | string | 
-**at_hour** |  optional  | external dynamic list to be shared or not | string | 
-**day** |  optional  | external dynamic list to be shared or not | string | 
-**day_of_month** |  optional  | external dynamic list to be shared or not | string | 
-**exception_list** |  optional  | list of exceptions (comma separated values) | string | 
+**at_hour** |  optional  | At what hour of the day to check for updates | string | 
+**day** |  optional  | On which specific day to check for updates | string | 
+**day_of_month** |  optional  | On which specific date of month to check for updates | string | 
+**exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -698,13 +698,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source | string | 
 **expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
-**disable_override** |  optional  | external dynamic list to be shared or not | string | 
-**certificate_profile** |  optional  | certificate profile for the edl | string | 
+**disable_override** |  optional  | Whether to disable override the edl or not | string | 
+**certificate_profile** |  optional  | Certificate Profile to be used for the edl | string | 
 **check_for_updates** |  optional  | After what interval to check for updates | string | 
-**at_hour** |  optional  | external dynamic list to be shared or not | string | 
-**day** |  optional  | external dynamic list to be shared or not | string | 
-**day_of_month** |  optional  | external dynamic list to be shared or not | string | 
-**exception_list** |  optional  | list of exceptions (comma separated values) | string | 
+**at_hour** |  optional  | At what hour of the day to check for updates | string | 
+**day** |  optional  | On which specific day to check for updates | string | 
+**day_of_month** |  optional  | On which specific date of month to check for updates | string | 
+**exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -771,18 +771,18 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**rule_type** |  required  | Rule type of the policy rule. | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in. | string | 
-**source_zone** |  required  | source zone of policy. | string | 
-**destination_zone** |  required  | destination zone of policy. | string | 
-**description** |  optional  | policy description | string | 
-**source_address** |  required  | source address of policy. | string | 
-**destination_address** |  required  | destination address of policy. | string | 
-**source_user** |  optional  | source user for policy. | string | 
-**source_device** |  optional  | source device for policy. | string | 
-**destination_device** |  optional  | destination device for policy. | string | 
-**action** |  required  | action for the policy. | string | 
+**rule_type** |  required  | Rule type of the policy rule | string | 
+**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
+**policy_type** |  required  | Rule base to create the policy in | string | 
+**source_zone** |  required  | Source zone of policy | string | 
+**destination_zone** |  required  | Destination zone of policy | string | 
+**description** |  optional  | Policy description | string | 
+**source_address** |  required  | Source address of policy | string | 
+**destination_address** |  required  | Destination address of policy | string | 
+**source_user** |  optional  | Source user for policy | string | 
+**source_device** |  optional  | Source device for policy | string | 
+**destination_device** |  optional  | Destination device for policy | string | 
+**action** |  required  | Action for the policy | string | 
 **negate_source** |  optional  |  | string | 
 **negate_destination** |  optional  |  | string | 
 **application** |  required  |  | string | 
@@ -895,7 +895,7 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicen
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
 
 ## action: 'custom block policy'
-Create a custom block security policy rule.
+Create a custom block security policy rule
 
 Type: **generic**  
 Read only: **False**
@@ -904,9 +904,9 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
+**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
 **policy_type** |  required  |  | string | 
-**rule_type** |  required  | Rule type of the policy rule. | string | 
+**rule_type** |  required  | Rule type of the policy rule | string | 
 **log_forwarding** |  optional  |  | string | 
 **direction** |  optional  |  | string | 
 **object_value** |  required  |  | string | 
@@ -944,7 +944,7 @@ action_result.parameter.use_partial_commit | string |  |
 action_result.parameter.should_commit_changes | string |  |    
 
 ## action: 'move policy'
-Move a security policy rule.
+Move a security policy rule
 
 Type: **generic**  
 Read only: **False**
@@ -953,12 +953,12 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
-**dst_device_group** |  optional  | Device group for which to create the policy rule. | string | 
+**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
+**dst_device_group** |  optional  | Device group for which to create the policy rule | string | 
 **policy_type** |  required  |  | string | 
 **dst_policy_type** |  optional  |  | string | 
-**where** |  optional  | where to move the policy in the device group | string | 
-**dst** |  optional  | reference to which the policy needs to be moved. | string | 
+**where** |  optional  | Where to move the policy in the device group | string | 
+**dst** |  optional  | Reference to which the policy needs to be moved | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1051,18 +1051,18 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule | string | 
-**rule_type** |  optional  | Rule type of the policy rule. | string | 
-**device_group** |  required  | Device group for which to create the policy rule. | string |  `panorama device group` 
-**policy_type** |  optional  | Rule base to create the policy in. | string | 
-**source_zone** |  optional  | source zone of policy. | string | 
-**destination_zone** |  optional  | destination zone of policy. | string | 
-**description** |  optional  | policy description | string | 
-**source_address** |  optional  | source address of policy. | string | 
-**destination_address** |  optional  | destination address of policy. | string | 
-**source_user** |  optional  | source user for policy. | string | 
-**source_device** |  optional  | source device for policy. | string | 
-**destination_device** |  optional  | destination device for policy. | string | 
-**action** |  optional  | action for the policy. | string | 
+**rule_type** |  optional  | Rule type of the policy rule | string | 
+**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
+**policy_type** |  optional  | Rule base to create the policy in | string | 
+**source_zone** |  optional  | Source zone of policy | string | 
+**destination_zone** |  optional  | Destination zone of policy | string | 
+**description** |  optional  | Policy description | string | 
+**source_address** |  optional  | Source address of policy | string | 
+**destination_address** |  optional  | Destination address of policy | string | 
+**source_user** |  optional  | Source user for policy | string | 
+**source_device** |  optional  | Source device for policy | string | 
+**destination_device** |  optional  | Destination device for policy | string | 
+**action** |  optional  | Action for the policy | string | 
 **negate_source** |  optional  |  | string | 
 **negate_destination** |  optional  |  | string | 
 **application** |  optional  |  | string | 
@@ -1146,7 +1146,7 @@ action_result.summary.commit_config.finished_job.result | string |  |   OK
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
 action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer 
 action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_config.finished_job.description | string |  |  
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
@@ -1199,7 +1199,7 @@ action_result.parameter.use_partial_commit | string |  |
 action_result.parameter.should_commit_changes | string |  |    
 
 ## action: 'create address group'
-create address group
+Create an address group
 
 Type: **generic**  
 Read only: **False**
@@ -1207,13 +1207,13 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of theaddress group to be created. | string | 
-**device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
-**type** |  required  | type of the address group. | string | 
-**address_or_match** |  required  | address list if the type is static and match criteria if type is dynamic. | string | 
+**address_grp_name** |  required  | Name of theaddress group to be created | string | 
+**device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
+**type** |  required  | Type of the address group | string | 
+**address_or_match** |  required  | Address list if the type is static and match criteria if type is dynamic | string | 
 **description** |  optional  | description for the address group. | string | 
 **disable_override** |  optional  | whether to disable override the address group or not. | string | 
-**tag** |  optional  | list of tags to mark the address group under. | string | 
+**tag** |  optional  | List of tags to mark the address group under | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1237,7 +1237,7 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'modify address group'
-modify address group
+Modify an address group
 
 Type: **generic**  
 Read only: **False**
@@ -1245,13 +1245,13 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of theaddress group to be created. | string | 
-**device_group** |  required  | device group to create the address group in. | string |  `panorama device group` 
-**disable_override** |  optional  | whether to disable override the address group or not. | string | 
-**type** |  optional  | type of the address group. | string | 
-**description** |  optional  | description for the address group. | string | 
-**address_or_match** |  optional  | address list if the type is static and match criteria if type is dynamic. | string | 
-**tag** |  optional  | list of tags to mark the address group under. | string | 
+**address_grp_name** |  required  | Name of theaddress group to be created | string | 
+**device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
+**disable_override** |  optional  | Whether to disable override the address group or not | string | 
+**type** |  optional  | Type of the address group | string | 
+**description** |  optional  | Description for the address group | string | 
+**address_or_match** |  optional  | Address list if the type is static and match criteria if type is dynamic | string | 
+**tag** |  optional  | List of tags to mark the address group under | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1348,7 +1348,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description of address | string | 
 **tags** |  optional  | Tags want to apply on an address | string | 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
-**disable_override** |  optional  | Dissable override on an address | string | 
+**disable_override** |  optional  | Whether to disable override the address or not | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
