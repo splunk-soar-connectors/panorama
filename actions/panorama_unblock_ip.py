@@ -1,4 +1,4 @@
-# File: unblock_ip.py
+# File: panorama_unblock_ip.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

@@ -1,4 +1,4 @@
-# File: unblock_application.py
+# File: panorama_unblock_application.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

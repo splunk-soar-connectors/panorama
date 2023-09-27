@@ -1,4 +1,4 @@
-# File: panorama_list_address_group.py
+# File: panorama_list_address_groups.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

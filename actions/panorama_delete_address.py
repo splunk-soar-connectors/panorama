@@ -1,4 +1,4 @@
-# File: delete_address.py
+# File: panorama_delete_address.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

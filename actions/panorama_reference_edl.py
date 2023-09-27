@@ -1,4 +1,4 @@
-# File: panorama_list_edl.py
+# File: panorama_reference_edl.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

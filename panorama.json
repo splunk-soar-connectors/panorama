@@ -45,10 +45,9 @@
     "actions": [
         {
             "action": "test connectivity",
-            "description": "Validate the asset configuration for connectivity",
-            "verbose": "This action logs into the device using a REST Api call to check the connection and credentials configured.",
-            "type": "test",
             "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity",
+            "type": "test",
             "read_only": true,
             "parameters": {},
             "output": [],
@@ -3890,6 +3889,26 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.parameter.rule_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.log_forwarding",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.where",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.dst",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.data.*.response.msg",
                     "data_type": "string",
                     "example_values": [
@@ -5386,7 +5405,11 @@
                     "data_type": "string",
                     "required": true,
                     "order": 0,
-                    "name": "address name"
+                    "name": "address name",
+                    "primary": true,
+                    "contains": [
+                        "panorama address group name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group to create the address group in",
@@ -5419,13 +5442,13 @@
                     "name": "address or match"
                 },
                 "description": {
-                    "description": "description for the address group.",
+                    "description": "Description for the address group",
                     "data_type": "string",
                     "order": 4,
                     "name": "description"
                 },
                 "disable_override": {
-                    "description": "whether to disable override the address group or not.",
+                    "description": "Whether to disable override the address group or not",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -5454,7 +5477,10 @@
             "output": [
                 {
                     "data_path": "action_result.parameter.address_grp_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama address group name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
@@ -5552,7 +5578,11 @@
                     "data_type": "string",
                     "required": true,
                     "order": 0,
-                    "name": "address name"
+                    "name": "address name",
+                    "primary": true,
+                    "contains": [
+                        "panorama address group name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group to create the address group in",
@@ -5614,7 +5644,90 @@
                     "order": 8
                 }
             },
-            "output": [],
+            "output": [
+                {
+                    "data_path": "action_result.parameter.address_grp_name",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama address group name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.disable_override",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.address_or_match",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
             "render": {
                 "width": 12,
                 "title": "Modify Address Group",

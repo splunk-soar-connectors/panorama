@@ -1,4 +1,4 @@
-# File: create_address.py
+# File: panorama_create_address.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #

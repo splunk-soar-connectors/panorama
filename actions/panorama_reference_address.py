@@ -1,4 +1,4 @@
-# File: reference_address.py
+# File: panorama_reference_address.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
