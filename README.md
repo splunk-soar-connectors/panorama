@@ -113,8 +113,6 @@ Validate the asset configuration for connectivity
 Type: **test**  
 Read only: **True**
 
-This action logs into the device using a REST Api call to check the connection and credentials configured.
-
 #### Action Parameters
 No parameters are required for this action
 
@@ -924,6 +922,11 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.parameter.rule_type | string |  |  
+action_result.parameter.log_forwarding | string |  |  
+action_result.parameter.where | string |  |  
+action_result.parameter.dst | string |  |  
+action_result.parameter.audit_comment | string |  |  
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
@@ -1207,12 +1210,12 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of theaddress group to be created | string | 
+**address_grp_name** |  required  | Name of theaddress group to be created | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
 **type** |  required  | Type of the address group | string | 
 **address_or_match** |  required  | Address list if the type is static and match criteria if type is dynamic | string | 
-**description** |  optional  | description for the address group. | string | 
-**disable_override** |  optional  | whether to disable override the address group or not. | string | 
+**description** |  optional  | Description for the address group | string | 
+**disable_override** |  optional  | Whether to disable override the address group or not | string | 
 **tag** |  optional  | List of tags to mark the address group under | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -1220,7 +1223,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.address_grp_name | string |  |  
+action_result.parameter.address_grp_name | string |  `panorama address group name`  |  
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.type | string |  |  
@@ -1245,7 +1248,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of theaddress group to be created | string | 
+**address_grp_name** |  required  | Name of theaddress group to be created | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
 **disable_override** |  optional  | Whether to disable override the address group or not | string | 
 **type** |  optional  | Type of the address group | string | 
@@ -1256,7 +1259,23 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
-No Output  
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.address_grp_name | string |  `panorama address group name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.disable_override | string |  |  
+action_result.parameter.type | string |  |  
+action_result.parameter.description | string |  |  
+action_result.parameter.address_or_match | string |  |  
+action_result.parameter.tag | string |  |  
+action_result.parameter.use_partial_commit | string |  |  
+action_result.parameter.should_commit_changes | string |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.summary | string |  |  
+action_result.message | string |  |   Created global table successfully 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list address groups'
 List the address groups
