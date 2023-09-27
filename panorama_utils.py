@@ -1082,7 +1082,7 @@ class PanoramaUtils(object):
             if param[params]:
                 if params in consts.SEC_POLICY_REQ_PARAM_LIST:
                     status, result = self._element_prep(params, param[params])
-                elif isinstance(param[params], bool) and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
+                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination"]) and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], is_bool=True)
                 elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], member=True)
@@ -1095,22 +1095,27 @@ class PanoramaUtils(object):
 
         temp_element = ""
         temp_dict = {}
+        # we are splitting param_val with ',' hence in case param_val==',' we omit this case
+        if param_val == ",":
+            param_val = None
         if param_val:
             status = True
             param_list = []
             try:
                 param_list = param_val.split(",")
-                param_list = [value.strip() for value in param_list if value.strip()]
+                param_list = [value.strip() for value in param_list if value.strip(" ,")]
                 if len(param_list) == 0:
                     status = False
                     return status, temp_element
             except Exception:
                 pass
             if param_name == "target":
-                if len(param_list) > 1:
-                    temp_dict["devices"] = param_val
-                    param_val = dict2xml.dict2xml(temp_dict)
-                temp_element = f'<{param_name}><devices><entry name ="{param_val}"/></devices></{param_name}>'
+                if len(param_list) >= 1:
+                    entries = ""
+                    for device in param_list:
+                        entries += f'<entry name ="{device}"/>'
+                    param_val = entries
+                temp_element = f'<{param_name}><devices>{param_val}</devices></{param_name}>'
                 return status, temp_element
             elif param_name == "profile-setting":
                 temp_element = f'<{param_name}><{param_val}/></{param_name}>'

@@ -52,17 +52,21 @@ class CreatePolicy(BaseAction):
         tag = self._param.get("tag", None)
         self._param["negate-source"] = self._param.get("negate_source", "none")
         self._param["negate-destination"] = self._param.get("negate_destination", "none")
+
         if description and len(description) > 1024:
             return action_result.set_status(
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
+
         if tag and len(tag.split(",")) > 64:
             return action_result.set_status(
                 phantom.APP_ERROR, "Only 64 tags at maximum can be added to a policy rule.")
+
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
                 self._param[new_key] = self._param[param]
                 del self._param[param]
+
         if self._param["negate-source"].lower() not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
         if self._param["negate-destination"].lower() not in ["none", "true", "false"]:
@@ -72,12 +76,17 @@ class CreatePolicy(BaseAction):
             del self._param["negate-source"]
         if self._param["negate-destination"] == "none":
             del self._param["negate-destination"]
+
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
         if policy_present and connector.get_action_identifier() != "modify_policy":
-
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "A policy with this name already exists. Please use another policy name."
+            )
+        elif not policy_present and connector.get_action_identifier() == "modify_policy":
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "This policy is not present. Please enter a valid policy name."
             )
         # validate policy type
         if policy_type and policy_type.lower() not in POLICY_TYPE_VALUE_LIST:
