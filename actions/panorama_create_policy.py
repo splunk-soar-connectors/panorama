@@ -39,17 +39,15 @@ class CreatePolicy(BaseAction):
         connector.debug_print("Inside Create policy rule action")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
         self._param[PAN_JSON_DISABLE] = self._param.get(PAN_JSON_DISABLE, False)
         where = self._param.get(PAN_JSON_WHERE, None)
         dst = self._param.get(PAN_JSON_DST, None)
         policy_type = self._param.get(PAN_JSON_POLICY_TYPE)
         rule_type = self._param.get(PAN_JSON_RULE_TYPE)
         audit_comment = self._param.get("audit_comment", None)
-        self._param["should_commit_changes"] = self._param.get("should_commit_changes", False)
-        self._param[PAN_JSON_NEGATE_SOURCE] = self._param.get(PAN_JSON_NEGATE_SOURCE, False)
-        self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION, False)
         description = self._param.get("description", None)
-        tag = self._param.get("tag", None)
+
         self._param["negate-source"] = self._param.get("negate_source", "none")
         self._param["negate-destination"] = self._param.get("negate_destination", "none")
 
@@ -57,14 +55,20 @@ class CreatePolicy(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
 
-        if tag and len(tag.split(",")) > 64:
-            return action_result.set_status(
-                phantom.APP_ERROR, "Only 64 tags at maximum can be added to a policy rule.")
+        if connector.get_action_identifier() != "modify_policy":
+            for param in CREATE_POL_REQ_PARAM_LIST:
+                param_list = self._param[param].split(",")
+                param_list = [value.strip() for value in param_list if value.strip(" ,")]
+                if len(param_list) == 0:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        f"'{param}' is a required value hence please add a valid input"
+                    )
 
         for param in self._param.copy():
             if param in param_mapping:
-                new_key = param_mapping[param]
-                self._param[new_key] = self._param[param]
+                new_key = param_mapping.get(param)
+                self._param[new_key] = self._param.get(param)
                 del self._param[param]
 
         if self._param["negate-source"].lower() not in ["none", "true", "false"]:
@@ -144,4 +148,4 @@ class CreatePolicy(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successfull: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, f"Successful: {message}")

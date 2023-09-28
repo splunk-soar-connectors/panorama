@@ -217,6 +217,7 @@ SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'pr
 SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
 SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user',
                              'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
+CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 
 param_mapping = {
     "rule_type": "rule-type",
@@ -228,9 +229,10 @@ param_mapping = {
     "profile_setting": "profile-setting",
     "source_address": "source",
     "destination_address": "destination",
-    "source_zone": "to",
-    "destination_zone": "from",
-    "disable": "disabled"
+    "source_zone": "from",
+    "destination_zone": "to",
+    "disable": "disabled",
+    "disable_override": "disable-override",
 }
 
 

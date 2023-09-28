@@ -1148,6 +1148,8 @@ class PanoramaUtils(object):
                     param_val = dict2xml.dict2xml(temp_dict)
                 else:
                     param_val = f'<member>{param_val}</member>'
+                if param_name == "policy_name":
+                    return status, param_val
 
             temp_element = f'<{param_name}>{param_val}</{param_name}>'
         elif not param_val:

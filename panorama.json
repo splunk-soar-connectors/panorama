@@ -4273,7 +4273,7 @@
                 },
                 "disable": {
                     "description": "Whether to disable the policy",
-                    "data_type": "boolean",
+                    "data_type": "string",
                     "order": 24,
                     "name": "Disable",
                     "value_list": [
