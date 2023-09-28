@@ -3071,9 +3071,9 @@
                     "data_type": "string",
                     "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "None",
+                        "True",
+                        "False"
                     ],
                     "order": 9,
                     "name": "Negate Source"
@@ -3112,9 +3112,9 @@
                     "data_type": "string",
                     "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "None",
+                        "True",
+                        "False"
                     ],
                     "order": 14,
                     "name": "Negate Destination"
@@ -4157,9 +4157,9 @@
                     "data_type": "string",
                     "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "None",
+                        "True",
+                        "False"
                     ],
                     "order": 9,
                     "name": "Negate Source"
@@ -4193,9 +4193,9 @@
                     "data_type": "string",
                     "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "None",
+                        "True",
+                        "False"
                     ],
                     "order": 14,
                     "name": "Negate Destination"
@@ -5717,8 +5717,8 @@
                     "description": "Whether to disable override the address group or not",
                     "data_type": "string",
                     "value_list": [
-                        "yes",
-                        "no"
+                        "Yes",
+                        "No"
                     ],
                     "order": 2,
                     "name": "device group"
@@ -5727,8 +5727,8 @@
                     "description": "Type of the address group",
                     "data_type": "string",
                     "value_list": [
-                        "static",
-                        "dynamic"
+                        "Static",
+                        "Dynamic"
                     ],
                     "order": 3,
                     "name": "type"

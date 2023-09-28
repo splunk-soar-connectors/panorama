@@ -48,8 +48,8 @@ class CreatePolicy(BaseAction):
         audit_comment = self._param.get("audit_comment", None)
         description = self._param.get("description", None)
 
-        self._param["negate-source"] = self._param.get("negate_source", "none")
-        self._param["negate-destination"] = self._param.get("negate_destination", "none")
+        self._param["negate-source"] = self._param.get("negate_source", "none").lower()
+        self._param["negate-destination"] = self._param.get("negate_destination", "none").lower()
 
         if description and len(description) > 1024:
             return action_result.set_status(
@@ -71,13 +71,15 @@ class CreatePolicy(BaseAction):
                 self._param[new_key] = self._param.get(param)
                 del self._param[param]
 
-        if self._param["negate-source"].lower() not in ["none", "true", "false"]:
+        if self._param["negate-source"] not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
-        if self._param["negate-destination"].lower() not in ["none", "true", "false"]:
+
+        if self._param["negate-destination"] not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"],
                                                                                                     "negate_destination"))
         if self._param["negate-source"] == "none":
             del self._param["negate-source"]
+
         if self._param["negate-destination"] == "none":
             del self._param["negate-destination"]
 
@@ -135,8 +137,10 @@ class CreatePolicy(BaseAction):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
 
-        if self._param["disabled"]:
+        if self._param["disabled"] in [True, "true"]:
             element = "<disabled>yes</disabled>"
+            if self._param["disabled"] in [False, "false"]:
+                element = "<disabled>no</disabled>"
             status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
             action_result.add_data(response)
             message = action_result.get_message()

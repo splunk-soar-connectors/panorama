@@ -1095,7 +1095,7 @@ class PanoramaUtils(object):
             if param[params]:
                 if params in consts.SEC_POLICY_REQ_PARAM_LIST:
                     status, result = self._element_prep(params, param[params])
-                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination"]) \
+                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination", "icmp-unreachable"]) \
                         and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], is_bool=True)
                 elif params in consts.SEC_POLICY_OPT_PARAM_LIST:

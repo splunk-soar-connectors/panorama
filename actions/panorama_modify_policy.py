@@ -28,23 +28,23 @@ class ModifyPolicy(BaseAction):
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        icmp_unreachable = self._param.get("icmp_unreachable", "none")
-        disable = self._param.get("disable", "none")
+        self._param["icmp_unreachable"] = self._param.get("icmp_unreachable", "none").lower()
+        self._param["disable"] = self._param.get("disable", "none").lower()
 
-        if icmp_unreachable.lower() not in ["none", "true", "false"]:
+        if self._param["icmp_unreachable"] not in ["none", "true", "false"]:
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "Please enter a valid value for 'icmp unreachable' from [,none','true','false']"
             )
-        elif icmp_unreachable.lower() == "none":
+        elif self._param["icmp_unreachable"] == "none":
             del self._param["icmp_unreachable"]
 
-        if disable.lower() not in ["none", "true", "false"]:
+        if self._param["disable"] not in ["none", "true", "false"]:
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "Please enter a valid value for 'disable' from [,none','true','false']"
             )
-        elif disable.lower() == "none":
+        elif self._param["disable"] == "none":
             del self._param["disable"]
 
         connector.remove_action_result(action_result)
