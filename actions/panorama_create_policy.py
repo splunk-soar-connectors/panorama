@@ -112,6 +112,9 @@ class CreatePolicy(BaseAction):
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
 
         element = connector.util._get_action_element(self._param)
+        if not element:
+            return action_result.set_status(phantom.APP_ERROR, "Please add at least one value to modify the policy")
+
         xpath = connector.util._get_security_policy_xpath(self._param, action_result)[1]
         status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
         action_result.add_data(response)
