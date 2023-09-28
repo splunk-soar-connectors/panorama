@@ -93,7 +93,10 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 3
+                    "order": 3,
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -134,7 +137,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -368,7 +374,10 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 3
+                    "order": 3,
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -409,7 +418,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -648,7 +660,10 @@
                 "policy_name": {
                     "description": "Policy to use",
                     "data_type": "string",
-                    "order": 4
+                    "order": 4,
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -699,7 +714,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
@@ -2969,12 +2987,37 @@
             "read_only": false,
             "parameters": {
                 "policy_name": {
-                    "description": "Name of the policy rule",
+                    "description": "Name of the security policy rule",
                     "data_type": "string",
                     "required": true,
-                    "primary": true,
                     "order": 0,
-                    "name": "Policy Name"
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group for which to create the policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 1,
+                    "name": "Device Group",
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                "policy_type": {
+                    "description": "Rule base to create the policy in (pre-rule or post-rule",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 2,
+                    "name": "Policy Type"
                 },
                 "rule_type": {
                     "description": "Rule type of the policy rule",
@@ -2986,94 +3029,127 @@
                     ],
                     "default": "universal",
                     "required": true,
-                    "primary": true,
-                    "order": 1,
+                    "order": 3,
                     "name": "Rule Type"
                 },
-                "device_group": {
-                    "description": "Device group for which to create the policy rule",
-                    "data_type": "string",
-                    "required": true,
-                    "default": "shared",
-                    "order": 2,
-                    "name": "Device Group",
-                    "primary": true,
-                    "contains": [
-                        "panorama device group"
-                    ]
-                },
-                "policy_type": {
-                    "description": "Rule base to create the policy in",
-                    "data_type": "string",
-                    "required": true,
-                    "default": "pre-rulebase",
-                    "value_list": [
-                        "pre-rulebase",
-                        "post-rulebase"
-                    ],
-                    "order": 3,
-                    "name": "Policy Type"
-                },
-                "source_zone": {
-                    "description": "Source zone of policy",
-                    "data_type": "string",
-                    "required": true,
-                    "default": "any",
-                    "order": 4,
-                    "name": "Source Zone"
-                },
-                "destination_zone": {
-                    "description": "Destination zone of policy",
-                    "data_type": "string",
-                    "required": true,
-                    "default": "any",
-                    "order": 5,
-                    "name": "Destination Zone"
-                },
                 "description": {
-                    "description": "Policy description",
+                    "description": "Description for the policy",
                     "data_type": "string",
-                    "order": 6,
+                    "order": 4,
                     "name": "Description"
                 },
-                "source_address": {
-                    "description": "Source address of policy",
+                "tag": {
+                    "description": "Tags to assign to the policy",
+                    "data_type": "string",
+                    "order": 5,
+                    "name": "Tags"
+                },
+                "audit_comment": {
+                    "description": "Audit Comment to add for the policy",
+                    "data_type": "string",
+                    "order": 6,
+                    "name,": "Audit Comment"
+                },
+                "source_zone": {
+                    "description": "Source Zone of policy",
                     "data_type": "string",
                     "required": true,
-                    "order": 7,
                     "default": "any",
-                    "name": "Source Address"
+                    "order": 7,
+                    "name": "Source Zone"
                 },
-                "destination_address": {
-                    "description": "Destination address of policy",
+                "source_address": {
+                    "description": "Source Address of policy",
                     "data_type": "string",
                     "required": true,
                     "order": 8,
                     "default": "any",
-                    "name": "Destination Address"
+                    "name": "Source Address"
+                },
+                "negate_source": {
+                    "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
+                    "data_type": "string",
+                    "default": "none",
+                    "value_list": [
+                        "none",
+                        "true",
+                        "false"
+                    ],
+                    "order": 9,
+                    "name": "Negate Source"
                 },
                 "source_user": {
-                    "description": "Source user for policy",
+                    "description": "Source User for policy",
                     "data_type": "string",
-                    "order": 9,
+                    "order": 10,
                     "name": "Source User"
                 },
                 "source_device": {
-                    "description": "Source device for policy",
-                    "data_type": "string",
-                    "order": 10,
-                    "default": "any",
-                    "name,": "Source Device"
-                },
-                "destination_device": {
-                    "description": "Destination device for policy",
+                    "description": "Source Device for policy",
                     "data_type": "string",
                     "order": 11,
                     "default": "any",
+                    "name,": "Source Device"
+                },
+                "destination_zone": {
+                    "description": "Destination Zone of policy",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 12,
+                    "name": "Destination Zone"
+                },
+                "destination_address": {
+                    "description": "Destination Address of policy",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 13,
+                    "default": "any",
+                    "name": "Destination Address"
+                },
+                "negate_destination": {
+                    "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
+                    "data_type": "string",
+                    "default": "none",
+                    "value_list": [
+                        "none",
+                        "true",
+                        "false"
+                    ],
+                    "order": 14,
+                    "name": "Negate Destination"
+                },
+                "destination_device": {
+                    "description": "destination device for policy",
+                    "data_type": "string",
+                    "order": 15,
+                    "default": "any",
                     "name,": "Destination Device"
                 },
+                "application": {
+                    "description": "Applications for the policy",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 16,
+                    "name": "Application"
+                },
+                "service": {
+                    "description": "Services of the policy",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "any",
+                    "order": 17,
+                    "name": "Service"
+                },
+                "category": {
+                    "description": "URL Categories of the policy",
+                    "data_type": "string",
+                    "order": 18,
+                    "name": "category"
+                },
                 "action": {
-                    "description": "Action for the policy",
+                    "description": "Action type for the policy",
                     "data_type": "string",
                     "required": true,
                     "default": "allow",
@@ -3085,43 +3161,39 @@
                         "reset server",
                         "reset both client and server"
                     ],
-                    "order": 12,
+                    "order": 19,
                     "name": "Action Type"
                 },
-                "negate_source": {
-                    "description": "",
-                    "data_type": "string",
-                    "default": "none",
-                    "value_list": [
-                        "none",
-                        "true",
-                        "false"
-                    ],
-                    "order": 27,
-                    "name": "Negate Source"
+                "icmp_unreachable": {
+                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
+                    "data_type": "boolean",
+                    "order": 20,
+                    "name": "ICMP Unreachable"
                 },
-                "negate_destination": {
-                    "description": "",
+                "profile_setting": {
+                    "description": "Type of profile setting to choose for the policy",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "profiles",
+                        "group"
                     ],
-                    "order": 13,
-                    "name": "Negate Destination"
+                    "order": 21,
+                    "name": "Profile Setting"
                 },
-                "application": {
-                    "description": "",
+                "log_forwarding": {
+                    "description": "Log Forwarding Profile for the policy",
                     "data_type": "string",
-                    "required": true,
-                    "default": "any",
-                    "order": 26,
-                    "name": "Application"
+                    "order": 22,
+                    "name": "Log Forwarding"
+                },
+                "target": {
+                    "description": "The target devices of the security policy",
+                    "data_type": "string",
+                    "order": 23,
+                    "name,": "Target"
                 },
                 "where": {
-                    "description": "",
+                    "description": "Where to position the policy",
                     "data_type": "string",
                     "value_list": [
                         "before",
@@ -3129,110 +3201,68 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 14,
+                    "order": 24,
                     "name": "where"
                 },
                 "dst": {
-                    "description": "",
+                    "description": "Policy in reference to which position the current policy",
                     "data_type": "string",
-                    "order": 15,
+                    "order": 25,
                     "name": "dst"
                 },
-                "tag": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 16,
-                    "name": "Tags",
-                    "allow_list": true
-                },
-                "category": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 17,
-                    "name": "category",
-                    "allow_list": true
-                },
-                "log_forwarding": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 18,
-                    "name": "Log Forwarding",
-                    "allow_list": true
-                },
                 "disable": {
-                    "description": "",
+                    "description": "Whether to disable the policy",
                     "data_type": "boolean",
-                    "order": 19,
+                    "order": 26,
                     "name": "Disable"
-                },
-                "icmp_unreachable": {
-                    "description": "",
-                    "data_type": "boolean",
-                    "order": 20,
-                    "name": "ICMP Unreachable"
-                },
-                "service": {
-                    "description": "",
-                    "data_type": "string",
-                    "required": true,
-                    "default": "any",
-                    "order": 21,
-                    "name": "Service"
-                },
-                "profile_setting": {
-                    "description": "",
-                    "data_type": "string",
-                    "value_list": [
-                        "profiles",
-                        "group"
-                    ],
-                    "order": 22,
-                    "name": "Profile Setting"
-                },
-                "target": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 23,
-                    "name,": "Target"
-                },
-                "audit_comment": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 23,
-                    "name,": "audit comment"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 24
+                    "order": 27
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 25
+                    "order": 28
                 }
             },
             "output": [
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string",
+                    "column_name": "Policy Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama policy name"
+                    ]
+                },
                 {
                     "data_path": "action_result.data.*.response.msg",
                     "data_type": "string",
                     "example_values": [
                         "command succeeded"
-                    ]
+                    ],
+                    "column_name": "Message",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.data.*.response.@code",
                     "data_type": "string",
                     "example_values": [
                         "20"
-                    ]
+                    ],
+                    "column_name": "Code",
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ]
+                    ],
+                    "column_name": "Status",
+                    "column_order": 3
                 },
                 {
                     "data_path": "action_result.summary",
@@ -3244,10 +3274,6 @@
                 },
                 {
                     "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.policy_name",
                     "data_type": "string"
                 },
                 {
@@ -3731,7 +3757,10 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "width": 12,
+                "title": "Create Policy",
+                "type": "table",
+                "height": 5
             },
             "versions": "EQ(*)"
         },
@@ -3746,9 +3775,11 @@
                     "description": "Name of the policy rule",
                     "data_type": "string",
                     "required": true,
-                    "primary": true,
-                    "order": 0,
-                    "name": "Policy Name"
+                    "order": 1,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
@@ -3757,13 +3788,12 @@
                     "default": "shared",
                     "order": 1,
                     "name": "Device Group",
-                    "primary": true,
                     "contains": [
                         "panorama device group"
                     ]
                 },
                 "policy_type": {
-                    "description": "",
+                    "description": "Rule base to create the policy in (pre-rule or post-rule",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -3784,19 +3814,30 @@
                     ],
                     "default": "universal",
                     "required": true,
-                    "primary": true,
-                    "order": 3,
+                    "order": 1,
                     "name": "Rule Type"
                 },
-                "log_forwarding": {
-                    "description": "",
+                "description": {
+                    "description": "Description for the policy",
                     "data_type": "string",
-                    "order": 4,
-                    "name": "Log Forwarding",
+                    "order": 7,
+                    "name": "Description"
+                },
+                "tag": {
+                    "description": "Tags to assign to the policy",
+                    "data_type": "string",
+                    "order": 8,
+                    "name": "Tags",
                     "allow_list": true
                 },
+                "audit_comment": {
+                    "description": "Audit Comment to add for the policy",
+                    "data_type": "string",
+                    "order": 13,
+                    "name,": "audit comment"
+                },
                 "direction": {
-                    "description": "",
+                    "description": "Direction from which to block the traffic",
                     "data_type": "string",
                     "value_list": [
                         "from",
@@ -3806,15 +3847,8 @@
                     "order": 5,
                     "name": "Description"
                 },
-                "object_value": {
-                    "description": "",
-                    "data_type": "string",
-                    "required": true,
-                    "order": 6,
-                    "name": "Description"
-                },
                 "object_type": {
-                    "description": "",
+                    "description": "Type of object to block",
                     "data_type": "string",
                     "required": true,
                     "value_list": [
@@ -3827,33 +3861,34 @@
                     "order": 7,
                     "name": "Description"
                 },
-                "description": {
-                    "description": "",
+                "object_value": {
+                    "description": "Value of the object to be blocked. Can be a list.",
                     "data_type": "string",
-                    "order": 8,
+                    "required": true,
+                    "order": 5,
                     "name": "Description"
                 },
-                "tag": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 9,
-                    "name": "Tags",
-                    "allow_list": true
-                },
                 "icmp_unreachable": {
-                    "description": "",
+                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
                     "data_type": "boolean",
                     "order": 10,
                     "name": "ICMP Unreachable"
                 },
+                "log_forwarding": {
+                    "description": "Log Forwarding Profile for the policy",
+                    "data_type": "string",
+                    "order": 18,
+                    "name": "Log Forwarding",
+                    "allow_list": true
+                },
                 "target": {
-                    "description": "",
+                    "description": "The target devices of the security policy",
                     "data_type": "string",
                     "order": 11,
                     "name,": "Target"
                 },
                 "where": {
-                    "description": "",
+                    "description": "Where to position the policy",
                     "data_type": "string",
                     "value_list": [
                         "before",
@@ -3865,16 +3900,10 @@
                     "name": "where"
                 },
                 "dst": {
-                    "description": "",
+                    "description": "Policy in reference to which position the current policy",
                     "data_type": "string",
                     "order": 13,
                     "name": "dst"
-                },
-                "audit_comment": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 14,
-                    "name,": "audit comment"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -3889,45 +3918,40 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.rule_type",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.log_forwarding",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.where",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.dst",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.audit_comment",
-                    "data_type": "string"
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string",
+                    "column_name": "Policy Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.msg",
                     "data_type": "string",
                     "example_values": [
                         "command succeeded"
-                    ]
+                    ],
+                    "column_name": "Message",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.data.*.response.@code",
                     "data_type": "string",
                     "example_values": [
                         "20"
-                    ]
+                    ],
+                    "column_name": "Code",
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ]
+                    ],
+                    "column_name": "Status",
+                    "column_order": 3
                 },
                 {
                     "data_path": "action_result.summary",
@@ -3939,10 +3963,6 @@
                 },
                 {
                     "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.policy_name",
                     "data_type": "string"
                 },
                 {
@@ -3961,11 +3981,31 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.parameter.object_type",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.parameter.object_value",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.object_type",
+                    "data_path": "action_result.parameter.rule_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.log_forwarding",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.where",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.dst",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
                     "data_type": "string"
                 },
                 {
@@ -4024,7 +4064,397 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "width": 12,
+                "title": "Custom Block Policy",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "modify policy",
+            "identifier": "modify_policy",
+            "description": "Modify a security policy rule",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "policy_name": {
+                    "description": "Name of the security policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy name"
+                    ]
+                },
+                "device_group": {
+                    "description": "Device group for which to create the policy rule",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "shared",
+                    "order": 1,
+                    "name": "Device Group",
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                "policy_type": {
+                    "description": "Rule base to create the policy in (pre-rule or post-rule",
+                    "data_type": "string",
+                    "required": true,
+                    "default": "pre-rulebase",
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ],
+                    "order": 2,
+                    "name": "Policy Type"
+                },
+                "rule_type": {
+                    "description": "Rule type of the policy rule",
+                    "data_type": "string",
+                    "value_list": [
+                        "universal",
+                        "intrazone",
+                        "interzone"
+                    ],
+                    "order": 3,
+                    "name": "Rule Type"
+                },
+                "description": {
+                    "description": "Description for the policy",
+                    "data_type": "string",
+                    "order": 4,
+                    "name": "Description"
+                },
+                "tag": {
+                    "description": "Tags to assign to the policy",
+                    "data_type": "string",
+                    "order": 5,
+                    "name": "Tags"
+                },
+                "audit_comment": {
+                    "description": "Audit Comment to add for the policy",
+                    "data_type": "string",
+                    "order": 6,
+                    "name,": "Audit Comment"
+                },
+                "source_zone": {
+                    "description": "Source Zone of policy",
+                    "data_type": "string",
+                    "order": 7,
+                    "name": "Source Zone"
+                },
+                "source_address": {
+                    "description": "Source Address of policy",
+                    "data_type": "string",
+                    "order": 8,
+                    "name": "Source Address"
+                },
+                "negate_source": {
+                    "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
+                    "data_type": "string",
+                    "default": "none",
+                    "value_list": [
+                        "none",
+                        "true",
+                        "false"
+                    ],
+                    "order": 9,
+                    "name": "Negate Source"
+                },
+                "source_user": {
+                    "description": "Source User for policy",
+                    "data_type": "string",
+                    "order": 10,
+                    "name": "Source User"
+                },
+                "source_device": {
+                    "description": "Source Device for policy",
+                    "data_type": "string",
+                    "order": 11,
+                    "name,": "Source Device"
+                },
+                "destination_zone": {
+                    "description": "Destination Zone of policy",
+                    "data_type": "string",
+                    "order": 12,
+                    "name": "Destination Zone"
+                },
+                "destination_address": {
+                    "description": "Destination Address of policy",
+                    "data_type": "string",
+                    "order": 13,
+                    "name": "Destination Address"
+                },
+                "negate_destination": {
+                    "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
+                    "data_type": "string",
+                    "default": "none",
+                    "value_list": [
+                        "none",
+                        "true",
+                        "false"
+                    ],
+                    "order": 14,
+                    "name": "Negate Destination"
+                },
+                "destination_device": {
+                    "description": "destination device for policy",
+                    "data_type": "string",
+                    "order": 15,
+                    "name,": "Destination Device"
+                },
+                "application": {
+                    "description": "Applications for the policy",
+                    "data_type": "string",
+                    "order": 16,
+                    "name": "Application"
+                },
+                "service": {
+                    "description": "Services of the policy",
+                    "data_type": "string",
+                    "order": 17,
+                    "name": "Service"
+                },
+                "category": {
+                    "description": "URL Categories of the policy",
+                    "data_type": "string",
+                    "order": 18,
+                    "name": "category"
+                },
+                "action": {
+                    "description": "Action type for the policy",
+                    "data_type": "string",
+                    "value_list": [
+                        "allow",
+                        "deny",
+                        "drop",
+                        "reset client",
+                        "reset server",
+                        "reset both client and server"
+                    ],
+                    "order": 19,
+                    "name": "Action Type"
+                },
+                "icmp_unreachable": {
+                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
+                    "data_type": "string",
+                    "value_list": [
+                        "None",
+                        "True",
+                        "False"
+                    ],
+                    "order": 20,
+                    "name": "ICMP Unreachable"
+                },
+                "profile_setting": {
+                    "description": "Type of profile setting to choose for the policy",
+                    "data_type": "string",
+                    "value_list": [
+                        "profiles",
+                        "group"
+                    ],
+                    "order": 21,
+                    "name": "Profile Setting"
+                },
+                "log_forwarding": {
+                    "description": "Log Forwarding Profile for the policy",
+                    "data_type": "string",
+                    "order": 22,
+                    "name": "Log Forwarding"
+                },
+                "target": {
+                    "description": "The target devices of the security policy",
+                    "data_type": "string",
+                    "order": 23,
+                    "name,": "Target"
+                },
+                "disable": {
+                    "description": "Whether to disable the policy",
+                    "data_type": "boolean",
+                    "order": 24,
+                    "name": "Disable",
+                    "value_list": [
+                        "None",
+                        "True",
+                        "False"
+                    ]
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 25
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "order": 26
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string",
+                    "column_name": "Policy Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama policy name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ],
+                    "column_name": "Message",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ],
+                    "column_name": "Code",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 3
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.rule_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_zone",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination_zone",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_address",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination_address",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.source_device",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.destination_device",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.action",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.negate_source",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.negate_destination",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.application",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.log_forwarding",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.disable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.category",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.icmp_unreachable",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.service",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.profile_setting",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.target",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "string"
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Modify Policy",
+                "type": "table",
+                "height": 5
             },
             "versions": "EQ(*)"
         },
@@ -4039,9 +4469,11 @@
                     "description": "Name of the policy rule",
                     "data_type": "string",
                     "required": true,
-                    "primary": true,
                     "order": 0,
-                    "name": "Policy Name"
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
@@ -4050,20 +4482,12 @@
                     "default": "shared",
                     "order": 1,
                     "name": "Current Device Group",
-                    "primary": true,
                     "contains": [
                         "panorama device group"
                     ]
                 },
-                "dst_device_group": {
-                    "description": "Device group for which to create the policy rule",
-                    "data_type": "string",
-                    "default": "shared",
-                    "order": 2,
-                    "name": "Destination Device Group"
-                },
                 "policy_type": {
-                    "description": "",
+                    "description": "Rule base to create the policy in (pre-rule or post-rule",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -4071,13 +4495,18 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 3,
+                    "order": 2,
                     "name": "Current Policy Type"
                 },
-                "dst_policy_type": {
-                    "description": "",
+                "dst_device_group": {
+                    "description": "Device group where the policy  has to be moved",
                     "data_type": "string",
-                    "default": "pre-rulebase",
+                    "order": 3,
+                    "name": "Destination Device Group"
+                },
+                "dst_policy_type": {
+                    "description": "Policy type where the policy has to be moved",
+                    "data_type": "string",
                     "value_list": [
                         "pre-rulebase",
                         "post-rulebase"
@@ -4116,32 +4545,40 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.data.*.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 0
+                },
+                {
                     "data_path": "action_result.data.*.response.@to",
                     "data_type": "string",
                     "example_values": [
                         "/config/shared/pre-rulebase/security/rules"
-                    ]
+                    ],
+                    "column_name": "To",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.data.*.response.@from",
                     "data_type": "string",
                     "example_values": [
                         "/config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules"
-                    ]
+                    ],
+                    "column_name": "From",
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.data.*.response.member",
                     "data_type": "string",
                     "example_values": [
-                        "dhwani_test_block_rule"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
+                        "test_block_rule"
+                    ],
+                    "column_name": "Member",
+                    "column_order": 3
                 },
                 {
                     "data_path": "action_result.summary",
@@ -4157,7 +4594,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
@@ -4588,404 +5028,10 @@
                 }
             ],
             "render": {
-                "type": "table"
-            },
-            "versions": "EQ(*)"
-        },
-        {
-            "action": "modify policy",
-            "identifier": "modify_policy",
-            "description": "Modify a security policy rule",
-            "type": "generic",
-            "read_only": false,
-            "parameters": {
-                "policy_name": {
-                    "description": "Name of the policy rule",
-                    "data_type": "string",
-                    "required": true,
-                    "primary": true,
-                    "order": 0,
-                    "name": "Policy Name"
-                },
-                "rule_type": {
-                    "description": "Rule type of the policy rule",
-                    "data_type": "string",
-                    "value_list": [
-                        "universal",
-                        "intrazone",
-                        "interzone"
-                    ],
-                    "default": "universal",
-                    "primary": true,
-                    "order": 1,
-                    "name": "Rule Type"
-                },
-                "device_group": {
-                    "description": "Device group for which to create the policy rule",
-                    "data_type": "string",
-                    "required": true,
-                    "default": "shared",
-                    "order": 2,
-                    "name": "Device Group",
-                    "primary": true,
-                    "contains": [
-                        "panorama device group"
-                    ]
-                },
-                "policy_type": {
-                    "description": "Rule base to create the policy in",
-                    "data_type": "string",
-                    "required": false,
-                    "default": "pre-rulebase",
-                    "value_list": [
-                        "pre-rulebase",
-                        "post-rulebase"
-                    ],
-                    "order": 3,
-                    "name": "Policy Type"
-                },
-                "source_zone": {
-                    "description": "Source zone of policy",
-                    "data_type": "string",
-                    "order": 4,
-                    "name": "Source Zone"
-                },
-                "destination_zone": {
-                    "description": "Destination zone of policy",
-                    "data_type": "string",
-                    "order": 5,
-                    "name": "Destination Zone"
-                },
-                "description": {
-                    "description": "Policy description",
-                    "data_type": "string",
-                    "order": 6,
-                    "name": "Description"
-                },
-                "source_address": {
-                    "description": "Source address of policy",
-                    "data_type": "string",
-                    "order": 7,
-                    "name": "Source Address"
-                },
-                "destination_address": {
-                    "description": "Destination address of policy",
-                    "data_type": "string",
-                    "order": 8,
-                    "name": "Destination Address"
-                },
-                "source_user": {
-                    "description": "Source user for policy",
-                    "data_type": "string",
-                    "order": 9,
-                    "name": "Source User"
-                },
-                "source_device": {
-                    "description": "Source device for policy",
-                    "data_type": "string",
-                    "order": 10,
-                    "name,": "Source Device"
-                },
-                "destination_device": {
-                    "description": "Destination device for policy",
-                    "data_type": "string",
-                    "order": 11,
-                    "name,": "Destination Device"
-                },
-                "action": {
-                    "description": "Action for the policy",
-                    "data_type": "string",
-                    "value_list": [
-                        "allow",
-                        "deny",
-                        "drop",
-                        "reset client",
-                        "reset server",
-                        "reset both client and server"
-                    ],
-                    "order": 12,
-                    "name": "Action Type"
-                },
-                "negate_source": {
-                    "description": "",
-                    "data_type": "string",
-                    "default": "none",
-                    "value_list": [
-                        "none",
-                        "true",
-                        "false"
-                    ],
-                    "order": 27,
-                    "name": "Negate Source"
-                },
-                "negate_destination": {
-                    "description": "",
-                    "data_type": "string",
-                    "default": "none",
-                    "value_list": [
-                        "none",
-                        "true",
-                        "false"
-                    ],
-                    "order": 13,
-                    "name": "Negate Destination"
-                },
-                "application": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 26,
-                    "name": "Application"
-                },
-                "tag": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 16,
-                    "name": "Tags",
-                    "allow_list": true
-                },
-                "category": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 17,
-                    "name": "category",
-                    "allow_list": true
-                },
-                "log_forwarding": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 18,
-                    "name": "Log Forwarding",
-                    "allow_list": true
-                },
-                "disable": {
-                    "description": "",
-                    "data_type": "boolean",
-                    "order": 19,
-                    "name": "Disable"
-                },
-                "icmp_unreachable": {
-                    "description": "",
-                    "data_type": "boolean",
-                    "order": 20,
-                    "name": "ICMP Unreachable"
-                },
-                "service": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 21,
-                    "name": "Service"
-                },
-                "profile_setting": {
-                    "description": "",
-                    "data_type": "string",
-                    "value_list": [
-                        "profiles",
-                        "group"
-                    ],
-                    "order": 22,
-                    "name": "Profile Setting"
-                },
-                "target": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 23,
-                    "name,": "Target"
-                },
-                "audit_comment": {
-                    "description": "",
-                    "data_type": "string",
-                    "order": 23,
-                    "name,": "audit comment"
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 24
-                },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
-                    "data_type": "boolean",
-                    "order": 25
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.rule_type",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama device group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.audit_comment",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.source_zone",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.destination_zone",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.description",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.source_address",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.destination_address",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.source_user",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.source_device",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.destination_device",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.action",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.negate_source",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.negate_destination",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.application",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.tag",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.log_forwarding",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.disable",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.category",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.icmp_unreachable",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.service",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.profile_setting",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.target",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                }
-            ],
-            "render": {
-                "type": "table"
+                "width": 12,
+                "title": "Move Policy",
+                "type": "table",
+                "height": 5
             },
             "versions": "EQ(*)"
         },
@@ -5000,12 +5046,14 @@
                     "description": "Name of the policy rule to delete",
                     "data_type": "string",
                     "required": true,
-                    "primary": true,
                     "order": 0,
-                    "name": "Policy Name"
+                    "name": "Policy Name",
+                    "contains": [
+                        "panorama policy name"
+                    ]
                 },
                 "policy_type": {
-                    "description": "Pre rule or Post rule",
+                    "description": "Rule base to delete the policy from (pre-rule or post-rule",
                     "data_type": "string",
                     "value_list": [
                         "pre-rulebase",
@@ -5021,7 +5069,6 @@
                     "default": "shared",
                     "order": 2,
                     "name": "Device Group",
-                    "primary": true,
                     "contains": [
                         "panorama device group"
                     ]
@@ -5389,25 +5436,40 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string",
+                    "column_name": "Policy Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama policy name"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.response.msg",
                     "data_type": "string",
                     "example_values": [
                         "command succeeded"
-                    ]
+                    ],
+                    "column_name": "Message",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.data.*.response.@code",
                     "data_type": "string",
                     "example_values": [
                         "20"
-                    ]
+                    ],
+                    "column_name": "Code",
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ]
+                    ],
+                    "column_name": "Status",
+                    "column_order": 3
                 },
                 {
                     "data_path": "action_result.summary",
@@ -5419,10 +5481,6 @@
                 },
                 {
                     "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.policy_name",
                     "data_type": "string"
                 },
                 {
