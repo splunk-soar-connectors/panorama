@@ -984,7 +984,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
 **log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
 **target** |  optional  | The target devices of the security policy | string | 
-**disable** |  optional  | Whether to disable the policy | boolean | 
+**disable** |  optional  | Whether to disable the policy | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
