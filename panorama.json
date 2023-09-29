@@ -5574,6 +5574,7 @@
                         "Yes",
                         "No"
                     ],
+                    "default":"No",
                     "order": 5,
                     "name": "device group"
                 },

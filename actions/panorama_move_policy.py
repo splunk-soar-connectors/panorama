@@ -29,6 +29,8 @@ class MovePolicy(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         policy_name = self._param[PAN_JSON_POLICY_NAME]
+        policy_list = policy_name.split(",")
+        policy_list = [value.strip() for value in policy_list if value.strip(" ,")]
         dst_device_group = self._param.get("dst_device_group", None)
         curr_device_group = self._param[PAN_JSON_DEVICE_GRP]
         curr_pre_post = self._param[PAN_JSON_POLICY_TYPE]
@@ -58,21 +60,24 @@ class MovePolicy(BaseAction):
         if where in ["before", "after"] and not dst:
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
 
+        status, policies = connector.util._element_prep(param_name="policy_name", param_val=policy_name, member=True)
+        connector.debug_print(f"policies {policies}")
+
         data = {
             'type': 'config',
             'key': connector.util._key,
         }
 
-        if dst_device_group:
+        if dst_device_group or dst_pre_post:
             param = {
-                PAN_JSON_DEVICE_GRP: dst_device_group,
-                PAN_JSON_POLICY_NAME: policy_name,
-                PAN_JSON_POLICY_TYPE: dst_pre_post
+                PAN_JSON_DEVICE_GRP: dst_device_group
             }
-            xpath = f"{connector.util._get_security_policy_xpath(param,action_result,True)[1]}"
-            param[PAN_JSON_DEVICE_GRP] = curr_device_group
-            element = f'<selected-list><source xpath="{connector.util._get_security_policy_xpath(param,action_result,True)[1]}">\
-                <member>{policy_name}</member></source></selected-list><all-errors>no</all-errors>'
+            config_path = connector.util._get_config_xpath(param, 'localhost.localdomain')
+            xpath = f"{config_path}/{dst_pre_post}/security/rules"
+            param[f"{PAN_JSON_DEVICE_GRP}"] = curr_device_group
+            config_path = connector.util._get_config_xpath(param, 'localhost.localdomain')
+            element = f'<selected-list><source xpath="{config_path}/{curr_pre_post}/security/rules">\
+                {policies}</source></selected-list><all-errors>no</all-errors>'
             data.update(
                 {
                     'action': 'multi-move',
@@ -81,7 +86,15 @@ class MovePolicy(BaseAction):
                 }
             )
         else:
-            xpath = connector.util._get_security_policy_xpath(self._param, action_result)
+            if len(policy_list) > 1:
+                return action_result.set_status(phantom.APP_ERROR, "Moving multiple policies at a time is only possible if they have \
+                                                to be moved to a different device group or rule base")
+            param = {
+                PAN_JSON_DEVICE_GRP: curr_device_group,
+                PAN_JSON_POLICY_NAME: policy_name,
+                PAN_JSON_POLICY_TYPE: curr_pre_post
+            }
+            xpath = f"{connector.util._get_security_policy_xpath(param,action_result)[1]}"
 
             data.update(
                 {
@@ -101,4 +114,4 @@ class MovePolicy(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successfully moved policy: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, "Successfully moved policy")

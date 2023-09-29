@@ -37,7 +37,7 @@ class CreateAddressGroup(BaseAction):
     def execute(self, connector):
 
         connector.debug_print("Inside create address group action.")
-
+        self._param["disable_override"] = self._param.get("disable_override", "none").lower()
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
@@ -47,13 +47,12 @@ class CreateAddressGroup(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
-        if self._param["disable-override"].lower() not in ["yes", "no"]:
+
+        if self._param["disable-override"] not in ["yes", "no", "none"]:
             return action_result.set_status(phantom.APP_ERROR,
                                             "Please enter a valid value for 'disable-override' parameter from ['yes','no']")
-        # self._param["disable-override"] = self._param.get("disable_override", "no")
-        # del self._param["disable_override"]
 
-        if device_grp == "shared" and self._param["disable-override"]:
+        if (device_grp == "shared" and self._param["disable-override"]) or self._param["disable-override"] == "none":
             del self._param["disable-override"]
 
         grp_type = self._param.get("type")
@@ -109,4 +108,4 @@ class CreateAddressGroup(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successfull: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, f"Successful: {message}")
