@@ -802,9 +802,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
-action_result.data.\*.response.@status | string |  |   success 
 action_result.summary | string |  |  
 action_result.status | string |  |  
 action_result.message | string |  |  
@@ -923,9 +923,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
-action_result.data.\*.response.@status | string |  |   success 
 action_result.summary | string |  |  
 action_result.status | string |  |  
 action_result.message | string |  |  
@@ -992,9 +992,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
-action_result.data.\*.response.@status | string |  |   success 
 action_result.message | string |  |  
 action_result.summary | string |  |  
 action_result.status | string |  |  
@@ -1195,9 +1195,9 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
-action_result.data.\*.response.@status | string |  |   success 
 action_result.summary | string |  |  
 action_result.status | string |  |  
 action_result.message | string |  |  
