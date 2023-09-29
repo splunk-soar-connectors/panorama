@@ -3228,31 +3228,27 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ],
-                    "column_name": "Message",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.data.*.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ],
-                    "column_name": "Code",
-                    "column_order": 2
-                },
-                {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
                     ],
                     "column_name": "Status",
-                    "column_order": 3
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary",
@@ -3917,31 +3913,27 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ],
-                    "column_name": "Message",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.data.*.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ],
-                    "column_name": "Code",
-                    "column_order": 2
-                },
-                {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
                     ],
                     "column_name": "Status",
-                    "column_order": 3
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary",
@@ -4296,31 +4288,27 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ],
-                    "column_name": "Message",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.data.*.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ],
-                    "column_name": "Code",
-                    "column_order": 2
-                },
-                {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
                     ],
                     "column_name": "Status",
-                    "column_order": 3
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
@@ -5437,31 +5425,27 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ],
-                    "column_name": "Message",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.data.*.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ],
-                    "column_name": "Code",
-                    "column_order": 2
-                },
-                {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
                     ],
                     "column_name": "Status",
-                    "column_order": 3
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary",
