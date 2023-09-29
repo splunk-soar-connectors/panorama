@@ -777,12 +777,12 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **audit_comment** |  optional  | Audit Comment to add for the policy | string | 
 **source_zone** |  required  | Source Zone of policy | string | 
 **source_address** |  required  | Source Address of policy | string | 
-**negate_source** |  optional  | Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address | string | 
+**negate_source** |  optional  | Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address | boolean | 
 **source_user** |  optional  | Source User for policy | string | 
 **source_device** |  optional  | Source Device for policy | string | 
 **destination_zone** |  required  | Destination Zone of policy | string | 
 **destination_address** |  required  | Destination Address of policy | string | 
-**negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
+**negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | boolean | 
 **destination_device** |  optional  | destination device for policy | string | 
 **application** |  required  | Applications for the policy | string | 
 **service** |  required  | Services of the policy | string | 
