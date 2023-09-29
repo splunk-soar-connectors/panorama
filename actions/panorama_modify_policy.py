@@ -35,7 +35,7 @@ class ModifyPolicy(BaseAction):
         if self._param[PAN_JSON_ICMP_UNREACHABLE] not in ["none", "true", "false"]:
             return temporary_action_result.set_status(
                 phantom.APP_ERROR,
-                "Please enter a valid value for 'icmp unreachable' from [,none','true','false']"
+                "Please enter a valid value for 'icmp unreachable' from ['none','true','false']"
             )
         elif self._param[PAN_JSON_ICMP_UNREACHABLE] == "none":
             del self._param[PAN_JSON_ICMP_UNREACHABLE]
@@ -45,9 +45,6 @@ class ModifyPolicy(BaseAction):
                 phantom.APP_ERROR,
                 "Please enter a valid value for 'disable' from ['none','true','false']"
             )
-        elif self._param[PAN_JSON_DISABLE] == "none":
-            del self._param[PAN_JSON_DISABLE]
-
         connector.remove_action_result(temporary_action_result)
 
         policy_rule_obj = CreatePolicy(self._param)

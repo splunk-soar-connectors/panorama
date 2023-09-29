@@ -74,6 +74,8 @@ class CreatePolicy(BaseAction):
                 self._param[new_key] = self._param.get(param)
                 del self._param[param]
 
+        disable = self._param.get("disabled")
+
         if self._param[PAN_JSON_NEGATE_SOURCE] not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
 
@@ -115,12 +117,11 @@ class CreatePolicy(BaseAction):
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
 
         element = connector.util._get_action_element(self._param)
-        if not element:
-            return action_result.set_status(phantom.APP_ERROR, "Please add at least one value to modify the policy")
-
         xpath = connector.util._get_security_policy_xpath(self._param, action_result)[1]
-        status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
-        action_result.add_data(response)
+        connector.debug_print(f"element {element} xpath {xpath}")
+
+        connector.debug_print(f"element {element}")
+        status, _ = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
         message = action_result.get_message()
 
         if ("tag" and "not a valid") in message:
@@ -131,24 +132,22 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
             else:
                 status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
-            action_result.add_data(response)
             message = action_result.get_message()
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
-
-        if audit_comment:
-            status = connector.util._update_audit_comment(self._param, action_result)
-            message = action_result.get_message()
+        if element:
+            if audit_comment:
+                status = connector.util._update_audit_comment(self._param, action_result)
+                message = action_result.get_message()
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
 
-        if self._param["disabled"] in [True, "true"]:
+        if disable in [True, "true", False, "false"]:
             element = "<disabled>yes</disabled>"
             if self._param["disabled"] in [False, "false"]:
                 element = "<disabled>no</disabled>"
-            status, response = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
-            action_result.add_data(response)
+            status, _ = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
             message = action_result.get_message()
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
@@ -157,5 +156,7 @@ class CreatePolicy(BaseAction):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
+
+        message = action_result.get_message()
 
         return action_result.set_status(phantom.APP_SUCCESS, f"Successful: {message}")

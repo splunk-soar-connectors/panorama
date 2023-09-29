@@ -222,7 +222,7 @@ PAN_JSON_ADD_GRP_TYPE = "type"
 PAN_JSON_ADD_GRP_DIS_OVER = "disable-override"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
-SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting']
+SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting', 'log-setting']
 SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
 SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user',
                              'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
