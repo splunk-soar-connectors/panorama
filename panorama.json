@@ -3068,13 +3068,8 @@
                 },
                 "negate_source": {
                     "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
-                    "data_type": "string",
-                    "default": "none",
-                    "value_list": [
-                        "None",
-                        "True",
-                        "False"
-                    ],
+                    "data_type": "boolean",
+                    "default": false,
                     "order": 9,
                     "name": "Negate Source"
                 },
@@ -3109,13 +3104,8 @@
                 },
                 "negate_destination": {
                     "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
-                    "data_type": "string",
-                    "default": "none",
-                    "value_list": [
-                        "None",
-                        "True",
-                        "False"
-                    ],
+                    "data_type": "boolean",
+                    "default": false,
                     "order": 14,
                     "name": "Negate Destination"
                 },
@@ -5547,8 +5537,8 @@
                     "data_type": "string",
                     "default": "static",
                     "value_list": [
-                        "static",
-                        "dynamic"
+                        "Static",
+                        "Dynamic"
                     ],
                     "required": true,
                     "order": 2,
@@ -5574,7 +5564,7 @@
                         "Yes",
                         "No"
                     ],
-                    "default":"No",
+                    "default": "No",
                     "order": 5,
                     "name": "device group"
                 },

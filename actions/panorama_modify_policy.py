@@ -42,7 +42,7 @@ class ModifyPolicy(BaseAction):
         if self._param["disable"] not in ["none", "true", "false"]:
             return action_result.set_status(
                 phantom.APP_ERROR,
-                "Please enter a valid value for 'disable' from [,none','true','false']"
+                "Please enter a valid value for 'disable' from ['none','true','false']"
             )
         elif self._param["disable"] == "none":
             del self._param["disable"]

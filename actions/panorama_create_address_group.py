@@ -38,6 +38,7 @@ class CreateAddressGroup(BaseAction):
 
         connector.debug_print("Inside create address group action.")
         self._param["disable_override"] = self._param.get("disable_override", "none").lower()
+        self._param["type"] = self._param.get("type", "none").lower()
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
@@ -55,13 +56,20 @@ class CreateAddressGroup(BaseAction):
         if (device_grp == "shared" and self._param["disable-override"]) or self._param["disable-override"] == "none":
             del self._param["disable-override"]
 
-        grp_type = self._param.get("type")
+        # grp_type = self._param.get("type")
         address_or_match = self._param.get("address_or_match")
 
-        if (grp_type and not address_or_match) or (address_or_match and not grp_type):
+        if (self._param["type"] and not address_or_match) or (address_or_match and not self._param["type"]):
             return action_result.set_status(phantom.APP_ERROR,
                                             "Parameters 'type' and 'address_or_match' are inter-dependent \
                                                 hence please provide input for both or none.")
+
+        if self._param["type"] not in ADD_GRP_TYPE_VAL_LIST and connector.get_action_identifier() != "modify_address_group":
+            return action_result.set_status(phantom.APP_ERROR,
+                                            "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
+
+        if self._param["type"] == "none":
+            del self._param["type"]
 
         status, add_grp_present = connector.util._does_policy_exist(self._param, action_result, param_name='address_group')
         if add_grp_present and connector.get_action_identifier() != "modify_address_group":
@@ -70,33 +78,34 @@ class CreateAddressGroup(BaseAction):
                 "An address group with this name already exists. Please use another name."
             )
 
-        if self._param.get("type") not in ADD_GRP_TYPE_VAL_LIST and connector.get_action_identifier() != "modify_address_group":
-            return action_result.set_status(phantom.APP_ERROR,
-                                            "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
-
         element = connector.util._get_action_element(self._param)
         if self._param.get("type") == "dynamic":
             status, temp_element = connector.util._element_prep(
                 "dynamic", param_val=self._param["address_or_match"], member=False, is_bool=False)
             element += temp_element
-        else:
+        elif self._param.get("type") == "static":
             status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param.get("address_or_match"), member=True)
             element += temp_element
 
+        if not element:
+            return action_result.set_status(phantom.APP_ERROR, "Please add at least one value to modify the address group")
+
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
 
-        status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
+        status, response = self.make_rest_call_helper(connector, xpath, element, action_result)
+        action_result.add_data(response)
         message = action_result.get_message()
 
         if "not a valid" in message and "tag" in message:
             tags = [value.strip() for value in self._param.get("tag", "").split(',') if value.strip()]
 
-            status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
+            status, response = connector.util._create_tag(connector, action_result, self._param, tags)
 
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
             else:
-                status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
+                status, response = self.make_rest_call_helper(connector, xpath, element, action_result)
+                action_result.add_data(response)
 
             message = action_result.get_message()
 
