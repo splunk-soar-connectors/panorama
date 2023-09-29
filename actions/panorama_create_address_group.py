@@ -16,7 +16,8 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from panorama_consts import *
+from panorama_consts import (ADD_GRP_TYPE_VAL_LIST, PAN_ERROR_MESSAGE, PAN_JSON_ADD_GRP_DIS_OVER, PAN_JSON_ADD_GRP_TYPE, PAN_JSON_DEVICE_GRP,
+                             param_mapping)
 
 
 class CreateAddressGroup(BaseAction):
@@ -37,8 +38,9 @@ class CreateAddressGroup(BaseAction):
     def execute(self, connector):
 
         connector.debug_print("Inside create address group action.")
+
         self._param["disable_override"] = self._param.get("disable_override", "none").lower()
-        self._param["type"] = self._param.get("type", "none").lower()
+        self._param[PAN_JSON_ADD_GRP_TYPE] = self._param.get(PAN_JSON_ADD_GRP_TYPE, "none").lower()
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
@@ -48,28 +50,26 @@ class CreateAddressGroup(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
+        address_or_match = self._param.get("address_or_match")
 
-        if self._param["disable-override"] not in ["yes", "no", "none"]:
+        if self._param[PAN_JSON_ADD_GRP_DIS_OVER] not in ["yes", "no", "none"]:
             return action_result.set_status(phantom.APP_ERROR,
                                             "Please enter a valid value for 'disable-override' parameter from ['yes','no']")
 
-        if (device_grp == "shared" and self._param["disable-override"]) or self._param["disable-override"] == "none":
-            del self._param["disable-override"]
+        if (device_grp == "shared" and self._param[PAN_JSON_ADD_GRP_DIS_OVER]) or self._param[PAN_JSON_ADD_GRP_DIS_OVER] == "none":
+            del self._param[PAN_JSON_ADD_GRP_DIS_OVER]
 
-        # grp_type = self._param.get("type")
-        address_or_match = self._param.get("address_or_match")
-
-        if (self._param["type"] and not address_or_match) or (address_or_match and not self._param["type"]):
+        if (self._param[PAN_JSON_ADD_GRP_TYPE] and not address_or_match) or (address_or_match and not self._param[PAN_JSON_ADD_GRP_TYPE]):
             return action_result.set_status(phantom.APP_ERROR,
                                             "Parameters 'type' and 'address_or_match' are inter-dependent \
                                                 hence please provide input for both or none.")
 
-        if self._param["type"] not in ADD_GRP_TYPE_VAL_LIST and connector.get_action_identifier() != "modify_address_group":
+        if self._param[PAN_JSON_ADD_GRP_TYPE] not in ADD_GRP_TYPE_VAL_LIST and connector.get_action_identifier() != "modify_address_group":
             return action_result.set_status(phantom.APP_ERROR,
                                             "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
 
-        if self._param["type"] == "none":
-            del self._param["type"]
+        if self._param[PAN_JSON_ADD_GRP_TYPE] == "none":
+            del self._param[PAN_JSON_ADD_GRP_TYPE]
 
         status, add_grp_present = connector.util._does_policy_exist(self._param, action_result, param_name='address_group')
         if add_grp_present and connector.get_action_identifier() != "modify_address_group":
@@ -79,11 +79,11 @@ class CreateAddressGroup(BaseAction):
             )
 
         element = connector.util._get_action_element(self._param)
-        if self._param.get("type") == "dynamic":
+        if self._param.get(PAN_JSON_ADD_GRP_TYPE) == "dynamic":
             status, temp_element = connector.util._element_prep(
                 "dynamic", param_val=self._param["address_or_match"], member=False, is_bool=False)
             element += temp_element
-        elif self._param.get("type") == "static":
+        elif self._param.get(PAN_JSON_ADD_GRP_TYPE) == "static":
             status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param.get("address_or_match"), member=True)
             element += temp_element
 

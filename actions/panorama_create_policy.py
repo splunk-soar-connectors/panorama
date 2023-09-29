@@ -16,7 +16,10 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from panorama_consts import *
+from panorama_consts import (CREATE_POL_REQ_PARAM_LIST, OBJ_TYPE_VALUE_LIST, PAN_ERROR_MESSAGE, PAN_JSON_AUDIT_COMMENT, PAN_JSON_DESC,
+                             PAN_JSON_DISABLE, PAN_JSON_DST, PAN_JSON_NEGATE_DESTINATION, PAN_JSON_NEGATE_SOURCE, PAN_JSON_OBJ_TYPE,
+                             PAN_JSON_POLICY_TYPE, PAN_JSON_RULE_TYPE, PAN_JSON_WHERE, POLICY_TYPE_VALUE_LIST, RULE_TYPE_VALUE_LIST,
+                             VALUE_LIST_VALIDATION_MESSAGE, param_mapping)
 
 
 class CreatePolicy(BaseAction):
@@ -45,11 +48,11 @@ class CreatePolicy(BaseAction):
         dst = self._param.get(PAN_JSON_DST, None)
         policy_type = self._param.get(PAN_JSON_POLICY_TYPE)
         rule_type = self._param.get(PAN_JSON_RULE_TYPE)
-        audit_comment = self._param.get("audit_comment", None)
-        description = self._param.get("description", None)
+        audit_comment = self._param.get(PAN_JSON_AUDIT_COMMENT, None)
+        description = self._param.get(PAN_JSON_DESC, None)
 
-        self._param["negate-source"] = self._param.get("negate_source", "none").lower()
-        self._param["negate-destination"] = self._param.get("negate_destination", "none").lower()
+        self._param[PAN_JSON_NEGATE_SOURCE] = self._param.get("negate_source", "none").lower()
+        self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get("negate_destination", "none").lower()
 
         if description and len(description) > 1024:
             return action_result.set_status(
@@ -71,17 +74,17 @@ class CreatePolicy(BaseAction):
                 self._param[new_key] = self._param.get(param)
                 del self._param[param]
 
-        if self._param["negate-source"] not in ["none", "true", "false"]:
+        if self._param[PAN_JSON_NEGATE_SOURCE] not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"], "negate_source"))
 
-        if self._param["negate-destination"] not in ["none", "true", "false"]:
+        if self._param[PAN_JSON_NEGATE_DESTINATION] not in ["none", "true", "false"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["none", "true", "false"],
                                                                                                     "negate_destination"))
-        if self._param["negate-source"] == "none":
-            del self._param["negate-source"]
+        if self._param[PAN_JSON_NEGATE_SOURCE] == "none":
+            del self._param[PAN_JSON_NEGATE_SOURCE]
 
-        if self._param["negate-destination"] == "none":
-            del self._param["negate-destination"]
+        if self._param[PAN_JSON_NEGATE_DESTINATION] == "none":
+            del self._param[PAN_JSON_NEGATE_DESTINATION]
 
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
         if policy_present and connector.get_action_identifier() != "modify_policy":

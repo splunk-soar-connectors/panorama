@@ -206,11 +206,20 @@ PAN_JSON_DISABLE = "disable"
 PAN_JSON_ICMP_UNREACHABLE = "icmp-unreachable"
 PAN_JSON_DESTINATION_ADDRESS = "destination_address"
 PAN_JSON_CATEGORY = "category"
+PAN_JSON_AUDIT_COMMENT = "audit_comment"
+PAN_JSON_NEGATE_SOURCE = "negate-source"
+PAN_JSON_NEGATE_DESTINATION = "negate-destination"
+PAN_JSON_DESC = "description"
 
+# Constants related to Custom Block Policy
 PAN_JSON_OBJ_TYPE = "object_type"
 PAN_JSON_OBJ_VAL = "object_value"
 PAN_JSON_DIR = "direction"
 PAN_JSON_POL_SOURCE_ADD = "source_address"
+
+# Constants related to Address Group
+PAN_JSON_ADD_GRP_TYPE = "type"
+PAN_JSON_ADD_GRP_DIS_OVER = "disable-override"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
 SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting']
