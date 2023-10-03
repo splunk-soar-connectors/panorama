@@ -127,7 +127,7 @@ class PanoramaUtils(object):
         if not (0 < string_len <= max_len):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                f"Invalid length for {param_name} parameter, max length of string can be {max_len}"
+                f"Maximum character limit for {param_name} parameter exceeded. Please provide {max_len} or less characters and try again."
             )
 
         if not re.search(regex, string_to_validate):
@@ -788,6 +788,51 @@ class PanoramaUtils(object):
             return (phantom.APP_SUCCESS, False)
 
         if not total_count:
+            return (phantom.APP_SUCCESS, False)
+
+        return (phantom.APP_SUCCESS, True)
+
+    def _does_address_exist(self, param, action_result):
+        """ Checking the address is exist or not
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
+        """
+
+        self._connector.debug_print("Checking the address is exist or not...")
+
+        address_name = param["name"]
+
+        get_address_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath= self._get_config_xpath(param), name=address_name)}"
+
+        data = {
+            "type": "config",
+            'action': "get",
+            'key': self._key,
+            'xpath': get_address_xpath
+        }
+
+        status, _ = self._make_rest_call(data, action_result)
+        if phantom.is_fail(status):
+            self._connector.debug_print('Error occur while checking the existence of address. Error - %s' % action_result.get_message())
+            return (phantom.APP_SUCCESS, False)
+
+        result_data = action_result.get_data()
+        result_data = result_data.pop()
+
+        if result_data.get("@total-count") == "0":
+            self._connector.debug_print("No Address found")
+            return (phantom.APP_SUCCESS, False)
+
+        try:
+            result_data = result_data.get('entry')
+        except Exception as e:
+            error = self._get_error_message_from_exception(e)
+            self._connector.debug_print("Error occurred while processing response from server. {}".format(error))
             return (phantom.APP_SUCCESS, False)
 
         return (phantom.APP_SUCCESS, True)

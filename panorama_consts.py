@@ -271,6 +271,6 @@ PAN_ERR_MSG = {
 PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
 
 ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
-VALIDATE_STRING_ERROR_MSG = "Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
-                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"
+VALIDATE_STRING_ERROR_MSG = "Invalid value provided for the {param_name} parameter. The name must start with a alphanumeric character and\
+     can contain alphanumeric characters, hyphen(-), underscore(_), dot(.) and spaces"
 PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
