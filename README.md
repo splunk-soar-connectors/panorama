@@ -101,8 +101,8 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [create address group](#action-create-address-group) - Create an address group  
 [modify address group](#action-modify-address-group) - Modify an address group  
 [list address groups](#action-list-address-groups) - List the address groups  
-[reference address group](#action-reference-address-group) - Get the address group  
-[delete address group](#action-delete-address-group) - Delete address group for the supplied address group name  
+[reference address group](#action-reference-address-group) - Fetch address group details for the supplied address group name  
+[delete address group](#action-delete-address-group) - Delete an address group for the supplied address group name  
 [create address](#action-create-address) - Create an address on the panorama platform  
 [reference address](#action-reference-address) - Fetch address details for the supplied address name  
 [delete address](#action-delete-address) - Delete address details for the supplied address name  
@@ -787,24 +787,24 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **audit_comment** |  optional  | Audit Comment to add for the policy | string | 
 **source_zone** |  required  | Source Zone of policy | string | 
 **source_address** |  required  | Source Address of policy | string | 
-**negate_source** |  optional  | Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address | boolean | 
+**negate_source** |  optional  | Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address | string | 
 **source_user** |  optional  | Source User for policy | string | 
 **source_device** |  optional  | Source Device for policy | string | 
 **destination_zone** |  required  | Destination Zone of policy | string | 
 **destination_address** |  required  | Destination Address of policy | string | 
-**negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | boolean | 
+**negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
 **destination_device** |  optional  | destination device for policy | string | 
 **application** |  required  | Applications for the policy | string | 
 **service** |  required  | Services of the policy | string | 
 **category** |  optional  | URL Categories of the policy | string | 
 **action** |  required  | Action type for the policy | string | 
-**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | boolean | 
+**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
 **log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
 **target** |  optional  | The target devices of the security policy | string | 
 **where** |  optional  | Where to position the policy | string | 
 **dst** |  optional  | Policy in reference to which position the current policy | string | 
-**disable** |  optional  | Whether to disable the policy | boolean | 
+**disable** |  optional  | Whether to disable the policy | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -921,7 +921,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **direction** |  optional  | Direction from which to block the traffic | string | 
 **object_type** |  required  | Type of object to block | string | 
 **object_value** |  required  | Value of the object to be blocked. Can be a list. | string | 
-**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | boolean | 
+**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
 **log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
 **target** |  optional  | The target devices of the security policy | string | 
 **where** |  optional  | Where to position the policy | string | 
@@ -1315,7 +1315,7 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'reference address group'
-Get the address group
+Fetch address group details for the supplied address group name
 
 Type: **investigate**  
 Read only: **True**
@@ -1323,7 +1323,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address group | string |  `panorama address group name` 
+**name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group name, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
@@ -1339,7 +1339,7 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete address group'
-Delete address group for the supplied address group name
+Delete an address group for the supplied address group name
 
 Type: **generic**  
 Read only: **False**
@@ -1347,7 +1347,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address group | string |  `panorama address group name` 
+**name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -1377,10 +1377,10 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string |  `panorama address name` 
-**ip** |  required  | IP address | string |  `ip`  `ipv6` 
-**description** |  optional  | Description of address | string | 
-**tags** |  optional  | Tags want to apply on an address | string | 
+**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
+**ip** |  required  | IP address | string |  `ip`  `ipv6`  `domain` 
+**description** |  optional  | Description of address (up to 1023 characters) | string | 
+**tags** |  optional  | Tags want to apply on an address (comma-separated to 127 characters for each tag) | string | 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **disable_override** |  optional  | Whether to disable override the address or not | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -1449,7 +1449,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string |  `panorama address name` 
+**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
@@ -1473,7 +1473,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string |  `panorama address name` 
+**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 

@@ -154,7 +154,7 @@ TAG_ELEM = "<entry name='{tag}'><color>{tag_color}</color><comments>{tag_comment
 
 START_TAG = "<entry name='{tag}'>"
 END_TAG = "</entry>"
-TAG_COMMENT = "Tag created from phantom"
+TAG_COMMENT = "Tag created from Splunk SOAR"
 ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
 
 APP_LIST_XPATH = "/config/predefined/application"
@@ -202,7 +202,7 @@ PAN_JSON_NEGATE_DESTINATION = "negate-destination"
 PAN_JSON_WHERE = "where"
 PAN_JSON_DST = "dst"
 PAN_JSON_TAGS = "tag"
-PAN_JSON_DISABLE = "disable"
+PAN_JSON_DISABLE = "disabled"
 PAN_JSON_ICMP_UNREACHABLE = "icmp-unreachable"
 PAN_JSON_DESTINATION_ADDRESS = "destination_address"
 PAN_JSON_CATEGORY = "category"
@@ -222,7 +222,8 @@ PAN_JSON_ADD_GRP_TYPE = "type"
 PAN_JSON_ADD_GRP_DIS_OVER = "disable-override"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
-SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting', 'log-setting']
+SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting',
+                             'log-setting', 'negate-source', 'negate-destination', 'icmp-unreachable']
 SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
 SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user',
                              'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
@@ -234,7 +235,6 @@ param_mapping = {
     "source_device": "source-hip",
     "destination_device": "destination-hip",
     "log_forwarding": "log-setting",
-    "icmp_unreachable": "icmp-unreachable",
     "profile_setting": "profile-setting",
     "source_address": "source",
     "destination_address": "destination",
@@ -242,6 +242,9 @@ param_mapping = {
     "destination_zone": "to",
     "disable": "disabled",
     "disable_override": "disable-override",
+    "icmp_unreachable": "icmp-unreachable",
+    "negate_source": "negate-source",
+    "negate_destination": "negate-destination"
 }
 
 
@@ -271,6 +274,6 @@ PAN_ERR_MSG = {
 PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
 
 ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
-VALIDATE_STRING_ERROR_MSG = "Invalid input for {param_name} parameter, The value need to start with alphanumeric character and\
-                      can contain only alphanumeric characters with support for only this characters ( '.' , '_' , '-' , ' ' )"
+VALIDATE_STRING_ERROR_MSG = "Invalid value provided for the {param_name} parameter. The name must start with a alphanumeric character and\
+     can contain alphanumeric characters, hyphen(-), underscore(_), dot(.) and spaces"
 PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"

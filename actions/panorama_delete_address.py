@@ -23,7 +23,7 @@ class DeleteAddress(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting reference address action")
+        connector.debug_print("starting delete address action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         address_name = self._param["name"]

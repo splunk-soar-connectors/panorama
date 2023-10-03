@@ -127,7 +127,7 @@ class PanoramaUtils(object):
         if not (0 < string_len <= max_len):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                f"Invalid length for {param_name} parameter, max length of string can be {max_len}"
+                f"Maximum character limit for {param_name} parameter exceeded. Please provide {max_len} or less characters and try again."
             )
 
         if not re.search(regex, string_to_validate):
@@ -792,6 +792,51 @@ class PanoramaUtils(object):
 
         return (phantom.APP_SUCCESS, True)
 
+    def _does_address_exist(self, param, action_result):
+        """ Checking the address is exist or not
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
+        """
+
+        self._connector.debug_print("Checking the address is exist or not...")
+
+        address_name = param["name"]
+
+        get_address_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath= self._get_config_xpath(param), name=address_name)}"
+
+        data = {
+            "type": "config",
+            'action': "get",
+            'key': self._key,
+            'xpath': get_address_xpath
+        }
+
+        status, _ = self._make_rest_call(data, action_result)
+        if phantom.is_fail(status):
+            self._connector.debug_print('Error occur while checking the existence of address. Error - %s' % action_result.get_message())
+            return phantom.APP_ERROR
+
+        result_data = action_result.get_data()
+        result_data = result_data.pop()
+
+        if result_data.get("@total-count") == "0":
+            self._connector.debug_print("No Address found")
+            return phantom.APP_ERROR
+
+        try:
+            result_data = result_data.get('entry')
+        except Exception as e:
+            error = self._get_error_message_from_exception(e)
+            self._connector.debug_print("Error occurred while processing response from server. {}".format(error))
+            return phantom.APP_ERROR
+
+        return phantom.APP_SUCCESS
+
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
         """
         Perform any Policy updates on the xpath to the given Security Policy name
@@ -1095,9 +1140,6 @@ class PanoramaUtils(object):
             if param[params]:
                 if params in consts.SEC_POLICY_REQ_PARAM_LIST:
                     status, result = self._element_prep(params, param[params])
-                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination", "icmp-unreachable"]) \
-                        and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
-                    status, result = self._element_prep(params, param[params], is_bool=True)
                 elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], member=True)
                 if status:
@@ -1137,11 +1179,6 @@ class PanoramaUtils(object):
             elif param_name == "dynamic":
                 param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
                 return status, temp_element
-            elif is_bool:
-                if param_val:
-                    param_val = "yes"
-                else:
-                    param_val = "no"
             if member:
                 if len(param_list) > 1:
                     temp_dict["member"] = param_list
@@ -1283,7 +1320,7 @@ class PanoramaUtils(object):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        # Validation for device group parameter if present
+        # Validation for name parameter if present
         if param.get(consts.EDL_ADR_POLICY_NAME):
             status = self._validate_string(
                 action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN
@@ -1291,7 +1328,7 @@ class PanoramaUtils(object):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        # Validation for device group parameter if present
+        # Validation for tag parameter if present
         if param.get(consts.PAN_JSON_TAGS):
             status = self._validate_string(
                 action_result, param[consts.PAN_JSON_TAGS], consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN

@@ -38,13 +38,12 @@ class DeleteAddressGroup(BaseAction):
             'xpath': get_address_xpath
         }
 
-        status, _ = connector.util._make_rest_call(data, action_result)
+        status, response = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("deleting address group", action_result.get_message()))
 
-        action_result.update_summary({"message": "successfully deleted address group"})
-
+        action_result.update_summary({'delete_address_group': response})
         message = action_result.get_message()
 
         if self._param.get('should_commit_changes', False):

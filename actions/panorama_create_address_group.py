@@ -87,9 +87,6 @@ class CreateAddressGroup(BaseAction):
             status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param.get("address_or_match"), member=True)
             element += temp_element
 
-        if not element:
-            return action_result.set_status(phantom.APP_ERROR, "Please add at least one value to modify the address group")
-
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
 
         status, response = self.make_rest_call_helper(connector, xpath, element, action_result)

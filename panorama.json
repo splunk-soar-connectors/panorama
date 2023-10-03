@@ -3073,8 +3073,11 @@
                 },
                 "negate_source": {
                     "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
-                    "data_type": "boolean",
-                    "default": false,
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 9,
                     "name": "Negate Source"
                 },
@@ -3109,8 +3112,11 @@
                 },
                 "negate_destination": {
                     "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
-                    "data_type": "boolean",
-                    "default": false,
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 14,
                     "name": "Negate Destination"
                 },
@@ -3161,7 +3167,11 @@
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 20,
                     "name": "ICMP Unreachable"
                 },
@@ -3207,7 +3217,11 @@
                 },
                 "disable": {
                     "description": "Whether to disable the policy",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 26,
                     "name": "Disable"
                 },
@@ -3861,7 +3875,11 @@
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 10,
                     "name": "ICMP Unreachable"
                 },
@@ -4142,11 +4160,9 @@
                 "negate_source": {
                     "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ],
                     "order": 9,
                     "name": "Negate Source"
@@ -4178,11 +4194,9 @@
                 "negate_destination": {
                     "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ],
                     "order": 14,
                     "name": "Negate Destination"
@@ -4228,11 +4242,9 @@
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ],
                     "order": 20,
                     "name": "ICMP Unreachable"
@@ -4262,13 +4274,11 @@
                 "disable": {
                     "description": "Whether to disable the policy",
                     "data_type": "string",
-                    "default": "none",
                     "order": 24,
                     "name": "Disable",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ]
                 },
                 "use_partial_commit": {
@@ -5904,22 +5914,20 @@
                 }
             ],
             "render": {
-                "type": "table",
-                "width": 12,
-                "height": 5,
+                "type": "json",
                 "title": "List Address Groups"
             },
             "versions": "EQ(*)"
         },
         {
             "action": "reference address group",
-            "description": "Get the address group",
+            "description": "Fetch address group details for the supplied address group name",
             "type": "investigate",
             "identifier": "reference_address_group",
             "read_only": true,
             "parameters": {
                 "name": {
-                    "description": "Name of address group",
+                    "description": "Name of address group (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -5942,8 +5950,6 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
-                    "column_name": "Address Group Name",
-                    "column_order": 0,
                     "contains": [
                         "panorama address group name"
                     ]
@@ -5951,8 +5957,6 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "column_name": "Device Group",
-                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ]
@@ -5997,9 +6001,7 @@
                 }
             ],
             "render": {
-                "type": "table",
-                "width": 12,
-                "height": 5,
+                "type": "json",
                 "title": "Reference Address Group"
             },
             "versions": "EQ(*)"
@@ -6007,12 +6009,12 @@
         {
             "action": "delete address group",
             "identifier": "delete_address_group",
-            "description": "Delete address group for the supplied address group name",
+            "description": "Delete an address group for the supplied address group name",
             "read_only": false,
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of address group",
+                    "description": "Name of address group (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -6108,10 +6110,8 @@
                 }
             ],
             "render": {
-                "width": 12,
-                "title": "Delete Address Group",
-                "type": "table",
-                "height": 5
+                "type": "json",
+                "title": "Delete Address Group"
             },
             "versions": "EQ(*)"
         },
@@ -6124,10 +6124,11 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of address",
+                    "description": "Name of address (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
+                    "primary": true,
                     "contains": [
                         "panorama address name"
                     ]
@@ -6137,18 +6138,20 @@
                     "data_type": "string",
                     "order": 1,
                     "required": true,
+                    "primary": true,
                     "contains": [
                         "ip",
-                        "ipv6"
+                        "ipv6",
+                        "domain"
                     ]
                 },
                 "description": {
-                    "description": "Description of address",
+                    "description": "Description of address (up to 1023 characters)",
                     "data_type": "string",
                     "order": 2
                 },
                 "tags": {
-                    "description": "Tags want to apply on an address",
+                    "description": "Tags want to apply on an address (comma-separated to 127 characters for each tag)",
                     "data_type": "string",
                     "order": 3
                 },
@@ -6187,8 +6190,6 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
-                    "column_name": "Address Name",
-                    "column_order": 0,
                     "contains": [
                         "panorama address name"
                     ]
@@ -6196,8 +6197,6 @@
                 {
                     "data_path": "action_result.parameter.ip",
                     "data_type": "string",
-                    "column_name": "IP",
-                    "column_order": 1,
                     "contains": [
                         "ip",
                         "ipv6"
@@ -6214,8 +6213,6 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "column_name": "Device Group",
-                    "column_order": 2,
                     "contains": [
                         "panorama device group"
                     ]
@@ -6512,9 +6509,7 @@
                 }
             ],
             "render": {
-                "type": "table",
-                "width": 12,
-                "height": 5,
+                "type": "json",
                 "title": "Create Address"
             },
             "versions": "EQ(*)"
@@ -6527,10 +6522,11 @@
             "type": "investigate",
             "parameters": {
                 "name": {
-                    "description": "Name of address",
+                    "description": "Name of address (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
+                    "primary": true,
                     "contains": [
                         "panorama address name"
                     ]
@@ -6550,8 +6546,6 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
-                    "column_name": "Address name",
-                    "column_order": 0,
                     "contains": [
                         "panorama address name"
                     ]
@@ -6559,8 +6553,6 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "column_name": "Device Group",
-                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ]
@@ -6605,10 +6597,8 @@
                 }
             ],
             "render": {
-                "width": 12,
-                "title": "Reference Address",
-                "type": "table",
-                "height": 5
+                "type": "json",
+                "title": "Reference Address"
             },
             "versions": "EQ(*)"
         },
@@ -6620,10 +6610,11 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of address",
+                    "description": "Name of address (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
+                    "primary": true,
                     "contains": [
                         "panorama address name"
                     ]
@@ -6653,8 +6644,6 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
-                    "column_name": "Address Name",
-                    "column_order": 0,
                     "contains": [
                         "panorama address name"
                     ]
@@ -6662,8 +6651,6 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "column_name": "Device Group",
-                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ]
@@ -6716,10 +6703,8 @@
                 }
             ],
             "render": {
-                "width": 12,
-                "title": "Delete Address",
-                "type": "table",
-                "height": 5
+                "type": "json",
+                "title": "Delete Address"
             },
             "versions": "EQ(*)"
         }

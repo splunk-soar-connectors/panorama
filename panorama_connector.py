@@ -88,7 +88,7 @@ class PanoramaConnector(BaseConnector):
         try:
             action = base_action_sub_classes[0](param)
             return action.execute(self)
-        except:
+        except Exception:
             return phantom.APP_ERROR
 
 
