@@ -235,7 +235,6 @@ param_mapping = {
     "source_device": "source-hip",
     "destination_device": "destination-hip",
     "log_forwarding": "log-setting",
-    "icmp_unreachable": "icmp-unreachable",
     "profile_setting": "profile-setting",
     "source_address": "source",
     "destination_address": "destination",
@@ -243,7 +242,9 @@ param_mapping = {
     "destination_zone": "to",
     "disable": "disabled",
     "disable_override": "disable-override",
-    "icmp_unreachable": "icmp-unreachable"
+    "icmp_unreachable": "icmp-unreachable",
+    "negate_source": "negate-source",
+    "negate_destination": "negate-destination"
 }
 
 
