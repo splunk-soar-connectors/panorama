@@ -51,7 +51,7 @@ class CreateAddress(BaseAction):
                 xml_string += xml_tag_string
 
         # Address description
-        address_description = self._param.get("description", "")
+        address_description = self._param.get("description")
         if address_description:
             xml_string += f"<description>{address_description}</description>"
 
@@ -76,7 +76,7 @@ class CreateAddress(BaseAction):
         address_name = self._param["name"]
 
         # Check the given address already exist or not
-        status, address_present = connector.util._does_address_exist(self._param, action_result)
+        address_present = connector.util._does_address_exist(self._param, action_result)
         if address_present:
             connector.debug_print("Given address already exist...")
             return action_result.set_status(phantom.APP_ERROR, f"{address_name} - address already exist")

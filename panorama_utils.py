@@ -819,23 +819,23 @@ class PanoramaUtils(object):
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print('Error occur while checking the existence of address. Error - %s' % action_result.get_message())
-            return (phantom.APP_SUCCESS, False)
+            return phantom.APP_ERROR
 
         result_data = action_result.get_data()
         result_data = result_data.pop()
 
         if result_data.get("@total-count") == "0":
             self._connector.debug_print("No Address found")
-            return (phantom.APP_SUCCESS, False)
+            return phantom.APP_ERROR
 
         try:
             result_data = result_data.get('entry')
         except Exception as e:
             error = self._get_error_message_from_exception(e)
             self._connector.debug_print("Error occurred while processing response from server. {}".format(error))
-            return (phantom.APP_SUCCESS, False)
+            return phantom.APP_ERROR
 
-        return (phantom.APP_SUCCESS, True)
+        return phantom.APP_SUCCESS
 
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
         """
@@ -1320,7 +1320,7 @@ class PanoramaUtils(object):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        # Validation for device group parameter if present
+        # Validation for name parameter if present
         if param.get(consts.EDL_ADR_POLICY_NAME):
             status = self._validate_string(
                 action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN
@@ -1328,7 +1328,7 @@ class PanoramaUtils(object):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        # Validation for device group parameter if present
+        # Validation for tag parameter if present
         if param.get(consts.PAN_JSON_TAGS):
             status = self._validate_string(
                 action_result, param[consts.PAN_JSON_TAGS], consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN

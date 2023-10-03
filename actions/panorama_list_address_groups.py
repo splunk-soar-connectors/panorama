@@ -25,7 +25,7 @@ class ListAddressGroup(BaseAction):
 
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
-        connector.debug_print("Starting list address groups action...")
+        connector.debug_print("Starting list address groups action")
 
         data = {
             "type": "config",
@@ -38,10 +38,9 @@ class ListAddressGroup(BaseAction):
 
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of address group", action_result.get_message()))
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of address groups", action_result.get_message()))
 
-        result_data = action_result.get_data()
-        result_data = result_data.pop()
+        result_data = action_result.get_data().pop()
         try:
             result_data = result_data["address-group"].get("entry")
             if not result_data:

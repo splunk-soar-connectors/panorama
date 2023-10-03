@@ -154,7 +154,7 @@ TAG_ELEM = "<entry name='{tag}'><color>{tag_color}</color><comments>{tag_comment
 
 START_TAG = "<entry name='{tag}'>"
 END_TAG = "</entry>"
-TAG_COMMENT = "Tag created from phantom"
+TAG_COMMENT = "Tag created from Splunk SOAR"
 ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
 
 APP_LIST_XPATH = "/config/predefined/application"
