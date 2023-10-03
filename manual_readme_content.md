@@ -5,7 +5,7 @@
 [comment]: # ""
 ### Overview
 
-The Panorama app has been tested with PanOS version 7.0.4 and should work with any version above.
+The Panorama app has been tested with PanOS version 11.0.2 and should work with any version above.
 
 All the containment actions (like **block ip** etc.), take a policy name and the policy type as
 parameters. The action first creates an object (Application Group, Address Group, etc.) on the

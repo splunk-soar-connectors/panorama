@@ -17,7 +17,7 @@ This app integrates with the Palo Alto Networks Panorama product to support seve
 [comment]: # ""
 ### Overview
 
-The Panorama app has been tested with PanOS version 7.0.4 and should work with any version above.
+The Panorama app has been tested with PanOS version 11.0.2 and should work with any version above.
 
 All the containment actions (like **block ip** etc.), take a policy name and the policy type as
 parameters. The action first creates an object (Application Group, Address Group, etc.) on the
@@ -89,7 +89,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
 [get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
 [list edl](#action-list-edl) - List External Dynamic List's  
-[reference edl](#action-reference-edl) - Create an External Dynamic List  
+[reference edl](#action-reference-edl) - Get data of a External Dynamic List  
 [create edl](#action-create-edl) - Create an External Dynamic List  
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
@@ -590,10 +590,12 @@ List External Dynamic List's
 Type: **investigate**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -608,16 +610,18 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'reference edl'
-Create an External Dynamic List
+Get data of a External Dynamic List
 
 Type: **investigate**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to get data off (max char : 63) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -637,20 +641,22 @@ Create an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored. </li> <li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
-**description** |  optional  | Description of external dynamic list | string | 
+**name** |  required  | Name of the external dynamic list you want to create (max char : 63) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
-**source** |  required  | Source | string | 
-**expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
-**disable_override** |  optional  | Whether to disable override the edl or not | string | 
-**certificate_profile** |  optional  | Certificate Profile to be used for the edl | string | 
-**check_for_updates** |  optional  | After what interval to check for updates | string | 
+**source** |  required  | Source url to fetch the data. | string | 
+**expand_for_subdomains** |  optional  | Used to automatically expand to include subdomains of a specified domain | string | 
+**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama | string | 
+**certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list | string | 
+**check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list. | string | 
 **at_hour** |  optional  | At what hour of the day to check for updates | string | 
-**day** |  optional  | On which specific day to check for updates | string | 
+**day** |  optional  | On which specific day of week to check for updates | string | 
 **day_of_month** |  optional  | On which specific date of month to check for updates | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -687,20 +693,22 @@ Modify an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
+<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>When the <b>device_group</b> is shared the <b>disable_override</b> parameter is ignored.</li><li><div> The name and device_group must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div><div> Example: Test_edl (valid input) , _Testedl (invalid input) </div></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> 
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
-**description** |  optional  | Description of external dynamic list | string | 
+**name** |  required  | Name of the external dynamic list you want to modify (max char : 63) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
-**source** |  optional  | Source | string | 
-**expand_for_subdomains** |  optional  | Automatically expand to include subdomains | string | 
-**disable_override** |  optional  | Whether to disable override the edl or not | string | 
-**certificate_profile** |  optional  | Certificate Profile to be used for the edl | string | 
-**check_for_updates** |  optional  | After what interval to check for updates | string | 
+**source** |  optional  | Source url to fetch the data. | string | 
+**expand_for_subdomains** |  optional  | Used to automatically expand to include subdomains of a specified domain | string | 
+**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama | string | 
+**certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list | string | 
+**check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list. | string | 
 **at_hour** |  optional  | At what hour of the day to check for updates | string | 
-**day** |  optional  | On which specific day to check for updates | string | 
+**day** |  optional  | On which specific day of week to check for updates | string | 
 **day_of_month** |  optional  | On which specific date of month to check for updates | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -737,11 +745,13 @@ Delete an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of external dynamic list | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to create (max char : 63) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 

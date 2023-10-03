@@ -2214,11 +2214,12 @@
             "action": "list edl",
             "identifier": "list_edl",
             "description": "List External Dynamic List's",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "type": "investigate",
             "parameters": {
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (max char : 31)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2295,12 +2296,13 @@
         {
             "action": "reference edl",
             "identifier": "reference_edl",
-            "description": "Create an External Dynamic List",
+            "description": "Get data of a External Dynamic List",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "type": "investigate",
             "parameters": {
                 "name": {
-                    "description": "Name of external dynamic list",
+                    "description": "Name of the external dynamic list you want to get data off (max char : 63)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2310,7 +2312,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (max char : 31)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2384,11 +2386,12 @@
             "action": "create edl",
             "identifier": "create_edl",
             "description": "Create an External Dynamic List",
+            "verbose" : "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored. </li> <li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>",
             "read_only": true,
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of external dynamic list",
+                    "description": "Name of the external dynamic list you want to create (max char : 63)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2398,7 +2401,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (max char : 31)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2408,7 +2411,7 @@
                     ]
                 },
                 "description": {
-                    "description": "Description of external dynamic list",
+                    "description": "Description of external dynamic list (max char : 255)",
                     "data_type": "string",
                     "order": 2
                 },
@@ -2429,13 +2432,13 @@
                     "order": 3
                 },
                 "source": {
-                    "description": "Source",
+                    "description": "Source url to fetch the data.",
                     "data_type": "string",
                     "order": 4,
                     "required": true
                 },
                 "expand_for_subdomains": {
-                    "description": "Automatically expand to include subdomains",
+                    "description": "Used to automatically expand to include subdomains of a specified domain",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -2445,7 +2448,7 @@
                     "order": 5
                 },
                 "disable_override": {
-                    "description": "Whether to disable override the edl or not",
+                    "description": "Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -2455,12 +2458,12 @@
                     "order": 6
                 },
                 "certificate_profile": {
-                    "description": "Certificate Profile to be used for the edl",
+                    "description": "Certificate profile is used for authenticating the server that hosts the list",
                     "data_type": "string",
                     "order": 7
                 },
                 "check_for_updates": {
-                    "description": "After what interval to check for updates",
+                    "description": "Defines the frequency at which the firewall retrieves the list.",
                     "data_type": "string",
                     "value_list": [
                         "Five-minute",
@@ -2479,7 +2482,7 @@
                     "order": 9
                 },
                 "day": {
-                    "description": "On which specific day to check for updates",
+                    "description": "On which specific day of week to check for updates",
                     "data_type": "string",
                     "value_list": [
                         "Monday",
@@ -2632,11 +2635,12 @@
             "action": "modify edl",
             "identifier": "modify_edl",
             "description": "Modify an External Dynamic List",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>When the <b>device_group</b> is shared the <b>disable_override</b> parameter is ignored.</li><li><div> The name and device_group must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div><div> Example: Test_edl (valid input) , _Testedl (invalid input) </div></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> ",
             "read_only": true,
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of external dynamic list",
+                    "description": "Name of the external dynamic list you want to modify (max char : 63)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2646,7 +2650,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (max char : 31)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2656,7 +2660,7 @@
                     ]
                 },
                 "description": {
-                    "description": "Description of external dynamic list",
+                    "description": "Description of external dynamic list (max char : 255)",
                     "data_type": "string",
                     "order": 2
                 },
@@ -2675,12 +2679,12 @@
                     "order": 3
                 },
                 "source": {
-                    "description": "Source",
+                    "description": "Source url to fetch the data.",
                     "data_type": "string",
                     "order": 4
                 },
                 "expand_for_subdomains": {
-                    "description": "Automatically expand to include subdomains",
+                    "description": "Used to automatically expand to include subdomains of a specified domain",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -2689,7 +2693,7 @@
                     "order": 5
                 },
                 "disable_override": {
-                    "description": "Whether to disable override the edl or not",
+                    "description": "Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -2698,12 +2702,12 @@
                     "order": 6
                 },
                 "certificate_profile": {
-                    "description": "Certificate Profile to be used for the edl",
+                    "description": "Certificate profile is used for authenticating the server that hosts the list",
                     "data_type": "string",
                     "order": 7
                 },
                 "check_for_updates": {
-                    "description": "After what interval to check for updates",
+                    "description": "Defines the frequency at which the firewall retrieves the list.",
                     "data_type": "string",
                     "value_list": [
                         "Five-minute",
@@ -2720,7 +2724,7 @@
                     "order": 9
                 },
                 "day": {
-                    "description": "On which specific day to check for updates",
+                    "description": "On which specific day of week to check for updates",
                     "data_type": "string",
                     "value_list": [
                         "Monday",
@@ -2872,11 +2876,12 @@
             "action": "delete edl",
             "identifier": "delete_edl",
             "description": "Delete an External Dynamic List",
+            "verbose" : "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of external dynamic list",
+                    "description": "Name of the external dynamic list you want to create (max char : 63)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2886,7 +2891,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (max char : 31)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
