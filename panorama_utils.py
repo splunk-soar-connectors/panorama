@@ -1140,9 +1140,6 @@ class PanoramaUtils(object):
             if param[params]:
                 if params in consts.SEC_POLICY_REQ_PARAM_LIST:
                     status, result = self._element_prep(params, param[params])
-                elif (isinstance(param[params], bool) or params in ["negate-source", "negate-destination", "icmp-unreachable"]) \
-                        and params not in consts.SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST:
-                    status, result = self._element_prep(params, param[params], is_bool=True)
                 elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
                     status, result = self._element_prep(params, param[params], member=True)
                 if status:
@@ -1182,11 +1179,6 @@ class PanoramaUtils(object):
             elif param_name == "dynamic":
                 param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
                 return status, temp_element
-            elif is_bool:
-                if param_val:
-                    param_val = "yes"
-                else:
-                    param_val = "no"
             if member:
                 if len(param_list) > 1:
                     temp_dict["member"] = param_list

@@ -3068,8 +3068,11 @@
                 },
                 "negate_source": {
                     "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
-                    "data_type": "boolean",
-                    "default": false,
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 9,
                     "name": "Negate Source"
                 },
@@ -3104,8 +3107,11 @@
                 },
                 "negate_destination": {
                     "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
-                    "data_type": "boolean",
-                    "default": false,
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 14,
                     "name": "Negate Destination"
                 },
@@ -3156,7 +3162,11 @@
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 20,
                     "name": "ICMP Unreachable"
                 },
@@ -3202,7 +3212,11 @@
                 },
                 "disable": {
                     "description": "Whether to disable the policy",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 26,
                     "name": "Disable"
                 },
@@ -3856,7 +3870,11 @@
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
-                    "data_type": "boolean",
+                    "data_type": "string",
+                    "value_list": [
+                        "Yes",
+                        "No"
+                    ],
                     "order": 10,
                     "name": "ICMP Unreachable"
                 },
@@ -4137,11 +4155,9 @@
                 "negate_source": {
                     "description": "Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ],
                     "order": 9,
                     "name": "Negate Source"
@@ -4173,11 +4189,9 @@
                 "negate_destination": {
                     "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ],
                     "order": 14,
                     "name": "Negate Destination"
@@ -4223,11 +4237,9 @@
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
                     "data_type": "string",
-                    "default": "none",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ],
                     "order": 20,
                     "name": "ICMP Unreachable"
@@ -4257,13 +4269,11 @@
                 "disable": {
                     "description": "Whether to disable the policy",
                     "data_type": "string",
-                    "default": "none",
                     "order": 24,
                     "name": "Disable",
                     "value_list": [
-                        "none",
-                        "true",
-                        "false"
+                        "Yes",
+                        "No"
                     ]
                 },
                 "use_partial_commit": {
