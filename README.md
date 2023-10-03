@@ -101,8 +101,8 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [create address group](#action-create-address-group) - Create an address group  
 [modify address group](#action-modify-address-group) - Modify an address group  
 [list address groups](#action-list-address-groups) - List the address groups  
-[reference address group](#action-reference-address-group) - Get the address group  
-[delete address group](#action-delete-address-group) - Delete address group for the supplied address group name  
+[reference address group](#action-reference-address-group) - Fetch address group details for the supplied address group name  
+[delete address group](#action-delete-address-group) - Delete an address group for the supplied address group name  
 [create address](#action-create-address) - Create an address on the panorama platform  
 [reference address](#action-reference-address) - Fetch address details for the supplied address name  
 [delete address](#action-delete-address) - Delete address details for the supplied address name  
@@ -1305,7 +1305,7 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'reference address group'
-Get the address group
+Fetch address group details for the supplied address group name
 
 Type: **investigate**  
 Read only: **True**
@@ -1313,7 +1313,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address group | string |  `panorama address group name` 
+**name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group name, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
@@ -1329,7 +1329,7 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete address group'
-Delete address group for the supplied address group name
+Delete an address group for the supplied address group name
 
 Type: **generic**  
 Read only: **False**
@@ -1337,7 +1337,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address group | string |  `panorama address group name` 
+**name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -1367,10 +1367,10 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string |  `panorama address name` 
-**ip** |  required  | IP address | string |  `ip`  `ipv6` 
-**description** |  optional  | Description of address | string | 
-**tags** |  optional  | Tags want to apply on an address | string | 
+**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
+**ip** |  required  | IP address | string |  `ip`  `ipv6`  `domain` 
+**description** |  optional  | Description of address (up to 1023 characters) | string | 
+**tags** |  optional  | Tags want to apply on an address (comma-separated to 127 characters for each tag) | string | 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **disable_override** |  optional  | Whether to disable override the address or not | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -1439,7 +1439,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string |  `panorama address name` 
+**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 
 #### Action Output
@@ -1463,7 +1463,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address | string |  `panorama address name` 
+**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
