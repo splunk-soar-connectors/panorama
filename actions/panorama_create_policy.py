@@ -160,21 +160,21 @@ class CreatePolicy(BaseAction):
             status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
 
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
+                return action_result.set_status(phantom.APP_ERROR, "Error occurred while creating the tags")
             else:
                 status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
 
         if not ((not element and phantom.is_fail(status)) and (audit_comment or (disable in ["Yes", "No"]))):
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
         if audit_comment:
             status = connector.util._update_audit_comment(self._param, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
 
         if where:
             data = {
@@ -189,8 +189,9 @@ class CreatePolicy(BaseAction):
             status, _ = connector.util._make_rest_call(data, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format
-                                                (f"Unable to move policy to specified location. {message}"))
+                return action_result.set_status(phantom.APP_SUCCESS,
+                                                f"The policy has been created but unable to move \
+                                                it to the specified location: {PAN_ERROR_MESSAGE.format('moving policy',message)}")
 
         if self._param.get("disabled"):
             if self._param.get("disabled") == "yes":
@@ -200,11 +201,11 @@ class CreatePolicy(BaseAction):
             status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", {message}))
 
         if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
         message = action_result.get_message()
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successful: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")
