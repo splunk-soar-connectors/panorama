@@ -85,7 +85,6 @@ class CreateAddressGroup(BaseAction):
                 phantom.APP_ERROR,
                 "An address group with this name already exists. Please use another name."
             )
-        connector.debug_print(f"param {self._param}")
         element = connector.util._get_action_element(self._param)
 
         if self._param.get(PAN_JSON_ADD_GRP_TYPE):
@@ -93,15 +92,12 @@ class CreateAddressGroup(BaseAction):
                 status, temp_element = connector.util._element_prep(
                     param_name="dynamic", param_val=self._param["address_or_match"], member=False)
                 element += temp_element
-                connector.debug_print(f"1 status {status} tmp ele {temp_element}")
             if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() == "static":
                 status, temp_element = connector.util._element_prep(
                     param_name="static", param_val=self._param.get("address_or_match"), member=True)
                 element += temp_element
-                connector.debug_print(f"1 status {status} tmp ele {temp_element}")
 
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
-        connector.debug_print(f"element {element} xpath {xpath}")
         status, response = self.make_rest_call_helper(connector, xpath, element, action_result)
         action_result.add_data(response)
         message = action_result.get_message()
@@ -117,7 +113,7 @@ class CreateAddressGroup(BaseAction):
             message = action_result.get_message()
 
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
+            return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating address group: ", {message}))
 
         if self._param["should_commit_changes"]:
             status = connector.util._commit_and_commit_all(self._param, action_result)

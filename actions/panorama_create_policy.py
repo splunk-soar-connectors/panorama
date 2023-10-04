@@ -165,16 +165,16 @@ class CreatePolicy(BaseAction):
                 status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))
 
         if not ((not element and phantom.is_fail(status)) and (audit_comment or (disable in ["Yes", "No"]))):
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))
         if audit_comment:
             status = connector.util._update_audit_comment(self._param, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("adding audit comment: ", message))
 
         if where:
             data = {
@@ -201,7 +201,7 @@ class CreatePolicy(BaseAction):
             status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("disabling policy :", {message}))
 
         if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
