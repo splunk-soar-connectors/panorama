@@ -98,8 +98,7 @@ class CreateAddressGroup(BaseAction):
                 element += temp_element
 
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
-        status, response = self.make_rest_call_helper(connector, xpath, element, action_result)
-        action_result.add_data(response)
+        status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
         message = action_result.get_message()
 
         if ("tag" and "not a valid") in message:
