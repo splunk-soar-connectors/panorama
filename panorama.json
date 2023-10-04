@@ -2521,6 +2521,8 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
+                    "column_name" : "EDL Name",
+                    "column_order": 0,
                     "contains": [
                         "panorama edl name"
                     ]
@@ -2528,6 +2530,8 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
+                    "column_name" : "Device Group",
+                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ]
@@ -2762,6 +2766,8 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
+                    "column_name": "EDL Name",
+                    "column_order": 0,
                     "contains": [
                         "panorama edl name"
                     ]
@@ -2769,6 +2775,8 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ]
@@ -2925,6 +2933,8 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ]
