@@ -30,8 +30,7 @@ class CreateAddressGroup(BaseAction):
             'xpath': xpath,
             'element': element
         }
-        if where and dst:
-            data.update({'where': where, 'dst': dst})
+
         status, response = connector.util._make_rest_call(data, action_result)
         return status, response
 
