@@ -257,7 +257,7 @@ Block an IP
 Type: **contain**  
 Read only: **False**
 
-<p>This action uses a multistep approach to block an IP. The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Phantom</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.</p>
+<p>This action uses a multistep approach to block an IP. The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Splunk SOAR</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.</p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -595,7 +595,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -620,8 +620,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of the external dynamic list you want to get data off (max char : 63) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to get data off (up to 63 characters) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -646,8 +646,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of the external dynamic list you want to create (max char : 63) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to create (up to 63 characters) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source url to fetch the data. | string | 
@@ -698,8 +698,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of the external dynamic list you want to modify (max char : 63) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to modify (up to 63 characters) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source url to fetch the data. | string | 
@@ -750,8 +750,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of the external dynamic list you want to create (max char : 63) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (max char : 31) | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to create (up to 63 characters) | string |  `panorama edl name` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
@@ -1298,21 +1298,60 @@ List the address groups
 Type: **investigate**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group name, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.tag.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.@admin | string |  |   admin 
+action_result.data.\*.tag.member.#text | string |  |   from_ui 
+action_result.data.\*.tag.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.member.@admin | string |  |   admin 
+action_result.data.\*.tag.member.@dirtyId | string |  |   1 
+action_result.data.\*.tag.@dirtyId | string |  |   1 
+action_result.data.\*.@name | string |  `panorama address group name`  |   test address group name 
+action_result.data.\*.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.@admin | string |  |   admin 
+action_result.data.\*.static.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.static.@admin | string |  |   admin 
+action_result.data.\*.static.member.#text | string |  |   test1 
+action_result.data.\*.static.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.static.member.@admin | string |  |   admin 
+action_result.data.\*.static.member.@dirtyId | string |  |   1 
+action_result.data.\*.static.@dirtyId | string |  |   1 
+action_result.data.\*.@dirtyId | string |  |   1 
+action_result.summary.total_address_groups | numeric |  |   1 
+action_result.data.\*.dynamic.filter | string |  |   blocked 
+action_result.data.\*.description | string |  |   test 
+action_result.data.\*.static | string |  |  
+action_result.data.\*.tag.member | string |  |   xyz 
+action_result.data.\*.disable-override | string |  |   yes 
+action_result.data.\*.static.member | string |  |   2.2.2.2 Added By Splunk SOAR 
+action_result.data.\*.tag.member.\*.#text | string |  |   new 
+action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/24 22:58:19 
+action_result.data.\*.tag.member.\*.@admin | string |  |   admin 
+action_result.data.\*.tag.member.\*.@dirtyId | string |  |   1 
+action_result.data.\*.static.member.\*.#text | string |  |   test_address_tag 
+action_result.data.\*.static.member.\*.@time | string |  |   2023/09/24 22:58:19 
+action_result.data.\*.static.member.\*.@admin | string |  |   admin 
+action_result.data.\*.static.member.\*.@dirtyId | string |  |   1 
+action_result.data.\*.description.#text | string |  |   test 
+action_result.data.\*.description.@time | string |  |   2023/09/24 22:58:19 
+action_result.data.\*.description.@admin | string |  |   admin 
+action_result.data.\*.description.@dirtyId | string |  |   1   
 
 ## action: 'reference address group'
 Fetch address group details for the supplied address group name
@@ -1320,23 +1359,45 @@ Fetch address group details for the supplied address group name
 Type: **investigate**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group name, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group name, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address group name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.name | string |  `panorama address group name`  |   test_address_group_name 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
+action_result.message | string |  |   Successfully fetched address group details 
 action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.tag.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.@admin | string |  |   admin 
+action_result.data.\*.tag.member.#text | string |  |   from_ui 
+action_result.data.\*.tag.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.member.@admin | string |  |   admin 
+action_result.data.\*.tag.member.@dirtyId | string |  |   1 
+action_result.data.\*.tag.@dirtyId | string |  |   1 
+action_result.data.\*.@loc | string |  |   test 
+action_result.data.\*.@name | string |  |   test from Splunk SOAR 
+action_result.data.\*.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.@admin | string |  |   admin 
+action_result.data.\*.static.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.static.@admin | string |  |   admin 
+action_result.data.\*.static.member.#text | string |  |   test1 
+action_result.data.\*.static.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.static.member.@admin | string |  |   admin 
+action_result.data.\*.static.member.@dirtyId | string |  |   1 
+action_result.data.\*.static.@dirtyId | string |  |   1 
+action_result.data.\*.@dirtyId | string |  |   1 
+action_result.data.\*.description | string |  |   test   
 
 ## action: 'delete address group'
 Delete an address group for the supplied address group name
@@ -1344,19 +1405,21 @@ Delete an address group for the supplied address group name
 Type: **generic**  
 Read only: **False**
 
+<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address group name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.name | string |  `panorama address group name`  |   test_address_group_name 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
@@ -1372,7 +1435,7 @@ Create an address on the panorama platform
 Type: **generic**  
 Read only: **False**
 
-<p>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></p>
+<p><h4>Action Keynote</h4><ul><li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li><div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div><div> Example: Test_edl (valid input) , _Testedl (invalid input) </div></li><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1389,11 +1452,11 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address name`  |  
-action_result.parameter.ip | string |  `ip`  `ipv6`  |  
-action_result.parameter.tags | string |  |  
+action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
+action_result.parameter.ip | string |  `ip`  `ipv6`  `domain`  |  
+action_result.parameter.tags | string |  |   test_address_tag 
 action_result.parameter.disable_override | string |  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.parameter.description | string |  |  
@@ -1446,23 +1509,53 @@ Fetch address details for the supplied address name
 Type: **investigate**  
 Read only: **True**
 
+<p> <h4>Action Keynote</h4> <ul> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.status | string |  |   success  failed 
 action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.@loc | string |  |   dg1 
+action_result.data.\*.@name | string |  |   test from phantom 
+action_result.data.\*.ip-netmask | string |  |   10.1.1.1 
+action_result.data.\*.description | string |  |   Testing from phantom 
+action_result.data.\*.disable-override | string |  |   no 
+action_result.summary.message | string |  |   fetched data successfully 
+action_result.data.\*.@time | string |  |   2023/09/13 05:18:32 
+action_result.data.\*.@admin | string |  |   admin 
+action_result.data.\*.@dirtyId | string |  |   175 
+action_result.data.\*.ip-netmask.#text | string |  |   10.1.1.1 
+action_result.data.\*.ip-netmask.@time | string |  |   2023/09/13 05:18:32 
+action_result.data.\*.ip-netmask.@admin | string |  |   admin 
+action_result.data.\*.ip-netmask.@dirtyId | string |  |   175 
+action_result.data.\*.disable-override.#text | string |  |   no 
+action_result.data.\*.disable-override.@time | string |  |   2023/09/13 05:18:32 
+action_result.data.\*.disable-override.@admin | string |  |   admin 
+action_result.data.\*.disable-override.@dirtyId | string |  |   175 
+action_result.data.\*.tag.@time | string |  |   2023/09/26 23:49:56 
+action_result.data.\*.tag.@admin | string |  |   admin 
+action_result.data.\*.tag.member.\*.#text | string |  |   avs 
+action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/26 23:49:56 
+action_result.data.\*.tag.member.\*.@admin | string |  |   admin 
+action_result.data.\*.tag.member.\*.@dirtyId | string |  |   25 
+action_result.data.\*.tag.@dirtyId | string |  |   25 
+action_result.data.\*.description.#text | string |  |   testing with , 
+action_result.data.\*.description.@time | string |  |   2023/09/26 23:49:56 
+action_result.data.\*.description.@admin | string |  |   admin 
+action_result.data.\*.description.@dirtyId | string |  |   25   
 
 ## action: 'delete address'
 Delete address details for the supplied address name
@@ -1470,19 +1563,21 @@ Delete address details for the supplied address name
 Type: **generic**  
 Read only: **False**
 
+<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
@@ -1491,3 +1586,6 @@ action_result.message | string |  |   command succeeded
 action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
+action_result.summary.delete_address.response.msg | string |  |   command succeeded 
+action_result.summary.delete_address.response.@code | string |  |   20 
+action_result.summary.delete_address.response.@status | string |  |   success 
