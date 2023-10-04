@@ -65,6 +65,37 @@ You can learn more about Audit comment below:
 -   [Making changes to Audit comments via
     API](https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/pan-os-xml-api-request-types/run-operational-mode-commands-api.html)
 
+### Common parameter behavior
+
+-   Name Objects
+    Address, Address group EDL and policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters)  
+    ``` 
+    Example:  
+    Test_name (valid input)  
+    _Addressname (invalid input)   
+    ```
+
+-   Device group   
+    The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters)    
+    ``` 
+    Example:  
+    Test_edl (valid input)  
+    _Testedl (invalid input)   
+    ```
+
+-  disable_override  
+    When the **device_group** is 'shared' the **disable_override** parameter is ignored.  
+
+**Notes**  
+If you want to add '&' in any of the field you need to add **\&amp;**
+``` 
+Example: 
+<static>
+<member>do_not_delete_address1_default</member>
+</static>
+<description>testing&amp;</description>
+<disable-override>yes</disable-override>
+``` 
 
 ### Configuration Variables
 The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Panorama asset in SOAR.
