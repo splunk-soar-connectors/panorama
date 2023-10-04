@@ -32,7 +32,7 @@ class CreatePolicy(BaseAction):
         status, response = connector.util._make_rest_call(data, action_result)
         return status, response
 
-    def execute(self, connector):
+    def execute(self, connector):  # noqa: C901
 
         connector.debug_print("Inside Create policy rule action")
 
