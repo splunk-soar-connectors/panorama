@@ -3107,7 +3107,7 @@
                     "order": 14
                 },
                 "destination_device": {
-                    "description": "destination device for policy",
+                    "description": "Destination device for policy",
                     "data_type": "string",
                     "order": 15,
                     "default": "any",
@@ -4156,7 +4156,7 @@
                     "order": 14
                 },
                 "destination_device": {
-                    "description": "destination device for policy",
+                    "description": "Destination device for policy",
                     "data_type": "string",
                     "order": 15,
                     "name,": "Destination Device"
@@ -4389,7 +4389,39 @@
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
                 }
+
             ],
             "render": {
                 "width": 12,
