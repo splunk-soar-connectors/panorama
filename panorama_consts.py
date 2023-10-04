@@ -228,6 +228,7 @@ SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_c
 SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user',
                              'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
+WHERE_VALUE_LIST = ["after", "before", "top"]
 
 param_mapping = {
     "rule_type": "rule-type",

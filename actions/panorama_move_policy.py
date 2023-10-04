@@ -54,6 +54,10 @@ class MovePolicy(BaseAction):
         elif not dst_pre_post and dst_device_group:
             dst_pre_post = curr_pre_post
 
+        if where not in ["after", "before", "top", "bottom"]:
+            return action_result.set_status(phantom.APP_ERROR,
+                                            VALUE_LIST_VALIDATION_MESSAGE.format(["after", "before", "top", "bottom"], PAN_JSON_WHERE))
+
         if not where and not dst_pre_post and not dst_device_group:
             return action_result.set_status(phantom.APP_ERROR, "either 'where' or 'dst_device group' or 'dst_pre_post' is required.")
 

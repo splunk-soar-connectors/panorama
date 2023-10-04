@@ -21,7 +21,7 @@ from panorama_consts import *
 
 class CreatePolicy(BaseAction):
 
-    def make_rest_call_helper(self, connector, xpath, element, action_result, where=None, dst=None):
+    def make_rest_call_helper(self, connector, xpath, element, action_result):
         data = {
             'type': 'config',
             'action': 'set',
@@ -29,8 +29,6 @@ class CreatePolicy(BaseAction):
             'xpath': xpath,
             'element': element
         }
-        if where and dst:
-            data.update({'where': where, 'dst': dst})
         status, response = connector.util._make_rest_call(data, action_result)
         return status, response
 
@@ -60,6 +58,7 @@ class CreatePolicy(BaseAction):
                         phantom.APP_ERROR,
                         f"'{param}' is a required value hence please add a valid input"
                     )
+
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping.get(param)
@@ -73,6 +72,7 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"], "negate_source"))
 
             else:
+
                 self._param[PAN_JSON_NEGATE_SOURCE] = self._param.get(PAN_JSON_NEGATE_SOURCE).lower()
 
         if self._param.get(PAN_JSON_NEGATE_DESTINATION):
@@ -80,6 +80,7 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "negate_destination"))
             else:
+
                 self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION).lower()
 
         if self._param.get(PAN_JSON_ICMP_UNREACHABLE):
@@ -118,6 +119,7 @@ class CreatePolicy(BaseAction):
                     phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
                 )
             else:
+
                 self._param[PAN_JSON_POLICY_TYPE] = self._param.get(PAN_JSON_POLICY_TYPE).lower()
         # validate object type in case of create custom block policy
 
@@ -125,6 +127,7 @@ class CreatePolicy(BaseAction):
             if self._param.get(PAN_JSON_OBJ_TYPE) not in OBJ_TYPE_VALUE_LIST:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(OBJ_TYPE_VALUE_LIST, PAN_JSON_OBJ_TYPE))
             else:
+
                 self._param[PAN_JSON_OBJ_TYPE] = self._param.get(PAN_JSON_OBJ_TYPE).lower()
         # validate rule type
         if rule_type:
@@ -133,50 +136,76 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR,
                                                 VALUE_LIST_VALIDATION_MESSAGE.format(RULE_TYPE_VALUE_LIST, PAN_JSON_RULE_TYPE))
             else:
+
                 self._param[PAN_JSON_RULE_TYPE] = self._param.get("rule-type").lower()
 
-        if where in ["before", "after"] and not dst:
-            return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter\
+        if where:
+            if where not in WHERE_VALUE_LIST:
+                return action_result.set_status(phantom.APP_ERROR,
+                                                VALUE_LIST_VALIDATION_MESSAGE.format(WHERE_VALUE_LIST, PAN_JSON_WHERE))
+            elif where in ["before", "after"] and not dst:
+                return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter\
                                              for the entered value of \"where\"")
 
         element = connector.util._get_action_element(self._param)
+
         xpath = connector.util._get_security_policy_xpath(self._param, action_result)[1]
-        status, _ = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
+
+        status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
+
         message = action_result.get_message()
+
         if ("tag" and "not a valid") in message:
             tags = [value.strip() for value in self._param.get("tag", "").split(',') if value.strip()]
             status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
 
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
+                return action_result.set_status(phantom.APP_ERROR, "Error occurred while creating the tags")
             else:
-                status, _ = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
+                status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
 
         if not ((not element and phantom.is_fail(status)) and (audit_comment or (disable in ["Yes", "No"]))):
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
         if audit_comment:
             status = connector.util._update_audit_comment(self._param, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", message))
+
+        if where:
+            data = {
+                'type': 'config',
+                'action': 'move',
+                'key': connector.util._key,
+                'xpath': xpath,
+                'where': where
+            }
+            if dst:
+                data.update({'dst': dst})
+            status, _ = connector.util._make_rest_call(data, action_result)
+            message = action_result.get_message()
+            if phantom.is_fail(status):
+                return action_result.set_status(phantom.APP_SUCCESS,
+                                                f"The policy has been created but unable to move \
+                                                it to the specified location: {PAN_ERROR_MESSAGE.format('moving policy',message)}")
 
         if self._param.get("disabled"):
             if self._param.get("disabled") == "yes":
                 element = "<disabled>yes</disabled>"
             else:
                 element = "<disabled>no</disabled>"
-            status, _ = self.make_rest_call_helper(connector, xpath, element, action_result, where, dst)
+            status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred :", {message}))
 
         if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
         message = action_result.get_message()
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successful: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")
