@@ -1066,7 +1066,7 @@ action_result.status | string |  |
 action_result.message | string |  |  
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
 action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.dst_device_group | string |  |  
+action_result.parameter.dst_device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_type | string |  |  
 action_result.parameter.where | string |  |  
 action_result.parameter.dst | string |  |  
@@ -1205,6 +1205,7 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
