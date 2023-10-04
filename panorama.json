@@ -2519,7 +2519,7 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
-                    "column_name" : "EDL Name",
+                    "column_name": "EDL Name",
                     "column_order": 0,
                     "contains": [
                         "panorama edl name"
@@ -2528,7 +2528,7 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "column_name" : "Device Group",
+                    "column_name": "Device Group",
                     "column_order": 1,
                     "contains": [
                         "panorama device group"
@@ -2999,6 +2999,7 @@
                 "policy_name": {
                     "description": "Name of the security policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "order": 0,
                     "name": "Policy Name",
@@ -3009,6 +3010,7 @@
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "default": "shared",
                     "order": 1,
@@ -3294,7 +3296,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
-                    ]
+                    ],
+                    "column_name": "Device Group",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -3783,6 +3787,7 @@
                 "policy_name": {
                     "description": "Name of the policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "order": 1,
                     "name": "Policy Name",
@@ -3793,6 +3798,7 @@
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "default": "shared",
                     "order": 1,
@@ -3944,9 +3950,7 @@
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ],
-                    "column_name": "Status",
-                    "column_order": 1
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.msg",
@@ -3979,7 +3983,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
-                    ]
+                    ],
+                    "column_name": "Device Group",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -4089,6 +4095,7 @@
                 "policy_name": {
                     "description": "Name of the security policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "order": 0,
                     "name": "Policy Name",
@@ -4099,6 +4106,7 @@
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "default": "shared",
                     "order": 1,
@@ -4310,9 +4318,7 @@
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ],
-                    "column_name": "Status",
-                    "column_order": 1
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.msg",
@@ -4349,7 +4355,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
-                    ]
+                    ],
+                    "column_name": "Device Group",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.audit_comment",
@@ -4466,6 +4474,7 @@
                 "policy_name": {
                     "description": "Name of the policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "order": 0,
                     "name": "Policy Name",
@@ -4476,6 +4485,7 @@
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "default": "shared",
                     "order": 1,
@@ -4547,36 +4557,28 @@
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ],
-                    "column_name": "Status",
-                    "column_order": 0
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.@to",
                     "data_type": "string",
                     "example_values": [
                         "/config/shared/pre-rulebase/security/rules"
-                    ],
-                    "column_name": "To",
-                    "column_order": 1
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.@from",
                     "data_type": "string",
                     "example_values": [
                         "/config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules"
-                    ],
-                    "column_name": "From",
-                    "column_order": 2
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.member",
                     "data_type": "string",
                     "example_values": [
                         "test_block_rule"
-                    ],
-                    "column_name": "Member",
-                    "column_order": 3
+                    ]
                 },
                 {
                     "data_path": "action_result.summary",
@@ -4595,18 +4597,27 @@
                     "data_type": "string",
                     "contains": [
                         "panorama policy name"
-                    ]
+                    ],
+                    "column_name": "Policy Name",
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
-                    ]
+                    ],
+                    "column_name": "Device Group",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.dst_device_group",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "column_name": "Destination Device Group",
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -5043,6 +5054,7 @@
                 "policy_name": {
                     "description": "Name of the policy rule to delete",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "order": 0,
                     "name": "Policy Name",
@@ -5063,6 +5075,7 @@
                 "device_group": {
                     "description": "Device group where the policy rule is present",
                     "data_type": "string",
+                    "primary": true,
                     "required": true,
                     "default": "shared",
                     "order": 2,
@@ -5443,13 +5456,20 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.response.@status",
                     "data_type": "string",
                     "example_values": [
                         "success"
-                    ],
-                    "column_name": "Status",
-                    "column_order": 1
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.response.msg",
@@ -5593,14 +5613,18 @@
                     "data_type": "string",
                     "contains": [
                         "panorama address group name"
-                    ]
+                    ],
+                    "column_name": "Address Group Name",
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
-                    ]
+                    ],
+                    "column_name": "Device Group",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",
@@ -5640,9 +5664,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "column_name": "Tables",
-                    "column_order": 0
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary",
@@ -5762,14 +5784,18 @@
                     "data_type": "string",
                     "contains": [
                         "panorama address group name"
-                    ]
+                    ],
+                    "column_name": "Address Group Name",
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
-                    ]
+                    ],
+                    "column_name": "Device Group",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",

@@ -22,7 +22,7 @@ from panorama_consts import (ADD_GRP_TYPE_VAL_LIST, PAN_ERROR_MESSAGE, PAN_JSON_
 
 class CreateAddressGroup(BaseAction):
 
-    def make_rest_call_helper(self, connector, xpath, element, action_result, where=None, dst=None):
+    def make_rest_call_helper(self, connector, xpath, element, action_result):
         data = {
             'type': 'config',
             'action': 'set',
