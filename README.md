@@ -88,7 +88,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [run query](#action-run-query) - Run a query on Panorama  
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
 [get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
-[list edl](#action-list-edl) - List External Dynamic List's  
+[list edl](#action-list-edl) - List External Dynamic Lists  
 [reference edl](#action-reference-edl) - Get data of a External Dynamic List  
 [create edl](#action-create-edl) - Create an External Dynamic List  
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
@@ -585,12 +585,10 @@ summary.total_objects | numeric |  |
 summary.total_objects_successful | numeric |  |    
 
 ## action: 'list edl'
-List External Dynamic List's
+List External Dynamic Lists
 
 Type: **investigate**  
 Read only: **True**
-
-<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -614,8 +612,6 @@ Get data of a External Dynamic List
 
 Type: **investigate**  
 Read only: **True**
-
-<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -641,7 +637,7 @@ Create an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored. </li> <li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>
+<p> <h4>Action Keynote</h4> <ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -693,7 +689,7 @@ Modify an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>When the <b>device_group</b> is shared the <b>disable_override</b> parameter is ignored.</li><li><div> The name and device_group must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div><div> Example: Test_edl (valid input) , _Testedl (invalid input) </div></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> 
+<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> 
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -744,8 +740,6 @@ Delete an External Dynamic List
 
 Type: **generic**  
 Read only: **True**
-
-<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1299,8 +1293,6 @@ List the address groups
 Type: **investigate**  
 Read only: **True**
 
-<p> <h4>Action Keynote</h4> <ul> <li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
-
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
@@ -1360,8 +1352,6 @@ Fetch address group details for the supplied address group name
 Type: **investigate**  
 Read only: **True**
 
-<p> <h4>Action Keynote</h4> <ul> <li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
-
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
@@ -1406,8 +1396,6 @@ Delete an address group for the supplied address group name
 Type: **generic**  
 Read only: **False**
 
-<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
-
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
@@ -1436,7 +1424,7 @@ Create an address on the panorama platform
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li><div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div><div> Example: Test_edl (valid input) , _Testedl (invalid input) </div></li><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>
+<p><h4>Action Keynote</h4><ul><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1510,8 +1498,6 @@ Fetch address details for the supplied address name
 Type: **investigate**  
 Read only: **True**
 
-<p> <h4>Action Keynote</h4> <ul> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
-
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
@@ -1563,8 +1549,6 @@ Delete address details for the supplied address name
 
 Type: **generic**  
 Read only: **False**
-
-<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
