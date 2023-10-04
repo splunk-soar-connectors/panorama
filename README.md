@@ -1072,7 +1072,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **policy_name** |  required  | Name of the policy rule | string |  `panorama policy name` 
 **device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule | string | 
-**dst_device_group** |  optional  | Device group where the policy  has to be moved | string | 
+**dst_device_group** |  optional  | Device group where the policy  has to be moved | string |  `panorama device group` 
 **dst_policy_type** |  optional  | Policy type where the policy has to be moved | string | 
 **where** |  optional  | Where to move the policy in the device group | string | 
 **dst** |  optional  | Reference to which the policy needs to be moved | string | 
