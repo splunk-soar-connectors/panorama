@@ -12,11 +12,12 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
+from importlib import import_module
+
 import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from actions.panorama_create_policy import CreatePolicy
 from panorama_consts import (PAN_JSON_APPLICATION, PAN_JSON_CATEGORY, PAN_JSON_DESTINATION_ADDRESS, PAN_JSON_DIR, PAN_JSON_OBJ_TYPE,
                              PAN_JSON_OBJ_VAL, PAN_JSON_POL_SOURCE_ADD, VALUE_LIST_VALIDATION_MESSAGE)
 
@@ -33,7 +34,7 @@ class CustomBlockPolicy(BaseAction):
 
         if self._param[PAN_JSON_DIR] not in ["from", "to", "both"]:
             return temporary_action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["from", "to", "both"],
-                                                                                                    PAN_JSON_DIR))
+                                                                                                              PAN_JSON_DIR))
 
         if self._param[PAN_JSON_OBJ_TYPE] in ['ip', 'address-group', 'edl']:
             if self._param[PAN_JSON_DIR] == "from":
@@ -68,7 +69,8 @@ class CustomBlockPolicy(BaseAction):
 
         connector.remove_action_result(temporary_action_result)
 
-        policy_rule_obj = CreatePolicy(self._param)
-        response = policy_rule_obj.execute(connector)
+        create_policy = import_module("actions.panorama_create_policy", package="actions")
+        create_policy_obj = create_policy.CreatePolicy(self._param)
+        response = create_policy_obj.execute(connector)
 
         return response
