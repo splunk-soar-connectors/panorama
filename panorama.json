@@ -4421,7 +4421,6 @@
                     "data_path": "summary.total_objects_successful",
                     "data_type": "numeric"
                 }
-
             ],
             "render": {
                 "width": 12,
@@ -5783,9 +5782,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "column_name": "Tables",
-                    "column_order": 0
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary",
@@ -6168,6 +6165,7 @@
             "parameters": {
                 "name": {
                     "description": "Name of address group (up to 63 characters)",
+                    "primary": true,
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -6402,6 +6400,7 @@
                     "description": "Name of address group (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
+                    "primary": true,
                     "required": true,
                     "contains": [
                         "panorama address group name"
