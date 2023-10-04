@@ -41,6 +41,7 @@ class CreateAddressGroup(BaseAction):
 
         self._param["disable_override"] = self._param.get("disable_override", "none").lower()
         self._param[PAN_JSON_ADD_GRP_TYPE] = self._param.get(PAN_JSON_ADD_GRP_TYPE, "none").lower()
+        description = self._param.get("description")
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
@@ -48,6 +49,10 @@ class CreateAddressGroup(BaseAction):
                 del self._param[param]
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        if description and len(description) > 1024:
+            return action_result.set_status(
+                phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
 
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
         address_or_match = self._param.get("address_or_match")
@@ -93,17 +98,14 @@ class CreateAddressGroup(BaseAction):
         action_result.add_data(response)
         message = action_result.get_message()
 
-        if "not a valid" in message and "tag" in message:
+        if ("tag" and "not a valid") in message:
             tags = [value.strip() for value in self._param.get("tag", "").split(',') if value.strip()]
-
-            status, response = connector.util._create_tag(connector, action_result, self._param, tags)
+            status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
 
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
             else:
-                status, response = self.make_rest_call_helper(connector, xpath, element, action_result)
-                action_result.add_data(response)
-
+                status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
             message = action_result.get_message()
 
         if phantom.is_fail(status):
