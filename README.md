@@ -1225,7 +1225,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of theaddress group to be created | string |  `panorama address group name` 
+**address_grp_name** |  required  | Name of the address group to be created | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
 **type** |  required  | Type of the address group | string | 
 **address_or_match** |  required  | Address list if the type is static and match criteria if type is dynamic | string | 
