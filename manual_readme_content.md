@@ -73,14 +73,14 @@ You can learn more about Audit comment below:
 
 -  disable_override  
     When the **device_group** is 'shared' the **disable_override** parameter is ignored.  
+<br>
 
-**Notes**  
-If you want to add '&' in any of the field you need to add **\&amp;**
-``` 
-Example: 
-<static>
-<member>do_not_delete_address1_default</member>
-</static>
-<description>testing&amp;</description>
-<disable-override>yes</disable-override>
-``` 
+   **Note**  -  If you want to add '&' in any of the field you need to add **\&amp;**
+    ``` 
+    Example: 
+    <static>
+    <member>do_not_delete_address1_default</member>
+    </static>
+    <description>testing&amp;</description>
+    <disable-override>yes</disable-override>
+    ``` 
