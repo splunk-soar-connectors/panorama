@@ -618,7 +618,7 @@
         {
             "action": "block ip",
             "description": "Block an IP",
-            "verbose": "<p>This action uses a multistep approach to block an IP. The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Phantom</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.</p>",
+            "verbose": "<p>This action uses a multistep approach to block an IP. The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Splunk SOAR</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.</p>",
             "type": "contain",
             "identifier": "block_ip",
             "read_only": false,
@@ -2219,7 +2219,7 @@
             "type": "investigate",
             "parameters": {
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (max char : 31)",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2256,8 +2256,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -2302,7 +2301,7 @@
             "type": "investigate",
             "parameters": {
                 "name": {
-                    "description": "Name of the external dynamic list you want to get data off (max char : 63)",
+                    "description": "Name of the external dynamic list you want to get data off (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2312,7 +2311,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (max char : 31)",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2347,8 +2346,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -2391,7 +2389,7 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of the external dynamic list you want to create (max char : 63)",
+                    "description": "Name of the external dynamic list you want to create (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2401,7 +2399,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (max char : 31)",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2598,8 +2596,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -2644,7 +2641,7 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of the external dynamic list you want to modify (max char : 63)",
+                    "description": "Name of the external dynamic list you want to modify (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2654,7 +2651,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (max char : 31)",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2843,8 +2840,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -2889,7 +2885,7 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of the external dynamic list you want to create (max char : 63)",
+                    "description": "Name of the external dynamic list you want to create (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2899,7 +2895,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (max char : 31)",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -2957,8 +2953,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -4048,8 +4043,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -5648,8 +5642,7 @@
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.summary",
@@ -5818,8 +5811,7 @@
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.summary",
@@ -5860,10 +5852,11 @@
             "description": "List the address groups",
             "type": "investigate",
             "identifier": "list_address_groups",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "parameters": {
                 "device_group": {
-                    "description": "Device group name, or 'shared'",
+                    "description": "Device group name, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -5881,6 +5874,9 @@
                     "column_order": 1,
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_grp"
                     ]
                 },
                 {
@@ -5893,8 +5889,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -5920,10 +5915,273 @@
                     "example_values": [
                         1
                     ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "from_ui"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test address group name"
+                    ],
+                    "column_name": "Address Group Name",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama address group name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.total_address_groups",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.dynamic.filter",
+                    "data_type": "string",
+                    "example_values": [
+                        "blocked"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description",
+                    "data_type": "string",
+                    "example_values": [
+                        "test"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "xyz"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.disable-override",
+                    "data_type": "string",
+                    "example_values": [
+                        "yes"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "2.2.2.2 Added By Splunk SOAR"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "new"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 22:58:19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_address_tag"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 22:58:19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 22:58:19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
                 }
             ],
             "render": {
-                "type": "json",
+                "type": "table",
+                "width": 12,
+                "height": 5,
                 "title": "List Address Groups"
             },
             "versions": "EQ(*)"
@@ -5933,6 +6191,7 @@
             "description": "Fetch address group details for the supplied address group name",
             "type": "investigate",
             "identifier": "reference_address_group",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li> <div> The <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "parameters": {
                 "name": {
@@ -5945,7 +6204,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group name, or 'shared'",
+                    "description": "Device group name, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -5961,6 +6220,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama address group name"
+                    ],
+                    "example_values": [
+                        "test_address_group_name"
                     ]
                 },
                 {
@@ -5968,6 +6230,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_grp"
                     ]
                 },
                 {
@@ -5980,14 +6245,13 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Successfully fetched address group details"
                     ]
                 },
                 {
@@ -6007,6 +6271,146 @@
                     "example_values": [
                         1
                     ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "from_ui"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@loc",
+                    "data_type": "string",
+                    "example_values": [
+                        "test"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test from Splunk SOAR"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/24 23:15:36"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.static.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description",
+                    "data_type": "string",
+                    "example_values": [
+                        "test"
+                    ]
                 }
             ],
             "render": {
@@ -6019,6 +6423,7 @@
             "action": "delete address group",
             "identifier": "delete_address_group",
             "description": "Delete an address group for the supplied address group name",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": false,
             "type": "generic",
             "parameters": {
@@ -6032,7 +6437,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -6060,6 +6465,9 @@
                     "column_order": 0,
                     "contains": [
                         "panorama address group name"
+                    ],
+                    "example_values": [
+                        "test_address_group_name"
                     ]
                 },
                 {
@@ -6069,6 +6477,9 @@
                     "column_order": 1,
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_grp"
                     ]
                 },
                 {
@@ -6089,8 +6500,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -6119,8 +6529,10 @@
                 }
             ],
             "render": {
-                "type": "json",
-                "title": "Delete Address Group"
+                "width": 12,
+                "title": "Delete Address Group",
+                "type": "table",
+                "height": 5
             },
             "versions": "EQ(*)"
         },
@@ -6128,7 +6540,7 @@
             "action": "create address",
             "identifier": "create_address",
             "description": "Create an address on the panorama platform",
-            "verbose": "<p>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask\u2014Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32\u2014Indicates one address.</li><li>192.168.80.0/24\u2014Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range\u2014Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask\u2014Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN\u2014Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li><div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div><div> Example: Test_edl (valid input) , _Testedl (invalid input) </div></li><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask\u2014Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32\u2014Indicates one address.</li><li>192.168.80.0/24\u2014Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range\u2014Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask\u2014Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN\u2014Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>",
             "read_only": false,
             "type": "generic",
             "parameters": {
@@ -6199,21 +6611,32 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
+                    "column_name": "Address Name",
+                    "column_order": 0,
                     "contains": [
                         "panorama address name"
+                    ],
+                    "example_values": [
+                        "test_address_name"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.ip",
                     "data_type": "string",
+                    "column_name": "IP",
+                    "column_order": 1,
                     "contains": [
                         "ip",
-                        "ipv6"
+                        "ipv6",
+                        "domain"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.tags",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_address_tag"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",
@@ -6222,8 +6645,13 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 2,
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_grp"
                     ]
                 },
                 {
@@ -6248,8 +6676,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -6518,7 +6945,9 @@
                 }
             ],
             "render": {
-                "type": "json",
+                "type": "table",
+                "width": 12,
+                "height": 5,
                 "title": "Create Address"
             },
             "versions": "EQ(*)"
@@ -6527,6 +6956,7 @@
             "action": "reference address",
             "identifier": "reference_address",
             "description": "Fetch address details for the supplied address name",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "type": "investigate",
             "parameters": {
@@ -6541,7 +6971,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -6557,6 +6987,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama address name"
+                    ],
+                    "example_values": [
+                        "test_address_name"
                     ]
                 },
                 {
@@ -6564,6 +6997,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_grp"
                     ]
                 },
                 {
@@ -6576,8 +7012,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -6603,6 +7038,202 @@
                     "example_values": [
                         1
                     ]
+                },
+                {
+                    "data_path": "action_result.data.*.@loc",
+                    "data_type": "string",
+                    "example_values": [
+                        "dg1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test from phantom"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-netmask",
+                    "data_type": "string",
+                    "example_values": [
+                        "10.1.1.1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description",
+                    "data_type": "string",
+                    "example_values": [
+                        "Testing from phantom"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.disable-override",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "fetched data successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/13 05:18:32"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "175"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-netmask.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "10.1.1.1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-netmask.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/13 05:18:32"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-netmask.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-netmask.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "175"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.disable-override.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "no"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.disable-override.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/13 05:18:32"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.disable-override.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.disable-override.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "175"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/26 23:49:56"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "avs"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/26 23:49:56"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "25"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "25"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "testing with ,"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/26 23:49:56"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.description.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "25"
+                    ]
                 }
             ],
             "render": {
@@ -6615,6 +7246,7 @@
             "action": "delete address",
             "identifier": "delete_address",
             "description": "Delete address details for the supplied address name",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": false,
             "type": "generic",
             "parameters": {
@@ -6629,7 +7261,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
                     "required": true,
@@ -6653,15 +7285,25 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
+                    "column_name": "Address Name",
+                    "column_order": 0,
                     "contains": [
                         "panorama address name"
+                    ],
+                    "example_values": [
+                        "test_address_name"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 1,
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_grp"
                     ]
                 },
                 {
@@ -6682,8 +7324,7 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -6709,11 +7350,34 @@
                     "example_values": [
                         1
                     ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_address.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_address.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_address.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
                 }
             ],
             "render": {
-                "type": "json",
-                "title": "Delete Address"
+                "width": 12,
+                "title": "Delete Address",
+                "type": "table",
+                "height": 5
             },
             "versions": "EQ(*)"
         }

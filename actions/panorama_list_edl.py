@@ -42,8 +42,7 @@ class ListEdl(BaseAction):
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(connector.get_action_identifier(), action_result.get_message()))
 
         connector.debug_print("fetching result data")
-        result_data = action_result.get_data()
-        result_data = result_data.pop()
+        result_data = action_result.get_data().pop()
 
         try:
             result_data = result_data["external-list"].get("entry")

@@ -43,8 +43,7 @@ class GetAddressGroup(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message()))
 
-        result_data = action_result.get_data()
-        result_data = result_data.pop()
+        result_data = action_result.get_data().pop()
 
         if result_data.get("@total-count") == "0":
             return action_result.set_status(phantom.APP_ERROR, "No address group found")

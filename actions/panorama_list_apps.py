@@ -39,8 +39,7 @@ class ListApps(BaseAction):
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of application", action_result.get_message()))
 
         # Move things around, so that result data is an array of applications
-        result_data = action_result.get_data()
-        result_data = result_data.pop()
+        result_data = action_result.get_data().pop()
         try:
             result_data = result_data['application']['entry']
         except Exception as e:

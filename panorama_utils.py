@@ -821,8 +821,7 @@ class PanoramaUtils(object):
             self._connector.debug_print('Error occur while checking the existence of address. Error - %s' % action_result.get_message())
             return phantom.APP_ERROR
 
-        result_data = action_result.get_data()
-        result_data = result_data.pop()
+        result_data = action_result.get_data().pop()
 
         if result_data.get("@total-count") == "0":
             self._connector.debug_print("No Address found")

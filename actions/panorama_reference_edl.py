@@ -35,8 +35,7 @@ class ReferenceEdl(BaseAction):
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message()))
 
         connector.debug_print("fetching result data")
-        result_data = action_result.get_data()
-        result_data = result_data.pop()
+        result_data = action_result.get_data().pop()
 
         if result_data["@total-count"] == "0":
             return action_result.set_status(phantom.APP_ERROR, "EDL object doesn't exist")
