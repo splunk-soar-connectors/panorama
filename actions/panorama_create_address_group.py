@@ -42,6 +42,7 @@ class CreateAddressGroup(BaseAction):
         self._param["disable_override"] = self._param.get("disable_override", "none").lower()
         self._param[PAN_JSON_ADD_GRP_TYPE] = self._param.get(PAN_JSON_ADD_GRP_TYPE, "none").lower()
         description = self._param.get("description")
+
         for param in self._param.copy():
             if param in param_mapping:
                 new_key = param_mapping[param]
@@ -116,4 +117,4 @@ class CreateAddressGroup(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"Successful: {message}")
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")

@@ -2386,7 +2386,7 @@
             "action": "create edl",
             "identifier": "create_edl",
             "description": "Create an External Dynamic List",
-            "verbose" : "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored. </li> <li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored. </li> <li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li> <li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>",
             "read_only": true,
             "type": "generic",
             "parameters": {
@@ -2876,7 +2876,7 @@
             "action": "delete edl",
             "identifier": "delete_edl",
             "description": "Delete an External Dynamic List",
-            "verbose" : "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
+            "verbose": "<p> <h4>Action Keynote</h4> <ul> <li>When the <b>device_group</b> is 'shared' the <b>disable_override</b> parameter is ignored.</li><li> <div> The name and <b>device_group</b> must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. </div> <div> Example: Test_edl (valid input) , _Testedl (invalid input) </div> </li></p>",
             "read_only": true,
             "type": "generic",
             "parameters": {
@@ -5510,7 +5510,7 @@
             "read_only": false,
             "parameters": {
                 "address_grp_name": {
-                    "description": "Name of theaddress group to be created",
+                    "description": "Name of the address group to be created",
                     "data_type": "string",
                     "required": true,
                     "order": 0,
@@ -5534,7 +5534,7 @@
                 "type": {
                     "description": "Type of the address group",
                     "data_type": "string",
-                    "default": "static",
+                    "default": "Static",
                     "value_list": [
                         "Static",
                         "Dynamic"
