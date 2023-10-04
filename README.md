@@ -818,7 +818,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **destination_zone** |  required  | Destination Zone of policy | string | 
 **destination_address** |  required  | Destination Address of policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
-**destination_device** |  optional  | destination device for policy | string | 
+**destination_device** |  optional  | Destination device for policy | string | 
 **application** |  required  | Applications for the policy | string | 
 **service** |  required  | Services of the policy | string | 
 **category** |  optional  | URL Categories of the policy | string | 
@@ -1010,7 +1010,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **destination_zone** |  optional  | Destination Zone of policy | string | 
 **destination_address** |  optional  | Destination Address of policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
-**destination_device** |  optional  | destination device for policy | string | 
+**destination_device** |  optional  | Destination device for policy | string | 
 **application** |  optional  | Applications for the policy | string | 
 **service** |  optional  | Services of the policy | string | 
 **category** |  optional  | URL Categories of the policy | string | 
@@ -1058,7 +1058,13 @@ action_result.parameter.service | string |  |
 action_result.parameter.profile_setting | string |  |  
 action_result.parameter.target | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
-action_result.parameter.should_commit_changes | string |  |    
+action_result.parameter.should_commit_changes | string |  |  
+action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
+action_result.message | string |  |   command succeeded 
+action_result.summary | string |  |  
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |    
 
 ## action: 'move policy'
 Move a security policy rule
