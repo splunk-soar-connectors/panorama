@@ -39,14 +39,12 @@ class CreateAddressGroup(BaseAction):
 
         connector.debug_print("Inside create address group action.")
 
-        self._param["disable_override"] = self._param.get("disable_override", "none").lower()
-        self._param[PAN_JSON_ADD_GRP_TYPE] = self._param.get(PAN_JSON_ADD_GRP_TYPE, "none").lower()
         description = self._param.get("description")
 
         for param in self._param.copy():
             if param in param_mapping:
-                new_key = param_mapping[param]
-                self._param[new_key] = self._param[param]
+                new_key = param_mapping.get(param)
+                self._param[new_key] = self._param.get(param)
                 del self._param[param]
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
@@ -58,24 +56,28 @@ class CreateAddressGroup(BaseAction):
         device_grp = self._param[PAN_JSON_DEVICE_GRP]
         address_or_match = self._param.get("address_or_match")
 
-        if self._param[PAN_JSON_ADD_GRP_DIS_OVER] not in ["yes", "no", "none"]:
-            return action_result.set_status(phantom.APP_ERROR,
-                                            "Please enter a valid value for 'disable-override' parameter from ['yes','no']")
+        if self._param.get(PAN_JSON_ADD_GRP_DIS_OVER):
+            if self._param.get(PAN_JSON_ADD_GRP_DIS_OVER).lower() not in ["yes", "no"]:
+                return action_result.set_status(phantom.APP_ERROR,
+                                                "Please enter a valid value for 'disable-override' parameter from ['yes','no']")
+            else:
+                self._param[PAN_JSON_ADD_GRP_DIS_OVER] = self._param.get(PAN_JSON_ADD_GRP_DIS_OVER).lower()
 
-        if (device_grp == "shared" and self._param[PAN_JSON_ADD_GRP_DIS_OVER]) or self._param[PAN_JSON_ADD_GRP_DIS_OVER] == "none":
+        if (device_grp == "shared" and self._param.get(PAN_JSON_ADD_GRP_DIS_OVER)):
             del self._param[PAN_JSON_ADD_GRP_DIS_OVER]
 
-        if (self._param[PAN_JSON_ADD_GRP_TYPE] and not address_or_match) or (address_or_match and not self._param[PAN_JSON_ADD_GRP_TYPE]):
+        if self._param.get(PAN_JSON_ADD_GRP_TYPE):
+            if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() not in ADD_GRP_TYPE_VAL_LIST:
+                return action_result.set_status(phantom.APP_ERROR,
+                                                "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
+            else:
+                self._param[PAN_JSON_ADD_GRP_TYPE] = self._param.get(PAN_JSON_ADD_GRP_TYPE).lower()
+
+        if (self._param.get(PAN_JSON_ADD_GRP_TYPE) and not address_or_match) or \
+                (address_or_match and not self._param.get(PAN_JSON_ADD_GRP_TYPE)):
             return action_result.set_status(phantom.APP_ERROR,
                                             "Parameters 'type' and 'address_or_match' are inter-dependent \
-                                                hence please provide input for both or none.")
-
-        if self._param[PAN_JSON_ADD_GRP_TYPE] not in ADD_GRP_TYPE_VAL_LIST and connector.get_action_identifier() != "modify_address_group":
-            return action_result.set_status(phantom.APP_ERROR,
-                                            "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
-
-        if self._param[PAN_JSON_ADD_GRP_TYPE] == "none":
-            del self._param[PAN_JSON_ADD_GRP_TYPE]
+                                            hence please provide input for both or none.")
 
         status, add_grp_present = connector.util._does_policy_exist(self._param, action_result, param_name='address_group')
         if add_grp_present and connector.get_action_identifier() != "modify_address_group":
@@ -83,18 +85,23 @@ class CreateAddressGroup(BaseAction):
                 phantom.APP_ERROR,
                 "An address group with this name already exists. Please use another name."
             )
-
+        connector.debug_print(f"param {self._param}")
         element = connector.util._get_action_element(self._param)
-        if self._param.get(PAN_JSON_ADD_GRP_TYPE) == "dynamic":
-            status, temp_element = connector.util._element_prep(
-                "dynamic", param_val=self._param["address_or_match"], member=False, is_bool=False)
-            element += temp_element
-        elif self._param.get(PAN_JSON_ADD_GRP_TYPE) == "static":
-            status, temp_element = connector.util._element_prep(param_name="static", param_val=self._param.get("address_or_match"), member=True)
-            element += temp_element
+
+        if self._param.get(PAN_JSON_ADD_GRP_TYPE):
+            if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() == "dynamic":
+                status, temp_element = connector.util._element_prep(
+                    param_name="dynamic", param_val=self._param["address_or_match"], member=False)
+                element += temp_element
+                connector.debug_print(f"1 status {status} tmp ele {temp_element}")
+            if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() == "static":
+                status, temp_element = connector.util._element_prep(
+                    param_name="static", param_val=self._param.get("address_or_match"), member=True)
+                element += temp_element
+                connector.debug_print(f"1 status {status} tmp ele {temp_element}")
 
         xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
-
+        connector.debug_print(f"element {element} xpath {xpath}")
         status, response = self.make_rest_call_helper(connector, xpath, element, action_result)
         action_result.add_data(response)
         message = action_result.get_message()

@@ -1147,7 +1147,7 @@ class PanoramaUtils(object):
                     status = False
         return element
 
-    def _element_prep(self, param_name, param_val=None, member=False, is_bool=False):
+    def _element_prep(self, param_name, param_val=None, member=False):
 
         temp_element = ""
         temp_dict = {}
@@ -1178,7 +1178,7 @@ class PanoramaUtils(object):
                 return status, temp_element
             elif param_name == "dynamic":
                 param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
-                return status, temp_element
+                return status, param_val
             if member:
                 if len(param_list) > 1:
                     temp_dict["member"] = param_list
