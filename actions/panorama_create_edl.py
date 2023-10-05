@@ -86,27 +86,27 @@ class CreateEdl(BaseAction):
 
             if check_for_updates in ["weekly", "monthly", "daily"]:
 
-                at_hour = self._param.get("at_hour", "0")
+                hour = self._param.get("hour", "0")
 
                 try:
-                    at_hour = int(at_hour)
+                    hour = int(hour)
                 except Exception:
                     return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         "Invalid datatype for hour, hour must be integer and in range 00-23"
                     )), {}
 
-                if not (0 <= at_hour <= 23):
+                if not (0 <= hour <= 23):
                     return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating external dynamic list",
                         "Invalid hour, hour must be in range 00-23"
                     )), {}
 
                 # Formatting time for query
-                at_hour = "%02d" % at_hour
+                hour = "%02d" % hour
 
                 if check_for_updates == "weekly":
-                    day_of_week = self._param.get("day", "Sunday")
+                    day_of_week = self._param.get("day_of_week", "Sunday")
                     day_of_week = day_of_week.lower()
                     if day_of_week not in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
                         return action_result.set_status(
@@ -117,7 +117,7 @@ class CreateEdl(BaseAction):
 
                     recurring_dict[check_for_updates] = {
                         "day-of-week": day_of_week,
-                        "at": at_hour
+                        "at": hour
                     }
 
                 elif check_for_updates == "monthly":
@@ -146,11 +146,11 @@ class CreateEdl(BaseAction):
                     day_of_month = str(day_of_month)
                     recurring_dict[check_for_updates] = {
                         "day-of-month": day_of_month,
-                        "at": at_hour
+                        "at": hour
                     }
                 elif check_for_updates == "daily":
                     recurring_dict[check_for_updates] = {
-                        "at":  at_hour
+                        "at":  hour
                     }
             else:
                 recurring_dict[check_for_updates] = None

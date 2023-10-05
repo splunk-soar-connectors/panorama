@@ -668,7 +668,7 @@ Create an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p> <h4>Action Keynote</h4> <ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>
+<p> <h4>Action Keynote</h4> <ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -682,7 +682,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama | string | 
 **certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list | string | 
 **check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list. | string | 
-**at_hour** |  optional  | At what hour of the day to check for updates | string | 
+**hour** |  optional  | At what hour of the day to check for updates | string | 
 **day** |  optional  | On which specific day of week to check for updates | string | 
 **day_of_month** |  optional  | On which specific date of month to check for updates | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
@@ -701,7 +701,7 @@ action_result.parameter.expand_for_subdomains | boolean |  |
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.certificate_profile | string |  |  
 action_result.parameter.check_for_updates | string |  |  
-action_result.parameter.at_hour | string |  |  
+action_result.parameter.hour | string |  |  
 action_result.parameter.day | string |  |  
 action_result.parameter.day_of_month | string |  |  
 action_result.parameter.exception_list | string |  |  
@@ -720,7 +720,7 @@ Modify an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>at_hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> 
+<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> 
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -734,7 +734,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama | string | 
 **certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list | string | 
 **check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list. | string | 
-**at_hour** |  optional  | At what hour of the day to check for updates | string | 
+**hour** |  optional  | At what hour of the day to check for updates | string | 
 **day** |  optional  | On which specific day of week to check for updates | string | 
 **day_of_month** |  optional  | On which specific date of month to check for updates | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
@@ -753,7 +753,7 @@ action_result.parameter.expand_for_subdomains | string |  |
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.certificate_profile | string |  |  
 action_result.parameter.check_for_updates | string |  |  
-action_result.parameter.at_hour | string |  |  
+action_result.parameter.hour | string |  |  
 action_result.parameter.day | string |  |  
 action_result.parameter.day_of_month | string |  |  
 action_result.parameter.exception_list | string |  |  

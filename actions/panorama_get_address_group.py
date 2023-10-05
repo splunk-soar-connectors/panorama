@@ -1,4 +1,4 @@
-# File: panorama_reference_edl.py
+# File: panorama_get_address_group.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -19,34 +19,41 @@ import panorama_consts as consts
 from actions import BaseAction
 
 
-class ReferenceEdl(BaseAction):
+class GetAddressGroup(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting reference edl action")
-
-        # making action result object
+        connector.debug_print("starting reference address groups action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        status = connector.util._get_edl_data(self._param, action_result)
+        address_group_name = self._param["name"]
 
+        get_address_xpath = f"""{consts.REF_ADDR_GRP_XPATH.format(
+            config_xpath=connector.util._get_config_xpath(self._param), address_group_name=address_group_name)}"""
+
+        data = {
+            "type": "config",
+            'action': "get",
+            'key': connector.util._key,
+            'xpath': get_address_xpath
+        }
+
+        status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message()))
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message()))
 
-        connector.debug_print("fetching result data")
         result_data = action_result.get_data().pop()
 
-        if result_data["@total-count"] == "0":
-            return action_result.set_status(phantom.APP_ERROR, "EDL object doesn't exist")
+        if result_data.get("@total-count") == "0":
+            return action_result.set_status(phantom.APP_ERROR, "No address group found")
 
         try:
-            result_data = result_data['entry']
+            result_data = result_data.get('entry')
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        action_result.update_summary({"message": "fetched data successfully"})
         action_result.update_data([result_data])
 
-        return action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched address group details")

@@ -1,4 +1,4 @@
-# File: panorama_reference_address.py
+# File: panorama_get_edl.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -19,39 +19,34 @@ import panorama_consts as consts
 from actions import BaseAction
 
 
-class GetAddress(BaseAction):
+class GetEdl(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting reference address action")
+        connector.debug_print("starting reference edl action")
+
+        # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        address_name = self._param["name"]
+        status = connector.util._get_edl_data(self._param, action_result)
 
-        get_address_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), name=address_name)}"
-
-        data = {
-            "type": "config",
-            'action': "get",
-            'key': connector.util._key,
-            'xpath': get_address_xpath
-        }
-
-        status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message()))
 
+        connector.debug_print("fetching result data")
         result_data = action_result.get_data().pop()
 
-        if result_data.get("@total-count") == "0":
-            return action_result.set_status(phantom.APP_ERROR, "No Address found")
+        if result_data["@total-count"] == "0":
+            return action_result.set_status(phantom.APP_ERROR, "EDL object doesn't exist")
 
         try:
-            result_data = result_data.get('entry')
+            result_data = result_data['entry']
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
+        action_result.update_summary({"message": "fetched data successfully"})
         action_result.update_data([result_data])
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"successfully fetched {address_name} address details")
+        return action_result.set_status(phantom.APP_SUCCESS)
