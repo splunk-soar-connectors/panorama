@@ -120,7 +120,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
 [get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
 [list edl](#action-list-edl) - List External Dynamic Lists  
-[reference edl](#action-reference-edl) - Get data of a External Dynamic List  
+[get edl](#action-get-edl) - Get data of a External Dynamic List  
 [create edl](#action-create-edl) - Create an External Dynamic List  
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
@@ -132,10 +132,10 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [create address group](#action-create-address-group) - Create an address group  
 [modify address group](#action-modify-address-group) - Modify an address group  
 [list address groups](#action-list-address-groups) - List the address groups  
-[reference address group](#action-reference-address-group) - Fetch address group details for the supplied address group name  
+[get address group](#action-get-address-group) - Fetch address group details for the supplied address group name  
 [delete address group](#action-delete-address-group) - Delete an address group for the supplied address group name  
 [create address](#action-create-address) - Create an address on the panorama platform  
-[reference address](#action-reference-address) - Fetch address details for the supplied address name  
+[get address](#action-get-address) - Fetch address details for the supplied address name  
 [delete address](#action-delete-address) - Delete address details for the supplied address name  
 
 ## action: 'test connectivity'
@@ -638,7 +638,7 @@ action_result.summary | string |  |
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
-## action: 'reference edl'
+## action: 'get edl'
 Get data of a External Dynamic List
 
 Type: **investigate**  
@@ -668,7 +668,7 @@ Create an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p> <h4>Action Keynote</h4> <ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li> <li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, <b>check_for_update</b> parameter will be ignored. The default value for check for update is Five-minute</li> <li> The parameter <b>hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored. The default value for this parameter is '0' . </li> <li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the check_for_update value is 'Monthly'. </li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li> <li> Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li> </ul> </p>
+<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -677,14 +677,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
-**source** |  required  | Source url to fetch the data. | string | 
-**expand_for_subdomains** |  optional  | Used to automatically expand to include subdomains of a specified domain | string | 
-**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama | string | 
-**certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list | string | 
-**check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list. | string | 
-**hour** |  optional  | At what hour of the day to check for updates | string | 
-**day** |  optional  | On which specific day of week to check for updates | string | 
-**day_of_month** |  optional  | On which specific date of month to check for updates | string | 
+**source** |  required  | Source url to fetch the data | string | 
+**expand_for_subdomains** |  optional  | Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list) | string | 
+**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
+**certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list (only used when list_type is not predefined IP or URL) | string | 
+**check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list  (only used when list_type is not predefined IP or URL) | string | 
+**hour** |  optional  | At what hour of the day to check for updates  (only used when check_for_update type is daily, weekly or monthly) | string | 
+**day_of_week** |  optional  | On which specific day of week to check for updates (only used when check_for_update type is weekly) | string | 
+**day_of_month** |  optional  | On which specific date of month to check for updates (only used when check_for_update type is monthly) | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -702,7 +702,7 @@ action_result.parameter.disable_override | string |  |
 action_result.parameter.certificate_profile | string |  |  
 action_result.parameter.check_for_updates | string |  |  
 action_result.parameter.hour | string |  |  
-action_result.parameter.day | string |  |  
+action_result.parameter.day_of_week | string |  |  
 action_result.parameter.day_of_month | string |  |  
 action_result.parameter.exception_list | string |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
@@ -720,7 +720,7 @@ Modify an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li> The parameter <b>expand_for_subdomain</b> is dependent on <b>list_type</b>. It is used only when <b>list_type</b> is Domain List. </li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li> The parameter <b>check_for_update</b> is a dependent on <b>list_type</b>. If the <b>list_type</b> is Predefined IP or Predefined URL, check for update parameter will be ignored. </li><li>The parameter <b>hour</b> is dependent on <b>check_for_update</b>. If <b>check_for_update</b> value is 'Daily', 'Weekly' or 'Monthly' this parameter will be required, else it will be ignored.</li><li> The <b>day</b> parameter is required when the <b>check_for_update</b> value is 'Weekly' else it will be ignored. Similarly the <b>day_of_month</b> parameter is used when the <b>check_for_update</b> value is 'Monthly'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL (depending on the type of list). </li><li>Exception list can have at max 100 exception values. The <b>exception_list</b> input list is a comma separated string </li></ul></p> 
+<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -730,13 +730,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source url to fetch the data. | string | 
-**expand_for_subdomains** |  optional  | Used to automatically expand to include subdomains of a specified domain | string | 
-**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama | string | 
-**certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list | string | 
-**check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list. | string | 
-**hour** |  optional  | At what hour of the day to check for updates | string | 
-**day** |  optional  | On which specific day of week to check for updates | string | 
-**day_of_month** |  optional  | On which specific date of month to check for updates | string | 
+**expand_for_subdomains** |  optional  | Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list) | string | 
+**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
+**certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list (only used when list_type is not predefined IP or URL) | string | 
+**check_for_updates** |  optional  | Defines the frequency at which the firewall retrieves the list  (only used when list_type is not predefined IP or URL) | string | 
+**hour** |  optional  | At what hour of the day to check for updates (only used when check_for_update type is daily, weekly or monthly) | string | 
+**day_of_week** |  optional  | On which specific day of week to check for updates (only used when check_for_update type is weekly) | string | 
+**day_of_month** |  optional  | On which specific date of month to check for updates (only used when check_for_update type is monthly) | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -754,7 +754,7 @@ action_result.parameter.disable_override | string |  |
 action_result.parameter.certificate_profile | string |  |  
 action_result.parameter.check_for_updates | string |  |  
 action_result.parameter.hour | string |  |  
-action_result.parameter.day | string |  |  
+action_result.parameter.day_of_week | string |  |  
 action_result.parameter.day_of_month | string |  |  
 action_result.parameter.exception_list | string |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
@@ -1383,7 +1383,7 @@ action_result.data.\*.description.@time | string |  |   2023/09/24 22:58:19
 action_result.data.\*.description.@admin | string |  |   admin 
 action_result.data.\*.description.@dirtyId | string |  |   1   
 
-## action: 'reference address group'
+## action: 'get address group'
 Fetch address group details for the supplied address group name
 
 Type: **investigate**  
@@ -1529,7 +1529,7 @@ action_result.summary.commit_device_groups.\*.finished_job.stoppable | string | 
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0   
 
-## action: 'reference address'
+## action: 'get address'
 Fetch address details for the supplied address name
 
 Type: **investigate**  
