@@ -79,10 +79,17 @@ class CreateAddressGroup(BaseAction):
                                             hence please provide input for both or none.")
 
         status, add_grp_present = connector.util._does_policy_exist(self._param, action_result, param_name='address_group')
+
         if add_grp_present and connector.get_action_identifier() != "modify_address_group":
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "An address group with this name already exists. Please use another name."
+            )
+
+        elif not add_grp_present and connector.get_action_identifier() == "modify_address_group":
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "This address group is not present. Please enter a valid address group name."
             )
         element = connector.util._get_action_element(self._param)
 
