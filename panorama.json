@@ -6510,7 +6510,7 @@
             "action": "create address",
             "identifier": "create_address",
             "description": "Create an address on the panorama platform",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask\u2014Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul>192.168.80.150/32\u2014Indicates one address.</li><li>192.168.80.0/24\u2014Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range\u2014Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask\u2014Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).</li><li>FQDN\u2014Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask\u2014Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul><li>192.168.80.150/32\u2014Indicates one address.</li><li>192.168.80.0/24\u2014Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range\u2014Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask\u2014Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).<ul><li>Note - You can use an address object of type IP Wildcard Mask only in a Security policy rule.</li></ul></li><li>FQDN\u2014Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>",
             "read_only": false,
             "type": "generic",
             "parameters": {
@@ -6524,10 +6524,32 @@
                         "panorama address name"
                     ]
                 },
-                "ip": {
-                    "description": "IP address",
+                "device_group": {
+                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "order": 1,
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                "ip_type":{
+                    "description": "IP address type",
+                    "data_type": "string",
+                    "order": 2,
+                    "required": true,
+                    "value_list": [
+                        "IP Netmask",
+                        "IP Range",
+                        "IP Wildcard Mask",
+                        "FQDN"
+                    ]
+                },
+                "ip_source": {
+                    "description": "IP address as per type",
+                    "data_type": "string",
+                    "order": 3,
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -6539,22 +6561,12 @@
                 "description": {
                     "description": "Description of address (up to 1023 characters)",
                     "data_type": "string",
-                    "order": 2
+                    "order": 4
                 },
-                "tags": {
-                    "description": "Tags want to apply on an address (comma-separated to 127 characters for each tag)",
+                "tag": {
+                    "description": "Tags want to apply on an address (comma-separated, up to 127 characters for each tag)",
                     "data_type": "string",
-                    "order": 3
-                },
-                "device_group": {
-                    "description": "Device group to configure, or 'shared'",
-                    "data_type": "string",
-                    "order": 4,
-                    "required": true,
-                    "primary": true,
-                    "contains": [
-                        "panorama device group"
-                    ]
+                    "order": 5
                 },
                 "disable_override": {
                     "description": "Whether to disable override the address or not",
@@ -6564,17 +6576,22 @@
                         "no"
                     ],
                     "default": "no",
-                    "order": 5
+                    "order": 6
+                },
+                "ph_0": {
+                    "order": 7,
+                    "description": "Place holder",
+                    "data_type": "ph"
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
-                    "order": 6
+                    "order": 8
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 7
+                    "order": 9
                 }
             },
             "output": [
@@ -6591,7 +6608,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.ip",
+                    "data_path": "action_result.parameter.ip_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.ip_source",
                     "data_type": "string",
                     "column_name": "IP",
                     "column_order": 1,
@@ -6602,7 +6623,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.tags",
+                    "data_path": "action_result.parameter.tag",
                     "data_type": "string",
                     "example_values": [
                         "test_address_tag"

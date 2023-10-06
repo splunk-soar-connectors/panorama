@@ -32,13 +32,18 @@ class CreateAddress(BaseAction):
             xml_string: XML string
         """
         xml_tag_string = None
-        address_ip = self._param[consts.PAN_JSON_IP]
+        address_ip_type = self._param["ip_type"]
+        address_ip = self._param["ip_source"]
 
-        status, ip_type = connector.util._get_ip_type(connector, action_result, address_ip)
+        if address_ip_type not in consts.IP_ADD_TYPE.keys():
+            return action_result.set_status(
+                phantom.APP_ERROR, f"Invalid ip_type parameter. Please select the valid ip address type FROM {consts.IP_ADD_TYPE.keys()}"
+                )
+        status = connector.util._validate_ip_as_per_type(connector, action_result, address_ip_type, address_ip)
         if phantom.is_fail(status):
             return action_result.get_status()
 
-        xml_string = f"<{ip_type}>{address_ip}</{ip_type}>"
+        xml_string = f"<{consts.IP_ADD_TYPE[address_ip_type]}>{address_ip}</{consts.IP_ADD_TYPE[address_ip_type]}>"
 
         # address tags Add tags into panorama platform
         address_tags = self._param.get("tags", "")

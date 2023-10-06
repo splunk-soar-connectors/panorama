@@ -229,6 +229,12 @@ SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user
                              'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 WHERE_VALUE_LIST = ["after", "before", "top"]
+IP_ADD_TYPE = {
+    "IP Netmask": "ip-netmask",
+    "IP Range": "ip-range",
+    "IP Wildcard Mask": "ip-netmask",
+    "FQDN": "fqdn"
+}
 
 param_mapping = {
     "rule_type": "rule-type",

@@ -1184,30 +1184,29 @@ class PanoramaUtils(object):
         temp_element = f'<{param_name}>{param_val}</{param_name}>'
         return status, temp_element
 
-    def _get_ip_type(self, connector, action_result, ip_address):
-        """ Figure out the type of IP
+    def _validate_ip_as_per_type(self, connector, action_result, ip_type, ip_address):
+        """ Figure out the type of IP and checking the validate as per IP type
 
         Args:
+            ip_type : IP type
             ip_address : IP address
             action_result : Object of ActionResult class
 
         Returns:
-            ip_type: Type of given IP address
+            APP_SUCCESS/APP_ERROR: Phantom success/error boolean object
         """
         connector.debug_print(f"Starting checking type of - {ip_address}")
-        if ip_address.find('/') != -1:
-            ip_type = 'ip-netmask'
-        elif ip_address.find('-') != -1:
-            ip_type = 'ip-range'
-        elif self._is_ip(ip_address):
-            ip_type = 'ip-netmask'
-        elif self._validate_fqdn(ip_address):
-            ip_type = 'fqdn'
-        else:
-            action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_INVALID_IP_FORMAT)
-            return phantom.APP_ERROR, None
+        if ip_type == 'IP Wildcard Mask' and self._validate_ip_wildcard_mask(action_result, ip_address):
+            return phantom.APP_SUCCESS
+        elif ip_type == 'IP Netmask' and self._is_ip(action_result, ip_address):
+            return phantom.APP_SUCCESS
+        elif ip_type == 'IP Range' and self._validate_ip_range(action_result, ip_address):
+            return phantom.APP_SUCCESS
+        elif ip_type == 'FQDN' and self._validate_fqdn(action_result, ip_address):
+            return phantom.APP_SUCCESS
+
         connector.debug_print(f"Ending checking type of - {ip_address}")
-        return phantom.APP_SUCCESS, ip_type
+        return phantom.APP_ERROR
 
     def _create_tag(self, connector, action_result, param, tags, comment=consts.TAG_COMMENT, color=None):
         """ Create tag based on provided parameters
@@ -1229,11 +1228,6 @@ class PanoramaUtils(object):
             xml_tag_string = "<tag>"
 
             for tag in tags:
-
-                status = self._validate_string(action_result, tag, consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN)
-                if phantom.is_fail(status):
-                    return action_result.get_status()
-
                 connector.debug_print(f'Creating - {tag} tag...')
 
                 element_xml = consts.START_TAG.format(tag=tag)
@@ -1263,7 +1257,7 @@ class PanoramaUtils(object):
 
         return phantom.APP_SUCCESS, xml_tag_string
 
-    def _is_ip(self, input_ip_address):
+    def _is_ip(self, action_result, input_ip_address):
         """
         Function that checks given address and return True if address is valid IPv4 or IPV6 address.
 
@@ -1273,25 +1267,77 @@ class PanoramaUtils(object):
 
         try:
             ipaddress.ip_address(input_ip_address)
-        except Exception:
-            return False
-        return True
+        except Exception as e:
+            action_result.set_status(phantom.APP_ERROR, f"Invalid value for IP Netmask type. Error - {e}")
+            return phantom.APP_ERROR
+        return phantom.APP_SUCCESS
 
-    def _validate_fqdn(self, dn):
+    def _validate_fqdn(self, action_result, dn):
         """ Validating FQDN
         Args:
             dn : Hostname
         Returns:
-            true/false(boolean) : True/False
+            :return: status (success/failure)
         """
 
         if dn.endswith('.'):
             dn = dn[:-1]
         if len(dn) < 1 or len(dn) > 253:
-            return False
+            action_result.set_status(phantom.APP_ERROR, "Invalid value for FQDN type.")
+            return phantom.APP_ERROR
         ldh_re = re.compile('^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$',
                             re.IGNORECASE)
-        return all(ldh_re.match(x) for x in dn.split('.'))
+        if not all(ldh_re.match(x) for x in dn.split('.')):
+            action_result.set_status(phantom.APP_ERROR, "Invalid value for FQDN type.")
+            return phantom.APP_ERROR
+        return phantom.APP_SUCCESS
+
+    def _validate_ip_range(self, action_result, ip_address):
+        """validating IP range
+
+        Args:
+            ip_address : IP address
+        Returns:
+            :return: status (success/failure)
+        """
+
+        ips = ip_address.split('-')
+        if len(ips) == 2:
+            try:
+                # Parse the start and end IP addresses
+                # If the start IP is less than or equal to the end IP then pass else fail
+                if ipaddress.IPv4Address(ips[0]) >= ipaddress.IPv4Address(ips[1]):
+                    action_result.set_status(phantom.APP_ERROR, "Invalid value for IP Range type. \
+                        Please provide start IP lower than end IP")
+                    return phantom.APP_ERROR
+            except Exception as e:
+                action_result.set_status(phantom.APP_ERROR, f"Invalid value for IP Range type. Error - {e}")
+                return phantom.APP_ERROR
+            return phantom.APP_SUCCESS
+
+    def _validate_ip_wildcard_mask(self, action_result, ip_address):
+        """Validate IP wildcard mask
+
+        Args:
+            action_result : Object of ActionResult class
+            ip_address : IP address
+
+        Returns:
+            :return: status (success/failure)
+        """
+        ip_mask = ip_address.split("/")
+        if len(ip_mask) == 2:
+            try:
+                if not ipaddress.IPv4Address(ip_mask[0]) and ipaddress.IPv4Address(ip_mask[1]):
+                    action_result.set_status(phantom.APP_ERROR, "Invalid value for IP Wildcard Mask type")
+                    return phantom.APP_ERROR
+            except Exception as e:
+                action_result.set_status(phantom.APP_ERROR, f"Invalid value for IP Wildcard Mask type. Error - {e}")
+                return phantom.APP_ERROR
+            return phantom.APP_SUCCESS
+        else:
+            action_result.set_status(phantom.APP_ERROR, "Invalid value for IP Wildcard Mask type")
+            return phantom.APP_ERROR
 
     def _common_param_check(self, action_result, param):
         """ Validate the common parameters
@@ -1321,10 +1367,13 @@ class PanoramaUtils(object):
 
         # Validation for tag parameter if present
         if param.get(consts.PAN_JSON_TAGS):
-            status = self._validate_string(
-                action_result, param[consts.PAN_JSON_TAGS], consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN
-            )
-            if phantom.is_fail(status):
-                return action_result.get_status()
+            tags = [value.strip() for value in param.get(consts.PAN_JSON_TAGS).split(',') if value.strip()]
+            if tags:
+                for tag in tags:
+                    status = self._validate_string(
+                        action_result, tag, consts.PAN_JSON_TAGS, consts.MAX_TAG_NAME_LEN
+                    )
+                    if phantom.is_fail(status):
+                        return action_result.get_status()
         self._connector.debug_print("validated common parameters...")
         return phantom.APP_SUCCESS
