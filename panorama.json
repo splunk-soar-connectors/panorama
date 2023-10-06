@@ -3098,11 +3098,18 @@
                     "default": "any",
                     "order": 12
                 },
+                "destination_device": {
+                    "description": "Destination device for policy",
+                    "data_type": "string",
+                    "order": 13,
+                    "default": "any",
+                    "name,": "Destination Device"
+                },
                 "destination_address": {
                     "description": "Destination Address of policy",
                     "data_type": "string",
                     "required": true,
-                    "order": 13,
+                    "order": 14,
                     "default": "any"
                 },
                 "negate_destination": {
@@ -3112,14 +3119,7 @@
                         "Yes",
                         "No"
                     ],
-                    "order": 14
-                },
-                "destination_device": {
-                    "description": "Destination device for policy",
-                    "data_type": "string",
-                    "order": 15,
-                    "default": "any",
-                    "name,": "Destination Device"
+                    "order": 15
                 },
                 "application": {
                     "description": "Applications for the policy",
@@ -3140,6 +3140,15 @@
                     "data_type": "string",
                     "order": 18
                 },
+                "profile_setting": {
+                    "description": "Type of profile setting to choose for the policy",
+                    "data_type": "string",
+                    "value_list": [
+                        "profiles",
+                        "group"
+                    ],
+                    "order": 19
+                },
                 "action": {
                     "description": "Action type for the policy",
                     "data_type": "string",
@@ -3153,7 +3162,7 @@
                         "reset server",
                         "reset both client and server"
                     ],
-                    "order": 19
+                    "order": 20
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
@@ -3161,15 +3170,6 @@
                     "value_list": [
                         "Yes",
                         "No"
-                    ],
-                    "order": 20
-                },
-                "profile_setting": {
-                    "description": "Type of profile setting to choose for the policy",
-                    "data_type": "string",
-                    "value_list": [
-                        "profiles",
-                        "group"
                     ],
                     "order": 21
                 },
@@ -3208,15 +3208,19 @@
                     ],
                     "order": 26
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph": {
+                    "data_type": "ph",
                     "order": 27
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 28
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 29
                 }
             },
             "output": [
@@ -3872,6 +3876,10 @@
                     "order": 12,
                     "name,": "Target"
                 },
+                "ph": {
+                    "data_type": "ph",
+                    "order": 13
+                },
                 "where": {
                     "description": "Where to position the policy",
                     "data_type": "string",
@@ -3881,22 +3889,22 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 13
+                    "order": 14
                 },
                 "dst": {
                     "description": "Policy in reference to which position the current policy",
                     "data_type": "string",
-                    "order": 14
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
                     "order": 15
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 16
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 17
                 }
             },
             "output": [
@@ -4149,10 +4157,16 @@
                     "data_type": "string",
                     "order": 12
                 },
+                "destination_device": {
+                    "description": "Destination device for policy",
+                    "data_type": "string",
+                    "order": 13,
+                    "name,": "Destination Device"
+                },
                 "destination_address": {
                     "description": "Destination Address of policy",
                     "data_type": "string",
-                    "order": 13
+                    "order": 14
                 },
                 "negate_destination": {
                     "description": "Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address",
@@ -4161,13 +4175,7 @@
                         "Yes",
                         "No"
                     ],
-                    "order": 14
-                },
-                "destination_device": {
-                    "description": "Destination device for policy",
-                    "data_type": "string",
-                    "order": 15,
-                    "name,": "Destination Device"
+                    "order": 15
                 },
                 "application": {
                     "description": "Applications for the policy",
@@ -4184,6 +4192,15 @@
                     "data_type": "string",
                     "order": 18
                 },
+                "profile_setting": {
+                    "description": "Type of profile setting to choose for the policy",
+                    "data_type": "string",
+                    "value_list": [
+                        "profiles",
+                        "group"
+                    ],
+                    "order": 19
+                },
                 "action": {
                     "description": "Action type for the policy",
                     "data_type": "string",
@@ -4195,7 +4212,7 @@
                         "reset server",
                         "reset both client and server"
                     ],
-                    "order": 19
+                    "order": 20
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
@@ -4203,15 +4220,6 @@
                     "value_list": [
                         "Yes",
                         "No"
-                    ],
-                    "order": 20
-                },
-                "profile_setting": {
-                    "description": "Type of profile setting to choose for the policy",
-                    "data_type": "string",
-                    "value_list": [
-                        "profiles",
-                        "group"
                     ],
                     "order": 21
                 },
@@ -4235,15 +4243,19 @@
                         "No"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph": {
+                    "data_type": "ph",
                     "order": 25
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 26
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 27
                 }
             },
             "output": [
@@ -4455,13 +4467,17 @@
                         "panorama policy name"
                     ]
                 },
+                "ph": {
+                    "data_type": "ph",
+                    "order": 1
+                },
                 "device_group": {
                     "description": "Device group for which to create the policy rule",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
                     "default": "shared",
-                    "order": 1,
+                    "order": 2,
                     "contains": [
                         "panorama device group"
                     ]
@@ -4475,12 +4491,12 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 2
+                    "order": 3
                 },
                 "dst_device_group": {
                     "description": "Device group where the policy  has to be moved",
                     "data_type": "string",
-                    "order": 3,
+                    "order": 4,
                     "primary": true,
                     "contains": [
                         "panorama device group"
@@ -4493,7 +4509,7 @@
                         "pre-rulebase",
                         "post-rulebase"
                     ],
-                    "order": 4
+                    "order": 5
                 },
                 "where": {
                     "description": "Where to move the policy in the device group",
@@ -4504,22 +4520,22 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 5
+                    "order": 6
                 },
                 "dst": {
                     "description": "Reference to which the policy needs to be moved",
                     "data_type": "string",
-                    "order": 6
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
                     "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 8
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 9
                 }
             },
             "output": [
@@ -5053,15 +5069,19 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph": {
+                    "data_type": "ph",
                     "order": 3
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 4
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 5
                 }
             },
             "output": [
@@ -5558,15 +5578,19 @@
                     "data_type": "string",
                     "order": 6
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph": {
+                    "data_type": "ph",
                     "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 8
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 9
                 }
             },
             "output": [
@@ -5722,15 +5746,19 @@
                     "data_type": "string",
                     "order": 6
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph": {
+                    "data_type": "ph",
                     "order": 7
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 8
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 9
                 }
             },
             "output": [
