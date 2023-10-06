@@ -678,6 +678,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source url to fetch the data | string | 
+**exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **expand_for_subdomains** |  optional  | Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list) | string | 
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
 **certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list (only used when list_type is not predefined IP or URL) | string | 
@@ -685,9 +686,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **hour** |  optional  | At what hour of the day to check for updates  (only used when check_for_update type is daily, weekly or monthly) | string | 
 **day_of_week** |  optional  | On which specific day of week to check for updates (only used when check_for_update type is weekly) | string | 
 **day_of_month** |  optional  | On which specific date of month to check for updates (only used when check_for_update type is monthly) | string | 
-**exception_list** |  optional  | List of exceptions (comma separated values) | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -730,6 +730,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source url to fetch the data. | string | 
+**exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **expand_for_subdomains** |  optional  | Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list) | string | 
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
 **certificate_profile** |  optional  | Certificate profile is used for authenticating the server that hosts the list (only used when list_type is not predefined IP or URL) | string | 
@@ -737,9 +738,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **hour** |  optional  | At what hour of the day to check for updates (only used when check_for_update type is daily, weekly or monthly) | string | 
 **day_of_week** |  optional  | On which specific day of week to check for updates (only used when check_for_update type is weekly) | string | 
 **day_of_month** |  optional  | On which specific date of month to check for updates (only used when check_for_update type is monthly) | string | 
-**exception_list** |  optional  | List of exceptions (comma separated values) | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -777,8 +777,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to create (up to 63 characters) | string |  `panorama edl name` 
 **device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
