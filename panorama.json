@@ -2428,6 +2428,11 @@
                     "order": 4,
                     "required": true
                 },
+                "exception_list": {
+                    "description": "List of exceptions (comma separated values)",
+                    "data_type": "string",
+                    "order": 5
+                },
                 "expand_for_subdomains": {
                     "description": "Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list)",
                     "data_type": "string",
@@ -2436,7 +2441,7 @@
                         "No"
                     ],
                     "default": "No",
-                    "order": 5
+                    "order": 6
                 },
                 "disable_override": {
                     "description": "Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared')",
@@ -2446,12 +2451,12 @@
                         "No"
                     ],
                     "default": "No",
-                    "order": 6
+                    "order": 7
                 },
                 "certificate_profile": {
                     "description": "Certificate profile is used for authenticating the server that hosts the list (only used when list_type is not predefined IP or URL)",
                     "data_type": "string",
-                    "order": 7
+                    "order": 8
                 },
                 "check_for_updates": {
                     "description": "Defines the frequency at which the firewall retrieves the list  (only used when list_type is not predefined IP or URL)",
@@ -2464,13 +2469,13 @@
                         "Monthly"
                     ],
                     "default": "Five-minute",
-                    "order": 8
+                    "order": 9
                 },
                 "hour": {
                     "description": "At what hour of the day to check for updates  (only used when check_for_update type is daily, weekly or monthly)",
                     "data_type": "string",
                     "default": "0",
-                    "order": 9
+                    "order": 10
                 },
                 "day_of_week": {
                     "description": "On which specific day of week to check for updates (only used when check_for_update type is weekly)",
@@ -2485,27 +2490,26 @@
                         "Sunday"
                     ],
                     "default": "Sunday",
-                    "order": 10
+                    "order": 11
                 },
                 "day_of_month": {
                     "description": "On which specific date of month to check for updates (only used when check_for_update type is monthly)",
                     "data_type": "string",
-                    "order": 11
-                },
-                "exception_list": {
-                    "description": "List of exceptions (comma separated values)",
-                    "data_type": "string",
                     "order": 12
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph0": {
+                    "data_type": "ph",
                     "order": 13
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 14
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 15
                 }
             },
             "output": [
@@ -2677,6 +2681,11 @@
                     "data_type": "string",
                     "order": 4
                 },
+                "exception_list": {
+                    "description": "List of exceptions (comma separated values)",
+                    "data_type": "string",
+                    "order": 5
+                },
                 "expand_for_subdomains": {
                     "description": "Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list)",
                     "data_type": "string",
@@ -2684,7 +2693,7 @@
                         "Yes",
                         "No"
                     ],
-                    "order": 5
+                    "order": 6
                 },
                 "disable_override": {
                     "description": "Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared')",
@@ -2693,12 +2702,12 @@
                         "Yes",
                         "No"
                     ],
-                    "order": 6
+                    "order": 7
                 },
                 "certificate_profile": {
                     "description": "Certificate profile is used for authenticating the server that hosts the list (only used when list_type is not predefined IP or URL)",
                     "data_type": "string",
-                    "order": 7
+                    "order": 8
                 },
                 "check_for_updates": {
                     "description": "Defines the frequency at which the firewall retrieves the list  (only used when list_type is not predefined IP or URL)",
@@ -2710,12 +2719,12 @@
                         "Weekly",
                         "Monthly"
                     ],
-                    "order": 8
+                    "order": 9
                 },
                 "hour": {
                     "description": "At what hour of the day to check for updates (only used when check_for_update type is daily, weekly or monthly)",
                     "data_type": "string",
-                    "order": 9
+                    "order": 10
                 },
                 "day_of_week": {
                     "description": "On which specific day of week to check for updates (only used when check_for_update type is weekly)",
@@ -2729,27 +2738,26 @@
                         "Saturday",
                         "Sunday"
                     ],
-                    "order": 10
+                    "order": 11
                 },
                 "day_of_month": {
                     "description": "On which specific date of month to check for updates (only used when check_for_update type is monthly)",
                     "data_type": "string",
-                    "order": 11
-                },
-                "exception_list": {
-                    "description": "List of exceptions (comma separated values)",
-                    "data_type": "string",
                     "order": 12
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
+                "ph0": {
+                    "data_type": "ph",
                     "order": 13
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 14
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "order": 15
                 }
             },
             "output": [
@@ -2896,13 +2904,13 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 2
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 }
@@ -6534,7 +6542,7 @@
                         "panorama device group"
                     ]
                 },
-                "ip_type":{
+                "ip_type": {
                     "description": "IP address type",
                     "data_type": "string",
                     "order": 2,
