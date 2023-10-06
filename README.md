@@ -816,22 +816,22 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **source_user** |  optional  | Source User for policy | string | 
 **source_device** |  optional  | Source Device for policy | string | 
 **destination_zone** |  required  | Destination Zone of policy | string | 
+**destination_device** |  optional  | Destination device for policy | string | 
 **destination_address** |  required  | Destination Address of policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
-**destination_device** |  optional  | Destination device for policy | string | 
 **application** |  required  | Applications for the policy | string | 
 **service** |  required  | Services of the policy | string | 
 **category** |  optional  | URL Categories of the policy | string | 
+**profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
 **action** |  required  | Action type for the policy | string | 
 **icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
-**profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
 **log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
 **target** |  optional  | The target devices of the security policy | string | 
 **where** |  optional  | Where to position the policy | string | 
 **dst** |  optional  | Policy in reference to which position the current policy | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -951,8 +951,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **target** |  optional  | The target devices of the security policy | string | 
 **where** |  optional  | Where to position the policy | string | 
 **dst** |  optional  | Policy in reference to which position the current policy | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1008,20 +1008,20 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **source_user** |  optional  | Source User for policy | string | 
 **source_device** |  optional  | Source Device for policy | string | 
 **destination_zone** |  optional  | Destination Zone of policy | string | 
+**destination_device** |  optional  | Destination device for policy | string | 
 **destination_address** |  optional  | Destination Address of policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
-**destination_device** |  optional  | Destination device for policy | string | 
 **application** |  optional  | Applications for the policy | string | 
 **service** |  optional  | Services of the policy | string | 
 **category** |  optional  | URL Categories of the policy | string | 
+**profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
 **action** |  optional  | Action type for the policy | string | 
 **icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
-**profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
 **log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
 **target** |  optional  | The target devices of the security policy | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1082,8 +1082,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **dst_policy_type** |  optional  | Policy type where the policy has to be moved | string | 
 **where** |  optional  | Where to move the policy in the device group | string | 
 **dst** |  optional  | Reference to which the policy needs to be moved | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1176,8 +1176,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **policy_name** |  required  | Name of the policy rule to delete | string |  `panorama policy name` 
 **policy_type** |  required  | Rule base to delete the policy from (pre-rule or post-rule | string | 
 **device_group** |  required  | Device group where the policy rule is present | string |  `panorama device group` 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1264,8 +1264,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description for the address group | string | 
 **disable_override** |  optional  | Whether to disable override the address group or not | string | 
 **tag** |  optional  | List of tags to mark the address group under | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1302,8 +1302,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description for the address group | string | 
 **address_or_match** |  optional  | Address list if the type is static and match criteria if type is dynamic | string | 
 **tag** |  optional  | List of tags to mark the address group under | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
