@@ -16,8 +16,8 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from panorama_consts import (ADD_GRP_TYPE_VAL_LIST, PAN_ERROR_MESSAGE, PAN_JSON_ADD_GRP_DIS_OVER, PAN_JSON_ADD_GRP_TYPE, PAN_JSON_DEVICE_GRP,
-                             param_mapping)
+from panorama_consts import (ADD_GRP_TYPE_VAL_LIST, ADDRESS_GRP_XPATH, PAN_ERROR_MESSAGE, PAN_JSON_ADD_GRP_DIS_OVER, PAN_JSON_ADD_GRP_TYPE,
+                             PAN_JSON_DEVICE_GRP, param_mapping)
 
 
 class CreateAddressGroup(BaseAction):
@@ -38,78 +38,80 @@ class CreateAddressGroup(BaseAction):
 
         connector.debug_print("Inside create address group action.")
 
-        description = self._param.get("description")
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        for param in self._param.copy():
+        parameter = self._param.copy()
+
+        description = parameter.get("description")
+
+        for param in parameter.copy():
             if param in param_mapping:
                 new_key = param_mapping.get(param)
-                self._param[new_key] = self._param.get(param)
-                del self._param[param]
-
-        action_result = connector.add_action_result(ActionResult(dict(self._param)))
+                parameter[new_key] = parameter.get(param)
+                del parameter[param]
 
         if description and len(description) > 1024:
             return action_result.set_status(
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
 
-        device_grp = self._param[PAN_JSON_DEVICE_GRP]
-        address_or_match = self._param.get("address_or_match")
+        device_grp = parameter[PAN_JSON_DEVICE_GRP]
+        address_or_match = parameter.get("address_or_match")
 
-        if self._param.get(PAN_JSON_ADD_GRP_DIS_OVER):
-            if self._param.get(PAN_JSON_ADD_GRP_DIS_OVER).lower() not in ["yes", "no"]:
+        if parameter.get(PAN_JSON_ADD_GRP_DIS_OVER):
+            if parameter.get(PAN_JSON_ADD_GRP_DIS_OVER).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR,
                                                 "Please enter a valid value for 'disable-override' parameter from ['yes','no']")
             else:
-                self._param[PAN_JSON_ADD_GRP_DIS_OVER] = self._param.get(PAN_JSON_ADD_GRP_DIS_OVER).lower()
+                parameter[PAN_JSON_ADD_GRP_DIS_OVER] = parameter.get(PAN_JSON_ADD_GRP_DIS_OVER).lower()
 
-        if (device_grp == "shared" and self._param.get(PAN_JSON_ADD_GRP_DIS_OVER)):
-            del self._param[PAN_JSON_ADD_GRP_DIS_OVER]
+        if (device_grp == "shared" and parameter.get(PAN_JSON_ADD_GRP_DIS_OVER)):
+            del parameter[PAN_JSON_ADD_GRP_DIS_OVER]
 
-        if self._param.get(PAN_JSON_ADD_GRP_TYPE):
-            if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() not in ADD_GRP_TYPE_VAL_LIST:
+        if parameter.get(PAN_JSON_ADD_GRP_TYPE):
+            if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() not in ADD_GRP_TYPE_VAL_LIST:
                 return action_result.set_status(phantom.APP_ERROR,
                                                 "Please enter a valid value for 'type' field as 'static' or 'dynamic'")
             else:
-                self._param[PAN_JSON_ADD_GRP_TYPE] = self._param.get(PAN_JSON_ADD_GRP_TYPE).lower()
+                parameter[PAN_JSON_ADD_GRP_TYPE] = parameter.get(PAN_JSON_ADD_GRP_TYPE).lower()
 
-        if (self._param.get(PAN_JSON_ADD_GRP_TYPE) and not address_or_match) or \
-                (address_or_match and not self._param.get(PAN_JSON_ADD_GRP_TYPE)):
+        if (parameter.get(PAN_JSON_ADD_GRP_TYPE) and not address_or_match) or \
+                (address_or_match and not parameter.get(PAN_JSON_ADD_GRP_TYPE)):
             return action_result.set_status(phantom.APP_ERROR,
                                             "Parameters 'type' and 'address_or_match' are inter-dependent \
                                             hence please provide input for both or none.")
 
-        status, add_grp_present = connector.util._does_policy_exist(self._param, action_result, param_name='address_group')
+        add_grp_present_status = connector.util._does_address_group_exist(parameter, action_result)
 
-        if add_grp_present and connector.get_action_identifier() != "modify_address_group":
+        if add_grp_present_status and connector.get_action_identifier() != "modify_address_group":
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "An address group with this name already exists. Please use another name."
             )
 
-        elif not add_grp_present and connector.get_action_identifier() == "modify_address_group":
+        elif not add_grp_present_status and connector.get_action_identifier() == "modify_address_group":
             return action_result.set_status(
                 phantom.APP_ERROR,
                 "This address group is not present. Please enter a valid address group name."
             )
-        element = connector.util._get_action_element(self._param)
+        element = connector.util._get_action_element(parameter)
 
-        if self._param.get(PAN_JSON_ADD_GRP_TYPE):
-            if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() == "dynamic":
+        if parameter.get(PAN_JSON_ADD_GRP_TYPE):
+            if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() == "dynamic":
                 status, temp_element = connector.util._element_prep(
-                    param_name="dynamic", param_val=self._param["address_or_match"], member=False)
+                    param_name="dynamic", param_val=parameter["address_or_match"], member=False)
                 element += temp_element
-            if self._param.get(PAN_JSON_ADD_GRP_TYPE).lower() == "static":
+            if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() == "static":
                 status, temp_element = connector.util._element_prep(
-                    param_name="static", param_val=self._param.get("address_or_match"), member=True)
+                    param_name="static", param_val=parameter.get("address_or_match"), member=True)
                 element += temp_element
 
-        xpath = connector.util._get_security_policy_xpath(self._param, action_result, param_name="address_group")[1]
+        xpath = f"{ADDRESS_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(param), name=parameter['name'])}"
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
         message = action_result.get_message()
 
         if ("tag" and "not a valid") in message:
-            tags = [value.strip() for value in self._param.get("tag", "").split(',') if value.strip()]
-            status, _ = connector.util._create_tag(connector, action_result, self._param, tags)
+            tags = [value.strip() for value in parameter.get("tag", "").split(',') if value.strip(" ")]
+            status, _ = connector.util._create_tag(connector, action_result, parameter, tags)
 
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
@@ -120,8 +122,8 @@ class CreateAddressGroup(BaseAction):
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating address group: ", {message}))
 
-        if self._param["should_commit_changes"]:
-            status = connector.util._commit_and_commit_all(self._param, action_result)
+        if parameter["should_commit_changes"]:
+            status = connector.util._commit_and_commit_all(parameter, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 

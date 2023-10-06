@@ -27,47 +27,48 @@ class CustomBlockPolicy(BaseAction):
 
         connector.debug_print("Inside Create custom block policy action")
 
-        temporary_action_result = connector.add_action_result(ActionResult(dict(self._param)))
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        self._param[PAN_JSON_DIR] = self._param.get(PAN_JSON_DIR, "both").lower()
+        parameter = self._param.copy()
 
-        if self._param[PAN_JSON_DIR] not in ["from", "to", "both"]:
-            return temporary_action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["from", "to", "both"],
-                                                                                                              PAN_JSON_DIR))
+        parameter[PAN_JSON_DIR] = parameter.get(PAN_JSON_DIR, "both").lower()
 
-        if self._param[PAN_JSON_OBJ_TYPE] in ['ip', 'address-group', 'edl']:
-            if self._param[PAN_JSON_DIR] == "from":
-                self._param[PAN_JSON_POL_SOURCE_ADD] = self._param[PAN_JSON_OBJ_VAL]
-                self._param[PAN_JSON_DESTINATION_ADDRESS] = "any"
+        if parameter[PAN_JSON_DIR] not in ["from", "to", "both"]:
+            return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["from", "to", "both"],
+                                                                                                    PAN_JSON_DIR))
 
-            elif self._param[PAN_JSON_DIR] == "to":
-                self._param[PAN_JSON_DESTINATION_ADDRESS] = self._param[PAN_JSON_OBJ_VAL]
-                self._param[PAN_JSON_POL_SOURCE_ADD] = "any"
+        if parameter[PAN_JSON_OBJ_TYPE] in ['ip', 'address-group', 'edl']:
+            if parameter[PAN_JSON_DIR] == "from":
+                parameter[PAN_JSON_POL_SOURCE_ADD] = parameter[PAN_JSON_OBJ_VAL]
+                parameter[PAN_JSON_DESTINATION_ADDRESS] = "any"
 
-            elif self._param[PAN_JSON_DIR] == "both":
-                self._param[PAN_JSON_POL_SOURCE_ADD] = self._param[PAN_JSON_OBJ_VAL]
-                self._param[PAN_JSON_DESTINATION_ADDRESS] = self._param[PAN_JSON_OBJ_VAL]
+            elif parameter[PAN_JSON_DIR] == "to":
+                parameter[PAN_JSON_DESTINATION_ADDRESS] = parameter[PAN_JSON_OBJ_VAL]
+                parameter[PAN_JSON_POL_SOURCE_ADD] = "any"
 
-            self._param["application"] = "any"
+            elif parameter[PAN_JSON_DIR] == "both":
+                parameter[PAN_JSON_POL_SOURCE_ADD] = parameter[PAN_JSON_OBJ_VAL]
+                parameter[PAN_JSON_DESTINATION_ADDRESS] = parameter[PAN_JSON_OBJ_VAL]
 
-        elif self._param[PAN_JSON_OBJ_TYPE] == "application":
-            self._param[PAN_JSON_APPLICATION] = self._param[PAN_JSON_OBJ_VAL]
-            self._param[PAN_JSON_DESTINATION_ADDRESS] = "any"
-            self._param[PAN_JSON_POL_SOURCE_ADD] = "any"
+            parameter["application"] = "any"
 
-        elif self._param[PAN_JSON_OBJ_TYPE] == "url-category":
-            self._param[PAN_JSON_CATEGORY] = self._param[PAN_JSON_OBJ_VAL]
-            self._param["application"] = "any"
-            self._param[PAN_JSON_DESTINATION_ADDRESS] = "any"
-            self._param[PAN_JSON_POL_SOURCE_ADD] = "any"
+        elif parameter[PAN_JSON_OBJ_TYPE] == "application":
+            parameter[PAN_JSON_APPLICATION] = parameter[PAN_JSON_OBJ_VAL]
+            parameter[PAN_JSON_DESTINATION_ADDRESS] = "any"
+            parameter[PAN_JSON_POL_SOURCE_ADD] = "any"
 
-        self._param["service"] = "any"
-        self._param["source_zone"] = "any"
-        self._param["destination_zone"] = "any"
-        self._param["action"] = "drop"
+        elif parameter[PAN_JSON_OBJ_TYPE] == "url-category":
+            parameter[PAN_JSON_CATEGORY] = parameter[PAN_JSON_OBJ_VAL]
+            parameter["application"] = "any"
+            parameter[PAN_JSON_DESTINATION_ADDRESS] = "any"
+            parameter[PAN_JSON_POL_SOURCE_ADD] = "any"
 
-        connector.remove_action_result(temporary_action_result)
-        obj = CreatePolicy(self._param)
-        response = obj.execute(connector)
+        parameter["service"] = "any"
+        parameter["source_zone"] = "any"
+        parameter["destination_zone"] = "any"
+        parameter["action"] = "drop"
+
+        obj = CreatePolicy(parameter)
+        response = obj.execute(connector, action_result=action_result)
 
         return response
