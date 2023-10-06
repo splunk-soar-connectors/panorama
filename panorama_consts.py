@@ -156,6 +156,7 @@ START_TAG = "<entry name='{tag}'>"
 END_TAG = "</entry>"
 TAG_COMMENT = "Tag created from Splunk SOAR"
 ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
+ADDRESS_GRP_XPATH = "{config_xpath}/address-group/entry[@name='{name}']"
 
 APP_LIST_XPATH = "/config/predefined/application"
 COMMIT_ALL_DEV_GRP_DEV_CMD = '<commit-all><shared-policy>'
@@ -222,11 +223,11 @@ PAN_JSON_ADD_GRP_TYPE = "type"
 PAN_JSON_ADD_GRP_DIS_OVER = "disable-override"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
-SEC_POLICY_REQ_PARAM_LIST = ['rule-type', 'description', 'action', 'target', 'profile-setting',
+SEC_POLICY_WITHOUT_MEMBER = ['rule-type', 'description', 'action', 'target', 'profile-setting',
                              'log-setting', 'negate-source', 'negate-destination', 'icmp-unreachable']
 SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
-SEC_POLICY_OPT_PARAM_LIST = ['from', 'to', 'source', 'destination', 'source-user',
-                             'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
+SEC_POLICY_WITH_MEMBER = ['from', 'to', 'source', 'destination', 'source-user',
+                          'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 WHERE_VALUE_LIST = ["after", "before", "top"]
 IP_ADD_TYPE = {

@@ -722,19 +722,15 @@ class PanoramaUtils(object):
 
         return action_result.get_status()
 
-    def _get_security_policy_xpath(self, param, action_result, param_name=None):
+    def _get_security_policy_xpath(self, param, action_result):
         """Return the xpath to the given Security Policy name"""
         try:
             config_xpath = self._get_config_xpath(param)
             rules_xpath = '{config_xpath}/{policy_type}/security/rules'.format(
                 config_xpath=config_xpath,
-                policy_type=param.get(consts.PAN_JSON_POLICY_TYPE)
+                policy_type=param[consts.PAN_JSON_POLICY_TYPE]
             )
-            policy_name = param.get(consts.PAN_JSON_POLICY_NAME)
-            if param_name == "address_group":
-                rules_xpath = '{config_xpath}/address-group'.format(config_xpath=config_xpath)
-                policy_name = param.get("address_grp_name")
-
+            policy_name = param[consts.PAN_JSON_POLICY_NAME]
             rules_xpath = "{rules_xpath}/entry[@name='{policy_name}']".format(rules_xpath=rules_xpath, policy_name=policy_name)
         except Exception as e:
             return (action_result.set_status(phantom.APP_ERROR, "Unable to create xpath to the security policies",
@@ -742,7 +738,7 @@ class PanoramaUtils(object):
 
         return (phantom.APP_SUCCESS, rules_xpath)
 
-    def _does_policy_exist(self, param, action_result, param_name=None):
+    def _does_policy_exist(self, param, action_result):
         """ Checking the policy is exist or not
 
         Args:
@@ -752,10 +748,7 @@ class PanoramaUtils(object):
         Returns:
             Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
         """
-        if param_name == 'address_group':
-            status, rules_xpath = self._get_security_policy_xpath(param, action_result, param_name='address_group')
-        else:
-            status, rules_xpath = self._get_security_policy_xpath(param, action_result)
+        status, rules_xpath = self._get_security_policy_xpath(param, action_result)
         if phantom.is_fail(status):
             return action_result.get_status()
 
@@ -791,6 +784,50 @@ class PanoramaUtils(object):
             return (phantom.APP_SUCCESS, False)
 
         return (phantom.APP_SUCCESS, True)
+
+    def _does_address_group_exist(self, param, action_result):
+        """ Checking the address is exist or not
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
+        """
+
+        self._connector.debug_print("Checking whether the address group is exists or not...")
+
+        add_grp_name = param["name"]
+
+        get_add_grp_xpath = f"{consts.ADDRESS_GRP_XPATH.format(config_xpath= self._get_config_xpath(param), name=add_grp_name)}"
+
+        data = {
+            "type": "config",
+            'action': "get",
+            'key': self._key,
+            'xpath': get_add_grp_xpath
+        }
+
+        status, _ = self._make_rest_call(data, action_result)
+        if phantom.is_fail(status):
+            self._connector.debug_print('Error occurred fetching address group. Error - %s' % action_result.get_message())
+            return phantom.APP_ERROR
+
+        result_data = action_result.get_data().pop()
+
+        if result_data.get("@total-count") == "0":
+            self._connector.debug_print("No Address Group found")
+            return phantom.APP_ERROR
+
+        try:
+            result_data = result_data.get('entry')
+        except Exception as e:
+            error = self._get_error_message_from_exception(e)
+            self._connector.debug_print("Error occurred while processing response from server. {}".format(error))
+            return phantom.APP_ERROR
+
+        return phantom.APP_SUCCESS
 
     def _does_address_exist(self, param, action_result):
         """ Checking the address is exist or not
@@ -1137,9 +1174,9 @@ class PanoramaUtils(object):
         status = False
         for params in param.keys():
             if param[params]:
-                if params in consts.SEC_POLICY_REQ_PARAM_LIST:
+                if params in consts.SEC_POLICY_WITHOUT_MEMBER:
                     status, result = self._element_prep(params, param[params])
-                elif params in consts.SEC_POLICY_OPT_PARAM_LIST:
+                elif params in consts.SEC_POLICY_WITH_MEMBER:
                     status, result = self._element_prep(params, param[params], member=True)
                 if status:
                     element += result
@@ -1154,7 +1191,7 @@ class PanoramaUtils(object):
         param_list = []
         try:
             param_list = param_val.split(",")
-            param_list = [value.strip() for value in param_list if value.strip(" ,")]
+            param_list = [value.strip() for value in param_list if value.strip()]
             if len(param_list) == 0 and member:
                 status = False
                 return status, temp_element

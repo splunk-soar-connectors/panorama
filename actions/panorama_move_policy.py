@@ -28,15 +28,17 @@ class MovePolicy(BaseAction):
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        policy_name = self._param[PAN_JSON_POLICY_NAME]
+        parameter = self._param.copy()
+
+        policy_name = parameter[PAN_JSON_POLICY_NAME]
         policy_list = policy_name.split(",")
-        policy_list = [value.strip() for value in policy_list if value.strip(" ,")]
-        dst_device_group = self._param.get("dst_device_group", None)
-        curr_device_group = self._param[PAN_JSON_DEVICE_GRP]
-        curr_pre_post = self._param[PAN_JSON_POLICY_TYPE]
-        dst_pre_post = self._param.get("dst_policy_type", None)
-        where = self._param.get(PAN_JSON_WHERE, None)
-        dst = self._param.get(PAN_JSON_DST, None)
+        policy_list = [value.strip() for value in policy_list if value.strip(" ")]
+        dst_device_group = parameter.get("dst_device_group", None)
+        curr_device_group = parameter[PAN_JSON_DEVICE_GRP]
+        curr_pre_post = parameter[PAN_JSON_POLICY_TYPE]
+        dst_pre_post = parameter.get("dst_policy_type", None)
+        where = parameter.get(PAN_JSON_WHERE, None)
+        dst = parameter.get(PAN_JSON_DST, None)
 
         # validate policy type
         if curr_pre_post not in POLICY_TYPE_VALUE_LIST:
@@ -65,7 +67,6 @@ class MovePolicy(BaseAction):
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
 
         status, policies = connector.util._element_prep(param_name="policy_name", param_val=policy_name, member=True)
-        connector.debug_print(f"policies {policies}")
 
         data = {
             'type': 'config',
@@ -113,8 +114,8 @@ class MovePolicy(BaseAction):
         message = action_result.get_message()
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error Occurred: ", {message}))
-        if self._param.get('should_commit_changes', False):
-            status = connector.util._commit_and_commit_all(self._param, action_result)
+        if parameter.get('should_commit_changes', False):
+            status = connector.util._commit_and_commit_all(parameter, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 

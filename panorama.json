@@ -3758,7 +3758,7 @@
                     "data_type": "string",
                     "primary": true,
                     "required": true,
-                    "order": 1,
+                    "order": 0,
                     "contains": [
                         "panorama policy name"
                     ]
@@ -3795,23 +3795,23 @@
                     ],
                     "default": "universal",
                     "required": true,
-                    "order": 1
+                    "order": 3
                 },
                 "description": {
                     "description": "Description for the policy",
                     "data_type": "string",
-                    "order": 7
+                    "order": 4
                 },
                 "tag": {
                     "description": "Tags to assign to the policy",
                     "data_type": "string",
-                    "order": 8,
+                    "order": 5,
                     "allow_list": true
                 },
                 "audit_comment": {
                     "description": "Audit Comment to add for the policy",
                     "data_type": "string",
-                    "order": 13,
+                    "order": 6,
                     "name,": "audit comment"
                 },
                 "direction": {
@@ -3822,7 +3822,7 @@
                         "to",
                         "both"
                     ],
-                    "order": 5
+                    "order": 7
                 },
                 "object_type": {
                     "description": "Type of object to block",
@@ -3835,13 +3835,13 @@
                         "url-category",
                         "application"
                     ],
-                    "order": 7
+                    "order": 8
                 },
                 "object_value": {
                     "description": "Value of the object to be blocked. Can be a list.",
                     "data_type": "string",
                     "required": true,
-                    "order": 5
+                    "order": 9
                 },
                 "icmp_unreachable": {
                     "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
@@ -3855,13 +3855,13 @@
                 "log_forwarding": {
                     "description": "Log Forwarding Profile for the policy",
                     "data_type": "string",
-                    "order": 18,
+                    "order": 11,
                     "allow_list": true
                 },
                 "target": {
                     "description": "The target devices of the security policy",
                     "data_type": "string",
-                    "order": 11,
+                    "order": 12,
                     "name,": "Target"
                 },
                 "where": {
@@ -3873,12 +3873,12 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 12
+                    "order": 13
                 },
                 "dst": {
                     "description": "Policy in reference to which position the current policy",
                     "data_type": "string",
-                    "order": 13
+                    "order": 14
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
@@ -5493,7 +5493,7 @@
             "identifier": "create_address_group",
             "read_only": false,
             "parameters": {
-                "address_grp_name": {
+                "name": {
                     "description": "Name of the address group to be created",
                     "data_type": "string",
                     "required": true,
@@ -5563,7 +5563,7 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.address_grp_name",
+                    "data_path": "action_result.parameter.name",
                     "data_type": "string",
                     "contains": [
                         "panorama address group name"
@@ -5661,7 +5661,7 @@
             "identifier": "modify_address_group",
             "read_only": false,
             "parameters": {
-                "address_grp_name": {
+                "name": {
                     "description": "Name of theaddress group to be created",
                     "data_type": "string",
                     "required": true,
@@ -5727,7 +5727,7 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.address_grp_name",
+                    "data_path": "action_result.parameter.name",
                     "data_type": "string",
                     "contains": [
                         "panorama address group name"

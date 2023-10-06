@@ -26,13 +26,17 @@ class DeletePolicy(BaseAction):
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
-        if self._param[PAN_JSON_POLICY_TYPE].lower() not in POLICY_TYPE_VALUE_LIST:
+        parameter = self._param.copy()
+
+        if parameter[PAN_JSON_POLICY_TYPE].lower() not in POLICY_TYPE_VALUE_LIST:
             return action_result.set_status(
                 phantom.APP_ERROR,
                 VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
             )
+        else:
+            parameter[PAN_JSON_POLICY_TYPE] = parameter[PAN_JSON_POLICY_TYPE].lower()
 
-        xpath = connector.util._get_security_policy_xpath(self._param, action_result)
+        xpath = connector.util._get_security_policy_xpath(parameter, action_result)
         data = {
             'type': 'config',
             'action': 'delete',
@@ -46,8 +50,8 @@ class DeletePolicy(BaseAction):
 
         action_result.add_data(response)
 
-        if self._param.get('should_commit_changes', False):
-            status = connector.util._commit_and_commit_all(self._param, action_result)
+        if parameter.get('should_commit_changes', False):
+            status = connector.util._commit_and_commit_all(parameter, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
