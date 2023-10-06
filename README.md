@@ -1257,7 +1257,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of the address group to be created | string |  `panorama address group name` 
+**name** |  required  | Name of the address group to be created | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
 **type** |  required  | Type of the address group | string | 
 **address_or_match** |  required  | Address list if the type is static and match criteria if type is dynamic | string | 
@@ -1270,7 +1270,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.address_grp_name | string |  `panorama address group name`  |  
+action_result.parameter.name | string |  `panorama address group name`  |  
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.type | string |  |  
@@ -1295,7 +1295,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**address_grp_name** |  required  | Name of theaddress group to be created | string |  `panorama address group name` 
+**name** |  required  | Name of theaddress group to be created | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
 **disable_override** |  optional  | Whether to disable override the address group or not | string | 
 **type** |  optional  | Type of the address group | string | 
@@ -1308,7 +1308,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.address_grp_name | string |  `panorama address group name`  |  
+action_result.parameter.name | string |  `panorama address group name`  |  
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.type | string |  |  
