@@ -1146,50 +1146,42 @@ class PanoramaUtils(object):
                     status = False
         return element
 
-    def _element_prep(self, param_name, param_val=None, member=False):
+    def _element_prep(self, param_name, param_val, member=False):
 
         temp_element = ""
         temp_dict = {}
-        # we are splitting param_val with ',' hence in case param_val==',' we omit this case
-        if param_val == ",":
-            param_val = None
-        if param_val:
-            status = True
-            param_list = []
-            try:
-                param_list = param_val.split(",")
-                param_list = [value.strip() for value in param_list if value.strip(" ,")]
-                if len(param_list) == 0:
-                    status = False
-                    return status, temp_element
-            except Exception:
-                pass
-            if param_name == "target":
-                if len(param_list) >= 1:
-                    entries = ""
-                    for device in param_list:
-                        entries += f'<entry name ="{device}"/>'
-                    param_val = entries
-                temp_element = f'<{param_name}><devices>{param_val}</devices></{param_name}>'
+        status = True
+        param_list = []
+        try:
+            param_list = param_val.split(",")
+            param_list = [value.strip() for value in param_list if value.strip(" ,")]
+            if len(param_list) == 0 and member:
+                status = False
                 return status, temp_element
-            elif param_name == "profile-setting":
-                temp_element = f'<{param_name}><{param_val}/></{param_name}>'
-                return status, temp_element
-            elif param_name == "dynamic":
-                param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
+        except Exception:
+            pass
+        if param_name == "target":
+            if len(param_list) >= 1:
+                entries = ""
+                for device in param_list:
+                    entries += f'<entry name ="{device}"/>'
+                param_val = entries
+            temp_element = f'<{param_name}><devices>{param_val}</devices></{param_name}>'
+            return status, temp_element
+        elif param_name == "profile-setting":
+            temp_element = f'<{param_name}><{param_val}/></{param_name}>'
+            return status, temp_element
+        elif param_name == "dynamic":
+            param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
+            return status, param_val
+        if member:
+            if len(param_list) >= 1:
+                temp_dict["member"] = param_list
+                param_val = dict2xml.dict2xml(temp_dict)
+            if param_name == "policy_name":
                 return status, param_val
-            if member:
-                if len(param_list) > 1:
-                    temp_dict["member"] = param_list
-                    param_val = dict2xml.dict2xml(temp_dict)
-                else:
-                    param_val = f'<member>{param_val}</member>'
-                if param_name == "policy_name":
-                    return status, param_val
 
-            temp_element = f'<{param_name}>{param_val}</{param_name}>'
-        elif not param_val:
-            status = False
+        temp_element = f'<{param_name}>{param_val}</{param_name}>'
         return status, temp_element
 
     def _get_ip_type(self, connector, action_result, ip_address):

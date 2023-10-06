@@ -68,35 +68,30 @@ class CreatePolicy(BaseAction):
         disable = self._param.get("disabled")
 
         if self._param.get(PAN_JSON_NEGATE_SOURCE):
-            if (self._param.get(PAN_JSON_NEGATE_SOURCE) not in ["Yes", "No"]):
+            if self._param.get(PAN_JSON_NEGATE_SOURCE).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"], "negate_source"))
-
             else:
-
                 self._param[PAN_JSON_NEGATE_SOURCE] = self._param.get(PAN_JSON_NEGATE_SOURCE).lower()
 
         if self._param.get(PAN_JSON_NEGATE_DESTINATION):
-            if self._param.get(PAN_JSON_NEGATE_DESTINATION) not in ["Yes", "No"]:
+            if self._param.get(PAN_JSON_NEGATE_DESTINATION).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "negate_destination"))
             else:
-
                 self._param[PAN_JSON_NEGATE_DESTINATION] = self._param.get(PAN_JSON_NEGATE_DESTINATION).lower()
 
         if self._param.get(PAN_JSON_ICMP_UNREACHABLE):
-            if self._param.get(PAN_JSON_ICMP_UNREACHABLE) not in ["Yes", "No"]:
+            if self._param.get(PAN_JSON_ICMP_UNREACHABLE).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "icmp_unreachable"))
             else:
-
                 self._param[PAN_JSON_ICMP_UNREACHABLE] = self._param.get(PAN_JSON_ICMP_UNREACHABLE).lower()
 
         if self._param.get(PAN_JSON_DISABLE):
-            if self._param.get(PAN_JSON_DISABLE) not in ["Yes", "No"]:
+            if self._param.get(PAN_JSON_DISABLE).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "disable"))
             else:
-
                 self._param[PAN_JSON_DISABLE] = self._param.get(PAN_JSON_DISABLE).lower()
 
         status, policy_present = connector.util._does_policy_exist(self._param, action_result)
@@ -119,15 +114,13 @@ class CreatePolicy(BaseAction):
                     phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
                 )
             else:
-
                 self._param[PAN_JSON_POLICY_TYPE] = self._param.get(PAN_JSON_POLICY_TYPE).lower()
         # validate object type in case of create custom block policy
 
         if self._param.get(PAN_JSON_OBJ_TYPE):
-            if self._param.get(PAN_JSON_OBJ_TYPE) not in OBJ_TYPE_VALUE_LIST:
+            if self._param.get(PAN_JSON_OBJ_TYPE).lower() not in OBJ_TYPE_VALUE_LIST:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(OBJ_TYPE_VALUE_LIST, PAN_JSON_OBJ_TYPE))
             else:
-
                 self._param[PAN_JSON_OBJ_TYPE] = self._param.get(PAN_JSON_OBJ_TYPE).lower()
         # validate rule type
         if rule_type:
@@ -136,16 +129,17 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR,
                                                 VALUE_LIST_VALIDATION_MESSAGE.format(RULE_TYPE_VALUE_LIST, PAN_JSON_RULE_TYPE))
             else:
-
                 self._param[PAN_JSON_RULE_TYPE] = self._param.get("rule-type").lower()
 
         if where:
-            if where not in WHERE_VALUE_LIST:
+            if where.lower() not in WHERE_VALUE_LIST:
                 return action_result.set_status(phantom.APP_ERROR,
                                                 VALUE_LIST_VALIDATION_MESSAGE.format(WHERE_VALUE_LIST, PAN_JSON_WHERE))
-            elif where in ["before", "after"] and not dst:
+            elif where.lower() in ["before", "after"] and not dst:
                 return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter\
                                              for the entered value of \"where\"")
+            else:
+                self._param[PAN_JSON_WHERE] = self._param.get(PAN_JSON_WHERE).lower()
 
         element = connector.util._get_action_element(self._param)
 

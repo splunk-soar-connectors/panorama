@@ -86,8 +86,10 @@ class PanoramaConnector(BaseConnector):
         self.remove_action_result(temp_action_result)
 
         try:
-            action = base_action_sub_classes[0](param)
-            return action.execute(self)
+            for action_class in base_action_sub_classes:
+                if action_class.__module__ == action_name:
+                    action = action_class(param)
+                    return action.execute(self)
         except Exception:
             return phantom.APP_ERROR
 
