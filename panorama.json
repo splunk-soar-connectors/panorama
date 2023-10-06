@@ -3870,16 +3870,6 @@
                     "order": 11,
                     "allow_list": true
                 },
-                "target": {
-                    "description": "The target devices of the security policy",
-                    "data_type": "string",
-                    "order": 12,
-                    "name,": "Target"
-                },
-                "ph": {
-                    "data_type": "ph",
-                    "order": 13
-                },
                 "where": {
                     "description": "Where to position the policy",
                     "data_type": "string",
@@ -3889,11 +3879,21 @@
                         "top",
                         "bottom"
                     ],
-                    "order": 14
+                    "order": 12
                 },
                 "dst": {
                     "description": "Policy in reference to which position the current policy",
                     "data_type": "string",
+                    "order": 13
+                },
+                "target": {
+                    "description": "The target devices of the security policy",
+                    "data_type": "string",
+                    "order": 14,
+                    "name,": "Target"
+                },
+                "ph": {
+                    "data_type": "ph",
                     "order": 15
                 },
                 "should_commit_changes": {
