@@ -948,9 +948,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **object_value** |  required  | Value of the object to be blocked. Can be a list. | string | 
 **icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
 **log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
-**target** |  optional  | The target devices of the security policy | string | 
 **where** |  optional  | Where to position the policy | string | 
 **dst** |  optional  | Policy in reference to which position the current policy | string | 
+**target** |  optional  | The target devices of the security policy | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
