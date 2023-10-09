@@ -156,7 +156,6 @@ START_TAG = "<entry name='{tag}'>"
 END_TAG = "</entry>"
 TAG_COMMENT = "Tag created from Splunk SOAR"
 ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
-ADDRESS_GRP_XPATH = "{config_xpath}/address-group/entry[@name='{name}']"
 
 APP_LIST_XPATH = "/config/predefined/application"
 COMMIT_ALL_DEV_GRP_DEV_CMD = '<commit-all><shared-policy>'

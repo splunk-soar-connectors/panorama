@@ -796,11 +796,11 @@ class PanoramaUtils(object):
             Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
         """
 
-        self._connector.debug_print("Checking whether the address group is exists or not...")
+        self._connector.debug_print("Checking whether the address group exists or not...")
 
         add_grp_name = param["name"]
 
-        get_add_grp_xpath = f"{consts.ADDRESS_GRP_XPATH.format(config_xpath= self._get_config_xpath(param), name=add_grp_name)}"
+        get_add_grp_xpath = f"{consts.ADDR_GRP_XPATH.format(config_xpath= self._get_config_xpath(param), ip_group_name=add_grp_name)}"
 
         data = {
             "type": "config",
@@ -815,6 +815,7 @@ class PanoramaUtils(object):
             return phantom.APP_ERROR
 
         result_data = action_result.get_data().pop()
+        self._connector.debug_print(f"result_data {result_data}")
 
         if result_data.get("@total-count") == "0":
             self._connector.debug_print("No Address Group found")
@@ -1397,8 +1398,8 @@ class PanoramaUtils(object):
 
         # Validation for name parameter if present
         if param.get(consts.EDL_ADR_POLICY_NAME) or param.get(consts.PAN_JSON_POLICY_NAME):
-            policy_names = [value.strip() for value in param.get(consts.PAN_JSON_POLICY_NAME).split(',') if value.strip()]
-            if policy_names:
+            if param.get(consts.PAN_JSON_POLICY_NAME):
+                policy_names = [value.strip() for value in param.get(consts.PAN_JSON_POLICY_NAME).split(',') if value.strip()]
                 for policy_name in policy_names:
                     if not self._validate_string(action_result, policy_name, consts.PAN_JSON_POLICY_NAME, consts.MAX_NAME_LEN):
                         return action_result.get_status()
