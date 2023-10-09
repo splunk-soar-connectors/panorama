@@ -1190,11 +1190,12 @@ class PanoramaUtils(object):
         status = True
         param_list = []
         try:
-            param_list = param_val.split(",")
-            param_list = [value.strip() for value in param_list if value.strip()]
-            if len(param_list) == 0 and member:
-                status = False
-                return status, temp_element
+            if member:
+                param_list = param_val.split(",")
+                param_list = [value.strip() for value in param_list if value.strip()]
+                if len(param_list) == 0:
+                    status = False
+                    return status, temp_element
         except Exception:
             pass
         if param_name == "target":

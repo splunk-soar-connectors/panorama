@@ -68,7 +68,11 @@ class CreatePolicy(BaseAction):
                 parameter[new_key] = parameter.get(param)
                 del parameter[param]
 
-        disable = parameter.get("disabled")
+        if parameter.get(PAN_JSON_ACTION):
+            if parameter.get(PAN_JSON_ACTION).lower() not in ACTION_VALUE_LIST:
+                return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(ACTION_VALUE_LIST, PAN_JSON_ACTION))
+            else:
+                parameter[PAN_JSON_ACTION] = parameter[PAN_JSON_ACTION].lower()
 
         if parameter.get(PAN_JSON_NEGATE_SOURCE):
             if parameter.get(PAN_JSON_NEGATE_SOURCE).lower() not in ["yes", "no"]:
@@ -168,7 +172,7 @@ class CreatePolicy(BaseAction):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))
 
-        if not ((not element and phantom.is_fail(status)) and (audit_comment or (disable in ["Yes", "No"]))):
+        if not ((not element and phantom.is_fail(status)) and (audit_comment or parameter.get(PAN_JSON_DISABLE))):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))
         if audit_comment:
@@ -194,8 +198,8 @@ class CreatePolicy(BaseAction):
                                                 f"The policy has been created but unable to move \
                                                 it to the specified location: {PAN_ERROR_MESSAGE.format('moving policy',message)}")
 
-        if parameter.get("disabled"):
-            if parameter.get("disabled") == "yes":
+        if parameter.get(PAN_JSON_DISABLE):
+            if parameter.get(PAN_JSON_DISABLE) == "yes":
                 element = "<disabled>yes</disabled>"
             else:
                 element = "<disabled>no</disabled>"

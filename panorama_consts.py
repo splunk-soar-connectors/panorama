@@ -204,6 +204,7 @@ PAN_JSON_WHERE = "where"
 PAN_JSON_DST = "dst"
 PAN_JSON_TAGS = "tag"
 PAN_JSON_DISABLE = "disabled"
+PAN_JSON_ACTION = "action"
 PAN_JSON_ICMP_UNREACHABLE = "icmp-unreachable"
 PAN_JSON_DESTINATION_ADDRESS = "destination_address"
 PAN_JSON_CATEGORY = "category"
@@ -230,6 +231,7 @@ SEC_POLICY_WITH_MEMBER = ['from', 'to', 'source', 'destination', 'source-user',
                           'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 WHERE_VALUE_LIST = ["after", "before", "top"]
+ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "reset both client and server"]
 IP_ADD_TYPE = {
     "IP Netmask": "ip-netmask",
     "IP Range": "ip-range",
