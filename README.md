@@ -803,30 +803,30 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule | string | 
-**rule_type** |  required  | Rule type of the policy rule | string | 
-**description** |  optional  | Description for the policy | string | 
-**tag** |  optional  | Tags to assign to the policy | string | 
-**audit_comment** |  optional  | Audit Comment to add for the policy | string | 
-**source_zone** |  required  | Source Zone of policy | string | 
-**source_address** |  required  | Source Address of policy | string | 
-**negate_source** |  optional  | Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address | string | 
-**source_user** |  optional  | Source User for policy | string | 
-**source_device** |  optional  | Source Device for policy | string | 
-**destination_zone** |  required  | Destination Zone of policy | string | 
-**destination_device** |  optional  | Destination device for policy | string | 
-**destination_address** |  required  | Destination Address of policy | string | 
-**negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
-**application** |  required  | Applications for the policy | string | 
-**service** |  required  | Services of the policy | string | 
+**policy_name** |  required  | Name of the security policy rule (the name is case-sensitive and can have up to 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
+**device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
+**rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
+**description** |  optional  | Description for the address group (max length 1024 characters) | string | 
+**tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
+**audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
+**source_zone** |  required  | Source zones for policy (default is Any) | string | 
+**source_address** |  required  | Source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**negate_source** |  optional  | Whether to negate the source (apply the rule to source addresses from the specified zone except for the addresses specified) | string | 
+**source_user** |  optional  | Source users or groups of users subject to the policy | string | 
+**source_device** |  optional  | The host devices subject to the policy | string | 
+**destination_zone** |  required  | Destinations zones for policy (default is Any) | string | 
+**destination_device** |  optional  | The host devices subject to the policy | string | 
+**destination_address** |  required  | Destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
+**application** |  required  | Specific applications for the Security policy rule | string | 
+**service** |  required  | Services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
 **category** |  optional  | URL Categories of the policy | string | 
-**profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
-**action** |  required  | Action type for the policy | string | 
+**profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
+**action** |  required  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
 **icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
-**log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
-**target** |  optional  | The target devices of the security policy | string | 
+**log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
+**target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **where** |  optional  | Where to position the policy | string | 
 **dst** |  optional  | Policy in reference to which position the current policy | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
@@ -995,30 +995,30 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule | string | 
-**rule_type** |  optional  | Rule type of the policy rule | string | 
-**description** |  optional  | Description for the policy | string | 
-**tag** |  optional  | Tags to assign to the policy | string | 
-**audit_comment** |  optional  | Audit Comment to add for the policy | string | 
-**source_zone** |  optional  | Source Zone of policy | string | 
-**source_address** |  optional  | Source Address of policy | string | 
-**negate_source** |  optional  | Whether to negate the source that is apply to policy to sources other than the ones mentioned in source address | string | 
-**source_user** |  optional  | Source User for policy | string | 
-**source_device** |  optional  | Source Device for policy | string | 
-**destination_zone** |  optional  | Destination Zone of policy | string | 
-**destination_device** |  optional  | Destination device for policy | string | 
-**destination_address** |  optional  | Destination Address of policy | string | 
-**negate_destination** |  optional  | Whether to negate the destination that is apply to policy to destinations other than the ones mentioned in destination address | string | 
-**application** |  optional  | Applications for the policy | string | 
-**service** |  optional  | Services of the policy | string | 
+**policy_name** |  required  | Name of the security policy rule (the name is case-sensitive and can have up to 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
+**device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
+**rule_type** |  optional  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
+**description** |  optional  | Description for the address group (max length 1024 characters) | string | 
+**tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
+**audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
+**source_zone** |  optional  | Source zones for policy (default is Any) | string | 
+**source_address** |  optional  | Source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**negate_source** |  optional  | Whether to negate the source (apply the rule to source addresses from the specified zone except for the addresses specified) | string | 
+**source_user** |  optional  | Source users or groups of users subject to the policy | string | 
+**source_device** |  optional  | The host devices subject to the policy | string | 
+**destination_zone** |  optional  | Destinations zones for policy (default is Any) | string | 
+**destination_device** |  optional  | The host devices subject to the policy | string | 
+**destination_address** |  optional  | Destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
+**application** |  optional  | Specific applications for the Security policy rule | string | 
+**service** |  optional  | Services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
 **category** |  optional  | URL Categories of the policy | string | 
-**profile_setting** |  optional  | Type of profile setting to choose for the policy | string | 
-**action** |  optional  | Action type for the policy | string | 
+**profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
+**action** |  optional  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
 **icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
-**log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
-**target** |  optional  | The target devices of the security policy | string | 
+**log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
+**target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -1254,16 +1254,18 @@ Create an address group
 Type: **generic**  
 Read only: **False**
 
+<ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>If the <b>type</b> of address group is 'Static', the address_or_match parameter will have list of addresses to add in the address group. And if <b>type</b> is 'Dynamic' the nuse the match criteria to assemble the members to be included in the group. The Match criteria can be defined using the AND or OR operators. Negation is not supported.</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li></ul></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of the address group to be created | string |  `panorama address group name` 
-**device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
-**type** |  required  | Type of the address group | string | 
-**address_or_match** |  required  | Address list if the type is static and match criteria if type is dynamic | string | 
-**description** |  optional  | Description for the address group | string | 
-**disable_override** |  optional  | Whether to disable override the address group or not | string | 
-**tag** |  optional  | List of tags to mark the address group under | string | 
+**name** |  required  | Name of the address group to be created (up to 63 characters) | string |  `panorama address group name` 
+**device_group** |  required  | Device group to create the address group in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**type** |  required  | Type of the address group (Whether to create a static or a dynamic address group) | string | 
+**address_or_match** |  required  | List of addresses if the type is static and match criteria (using 'and' and 'or' operator between tags) if type is dynamic | string | 
+**description** |  optional  | Description for the address group (max length 1023 characters) | string | 
+**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
+**tag** |  optional  | List of tags to apply to this address group (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -1292,16 +1294,18 @@ Modify an address group
 Type: **generic**  
 Read only: **False**
 
+<p><h4>Action Keynote</h4><ul><li><b>type</b> and <b>address_or_match</b> parameters are inter-dependent. Input for either both or none of them can be provided.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li></ul></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of theaddress group to be created | string |  `panorama address group name` 
-**device_group** |  required  | Device group to create the address group in | string |  `panorama device group` 
-**disable_override** |  optional  | Whether to disable override the address group or not | string | 
+**name** |  required  | Name of the address group to be modified | string |  `panorama address group name` 
+**device_group** |  required  | Device group to which the address group to be modified belongs | string |  `panorama device group` 
 **type** |  optional  | Type of the address group | string | 
-**description** |  optional  | Description for the address group | string | 
-**address_or_match** |  optional  | Address list if the type is static and match criteria if type is dynamic | string | 
-**tag** |  optional  | List of tags to mark the address group under | string | 
+**address_or_match** |  optional  | List of addresses if the type is static and match criteria (using 'and' and 'or' operator between tags) if type is dynamic | string | 
+**description** |  optional  | Description for the address group (max length 1023 characters) | string | 
+**disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
+**tag** |  optional  | List of tags to apply to this address group (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
