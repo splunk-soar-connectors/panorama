@@ -6451,14 +6451,15 @@
                     "contains": [
                         "panorama device group"
                     ]
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                }
+                ,
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 2
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 }
@@ -6620,13 +6621,13 @@
                     "description": "Place holder",
                     "data_type": "ph"
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 8
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 9
                 }
@@ -7296,13 +7297,13 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 2
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 }
