@@ -32,8 +32,8 @@ class CreateAddress(BaseAction):
             xml_string: XML string
         """
         xml_tag_string = None
-        address_ip_type = self._param["ip_type"]
-        address_ip = self._param["ip_source"]
+        address_ip_type = self._param["type"]
+        address_ip = self._param["value"]
 
         if address_ip_type not in consts.IP_ADD_TYPE.keys():
             return action_result.set_status(
@@ -100,6 +100,8 @@ class CreateAddress(BaseAction):
             'xpath': create_xpath,
             'element': element_xml
         }
+
+        connector.debug_print(f"Data ---> {data}")
         status, response = connector.util._make_rest_call(data, action_result)
 
         action_result.update_summary({'create_address': response})
