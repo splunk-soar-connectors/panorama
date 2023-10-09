@@ -1438,8 +1438,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1466,22 +1466,22 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
+**name** |  required  | Name of address to be created (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
-**ip_type** |  required  | IP address type | string | 
-**ip_source** |  required  | IP address as per type | string |  `ip`  `ipv6`  `domain` 
+**type** |  required  | Type of address to create | string | 
+**value** |  required  | Value of address as per the selected type | string |  `ip`  `ipv6`  `domain` 
 **description** |  optional  | Description of address (up to 1023 characters) | string | 
 **tag** |  optional  | Tags want to apply on an address (comma-separated, up to 127 characters for each tag) | string | 
 **disable_override** |  optional  | Whether to disable override the address or not | string | 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
-action_result.parameter.ip_type | string |  |  
-action_result.parameter.ip_source | string |  `ip`  `ipv6`  `domain`  |  
+action_result.parameter.type | string |  |  
+action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  |  
 action_result.parameter.tag | string |  |   test_address_tag 
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
@@ -1594,8 +1594,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
-**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
+**use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES

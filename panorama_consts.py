@@ -156,7 +156,6 @@ START_TAG = "<entry name='{tag}'>"
 END_TAG = "</entry>"
 TAG_COMMENT = "Tag created from Splunk SOAR"
 ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
-ADDRESS_GRP_XPATH = "{config_xpath}/address-group/entry[@name='{name}']"
 
 APP_LIST_XPATH = "/config/predefined/application"
 COMMIT_ALL_DEV_GRP_DEV_CMD = '<commit-all><shared-policy>'
@@ -204,6 +203,7 @@ PAN_JSON_WHERE = "where"
 PAN_JSON_DST = "dst"
 PAN_JSON_TAGS = "tag"
 PAN_JSON_DISABLE = "disabled"
+PAN_JSON_ACTION = "action"
 PAN_JSON_ICMP_UNREACHABLE = "icmp-unreachable"
 PAN_JSON_DESTINATION_ADDRESS = "destination_address"
 PAN_JSON_CATEGORY = "category"
@@ -230,6 +230,7 @@ SEC_POLICY_WITH_MEMBER = ['from', 'to', 'source', 'destination', 'source-user',
                           'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 WHERE_VALUE_LIST = ["after", "before", "top"]
+ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "reset both client and server"]
 IP_ADD_TYPE = {
     "IP Netmask": "ip-netmask",
     "IP Range": "ip-range",

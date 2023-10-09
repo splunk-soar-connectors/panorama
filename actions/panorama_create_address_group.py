@@ -16,7 +16,7 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from panorama_consts import (ADD_GRP_TYPE_VAL_LIST, ADDRESS_GRP_XPATH, PAN_ERROR_MESSAGE, PAN_JSON_ADD_GRP_DIS_OVER, PAN_JSON_ADD_GRP_TYPE,
+from panorama_consts import (ADD_GRP_TYPE_VAL_LIST, ADDR_GRP_XPATH, PAN_ERROR_MESSAGE, PAN_JSON_ADD_GRP_DIS_OVER, PAN_JSON_ADD_GRP_TYPE,
                              PAN_JSON_DEVICE_GRP, param_mapping)
 
 
@@ -105,7 +105,7 @@ class CreateAddressGroup(BaseAction):
                     param_name="static", param_val=parameter.get("address_or_match"), member=True)
                 element += temp_element
 
-        xpath = f"{ADDRESS_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(param), name=parameter['name'])}"
+        xpath = f"{ADDR_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(parameter), ip_group_name=parameter['name'])}"
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
         message = action_result.get_message()
 

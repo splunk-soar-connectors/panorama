@@ -6451,14 +6451,15 @@
                     "contains": [
                         "panorama device group"
                     ]
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                }
+                ,
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 2
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 }
@@ -6551,7 +6552,7 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of address (up to 63 characters)",
+                    "description": "Name of address to be created (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -6570,8 +6571,8 @@
                         "panorama device group"
                     ]
                 },
-                "ip_type": {
-                    "description": "IP address type",
+                "type": {
+                    "description": "Type of address to create",
                     "data_type": "string",
                     "order": 2,
                     "required": true,
@@ -6580,10 +6581,11 @@
                         "IP Range",
                         "IP Wildcard Mask",
                         "FQDN"
-                    ]
+                    ],
+                    "default": "IP Netmask"
                 },
-                "ip_source": {
-                    "description": "IP address as per type",
+                "value": {
+                    "description": "Value of address as per the selected type",
                     "data_type": "string",
                     "order": 3,
                     "required": true,
@@ -6619,13 +6621,13 @@
                     "description": "Place holder",
                     "data_type": "ph"
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 8
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 9
                 }
@@ -6644,11 +6646,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.ip_type",
+                    "data_path": "action_result.parameter.type",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.ip_source",
+                    "data_path": "action_result.parameter.value",
                     "data_type": "string",
                     "column_name": "IP",
                     "column_order": 1,
@@ -7295,13 +7297,13 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                "should_commit_changes": {
+                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "order": 2
                 },
-                "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "order": 3
                 }
