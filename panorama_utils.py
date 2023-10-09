@@ -1395,11 +1395,13 @@ class PanoramaUtils(object):
                 return action_result.get_status()
 
         # Validation for name parameter if present
-        if param.get(consts.EDL_ADR_POLICY_NAME):
-            status = self._validate_string(
-                action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN
-            )
-            if phantom.is_fail(status):
+        if param.get(consts.EDL_ADR_POLICY_NAME) or param.get(consts.PAN_JSON_POLICY_NAME):
+            policy_names = [value.strip() for value in param.get(consts.PAN_JSON_POLICY_NAME).split(',') if value.strip()]
+            if policy_names:
+                for policy_name in policy_names:
+                    if not self._validate_string(action_result, policy_name, consts.PAN_JSON_POLICY_NAME, consts.MAX_NAME_LEN):
+                        return action_result.get_status()
+            elif not self._validate_string(action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN):
                 return action_result.get_status()
 
         # Validation for tag parameter if present
