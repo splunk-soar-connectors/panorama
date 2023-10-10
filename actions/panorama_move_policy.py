@@ -50,10 +50,9 @@ class MovePolicy(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, "dst_pre_post")
             )
-
-        if dst_pre_post and not dst_device_group:
+        if not dst_device_group:
             dst_device_group = curr_device_group
-        elif not dst_pre_post and dst_device_group:
+        if not dst_pre_post:
             dst_pre_post = curr_pre_post
 
         if where and where not in ["after", "before", "top", "bottom"]:
