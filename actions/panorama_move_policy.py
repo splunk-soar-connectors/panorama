@@ -56,14 +56,14 @@ class MovePolicy(BaseAction):
         elif not dst_pre_post and dst_device_group:
             dst_pre_post = curr_pre_post
 
-        if where not in ["after", "before", "top", "bottom"]:
+        if where and where not in ["after", "before", "top", "bottom"]:
             return action_result.set_status(phantom.APP_ERROR,
                                             VALUE_LIST_VALIDATION_MESSAGE.format(["after", "before", "top", "bottom"], PAN_JSON_WHERE))
 
         if not where and not dst_pre_post and not dst_device_group:
             return action_result.set_status(phantom.APP_ERROR, "either 'where' or 'dst_device group' or 'dst_pre_post' is required.")
 
-        if where in ["before", "after"] and not dst:
+        if where and where in ["before", "after"] and not dst:
             return action_result.set_status(phantom.APP_ERROR, "dst is a required parameter for the entered value of \"where\"")
 
         status, policies = connector.util._element_prep(param_name="policy_name", param_val=policy_name, member=True)
@@ -73,7 +73,7 @@ class MovePolicy(BaseAction):
             'key': connector.util._key,
         }
 
-        if dst_device_group or dst_pre_post:
+        if dst_device_group != curr_device_group or dst_pre_post != curr_pre_post:
             param = {
                 PAN_JSON_DEVICE_GRP: dst_device_group
             }
@@ -89,11 +89,14 @@ class MovePolicy(BaseAction):
 
             data.update(
                 {
+                    'type': 'config',
                     'action': 'multi-move',
                     'xpath': xpath,
                     'element': element
                 }
             )
+            if where:
+                data.update({'where': where, 'dst': dst})
         else:
             if len(policy_list) > 1:
                 return action_result.set_status(phantom.APP_ERROR, "Moving multiple policies at a time is only possible if they have \
@@ -113,6 +116,7 @@ class MovePolicy(BaseAction):
 
             data.update(
                 {
+                    'type': 'config',
                     'action': 'move',
                     'where': where,
                     'dst': dst,
