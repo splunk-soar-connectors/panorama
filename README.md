@@ -125,7 +125,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
 [create policy](#action-create-policy) - Create a security policy rule  
-[custom block policy](#action-custom-block-policy) - Create a custom block security policy rule  
+[custom block policy](#action-custom-block-policy) - Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule.  
 [modify policy](#action-modify-policy) - Modify a security policy rule  
 [move policy](#action-move-policy) - Move a security policy rule  
 [delete policy](#action-delete-policy) - Delete a security policy rule  
@@ -800,14 +800,16 @@ Create a security policy rule
 Type: **generic**  
 Read only: **False**
 
+<p><h4>Action Keynote</h4><ul><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule (the name is case-sensitive and can have up to 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
+**policy_name** |  required  | Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
 **device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
-**description** |  optional  | Description for the address group (max length 1024 characters) | string | 
+**description** |  optional  | Description for the policy (max length 1024 characters) | string | 
 **tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
 **source_zone** |  required  | Source zones for policy (default is Any) | string | 
@@ -819,16 +821,16 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **destination_device** |  optional  | The host devices subject to the policy | string | 
 **destination_address** |  required  | Destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
-**application** |  required  | Specific applications for the Security policy rule | string | 
+**application** |  required  | Specific applications for the security policy rule | string | 
 **service** |  required  | Services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
 **category** |  optional  | URL Categories of the policy | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
 **action** |  required  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
-**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
+**icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **where** |  optional  | Where to position the policy | string | 
-**dst** |  optional  | Policy in reference to which position the current policy | string | 
+**dst** |  optional  | Policy in reference to which, position the current policy | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -928,7 +930,7 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicen
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
 
 ## action: 'custom block policy'
-Create a custom block security policy rule
+Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule.
 
 Type: **generic**  
 Read only: **False**
@@ -936,21 +938,21 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule | string | 
-**rule_type** |  required  | Rule type of the policy rule | string | 
-**description** |  optional  | Description for the policy | string | 
-**tag** |  optional  | Tags to assign to the policy | string | 
-**audit_comment** |  optional  | Audit Comment to add for the policy | string | 
-**direction** |  optional  | Direction from which to block the traffic | string | 
+**policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
+**device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
+**rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
+**description** |  optional  | Description for the policy (max length 1024 characters) | string | 
+**tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
+**audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
+**direction** |  optional  | Direction to block the traffic (Default is 'both') | string | 
 **object_type** |  required  | Type of object to block | string | 
 **object_value** |  required  | Value of the object to be blocked. Can be a list. | string | 
-**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
-**log_forwarding** |  optional  | Log Forwarding Profile for the policy | string | 
+**icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
+**log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **where** |  optional  | Where to position the policy | string | 
-**dst** |  optional  | Policy in reference to which position the current policy | string | 
-**target** |  optional  | The target devices of the security policy | string | 
+**dst** |  optional  | Policy in reference to which, position the current policy | string | 
+**target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -992,14 +994,16 @@ Modify a security policy rule
 Type: **generic**  
 Read only: **False**
 
+<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&'can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That isfor region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule (the name is case-sensitive and can have up to 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
-**device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
+**policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
+**device_group** |  required  | Device group of the policy rule | string |  `panorama device group` 
+**policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **rule_type** |  optional  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
-**description** |  optional  | Description for the address group (max length 1024 characters) | string | 
+**description** |  optional  | Description for the policy (max length 1024 characters) | string | 
 **tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
 **source_zone** |  optional  | Source zones for policy (default is Any) | string | 
@@ -1072,16 +1076,18 @@ Move a security policy rule
 Type: **generic**  
 Read only: **False**
 
+<p><h4>Action Keynote</h4><ul><li>If either 'dst_device_group' or 'dst_policy_type', the current device_group and policy_type would be taken by default respectively.</li></ul></p>
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group for which to create the policy rule | string |  `panorama device group` 
-**policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule | string | 
-**dst_device_group** |  optional  | Device group where the policy  has to be moved | string |  `panorama device group` 
-**dst_policy_type** |  optional  | Policy type where the policy has to be moved | string | 
+**policy_name** |  required  | Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another. Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.) | string |  `panorama policy name` 
+**device_group** |  required  | Device group of the policy rule (up to 31 characters) | string |  `panorama device group` 
+**policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
+**dst_device_group** |  optional  | Device group to move the policy rule to (up to 31 characters) | string |  `panorama device group` 
+**dst_policy_type** |  optional  | Rule base to move the policy to (pre-rule or post-rule) | string | 
 **where** |  optional  | Where to move the policy in the device group | string | 
-**dst** |  optional  | Reference to which the policy needs to be moved | string | 
+**dst** |  optional  | Policy in reference to which, position the current policy (inter dependent with 'where' parameter, when the value of where is 'before' or 'after', else it would be ignored) | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -1174,8 +1180,8 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule to delete | string |  `panorama policy name` 
-**policy_type** |  required  | Rule base to delete the policy from (pre-rule or post-rule | string | 
-**device_group** |  required  | Device group where the policy rule is present | string |  `panorama device group` 
+**policy_type** |  required  | Rule base to delete the policy from (pre-rule or post-rule) | string | 
+**device_group** |  required  | Device group of the policy rule | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
