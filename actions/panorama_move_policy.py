@@ -79,10 +79,14 @@ class MovePolicy(BaseAction):
             }
             config_path = connector.util._get_config_xpath(param, 'localhost.localdomain')
             xpath = f"{config_path}/{dst_pre_post}/security/rules"
+
             param[f"{PAN_JSON_DEVICE_GRP}"] = curr_device_group
+
             config_path = connector.util._get_config_xpath(param, 'localhost.localdomain')
+
             element = f'<selected-list><source xpath="{config_path}/{curr_pre_post}/security/rules">\
                 {policies}</source></selected-list><all-errors>no</all-errors>'
+
             data.update(
                 {
                     'action': 'multi-move',
@@ -99,7 +103,13 @@ class MovePolicy(BaseAction):
                 PAN_JSON_POLICY_NAME: policy_name,
                 PAN_JSON_POLICY_TYPE: curr_pre_post
             }
-            xpath = f"{connector.util._get_security_policy_xpath(param,action_result)[1]}"
+
+            result = connector.util._get_security_policy_xpath(param, action_result)
+
+            if result[0]:
+                xpath = result[1]
+            else:
+                return action_result.get_status()
 
             data.update(
                 {

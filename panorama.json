@@ -2992,12 +2992,13 @@
         {
             "action": "create policy",
             "identifier": "create_policy",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
             "description": "Create a security policy rule",
             "type": "generic",
             "read_only": false,
             "parameters": {
                 "policy_name": {
-                    "description": "Name of the security policy rule (the name is case-sensitive and can have up to 63 characters, which can be letters, numbers, spaces, hyphens, and underscores)",
+                    "description": "Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, and underscores)",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -3041,7 +3042,7 @@
                     "order": 3
                 },
                 "description": {
-                    "description": "Description for the address group (max length 1024 characters)",
+                    "description": "Description for the policy (max length 1024 characters)",
                     "data_type": "string",
                     "order": 4
                 },
@@ -3122,7 +3123,7 @@
                     "order": 15
                 },
                 "application": {
-                    "description": "Specific applications for the Security policy rule",
+                    "description": "Specific applications for the security policy rule",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
@@ -3165,7 +3166,7 @@
                     "order": 20
                 },
                 "icmp_unreachable": {
-                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
+                    "description": "Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop'",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -3195,7 +3196,7 @@
                     "order": 24
                 },
                 "dst": {
-                    "description": "Policy in reference to which position the current policy",
+                    "description": "Policy in reference to which, position the current policy",
                     "data_type": "string",
                     "order": 25
                 },
@@ -3208,7 +3209,7 @@
                     ],
                     "order": 26
                 },
-                "ph": {
+                "ph0": {
                     "data_type": "ph",
                     "order": 27
                 },
@@ -3761,12 +3762,12 @@
         {
             "action": "custom block policy",
             "identifier": "custom_block_policy",
-            "description": "Create a custom block security policy rule",
+            "description": "Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule.",
             "type": "generic",
             "read_only": false,
             "parameters": {
                 "policy_name": {
-                    "description": "Name of the policy rule",
+                    "description": "Name of the security policy rule",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -3776,7 +3777,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group for which to create the policy rule",
+                    "description": "Device group to create the policy rule in or 'shared' (up to 31 characters)",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -3787,7 +3788,7 @@
                     ]
                 },
                 "policy_type": {
-                    "description": "Rule base to create the policy in (pre-rule or post-rule",
+                    "description": "Rule base to create the policy in (pre-rule or post-rule)",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -3798,7 +3799,7 @@
                     "order": 2
                 },
                 "rule_type": {
-                    "description": "Rule type of the policy rule",
+                    "description": "Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both)",
                     "data_type": "string",
                     "value_list": [
                         "universal",
@@ -3810,24 +3811,24 @@
                     "order": 3
                 },
                 "description": {
-                    "description": "Description for the policy",
+                    "description": "Description for the policy (max length 1024 characters)",
                     "data_type": "string",
                     "order": 4
                 },
                 "tag": {
-                    "description": "Tags to assign to the policy",
+                    "description": "List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters)",
                     "data_type": "string",
                     "order": 5,
                     "allow_list": true
                 },
                 "audit_comment": {
-                    "description": "Audit Comment to add for the policy",
+                    "description": "Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference)",
                     "data_type": "string",
                     "order": 6,
                     "name,": "audit comment"
                 },
                 "direction": {
-                    "description": "Direction from which to block the traffic",
+                    "description": "Direction to block the traffic (Default is 'both')",
                     "data_type": "string",
                     "value_list": [
                         "from",
@@ -3856,7 +3857,7 @@
                     "order": 9
                 },
                 "icmp_unreachable": {
-                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
+                    "description": "Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop'",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -3865,7 +3866,7 @@
                     "order": 10
                 },
                 "log_forwarding": {
-                    "description": "Log Forwarding Profile for the policy",
+                    "description": "To forward the local traffic log and threat log entries to remote destinations, such as Panorama",
                     "data_type": "string",
                     "order": 11,
                     "allow_list": true
@@ -3882,17 +3883,17 @@
                     "order": 12
                 },
                 "dst": {
-                    "description": "Policy in reference to which position the current policy",
+                    "description": "Policy in reference to which, position the current policy",
                     "data_type": "string",
                     "order": 13
                 },
                 "target": {
-                    "description": "The target devices of the security policy",
+                    "description": "Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input)",
                     "data_type": "string",
                     "order": 14,
                     "name,": "Target"
                 },
-                "ph": {
+                "ph0": {
                     "data_type": "ph",
                     "order": 15
                 },
@@ -4061,11 +4062,12 @@
             "action": "modify policy",
             "identifier": "modify_policy",
             "description": "Modify a security policy rule",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&'can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That isfor region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
             "type": "generic",
             "read_only": false,
             "parameters": {
                 "policy_name": {
-                    "description": "Name of the security policy rule (the name is case-sensitive and can have up to 63 characters, which can be letters, numbers, spaces, hyphens, and underscores)",
+                    "description": "Name of the security policy rule",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -4075,7 +4077,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to create the policy rule in or 'shared' (up to 31 characters)",
+                    "description": "Device group of the policy rule",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -4086,7 +4088,7 @@
                     ]
                 },
                 "policy_type": {
-                    "description": "Rule base to create the policy in (pre-rule or post-rule)",
+                    "description": "Rule base of the policy (pre-rule or post-rule)",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -4107,7 +4109,7 @@
                     "order": 3
                 },
                 "description": {
-                    "description": "Description for the address group (max length 1024 characters)",
+                    "description": "Description for the policy (max length 1024 characters)",
                     "data_type": "string",
                     "order": 4
                 },
@@ -4243,7 +4245,7 @@
                         "No"
                     ]
                 },
-                "ph": {
+                "ph0": {
                     "data_type": "ph",
                     "order": 25
                 },
@@ -4453,12 +4455,13 @@
         {
             "action": "move policy",
             "identifier": "move_policy",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>If either 'dst_device_group' or 'dst_policy_type', the current device_group and policy_type would be taken by default respectively.</li></ul></p>",
             "description": "Move a security policy rule",
             "type": "generic",
             "read_only": false,
             "parameters": {
                 "policy_name": {
-                    "description": "Name of the policy rule",
+                    "description": "Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another. Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.)",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -4467,12 +4470,12 @@
                         "panorama policy name"
                     ]
                 },
-                "ph": {
+                "ph0": {
                     "data_type": "ph",
                     "order": 1
                 },
                 "device_group": {
-                    "description": "Device group for which to create the policy rule",
+                    "description": "Device group of the policy rule (up to 31 characters)",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -4483,7 +4486,7 @@
                     ]
                 },
                 "policy_type": {
-                    "description": "Rule base to create the policy in (pre-rule or post-rule",
+                    "description": "Rule base of the policy (pre-rule or post-rule)",
                     "data_type": "string",
                     "required": true,
                     "default": "pre-rulebase",
@@ -4494,7 +4497,7 @@
                     "order": 3
                 },
                 "dst_device_group": {
-                    "description": "Device group where the policy  has to be moved",
+                    "description": "Device group to move the policy rule to (up to 31 characters)",
                     "data_type": "string",
                     "order": 4,
                     "primary": true,
@@ -4503,7 +4506,7 @@
                     ]
                 },
                 "dst_policy_type": {
-                    "description": "Policy type where the policy has to be moved",
+                    "description": "Rule base to move the policy to (pre-rule or post-rule)",
                     "data_type": "string",
                     "value_list": [
                         "pre-rulebase",
@@ -4523,7 +4526,7 @@
                     "order": 6
                 },
                 "dst": {
-                    "description": "Reference to which the policy needs to be moved",
+                    "description": "Policy in reference to which, position the current policy (inter dependent with 'where' parameter, when the value of where is 'before' or 'after', else it would be ignored)",
                     "data_type": "string",
                     "order": 7
                 },
@@ -5049,7 +5052,7 @@
                     ]
                 },
                 "policy_type": {
-                    "description": "Rule base to delete the policy from (pre-rule or post-rule",
+                    "description": "Rule base to delete the policy from (pre-rule or post-rule)",
                     "data_type": "string",
                     "value_list": [
                         "pre-rulebase",
@@ -5059,7 +5062,7 @@
                     "required": true
                 },
                 "device_group": {
-                    "description": "Device group where the policy rule is present",
+                    "description": "Device group of the policy rule",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
@@ -5069,7 +5072,7 @@
                         "panorama device group"
                     ]
                 },
-                "ph": {
+                "ph0": {
                     "data_type": "ph",
                     "order": 3
                 },
@@ -5748,7 +5751,7 @@
                     "data_type": "string",
                     "order": 6
                 },
-                "ph": {
+                "ph0": {
                     "data_type": "ph",
                     "order": 7
                 },
@@ -6453,8 +6456,7 @@
                     "contains": [
                         "panorama device group"
                     ]
-                }
-                ,
+                },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
