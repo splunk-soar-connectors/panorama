@@ -3022,7 +3022,7 @@
         {
             "action": "create policy",
             "identifier": "create_policy",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
             "description": "Create a security policy rule",
             "type": "generic",
             "read_only": false,
@@ -4096,7 +4096,7 @@
             "action": "modify policy",
             "identifier": "modify_policy",
             "description": "Modify a security policy rule",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&'can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That isfor region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -4491,7 +4491,7 @@
         {
             "action": "move policy",
             "identifier": "move_policy",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>If either 'dst_device_group' or 'dst_policy_type', the current device_group and policy_type would be taken by default respectively.</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>If input for either 'dst_device_group' or 'dst_policy_type' is not given, the current device_group and policy_type would be taken as their respective values.</li></ul></p>",
             "description": "Move a security policy rule",
             "type": "generic",
             "read_only": false,
@@ -5560,7 +5560,6 @@
         {
             "action": "create address group",
             "description": "Create an address group",
-            "verbose": "<ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>If the <b>type</b> of address group is 'Static', the address_or_match parameter will have list of addresses to add in the address group. And if <b>type</b> is 'Dynamic' the nuse the match criteria to assemble the members to be included in the group. The Match criteria can be defined using the AND or OR operators. Negation is not supported.</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li></ul></p>",
             "type": "generic",
             "identifier": "create_address_group",
             "read_only": false,
@@ -5597,8 +5596,8 @@
                     "required": true,
                     "order": 2
                 },
-                "address_or_match": {
-                    "description": "List of addresses if the type is static and match criteria (using 'and' and 'or' operator between tags) if type is dynamic",
+                "addresses_or_match_criteria": {
+                    "description": "List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group)",
                     "data_type": "string",
                     "required": true,
                     "order": 3
@@ -5672,7 +5671,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.address_or_match",
+                    "data_path": "action_result.parameter.addresses_or_match_criteria",
                     "data_type": "string"
                 },
                 {
@@ -5736,7 +5735,6 @@
         {
             "action": "modify address group",
             "description": "Modify an address group",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li><b>type</b> and <b>address_or_match</b> parameters are inter-dependent. Input for either both or none of them can be provided.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li></ul></p>",
             "type": "generic",
             "identifier": "modify_address_group",
             "read_only": false,
@@ -5769,12 +5767,12 @@
                         "Static",
                         "Dynamic"
                     ],
-                    "order": 3
+                    "order": 2
                 },
-                "address_or_match": {
-                    "description": "List of addresses if the type is static and match criteria (using 'and' and 'or' operator between tags) if type is dynamic",
+                "addresses_or_match_criteria": {
+                    "description": "List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this address group",
                     "data_type": "string",
-                    "order": 5
+                    "order": 3
                 },
                 "description": {
                     "description": "Description for the address group (max length 1023 characters)",
@@ -5788,7 +5786,7 @@
                         "Yes",
                         "No"
                     ],
-                    "order": 2
+                    "order": 5
                 },
                 "tag": {
                     "description": "List of tags to apply to this address group (allow to group objects using keywords or phrases, max length 127 characters)",
@@ -5844,7 +5842,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.address_or_match",
+                    "data_path": "action_result.parameter.addresses_or_match_criteria",
                     "data_type": "string"
                 },
                 {
