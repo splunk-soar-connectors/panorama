@@ -55,7 +55,7 @@ class CreateAddressGroup(BaseAction):
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
 
         device_grp = parameter[PAN_JSON_DEVICE_GRP]
-        address_or_match = parameter.get("address_or_match")
+        addresses_or_match_criteria = parameter.get("addresses_or_match_criteria")
 
         if parameter.get(PAN_JSON_ADD_GRP_DIS_OVER):
             if parameter.get(PAN_JSON_ADD_GRP_DIS_OVER).lower() not in ["yes", "no"]:
@@ -74,10 +74,10 @@ class CreateAddressGroup(BaseAction):
             else:
                 parameter[PAN_JSON_ADD_GRP_TYPE] = parameter.get(PAN_JSON_ADD_GRP_TYPE).lower()
 
-        if (parameter.get(PAN_JSON_ADD_GRP_TYPE) and not address_or_match) or \
-                (address_or_match and not parameter.get(PAN_JSON_ADD_GRP_TYPE)):
+        if (parameter.get(PAN_JSON_ADD_GRP_TYPE) and not addresses_or_match_criteria) or \
+                (addresses_or_match_criteria and not parameter.get(PAN_JSON_ADD_GRP_TYPE)):
             return action_result.set_status(phantom.APP_ERROR,
-                                            "Parameters 'type' and 'address_or_match' are inter-dependent \
+                                            "Parameters 'type' and 'addresses_or_match_criteria' are inter-dependent \
                                             hence please provide input for both or none.")
 
         add_grp_present_status = connector.util._does_address_group_exist(parameter, action_result)
@@ -98,11 +98,11 @@ class CreateAddressGroup(BaseAction):
         if parameter.get(PAN_JSON_ADD_GRP_TYPE):
             if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() == "dynamic":
                 status, temp_element = connector.util._element_prep(
-                    param_name="dynamic", param_val=parameter["address_or_match"], member=False)
+                    param_name="dynamic", param_val=parameter["addresses_or_match_criteria"], member=False)
                 element += temp_element
             if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() == "static":
                 status, temp_element = connector.util._element_prep(
-                    param_name="static", param_val=parameter.get("address_or_match"), member=True)
+                    param_name="static", param_val=parameter.get("addresses_or_match_criteria"), member=True)
                 element += temp_element
 
         xpath = f"{ADDR_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(parameter), ip_group_name=parameter['name'])}"
