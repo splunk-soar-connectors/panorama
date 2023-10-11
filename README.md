@@ -800,7 +800,7 @@ Create a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -994,7 +994,7 @@ Modify a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&'can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That isfor region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1076,7 +1076,7 @@ Move a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>If either 'dst_device_group' or 'dst_policy_type', the current device_group and policy_type would be taken by default respectively.</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>If input for either 'dst_device_group' or 'dst_policy_type' is not given, the current device_group and policy_type would be taken as their respective values.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1260,15 +1260,13 @@ Create an address group
 Type: **generic**  
 Read only: **False**
 
-<ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>If the <b>type</b> of address group is 'Static', the address_or_match parameter will have list of addresses to add in the address group. And if <b>type</b> is 'Dynamic' the nuse the match criteria to assemble the members to be included in the group. The Match criteria can be defined using the AND or OR operators. Negation is not supported.</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li></ul></p>
-
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the address group to be created (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in or 'shared' (up to 31 characters) | string |  `panorama device group` 
 **type** |  required  | Type of the address group (Whether to create a static or a dynamic address group) | string | 
-**address_or_match** |  required  | List of addresses if the type is static and match criteria (using 'and' and 'or' operator between tags) if type is dynamic | string | 
+**addresses_or_match_criteria** |  required  | List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group) | string | 
 **description** |  optional  | Description for the address group (max length 1023 characters) | string | 
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
 **tag** |  optional  | List of tags to apply to this address group (allow to group objects using keywords or phrases, max length 127 characters) | string | 
@@ -1283,7 +1281,7 @@ action_result.parameter.device_group | string |  `panorama device group`  |
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.type | string |  |  
 action_result.parameter.description | string |  |  
-action_result.parameter.address_or_match | string |  |  
+action_result.parameter.addresses_or_match_criteria | string |  |  
 action_result.parameter.tag | string |  |  
 action_result.parameter.use_partial_commit | boolean |  |  
 action_result.parameter.should_commit_changes | boolean |  |  
@@ -1300,15 +1298,13 @@ Modify an address group
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li><b>type</b> and <b>address_or_match</b> parameters are inter-dependent. Input for either both or none of them can be provided.</li><li>In <b>description</b> parameter, special characters need to be added in the form of escape sequence,for ex: '&' can be added as '&amp;'</li><li><b>tag</b> parameter cannot have ',' as a valid character in its value</li></ul></p>
-
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the address group to be modified | string |  `panorama address group name` 
 **device_group** |  required  | Device group to which the address group to be modified belongs | string |  `panorama device group` 
 **type** |  optional  | Type of the address group | string | 
-**address_or_match** |  optional  | List of addresses if the type is static and match criteria (using 'and' and 'or' operator between tags) if type is dynamic | string | 
+**addresses_or_match_criteria** |  optional  | List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this address group | string | 
 **description** |  optional  | Description for the address group (max length 1023 characters) | string | 
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
 **tag** |  optional  | List of tags to apply to this address group (allow to group objects using keywords or phrases, max length 127 characters) | string | 
@@ -1323,7 +1319,7 @@ action_result.parameter.device_group | string |  `panorama device group`  |
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.type | string |  |  
 action_result.parameter.description | string |  |  
-action_result.parameter.address_or_match | string |  |  
+action_result.parameter.addresses_or_match_criteria | string |  |  
 action_result.parameter.tag | string |  |  
 action_result.parameter.use_partial_commit | string |  |  
 action_result.parameter.should_commit_changes | string |  |  
