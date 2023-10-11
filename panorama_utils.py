@@ -793,7 +793,7 @@ class PanoramaUtils(object):
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if address group existing else false
         """
 
         self._connector.debug_print("Checking whether the address group exists or not...")
@@ -838,7 +838,7 @@ class PanoramaUtils(object):
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if policy existing else false
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if address existing else false
         """
 
         self._connector.debug_print("Checking the address is exist or not...")
@@ -871,6 +871,51 @@ class PanoramaUtils(object):
             error = self._get_error_message_from_exception(e)
             self._connector.debug_print("Error occurred while processing response from server. {}".format(error))
             return phantom.APP_ERROR
+
+        return phantom.APP_SUCCESS
+
+    def _does_tag_exist(self, param, tag, action_result):
+        """ Checking the tag is exist or not
+
+        Args:
+            param : Dictionary of parameters
+            action_result : Object of ActionResult class
+
+        Returns:
+            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if tag existing else false
+        """
+
+        self._connector.debug_print("Checking the tag is exist or not...")
+
+        get_tag_xpath = f"""{consts.GET_TAG_XPATH.format(
+            config_xpath=self._get_config_xpath(param),
+            name=tag)}"""
+
+        data = {
+            "type": "config",
+            'action': "get",
+            'key': self._key,
+            'xpath': get_tag_xpath
+        }
+
+        status, _ = self._make_rest_call(data, action_result)
+        if phantom.is_fail(status):
+            self._connector.debug_print('Error occur while checking the existence of tag. Error - %s' % action_result.get_message())
+            return phantom.APP_ERROR
+
+        result_data = action_result.get_data().pop()
+
+        if result_data.get("@total-count") == "0":
+            self._connector.debug_print("No Tag found")
+            return phantom.APP_ERROR
+
+        try:
+            result_data = result_data.get('entry')
+        except Exception as e:
+            error = self._get_error_message_from_exception(e)
+            self._connector.debug_print("Error occurred while processing response from server. {}".format(error))
+            return phantom.APP_ERROR
+        self._connector.debug_print("out from Checking the tag is exist or not...")
 
         return phantom.APP_SUCCESS
 
@@ -1267,6 +1312,11 @@ class PanoramaUtils(object):
 
             for tag in tags:
                 connector.debug_print(f'Creating - {tag} tag...')
+                tag_status = self._does_tag_exist(param, tag, action_result)
+                if tag_status:
+                    connector.debug_print(f'Tag - {tag} already present, Skipping creating tag...')
+                    xml_tag_string += f"<member>{tag}</member>"
+                    continue
 
                 element_xml = consts.START_TAG.format(tag=tag)
                 if color:
@@ -1352,6 +1402,9 @@ class PanoramaUtils(object):
                 action_result.set_status(phantom.APP_ERROR, f"Invalid value for IP Range type. Error - {e}")
                 return phantom.APP_ERROR
             return phantom.APP_SUCCESS
+        else:
+            action_result.set_status(phantom.APP_ERROR, "Invalid value for IP Range type")
+            return phantom.APP_ERROR
 
     def _validate_ip_wildcard_mask(self, action_result, ip_address):
         """Validate IP wildcard mask

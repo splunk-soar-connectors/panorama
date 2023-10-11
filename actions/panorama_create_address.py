@@ -46,7 +46,7 @@ class CreateAddress(BaseAction):
         xml_string = f"<{consts.IP_ADD_TYPE[address_ip_type]}>{address_ip}</{consts.IP_ADD_TYPE[address_ip_type]}>"
 
         # address tags Add tags into panorama platform
-        address_tags = self._param.get("tags", "")
+        address_tags = self._param.get("tag", "")
         address_tags = [value.strip() for value in address_tags.split(',') if value.strip()]
         if address_tags:
             tag_status, xml_tag_string = connector.util._create_tag(connector, action_result, self._param, address_tags)
@@ -54,7 +54,6 @@ class CreateAddress(BaseAction):
                 return action_result.get_status()
             if xml_tag_string:
                 xml_string += xml_tag_string
-
         # Address description
         address_description = self._param.get("description")
         if address_description:
@@ -101,7 +100,6 @@ class CreateAddress(BaseAction):
             'element': element_xml
         }
 
-        connector.debug_print(f"Data ---> {data}")
         status, response = connector.util._make_rest_call(data, action_result)
 
         action_result.update_summary({'create_address': response})

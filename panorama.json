@@ -5926,8 +5926,6 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "column_name": "Device Group",
-                    "column_order": 1,
                     "contains": [
                         "panorama device group"
                     ],
