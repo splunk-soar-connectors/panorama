@@ -74,6 +74,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -98,19 +99,21 @@
                         "panorama policy name"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 4
-                },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
-                    "order": 5
+                    "order": 4
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
+                    "order": 5
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "default": true,
                     "order": 6
                 }
             },
@@ -233,6 +236,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -240,14 +244,16 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 2
-                },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
+                    "order": 2
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "default": true,
                     "order": 3
                 }
             },
@@ -355,6 +361,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -379,19 +386,21 @@
                         "panorama policy name"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 4
-                },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
-                    "order": 5
+                    "order": 4
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
+                    "order": 5
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "default": true,
                     "order": 6
                 }
             },
@@ -514,6 +523,7 @@
                 "device_group": {
                     "description": "Device group to configure or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -521,14 +531,16 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 2
-                },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
+                    "order": 2
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "default": true,
                     "order": 3
                 }
             },
@@ -641,6 +653,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 2,
                     "required": true,
                     "primary": true,
@@ -665,25 +678,27 @@
                         "panorama policy name"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 5
-                },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters",
                     "data_type": "string",
-                    "order": 6
+                    "order": 5
                 },
                 "should_add_tag": {
                     "description": "Whether a new tag should added as part of adding a new IP address",
                     "data_type": "boolean",
                     "default": true,
-                    "order": 7
+                    "order": 6
                 },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
+                    "order": 7
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "default": true,
                     "order": 8
                 }
             },
@@ -823,6 +838,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 2,
                     "required": true,
                     "primary": true,
@@ -830,15 +846,17 @@
                         "panorama device group"
                     ]
                 },
-                "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
-                    "data_type": "boolean",
-                    "order": 3
-                },
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
-                    "order": 4
+                    "default": true,
+                    "order": 3
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 5
                 }
             },
             "output": [
@@ -2004,6 +2022,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared'",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 0,
                     "required": true,
                     "primary": true,
@@ -2215,6 +2234,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 0,
                     "required": true,
                     "primary": true,
@@ -2306,6 +2326,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -2394,6 +2415,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -2504,11 +2526,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 14
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 15
                 }
             },
@@ -2650,6 +2674,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -2752,11 +2777,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 14
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 15
                 }
             },
@@ -2897,6 +2924,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -2907,11 +2935,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 3
                 }
             },
@@ -3010,9 +3040,9 @@
                 "device_group": {
                     "description": "Device group to create the policy rule in or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "primary": true,
                     "required": true,
-                    "default": "shared",
                     "order": 1,
                     "contains": [
                         "panorama device group"
@@ -3216,11 +3246,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 28
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 29
                 }
             },
@@ -3779,9 +3811,9 @@
                 "device_group": {
                     "description": "Device group to create the policy rule in or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "primary": true,
                     "required": true,
-                    "default": "shared",
                     "order": 1,
                     "contains": [
                         "panorama device group"
@@ -3900,11 +3932,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 16
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 17
                 }
             },
@@ -4079,9 +4113,9 @@
                 "device_group": {
                     "description": "Device group of the policy rule",
                     "data_type": "string",
+                    "default": "shared",
                     "primary": true,
                     "required": true,
-                    "default": "shared",
                     "order": 1,
                     "contains": [
                         "panorama device group"
@@ -4252,11 +4286,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 26
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 27
                 }
             },
@@ -4477,9 +4513,9 @@
                 "device_group": {
                     "description": "Device group of the policy rule (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "primary": true,
                     "required": true,
-                    "default": "shared",
                     "order": 2,
                     "contains": [
                         "panorama device group"
@@ -4533,11 +4569,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 9
                 }
             },
@@ -5064,9 +5102,9 @@
                 "device_group": {
                     "description": "Device group of the policy rule",
                     "data_type": "string",
+                    "default": "shared",
                     "primary": true,
                     "required": true,
-                    "default": "shared",
                     "order": 2,
                     "contains": [
                         "panorama device group"
@@ -5079,11 +5117,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 4
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 5
                 }
             },
@@ -5538,6 +5578,7 @@
                 "device_group": {
                     "description": "Device group to create the address group in or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "required": true,
                     "order": 1,
                     "primary": true,
@@ -5589,11 +5630,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 9
                 }
             },
@@ -5711,6 +5754,7 @@
                 "device_group": {
                     "description": "Device group to which the address group to be modified belongs",
                     "data_type": "string",
+                    "default": "shared",
                     "required": true,
                     "order": 1,
                     "primary": true,
@@ -5758,11 +5802,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 9
                 }
             },
@@ -5869,6 +5915,7 @@
                 "device_group": {
                     "description": "Device group name, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 0,
                     "required": true,
                     "primary": true,
@@ -6217,6 +6264,7 @@
                 "device_group": {
                     "description": "Device group name, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -6450,6 +6498,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -6460,11 +6509,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 3
                 }
             },
@@ -6568,6 +6619,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -6628,11 +6680,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 9
                 }
             },
@@ -7005,6 +7059,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -7294,6 +7349,7 @@
                 "device_group": {
                     "description": "Device group to configure, or 'shared' (up to 31 characters)",
                     "data_type": "string",
+                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -7304,11 +7360,13 @@
                 "should_commit_changes": {
                     "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
+                    "default": true,
                     "order": 3
                 }
             },
