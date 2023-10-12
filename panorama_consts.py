@@ -117,7 +117,7 @@ URL_PROF_ELEM += "<action>block</action><block-list><member>{url}</member></bloc
 
 # URL_PROF_ELEM for version 9 and above.
 URL_PROF_ELEM_9 = "<credential-enforcement>"
-URL_PROF_ELEM_9 += "<mode><disabled/></mode>"
+URL_PROF_ELEM_9 += "<mode><disabled/></mode><log-severity>medium</log-severity>"
 URL_PROF_ELEM_9 += "<block><member>{url_category_name}</member></block>"
 URL_PROF_ELEM_9 += "</credential-enforcement>"
 URL_PROF_ELEM_9 += "<block><member>{url_category_name}</member></block>"
