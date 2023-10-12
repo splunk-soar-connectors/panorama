@@ -1207,12 +1207,12 @@ class PanoramaUtils(object):
         return action_result.get_status()
 
 # Remove the slash in the ip if present, PAN does not like slash in the names
-    def rem_slash(x):
+    def _rem_slash(x):
         return re.sub(r'(.*)/(.*)', r'\1 mask \2', x)
 
     def _get_addr_name(self, ip):
 
-        name = "{0} {1}".format(self.rem_slash(ip), consts.PHANTOM_ADDRESS_NAME)
+        name = "{0} {1}".format(self._rem_slash(ip), consts.PHANTOM_ADDRESS_NAME)
         return name
 
     def _get_action_element(self, param):
