@@ -235,7 +235,7 @@ ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "r
 IP_ADD_TYPE = {
     "IP Netmask": "ip-netmask",
     "IP Range": "ip-range",
-    "IP Wildcard Mask": "ip-netmask",
+    "IP Wildcard Mask": "ip-wildcard",
     "FQDN": "fqdn"
 }
 
