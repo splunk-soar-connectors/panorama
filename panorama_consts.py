@@ -228,7 +228,7 @@ SEC_POLICY_WITHOUT_MEMBER = ['rule-type', 'description', 'action', 'target', 'pr
                              'log-setting', 'negate-source', 'negate-destination', 'icmp-unreachable']
 SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
 SEC_POLICY_WITH_MEMBER = ['from', 'to', 'source', 'destination', 'source-user',
-                          'service', 'source-hip', 'destination-hip', 'application', 'tag', 'category']
+                          'service', 'source-hip', 'destination-hip', 'application', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 WHERE_VALUE_LIST = ["after", "before", "top"]
 ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "reset both client and server"]

@@ -156,21 +156,17 @@ class CreatePolicy(BaseAction):
         else:
             return action_result.get_status()
 
+        if parameter.get('tag'):
+            tags = [value.strip() for value in parameter.get('tag').split(',') if value.strip()]
+            status, tag_element_string = connector.util._create_tag(connector, action_result, parameter, tags)
+            message = action_result.get_message()
+            if phantom.is_fail(status):
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags: ", message))
+            element += tag_element_string
+
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
 
         message = action_result.get_message()
-
-        if ("tag" and "not a valid") in message:
-            tags = [value.strip() for value in parameter.get("tag", "").split(',') if value.strip()]
-            status, _ = connector.util._create_tag(connector, action_result, parameter, tags)
-
-            if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, "Error occurred while creating the tags")
-            else:
-                status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
-            message = action_result.get_message()
-            if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))
 
         if not ((not element and phantom.is_fail(status)) and (audit_comment or parameter.get(PAN_JSON_DISABLE))):
             if phantom.is_fail(status):

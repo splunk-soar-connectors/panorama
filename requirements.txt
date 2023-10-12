@@ -1,3 +1,2 @@
 beautifulsoup4==4.9.1
-dict2xml==1.7.3
 xmltodict==0.12.0

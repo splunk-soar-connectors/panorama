@@ -94,6 +94,14 @@ class CreateAddressGroup(BaseAction):
                 "This address group is not present. Please enter a valid address group name."
             )
         element = connector.util._get_action_element(parameter)
+        xpath = f"{ADDR_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(parameter), ip_group_name=parameter['name'])}"
+        if parameter.get('tag'):
+            tags = [value.strip() for value in parameter.get('tag').split(',') if value.strip()]
+            status, tag_element_string = connector.util._create_tag(connector, action_result, parameter, tags)
+            message = action_result.get_message()
+            if phantom.is_fail(status):
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags: ", message))
+            element += tag_element_string
 
         if parameter.get(PAN_JSON_ADD_GRP_TYPE):
             if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() == "dynamic":
@@ -105,19 +113,8 @@ class CreateAddressGroup(BaseAction):
                     param_name="static", param_val=parameter.get("addresses_or_match_criteria"), member=True)
                 element += temp_element
 
-        xpath = f"{ADDR_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(parameter), ip_group_name=parameter['name'])}"
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
         message = action_result.get_message()
-
-        if ("tag" and "not a valid") in message:
-            tags = [value.strip() for value in parameter.get("tag", "").split(',') if value.strip(" ")]
-            status, _ = connector.util._create_tag(connector, action_result, parameter, tags)
-
-            if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags."))
-            else:
-                status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
-            message = action_result.get_message()
 
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating address group: ", {message}))

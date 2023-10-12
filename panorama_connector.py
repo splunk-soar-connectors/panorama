@@ -51,12 +51,18 @@ class PanoramaConnector(BaseConnector):
             self.state = {"app_version": self.get_app_json().get("app_version")}
 
         self.config = self.get_config()
-
+        # Create the util object and use it throughout the action lifecycle
+        self.util = PanoramaUtils(self)
         self.base_url = "https://{}/api/".format(self.config[phantom.APP_JSON_DEVICE])
 
         self._dev_sys_key = "device-group"
-        # Create the util object and use it throughout the action lifecycle
-        self.util = PanoramaUtils(self)
+
+        if self.config["username"] != self.state.get("username"):
+            self.state["username"] = self.config["username"]
+            status = self.util._generate_token(self)
+            if phantom.is_fail(status):
+                self.append_to_message("Unable to generate new token")
+                return self.get_status()
         return phantom.APP_SUCCESS
 
     def finalize(self):

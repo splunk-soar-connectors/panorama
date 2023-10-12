@@ -3264,6 +3264,9 @@
                     "column_order": 0,
                     "contains": [
                         "panorama policy name"
+                    ],
+                    "example_values": [
+                        "policy_rule_1"
                     ]
                 },
                 {
@@ -3303,7 +3306,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.rule_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
@@ -3311,112 +3317,195 @@
                     "contains": [
                         "panorama device group"
                     ],
+                    "example_values": [
+                        "shared"
+                    ],
                     "column_name": "Device Group",
                     "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_zone",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IN"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.audit_comment",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "updated source address"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.destination_zone",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IN"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.description",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Policy rule to deny traffic from a specific address group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_address",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "dev_env_address_1",
+                        "10.1.192.168"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.destination_address",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "dev_env_address_1",
+                        "10.1.192.168"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_user",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_user"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_device",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_device"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.destination_device",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_device"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.action",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.negate_source",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.negate_destination",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.application",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "1c-enterprise"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.where",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "after"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.dst",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_policy_rule_1"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.tag",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.log_forwarding",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IoT Security Default Profile"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.disable",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.category",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Test URL Category"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.icmp_unreachable",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.service",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "service-http"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.profile_setting",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "profiles"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.target",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "000000000000000"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -3950,6 +4039,9 @@
                     "column_order": 0,
                     "contains": [
                         "panorama policy name"
+                    ],
+                    "example_values": [
+                        "policy_rule_1"
                     ]
                 },
                 {
@@ -3991,40 +4083,68 @@
                     "contains": [
                         "panorama device group"
                     ],
+                    "example_values": [
+                        "shared"
+                    ],
                     "column_name": "Device Group",
                     "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.direction",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "both"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.object_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "ip"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.object_value",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_address_2",
+                        "10.1.10.20"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.rule_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.log_forwarding",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IoT Security Default Profile"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.where",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "after"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.dst",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_policy_rule_1"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.audit_comment",
@@ -4036,23 +4156,38 @@
                 },
                 {
                     "data_path": "action_result.parameter.tag",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.icmp_unreachable",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.target",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "000000000000000"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.data",
@@ -4304,6 +4439,9 @@
                     "column_order": 0,
                     "contains": [
                         "panorama policy name"
+                    ],
+                    "example_values": [
+                        "policy_rule_1"
                     ]
                 },
                 {
@@ -4341,7 +4479,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.rule_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.device_group",
@@ -4350,103 +4491,180 @@
                         "panorama device group"
                     ],
                     "column_name": "Device Group",
-                    "column_order": 1
+                    "column_order": 1,
+                    "example_values": [
+                        "shared"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.audit_comment",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "updated source address"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_zone",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IN"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.destination_zone",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IN"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.description",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Policy rule to deny traffic from a specific address group"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_address",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "dev_env_address_1",
+                        "10.1.192.168"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.destination_address",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "dev_env_address_1",
+                        "10.1.192.168"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_user",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_user"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.source_device",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_device"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.destination_device",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_device"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.action",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.negate_source",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.negate_destination",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.application",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "1c-enterprise"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.tag",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.log_forwarding",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "IoT Security Default Profile"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.disable",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.category",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Test URL Category"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.icmp_unreachable",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.service",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "service-http"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.profile_setting",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "profiles"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.target",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "000000000000000"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.status",
@@ -4626,6 +4844,10 @@
                     "contains": [
                         "panorama policy name"
                     ],
+                    "example_values": [
+                        "policy_rule_1",
+                        "policy_rule_1,policy_rule_2"
+                    ],
                     "column_name": "Policy Name",
                     "column_order": 0
                 },
@@ -4634,6 +4856,9 @@
                     "data_type": "string",
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "shared"
                     ],
                     "column_name": "Device Group",
                     "column_order": 1
@@ -4644,32 +4869,53 @@
                     "contains": [
                         "panorama device group"
                     ],
+                    "example_values": [
+                        "shared"
+                    ],
                     "column_name": "Destination Device Group",
                     "column_order": 2
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.where",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "after"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.dst",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "test_policy_rule_1"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.dst_policy_type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -5485,6 +5731,9 @@
                     "column_order": 0,
                     "contains": [
                         "panorama policy name"
+                    ],
+                    "example_values": [
+                        "policy_rule_1"
                     ]
                 },
                 {
@@ -5494,6 +5743,9 @@
                     "column_order": 1,
                     "contains": [
                         "panorama device group"
+                    ],
+                    "example_values": [
+                        "shared"
                     ]
                 },
                 {
@@ -5531,13 +5783,9 @@
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "contains": [
-                        "panorama device group"
+                    "example_values": [
+                        "pre-rulebase"
                     ]
                 },
                 {
@@ -5646,6 +5894,9 @@
                     "contains": [
                         "panorama address group name"
                     ],
+                    "example_values": [
+                        "address_group_1"
+                    ],
                     "column_name": "Address Group Name",
                     "column_order": 0
                 },
@@ -5655,36 +5906,61 @@
                     "contains": [
                         "panorama device group"
                     ],
+                    "example_values": [
+                        "shared"
+                    ],
                     "column_name": "Device Group",
                     "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Static"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.description",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Test description"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.addresses_or_match_criteria",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "address_1,address_2",
+                        "'tag_1' and 'tag_2' or 'tag_3'"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.tag",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "tag_1,tag_2"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "boolean"
+                    "data_type": "boolean",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "boolean"
+                    "data_type": "boolean",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.status",
@@ -5817,6 +6093,9 @@
                     "contains": [
                         "panorama address group name"
                     ],
+                    "example_values": [
+                        "address_group_1"
+                    ],
                     "column_name": "Address Group Name",
                     "column_order": 0
                 },
@@ -5826,36 +6105,61 @@
                     "contains": [
                         "panorama device group"
                     ],
+                    "example_values": [
+                        "shared"
+                    ],
                     "column_name": "Device Group",
                     "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.disable_override",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Yes"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.type",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Static"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.description",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "Test description"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.addresses_or_match_criteria",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "address_1,address_2",
+                        "'tag_1' and 'tag_2' or 'tag_3'"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.tag",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        "tag_1,tag_2"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values": [
+                        true
+                    ]
                 },
                 {
                     "data_path": "action_result.status",
@@ -7474,10 +7778,6 @@
                 "input_file": "wheels/py3/beautifulsoup4-4.9.1-py3-none-any.whl"
             },
             {
-                "module": "dict2xml",
-                "input_file": "wheels/py3/dict2xml-1.7.3-py3-none-any.whl"
-            },
-            {
                 "module": "soupsieve",
                 "input_file": "wheels/py3/soupsieve-2.3.2.post1-py3-none-any.whl"
             },
@@ -7492,10 +7792,6 @@
             {
                 "module": "beautifulsoup4",
                 "input_file": "wheels/py3/beautifulsoup4-4.9.1-py3-none-any.whl"
-            },
-            {
-                "module": "dict2xml",
-                "input_file": "wheels/py3/dict2xml-1.7.3-py3-none-any.whl"
             },
             {
                 "module": "soupsieve",
