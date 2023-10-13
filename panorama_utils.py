@@ -17,7 +17,6 @@ import ipaddress
 import re
 import time
 
-import dict2xml
 import encryption_helper
 import phantom.app as phantom
 import requests
@@ -185,6 +184,13 @@ class PanoramaUtils(object):
                 self._get_error_message_from_exception(e)
             ), e)
 
+        if response.status_code == 403 and response.reason == "Invalid Credential":
+            status = self._generate_token(action_result)
+            if phantom.is_fail(status):
+                return action_result.get_status()
+            data['key'] = self._key
+            return self._make_rest_call(data, action_result)
+
         xml = response.text
 
         action_result.add_debug_data(xml)
@@ -266,6 +272,7 @@ class PanoramaUtils(object):
         self._connector.debug_print("Done making a rest call to generate key token")
 
         xml = response.text
+        response_msg = response.reason
 
         # parse xml response into dict
         try:
@@ -290,7 +297,7 @@ class PanoramaUtils(object):
             return action_result.set_status(phantom.APP_ERROR, message)
 
         if status != "success":
-            message = consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=status)
+            message = consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=response_msg)
             return action_result.set_status(phantom.APP_ERROR, message)
 
         result = response.get('result')
@@ -1232,7 +1239,6 @@ class PanoramaUtils(object):
     def _element_prep(self, param_name, param_val, member=False):
 
         temp_element = ""
-        temp_dict = {}
         status = True
         param_list = []
         try:
@@ -1258,9 +1264,9 @@ class PanoramaUtils(object):
             param_val = f"<{param_name}><filter>{param_val}</filter></{param_name}>"
             return status, param_val
         if member:
-            if len(param_list) >= 1:
-                temp_dict["member"] = param_list
-                param_val = dict2xml.dict2xml(temp_dict)
+            param_val = ""
+            for val in param_list:
+                param_val += f"<member>{val}</member>".replace('"', '\\"').replace("'", "\'")
             if param_name == "policy_name":
                 return status, param_val
 
