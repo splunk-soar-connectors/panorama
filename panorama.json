@@ -3095,7 +3095,7 @@
                     "order": 7
                 },
                 "source_address": {
-                    "description": "Source addresses, address groups, or regions (default is Any) to be added to the policy",
+                    "description": "List of source addresses, address groups, or regions (default is Any) to be added to the policy",
                     "data_type": "string",
                     "required": true,
                     "order": 8,
@@ -3111,12 +3111,12 @@
                     "order": 9
                 },
                 "source_user": {
-                    "description": "Source users or groups of users subject to the policy",
+                    "description": "List of source users or groups of users subject to the policy",
                     "data_type": "string",
                     "order": 10
                 },
                 "source_device": {
-                    "description": "The host devices subject to the policy",
+                    "description": "List of host devices subject to the policy",
                     "data_type": "string",
                     "order": 11,
                     "default": "any",
@@ -3130,14 +3130,14 @@
                     "order": 12
                 },
                 "destination_device": {
-                    "description": "The host devices subject to the policy",
+                    "description": "List of host devices subject to the policy",
                     "data_type": "string",
                     "order": 13,
                     "default": "any",
                     "name,": "Destination Device"
                 },
                 "destination_address": {
-                    "description": "Destination addresses, address groups, or regions (default is Any) to be added to the policy",
+                    "description": "List of destination addresses, address groups, or regions (default is Any) to be added to the policy",
                     "data_type": "string",
                     "required": true,
                     "order": 14,
@@ -3153,21 +3153,21 @@
                     "order": 15
                 },
                 "application": {
-                    "description": "Specific applications for the security policy rule",
+                    "description": "List of specific applications for the security policy rule",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
                     "order": 16
                 },
                 "service": {
-                    "description": "Services of the policy (services to limit to specific TCP or UDP port numbers)",
+                    "description": "List of services of the policy (services to limit to specific TCP or UDP port numbers)",
                     "data_type": "string",
                     "required": true,
                     "default": "any",
                     "order": 17
                 },
                 "category": {
-                    "description": "URL Categories of the policy",
+                    "description": "List of URL Categories of the policy",
                     "data_type": "string",
                     "order": 18
                 },
@@ -3216,17 +3216,18 @@
                     "name,": "Target"
                 },
                 "where": {
-                    "description": "Where to position the policy",
+                    "description": "Where to position the policy, by default the policy would be created at the bottom",
                     "data_type": "string",
                     "value_list": [
                         "before",
                         "after",
-                        "top"
+                        "top",
+                        "bottom"
                     ],
                     "order": 24
                 },
                 "dst": {
-                    "description": "Policy in reference to which, position the current policy",
+                    "description": "Policy in reference to which, position the current policy (only applicable when input for 'where' is 'after' or 'before')",
                     "data_type": "string",
                     "order": 25
                 },
@@ -3993,7 +3994,7 @@
                     "allow_list": true
                 },
                 "where": {
-                    "description": "Where to position the policy",
+                    "description": "Where to position the policy, by default the policy would be created at the bottom",
                     "data_type": "string",
                     "value_list": [
                         "before",
@@ -4294,12 +4295,12 @@
                     "name,": "Audit Comment"
                 },
                 "source_zone": {
-                    "description": "Source zones for policy (default is Any)",
+                    "description": "List of source zones for policy (default is Any)",
                     "data_type": "string",
                     "order": 7
                 },
                 "source_address": {
-                    "description": "Source addresses, address groups, or regions (default is Any) to be added to the policy",
+                    "description": "List of source addresses, address groups, or regions (default is Any) to be added to the policy",
                     "data_type": "string",
                     "order": 8
                 },
@@ -4313,7 +4314,7 @@
                     "order": 9
                 },
                 "source_user": {
-                    "description": "Source users or groups of users subject to the policy",
+                    "description": "List of source users or groups of users subject to the policy",
                     "data_type": "string",
                     "order": 10
                 },
@@ -4324,18 +4325,18 @@
                     "name,": "Source Device"
                 },
                 "destination_zone": {
-                    "description": "Destinations zones for policy (default is Any)",
+                    "description": "List of destinations zones for policy (default is Any)",
                     "data_type": "string",
                     "order": 12
                 },
                 "destination_device": {
-                    "description": "The host devices subject to the policy",
+                    "description": "List of host devices subject to the policy",
                     "data_type": "string",
                     "order": 13,
                     "name,": "Destination Device"
                 },
                 "destination_address": {
-                    "description": "Destination addresses, address groups, or regions (default is Any) to be added to the policy",
+                    "description": "List of destination addresses, address groups, or regions (default is Any) to be added to the policy",
                     "data_type": "string",
                     "order": 14
                 },
@@ -4349,17 +4350,17 @@
                     "order": 15
                 },
                 "application": {
-                    "description": "Specific applications for the Security policy rule",
+                    "description": "List of specific applications for the Security policy rule",
                     "data_type": "string",
                     "order": 16
                 },
                 "service": {
-                    "description": "Services of the policy (services to limit to specific TCP or UDP port numbers)",
+                    "description": "List of services of the policy (services to limit to specific TCP or UDP port numbers)",
                     "data_type": "string",
                     "order": 17
                 },
                 "category": {
-                    "description": "URL Categories of the policy",
+                    "description": "List of URL Categories of the policy",
                     "data_type": "string",
                     "order": 18
                 },
@@ -4769,7 +4770,7 @@
                     "order": 5
                 },
                 "where": {
-                    "description": "Where to move the policy in the device group",
+                    "description": "Where to position the policy, by default the policy would be created at the bottom",
                     "data_type": "string",
                     "value_list": [
                         "before",

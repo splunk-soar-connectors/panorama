@@ -177,7 +177,7 @@ class CreatePolicy(BaseAction):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("adding audit comment: ", message))
 
-        if where:
+        if where and where != "bottom":
             data = {
                 'type': 'config',
                 'action': 'move',
