@@ -72,7 +72,7 @@
                     "required": true
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group in which you want to block url",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -234,7 +234,7 @@
                     "required": true
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group in which you want to unblock url",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -359,7 +359,7 @@
                     "required": true
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group in which you want to block application",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -521,7 +521,7 @@
                     "required": true
                 },
                 "device_group": {
-                    "description": "Device group to configure or 'shared'",
+                    "description": "Device group in which you want to unblock application",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -651,7 +651,7 @@
                     "order": 1
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group in which you want to block ip",
                     "data_type": "string",
                     "default": "shared",
                     "order": 2,
@@ -836,7 +836,7 @@
                     "order": 1
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group in which you want to unblock ip",
                     "data_type": "string",
                     "default": "shared",
                     "order": 2,
@@ -2020,7 +2020,7 @@
             "read_only": false,
             "parameters": {
                 "device_group": {
-                    "description": "Device group to configure, or 'shared'",
+                    "description": "Device group whose changes you want to commit changes",
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
@@ -2232,7 +2232,7 @@
             "type": "investigate",
             "parameters": {
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group whose edl you want to list (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
@@ -2309,7 +2309,7 @@
         {
             "action": "get edl",
             "identifier": "get_edl",
-            "description": "Get data of a External Dynamic List",
+            "description": "Get data of an External Dynamic List",
             "read_only": true,
             "type": "investigate",
             "parameters": {
@@ -2324,7 +2324,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the edl exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -2398,7 +2398,7 @@
             "action": "create edl",
             "identifier": "create_edl",
             "description": "Create an External Dynamic List",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li></ul></p>",
             "read_only": true,
             "type": "generic",
             "parameters": {
@@ -2413,7 +2413,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which you want to create the edl (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -2657,7 +2657,7 @@
             "action": "modify edl",
             "identifier": "modify_edl",
             "description": "Modify an External Dynamic List",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li></ul></p>",
             "read_only": true,
             "type": "generic",
             "parameters": {
@@ -2672,7 +2672,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the edl exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -2912,7 +2912,7 @@
             "type": "generic",
             "parameters": {
                 "name": {
-                    "description": "Name of the external dynamic list you want to create (up to 63 characters)",
+                    "description": "Name of the external dynamic list you want to delete (up to 63 characters)",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2922,7 +2922,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the edl exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -3038,7 +3038,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to create the policy rule in or 'shared' (up to 31 characters)",
+                    "description": "Device group to create the policy rule in (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -3809,7 +3809,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to create the policy rule in or 'shared' (up to 31 characters)",
+                    "description": "Device group to create the policy rule in (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -5911,7 +5911,7 @@
             "read_only": true,
             "parameters": {
                 "device_group": {
-                    "description": "Device group name, or 'shared' (up to 31 characters)",
+                    "description": "Device group whose address groups you want to list (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
@@ -6258,7 +6258,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group name, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the address group exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -6492,7 +6492,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the address group exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -6613,7 +6613,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which you want to create address (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -7053,7 +7053,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the address exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -7343,7 +7343,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to configure, or 'shared' (up to 31 characters)",
+                    "description": "Device group in which the address exists (up to 31 characters)",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,

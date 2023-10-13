@@ -242,7 +242,7 @@ class ModifyEdl(BaseAction):
                         return action_result.set_status(
                             phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                                 "creating external dynamic list",
-                                f"Invalid day value, please enter a valid day value. {consts.PAN_EDL_WEEK_DAY_STR}"
+                                f"Invalid day_of_week value, please enter a valid day_of_week value. {consts.PAN_EDL_WEEK_DAY_STR}"
                             )), {}
 
                     recurring_dict[check_for_updates] = {
@@ -266,13 +266,13 @@ class ModifyEdl(BaseAction):
                     except Exception:
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "modifying external dynamic list",
-                            "Invalid datatype for day of month, day of month must be integer and in range 1-31"
+                            "Invalid datatype for day_of_month, day_of_month must be integer and in range 1-31"
                         )), ""
 
                     if not (1 <= day_of_month <= 31):
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                             "creating external dynamic list",
-                            "Invalid date, date must be in range 1-31"
+                            "Invalid day_of_month, day_of_month must be in range 1-31"
                         )), ""
 
                     # formatting date of month
