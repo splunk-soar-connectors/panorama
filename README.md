@@ -813,24 +813,24 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
 **source_zone** |  required  | Source zones for policy (default is Any) | string | 
-**source_address** |  required  | Source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**source_address** |  required  | List of source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
 **negate_source** |  optional  | Whether to negate the source (apply the rule to source addresses from the specified zone except for the addresses specified) | string | 
-**source_user** |  optional  | Source users or groups of users subject to the policy | string | 
-**source_device** |  optional  | The host devices subject to the policy | string | 
+**source_user** |  optional  | List of source users or groups of users subject to the policy | string | 
+**source_device** |  optional  | List of host devices subject to the policy | string | 
 **destination_zone** |  required  | Destinations zones for policy (default is Any) | string | 
-**destination_device** |  optional  | The host devices subject to the policy | string | 
-**destination_address** |  required  | Destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**destination_device** |  optional  | List of host devices subject to the policy | string | 
+**destination_address** |  required  | List of destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
-**application** |  required  | Specific applications for the security policy rule | string | 
-**service** |  required  | Services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
-**category** |  optional  | URL Categories of the policy | string | 
+**application** |  required  | List of specific applications for the security policy rule | string | 
+**service** |  required  | List of services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
+**category** |  optional  | List of URL Categories of the policy | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
 **action** |  required  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
 **icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
-**where** |  optional  | Where to position the policy | string | 
-**dst** |  optional  | Policy in reference to which, position the current policy | string | 
+**where** |  optional  | Where to position the policy, by default the policy would be created at the bottom | string | 
+**dst** |  optional  | Policy in reference to which, position the current policy (only applicable when input for 'where' is 'after' or 'before') | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
@@ -950,7 +950,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **object_value** |  required  | Value of the object to be blocked. Can be a list. | string | 
 **icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
-**where** |  optional  | Where to position the policy | string | 
+**where** |  optional  | Where to position the policy, by default the policy would be created at the bottom | string | 
 **dst** |  optional  | Policy in reference to which, position the current policy | string | 
 **target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
@@ -1006,18 +1006,18 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
 **tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
-**source_zone** |  optional  | Source zones for policy (default is Any) | string | 
-**source_address** |  optional  | Source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**source_zone** |  optional  | List of source zones for policy (default is Any) | string | 
+**source_address** |  optional  | List of source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
 **negate_source** |  optional  | Whether to negate the source (apply the rule to source addresses from the specified zone except for the addresses specified) | string | 
-**source_user** |  optional  | Source users or groups of users subject to the policy | string | 
+**source_user** |  optional  | List of source users or groups of users subject to the policy | string | 
 **source_device** |  optional  | The host devices subject to the policy | string | 
-**destination_zone** |  optional  | Destinations zones for policy (default is Any) | string | 
-**destination_device** |  optional  | The host devices subject to the policy | string | 
-**destination_address** |  optional  | Destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**destination_zone** |  optional  | List of destinations zones for policy (default is Any) | string | 
+**destination_device** |  optional  | List of host devices subject to the policy | string | 
+**destination_address** |  optional  | List of destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
-**application** |  optional  | Specific applications for the Security policy rule | string | 
-**service** |  optional  | Services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
-**category** |  optional  | URL Categories of the policy | string | 
+**application** |  optional  | List of specific applications for the Security policy rule | string | 
+**service** |  optional  | List of services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
+**category** |  optional  | List of URL Categories of the policy | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
 **action** |  optional  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
 **icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
@@ -1086,7 +1086,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **dst_device_group** |  optional  | Device group to move the policy rule to (up to 31 characters) | string |  `panorama device group` 
 **dst_policy_type** |  optional  | Rule base to move the policy to (pre-rule or post-rule) | string | 
-**where** |  optional  | Where to move the policy in the device group | string | 
+**where** |  optional  | Where to position the policy, by default the policy would be created at the bottom | string | 
 **dst** |  optional  | Policy in reference to which, position the current policy (inter dependent with 'where' parameter, when the value of where is 'before' or 'after', else it would be ignored) | string | 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
