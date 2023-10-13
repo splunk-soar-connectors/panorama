@@ -120,7 +120,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [commit changes](#action-commit-changes) - Commit changes to the firewall and device groups  
 [get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file  
 [list edl](#action-list-edl) - List External Dynamic Lists  
-[get edl](#action-get-edl) - Get data of a External Dynamic List  
+[get edl](#action-get-edl) - Get data of an External Dynamic List  
 [create edl](#action-create-edl) - Create an External Dynamic List  
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
@@ -162,7 +162,7 @@ This action does the following to block a URL:<ul><li>Create an URL Filtering pr
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **url** |  required  | URL to block | string |  `url` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to block url | string |  `panorama device group` 
 **policy_type** |  optional  | Block policy type | string | 
 **policy_name** |  optional  | Policy to use | string |  `panorama policy name` 
 **audit_comment** |  optional  | Audit comment to be used with the policy name. Maximum 256 characters | string | 
@@ -198,7 +198,7 @@ For Version 8 and below, this action will remove the URL from the URL Filtering 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **url** |  required  | URL to unblock | string |  `url` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to unblock url | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -228,7 +228,7 @@ This action does the following to block an application:<ul><li>Create an Applica
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **application** |  required  | Application to block | string |  `network application` 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to block application | string |  `panorama device group` 
 **policy_type** |  optional  | Block policy type | string | 
 **policy_name** |  optional  | Policy to use | string |  `panorama policy name` 
 **audit_comment** |  optional  | Audit comment to be used with the policy name. Maximum 256 characters | string | 
@@ -264,7 +264,7 @@ This action will remove the application from the Application group that was crea
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **application** |  required  | Application to unblock | string |  `network application` 
-**device_group** |  required  | Device group to configure or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to unblock application | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -295,7 +295,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **ip** |  required  | IP to block | string |  `ip` 
 **is_source_address** |  optional  | Source address | boolean | 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to block ip | string |  `panorama device group` 
 **policy_type** |  optional  | Block policy type | string | 
 **policy_name** |  optional  | Policy to use | string |  `panorama policy name` 
 **audit_comment** |  optional  | Audit comment to be used with the policy name. Maximum 256 characters | string | 
@@ -335,7 +335,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **ip** |  required  | IP to unblock | string |  `ip` 
 **is_source_address** |  optional  | Source address | boolean | 
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to unblock ip | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -570,7 +570,7 @@ The action then proceeds to commit the changes to Panorama, followed by a commit
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group to configure, or 'shared' | string |  `panorama device group` 
+**device_group** |  required  | Device group whose changes you want to commit changes | string |  `panorama device group` 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
 #### Action Output
@@ -624,7 +624,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group whose edl you want to list (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -639,7 +639,7 @@ summary.total_objects | numeric |  |   1
 summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'get edl'
-Get data of a External Dynamic List
+Get data of an External Dynamic List
 
 Type: **investigate**  
 Read only: **True**
@@ -648,7 +648,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to get data off (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -668,13 +668,13 @@ Create an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to create (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to create the edl (up to 31 characters) | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source url to fetch the data | string | 
@@ -720,13 +720,13 @@ Modify an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to modify (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source url to fetch the data. | string | 
@@ -775,8 +775,8 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**name** |  required  | Name of the external dynamic list you want to create (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**name** |  required  | Name of the external dynamic list you want to delete (up to 63 characters) | string |  `panorama edl name` 
+**device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -806,7 +806,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
-**device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group to create the policy rule in (up to 31 characters) | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
@@ -939,7 +939,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group to create the policy rule in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group to create the policy rule in (up to 31 characters) | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
@@ -1338,7 +1338,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group name, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group whose address groups you want to list (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1398,7 +1398,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group name, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address group exists (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1442,7 +1442,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address group exists (up to 31 characters) | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -1472,7 +1472,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address to be created (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to create address (up to 31 characters) | string |  `panorama device group` 
 **type** |  required  | Type of address to create | string | 
 **value** |  required  | Value of address as per the selected type | string |  `ip`  `ipv6`  `domain` 
 **description** |  optional  | Description of address (up to 1023 characters) | string | 
@@ -1546,7 +1546,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address exists (up to 31 characters) | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1598,7 +1598,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group to configure, or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address exists (up to 31 characters) | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
