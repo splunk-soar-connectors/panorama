@@ -856,7 +856,7 @@
                     "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
                     "data_type": "boolean",
                     "default": true,
-                    "order": 5
+                    "order": 4
                 }
             },
             "output": [
@@ -3022,7 +3022,7 @@
         {
             "action": "create policy",
             "identifier": "create_policy",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored.</li></ul></p>",
             "description": "Create a security policy rule",
             "type": "generic",
             "read_only": false,
@@ -3322,7 +3322,7 @@
                         "shared"
                     ],
                     "column_name": "Device Group",
-                    "column_order": 1
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.parameter.policy_type",
@@ -4232,7 +4232,7 @@
             "action": "modify policy",
             "identifier": "modify_policy",
             "description": "Modify a security policy rule",
-            "verbose": "<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>",
+            "verbose": "<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li>.</ul></p>",
             "type": "generic",
             "read_only": false,
             "parameters": {
