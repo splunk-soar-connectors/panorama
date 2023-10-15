@@ -125,7 +125,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [modify edl](#action-modify-edl) - Modify an External Dynamic List  
 [delete edl](#action-delete-edl) - Delete an External Dynamic List  
 [create policy](#action-create-policy) - Create a security policy rule  
-[custom block policy](#action-custom-block-policy) - Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule.  
+[custom block policy](#action-custom-block-policy) - Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule  
 [modify policy](#action-modify-policy) - Modify a security policy rule  
 [move policy](#action-move-policy) - Move a security policy rule  
 [delete policy](#action-delete-policy) - Delete a security policy rule  
@@ -729,7 +729,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
-**source** |  optional  | Source url to fetch the data. | string | 
+**source** |  optional  | Source url to fetch the data | string | 
 **exception_list** |  optional  | List of exceptions (comma separated values) | string | 
 **expand_for_subdomains** |  optional  | Expand to include subdomains of a specified domain automatically (only used when list_type is Domain list) | string | 
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
@@ -923,14 +923,14 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation. 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
 
 ## action: 'custom block policy'
-Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule.
+Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule
 
 Type: **generic**  
 Read only: **False**
@@ -947,7 +947,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
 **direction** |  optional  | Direction to block the traffic (Default is 'both') | string | 
 **object_type** |  required  | Type of object to block | string | 
-**object_value** |  required  | Value of the object to be blocked. Can be a list. | string | 
+**object_value** |  required  | Value of the object to be blocked. Can be a list | string | 
 **icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **where** |  optional  | Where to position the policy, by default the policy would be created at the bottom | string | 
@@ -1020,7 +1020,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **category** |  optional  | List of URL Categories of the policy | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
 **action** |  optional  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
-**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'. | string | 
+**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
@@ -1129,7 +1129,7 @@ action_result.summary.commit_config.finished_job.result | string |  |   OK
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
 action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer 
 action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_config.finished_job.description | string |  |  
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
