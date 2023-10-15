@@ -172,17 +172,17 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.url | string |  `url`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.policy_type | string |  |  
-action_result.parameter.policy_name | string |  `panorama policy name`  |  
-action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.audit_comment | string |  |  
-action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.data | string |  |  
 action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
+action_result.parameter.audit_comment | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.url | string |  `url`  |  
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
+action_result.data | string |  |  
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -205,14 +205,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.url | string |  `url`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.data | string |  |  
 action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
+action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.url | string |  `url`  |  
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
+action_result.data | string |  |  
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -238,17 +238,17 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.application | string |  `network application`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.policy_type | string |  |  
-action_result.parameter.policy_name | string |  `panorama policy name`  |  
-action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.audit_comment | string |  |  
-action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.data | string |  |  
 action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
+action_result.parameter.application | string |  `network application`  |  
+action_result.parameter.audit_comment | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.policy_name | string |  `panorama policy name`  |  
+action_result.parameter.policy_type | string |  |  
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
+action_result.data | string |  |  
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -271,14 +271,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
 action_result.parameter.application | string |  `network application`  |  
 action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -306,19 +306,19 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.audit_comment | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.ip | string |  `ip`  |  
 action_result.parameter.is_source_address | boolean |  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.policy_type | string |  |  
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
-action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.audit_comment | string |  |  
+action_result.parameter.policy_type | string |  |  
 action_result.parameter.should_add_tag | boolean |  |   True  False 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -342,15 +342,15 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.ip | string |  `ip`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.is_source_address | boolean |  |  
-action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.data | string |  |  
 action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
+action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.ip | string |  `ip`  |  
+action_result.parameter.is_source_address | boolean |  |  
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
+action_result.data | string |  |  
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -366,95 +366,95 @@ No parameters are required for this action
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.data.\*.@name | string |  `network application`  |  
-action_result.data.\*.category | string |  |  
-action_result.data.\*.has-known-vulnerability | string |  |  
-action_result.data.\*.used-by-malware | string |  |  
-action_result.data.\*.@ori_country | string |  |  
-action_result.data.\*.description | string |  |  
-action_result.data.\*.consume-big-bandwidth | string |  |  
-action_result.data.\*.able-to-transfer-file | string |  |  
-action_result.data.\*.technology | string |  |  
-action_result.data.\*.pervasive-use | string |  |  
-action_result.data.\*.@ori_lauguage | string |  |  
-action_result.data.\*.subcategory | string |  |  
-action_result.data.\*.prone-to-misuse | string |  |  
-action_result.data.\*.default.port.member | string |  |  
-action_result.data.\*.evasive-behavior | string |  |  
-action_result.data.\*.references.entry.link | string |  |  
-action_result.data.\*.references.entry.@name | string |  |  
-action_result.data.\*.tunnel-other-application | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.data.\*.@id | string |  |  
-action_result.data.\*.risk | string |  |  
-action_result.data.\*.application-container | string |  |  
-action_result.data.\*.use-applications.member.#text | string |  |  
-action_result.data.\*.use-applications.member.@minver | string |  |  
-action_result.data.\*.use-applications.@minver | string |  |  
 action_result.data.\*.@minver | string |  |  
-action_result.data.\*.references.entry.\*.link | string |  |  
-action_result.data.\*.references.entry.\*.@name | string |  |  
-action_result.data.\*.use-applications.member | string |  |  
-action_result.data.\*.file-type-ident | string |  |  
-action_result.data.\*.virus-ident | string |  |  
-action_result.data.\*.use-applications.member | string |  |  
-action_result.data.\*.tunnel-applications.member | string |  |  
-action_result.data.\*.data-ident | string |  |  
-action_result.data.\*.implicit-use-applications.member | string |  |  
-action_result.data.\*.default.port.member | string |  |  
-action_result.data.\*.udp-timeout | string |  |  
-action_result.data.\*.default.ident-by-ip-protocol | string |  |  
-action_result.data.\*.file-forward | string |  |  
-action_result.data.\*.use-applications.member.\*.#text | string |  |  
-action_result.data.\*.use-applications.member.\*.@minver | string |  |  
-action_result.data.\*.tunnel-applications.member.\*.#text | string |  |  
-action_result.data.\*.tunnel-applications.member.\*.@minver | string |  |  
-action_result.data.\*.tunnel-applications.@minver | string |  |  
-action_result.data.\*.ottawa-name | string |  |  
-action_result.data.\*.implicit-use-applications.member | string |  |  
-action_result.data.\*.decode | string |  |  
-action_result.data.\*.breaks-decryption | string |  |  
-action_result.data.\*.tunnel-applications.member.#text | string |  |  
-action_result.data.\*.tunnel-applications.member.@minver | string |  |  
-action_result.data.\*.tunnel-applications.member | string |  |  
-action_result.data.\*.related-applications.member | string |  |  
-action_result.data.\*.child | string |  |  
-action_result.data.\*.timeout | string |  |  
+action_result.data.\*.@name | string |  `network application`  |  
+action_result.data.\*.@ori_country | string |  |  
+action_result.data.\*.@ori_lauguage | string |  |  
+action_result.data.\*.able-to-transfer-file | string |  |  
+action_result.data.\*.alg-disable-capability | string |  |  
 action_result.data.\*.analysis | string |  |  
-action_result.data.\*.not-support-ssl | string |  |  
-action_result.data.\*.enable-url-filter | string |  |  
-action_result.data.\*.decode.#text | string |  |  
-action_result.data.\*.decode.@minver | string |  |  
-action_result.data.\*.correlate.rules.entry.threshold | string |  |  
-action_result.data.\*.correlate.rules.entry.interval | string |  |  
-action_result.data.\*.correlate.rules.entry.protocol | string |  |  
-action_result.data.\*.correlate.rules.entry.track-by.member | string |  |  
-action_result.data.\*.correlate.rule-match | string |  |  
+action_result.data.\*.application-container | string |  |  
+action_result.data.\*.breaks-decryption | string |  |  
+action_result.data.\*.category | string |  |  
+action_result.data.\*.child | string |  |  
+action_result.data.\*.consume-big-bandwidth | string |  |  
 action_result.data.\*.correlate.interval | string |  |  
 action_result.data.\*.correlate.key-by.member | string |  |  
-action_result.data.\*.tunnel-other-application.#text | string |  |  
-action_result.data.\*.tunnel-other-application.@minver | string |  |  
-action_result.data.\*.tcp-timeout | string |  |  
-action_result.data.\*.ident-by-dport | string |  |  
-action_result.data.\*.file-forward | string |  |  
-action_result.data.\*.ident-by-sport | string |  |  
-action_result.data.\*.preemptive | string |  |  
-action_result.data.\*.use-applications.\*.member | string |  |  
-action_result.data.\*.netx-vmotion | string |  |  
-action_result.data.\*.ha-safe | string |  |  
-action_result.data.\*.timeout | string |  |  
-action_result.data.\*.doc-review | string |  |  
+action_result.data.\*.correlate.rule-match | string |  |  
+action_result.data.\*.correlate.rules.entry.interval | string |  |  
+action_result.data.\*.correlate.rules.entry.protocol | string |  |  
+action_result.data.\*.correlate.rules.entry.threshold | string |  |  
+action_result.data.\*.correlate.rules.entry.track-by.member | string |  |  
+action_result.data.\*.data-ident | string |  |  
+action_result.data.\*.decode | string |  |  
+action_result.data.\*.decode.#text | string |  |  
+action_result.data.\*.decode.@minver | string |  |  
 action_result.data.\*.default.\*.ident-by-ip-protocol | string |  |  
 action_result.data.\*.default.\*.port.member | string |  |  
-action_result.data.\*.discard-timeout | string |  |  
-action_result.data.\*.udp-discard-timeout | string |  |  
 action_result.data.\*.default.ident-by-icmp-type | string |  |  
+action_result.data.\*.default.ident-by-ip-protocol | string |  |  
+action_result.data.\*.default.port.member | string |  |  
+action_result.data.\*.default.port.member | string |  |  
 action_result.data.\*.deprecated | string |  |  
-action_result.data.\*.alg-disable-capability | string |  |  
+action_result.data.\*.description | string |  |  
+action_result.data.\*.discard-timeout | string |  |  
+action_result.data.\*.doc-review | string |  |  
+action_result.data.\*.enable-url-filter | string |  |  
+action_result.data.\*.evasive-behavior | string |  |  
+action_result.data.\*.file-forward | string |  |  
+action_result.data.\*.file-forward | string |  |  
+action_result.data.\*.file-type-ident | string |  |  
+action_result.data.\*.ha-safe | string |  |  
+action_result.data.\*.has-known-vulnerability | string |  |  
+action_result.data.\*.ident-by-dport | string |  |  
+action_result.data.\*.ident-by-sport | string |  |  
+action_result.data.\*.implicit-use-applications.member | string |  |  
+action_result.data.\*.implicit-use-applications.member | string |  |  
+action_result.data.\*.netx-vmotion | string |  |  
+action_result.data.\*.not-support-ssl | string |  |  
+action_result.data.\*.ottawa-name | string |  |  
+action_result.data.\*.pervasive-use | string |  |  
+action_result.data.\*.preemptive | string |  |  
+action_result.data.\*.prone-to-misuse | string |  |  
+action_result.data.\*.references.entry.\*.@name | string |  |  
+action_result.data.\*.references.entry.\*.link | string |  |  
+action_result.data.\*.references.entry.@name | string |  |  
+action_result.data.\*.references.entry.link | string |  |  
+action_result.data.\*.related-applications.member | string |  |  
 action_result.data.\*.risk | string |  |  
+action_result.data.\*.risk | string |  |  
+action_result.data.\*.subcategory | string |  |  
 action_result.data.\*.tcp-discard-timeout | string |  |  
-action_result.status | string |  |   success  failed 
-action_result.message | string |  |   Total applications: 2421 
+action_result.data.\*.tcp-timeout | string |  |  
+action_result.data.\*.technology | string |  |  
+action_result.data.\*.timeout | string |  |  
+action_result.data.\*.timeout | string |  |  
+action_result.data.\*.tunnel-applications.@minver | string |  |  
+action_result.data.\*.tunnel-applications.member | string |  |  
+action_result.data.\*.tunnel-applications.member | string |  |  
+action_result.data.\*.tunnel-applications.member.#text | string |  |  
+action_result.data.\*.tunnel-applications.member.\*.#text | string |  |  
+action_result.data.\*.tunnel-applications.member.\*.@minver | string |  |  
+action_result.data.\*.tunnel-applications.member.@minver | string |  |  
+action_result.data.\*.tunnel-other-application | string |  |  
+action_result.data.\*.tunnel-other-application.#text | string |  |  
+action_result.data.\*.tunnel-other-application.@minver | string |  |  
+action_result.data.\*.udp-discard-timeout | string |  |  
+action_result.data.\*.udp-timeout | string |  |  
+action_result.data.\*.use-applications.\*.member | string |  |  
+action_result.data.\*.use-applications.@minver | string |  |  
+action_result.data.\*.use-applications.member | string |  |  
+action_result.data.\*.use-applications.member | string |  |  
+action_result.data.\*.use-applications.member.#text | string |  |  
+action_result.data.\*.use-applications.member.\*.#text | string |  |  
+action_result.data.\*.use-applications.member.\*.@minver | string |  |  
+action_result.data.\*.use-applications.member.@minver | string |  |  
+action_result.data.\*.used-by-malware | string |  |  
+action_result.data.\*.virus-ident | string |  |  
 action_result.summary.total_applications | numeric |  |   1 
+action_result.message | string |  |   Total applications: 2421 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -477,85 +477,85 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.query | string |  |   ( port.dst eq 161 ) 
-action_result.parameter.log_type | string |  |   traffic 
+action_result.status | string |  |   success  failed 
 action_result.parameter.direction | string |  |   backward 
+action_result.parameter.log_type | string |  |   traffic 
+action_result.parameter.query | string |  |   ( port.dst eq 161 ) 
 action_result.parameter.range | string |  |   1-5000 
+action_result.data.\*.job.cached-logs | string |  |   21 
 action_result.data.\*.job.id | string |  |   1316 
+action_result.data.\*.job.status | string |  |   FIN 
 action_result.data.\*.job.tdeq | string |  |   15:46:37 
 action_result.data.\*.job.tenq | string |  |   15:46:37 
 action_result.data.\*.job.tlast | string |  |   16:00:00 
-action_result.data.\*.job.status | string |  |   FIN 
-action_result.data.\*.job.cached-logs | string |  |   21 
-action_result.data.\*.log.logs.entry.\*.to | string |  |   Internal Zone 
-action_result.data.\*.log.logs.entry.\*.app | string |  |   snmp-base 
-action_result.data.\*.log.logs.entry.\*.dst | string |  `ip`  |   10.18.3.2 
-action_result.data.\*.log.logs.entry.\*.src | string |  `ip`  |   10.10.0.18 
-action_result.data.\*.log.logs.entry.\*.from | string |  |   Internal Zone 
-action_result.data.\*.log.logs.entry.\*.rule | string |  |   Phantom URL Security Policy 
-action_result.data.\*.log.logs.entry.\*.type | string |  |   TRAFFIC 
-action_result.data.\*.log.logs.entry.\*.vsys | string |  |   vsys1 
-action_result.data.\*.log.logs.entry.\*.bytes | string |  |   79 
-action_result.data.\*.log.logs.entry.\*.dport | string |  `port`  |   161 
-action_result.data.\*.log.logs.entry.\*.flags | string |  |   0x64 
-action_result.data.\*.log.logs.entry.\*.proto | string |  |   udp 
-action_result.data.\*.log.logs.entry.\*.seqno | string |  |   1715 
-action_result.data.\*.log.logs.entry.\*.sport | string |  `port`  |   64453 
-action_result.data.\*.log.logs.entry.\*.start | string |  |   2017/06/23 15:35:21 
+action_result.data.\*.log.logs.@count | string |  |   21 
+action_result.data.\*.log.logs.@progress | string |  |   1 
 action_result.data.\*.log.logs.entry.\*.@logid | string |  |   7592 
 action_result.data.\*.log.logs.entry.\*.action | string |  |   allow 
-action_result.data.\*.log.logs.entry.\*.domain | string |  `domain`  |   1 
-action_result.data.\*.log.logs.entry.\*.dstloc | string |  |   10.0.0.0-10.255.255.255 
-action_result.data.\*.log.logs.entry.\*.logset | string |  |   Forward all logs from DG2 
-action_result.data.\*.log.logs.entry.\*.serial | string |  |   007200000031753 
-action_result.data.\*.log.logs.entry.\*.srcloc | string |  |   10.0.0.0-10.255.255.255 
-action_result.data.\*.log.logs.entry.\*.elapsed | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.packets | string |  |   1 
-action_result.data.\*.log.logs.entry.\*.padding | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.pbf-c2s | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.pbf-s2c | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.subtype | string |  |   end 
-action_result.data.\*.log.logs.entry.\*.vsys_id | string |  |   1 
-action_result.data.\*.log.logs.entry.\*.category | string |  |   any 
-action_result.data.\*.log.logs.entry.\*.cpadding | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.flag-nat | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.natdport | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.natsport | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.flag-pcap | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.pkts_sent | string |  |   1 
-action_result.data.\*.log.logs.entry.\*.repeatcnt | string |  |   1 
-action_result.data.\*.log.logs.entry.\*.sessionid | string |  |   58 
-action_result.data.\*.log.logs.entry.\*.bytes_sent | string |  |   79 
-action_result.data.\*.log.logs.entry.\*.config_ver | string |  |   1 
-action_result.data.\*.log.logs.entry.\*.flag-proxy | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.inbound_if | string |  |   ethernet1/1 
-action_result.data.\*.log.logs.entry.\*.sym-return | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.actionflags | string |  |   0x8000000000000000 
-action_result.data.\*.log.logs.entry.\*.device_name | string |  |   PA-VM 
-action_result.data.\*.log.logs.entry.\*.outbound_if | string |  |   ethernet1/1 
-action_result.data.\*.log.logs.entry.\*.transaction | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.flag-flagged | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.receive_time | string |  |   2017/06/23 15:35:54 
 action_result.data.\*.log.logs.entry.\*.action_source | string |  |   from-policy 
-action_result.data.\*.log.logs.entry.\*.non-std-dport | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.pkts_received | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.time_received | string |  |   2017/06/23 15:35:50 
+action_result.data.\*.log.logs.entry.\*.actionflags | string |  |   0x8000000000000000 
+action_result.data.\*.log.logs.entry.\*.app | string |  |   snmp-base 
+action_result.data.\*.log.logs.entry.\*.bytes | string |  |   79 
 action_result.data.\*.log.logs.entry.\*.bytes_received | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.bytes_sent | string |  |   79 
 action_result.data.\*.log.logs.entry.\*.captive-portal | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.category | string |  |   any 
+action_result.data.\*.log.logs.entry.\*.config_ver | string |  |   1 
+action_result.data.\*.log.logs.entry.\*.cpadding | string |  |   0 
 action_result.data.\*.log.logs.entry.\*.decrypt-mirror | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.time_generated | string |  |   2017/06/23 15:35:50 
+action_result.data.\*.log.logs.entry.\*.device_name | string |  |   PA-VM 
 action_result.data.\*.log.logs.entry.\*.dg_hier_level_1 | string |  |   17 
 action_result.data.\*.log.logs.entry.\*.dg_hier_level_2 | string |  |   0 
 action_result.data.\*.log.logs.entry.\*.dg_hier_level_3 | string |  |   0 
 action_result.data.\*.log.logs.entry.\*.dg_hier_level_4 | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.domain | string |  `domain`  |   1 
+action_result.data.\*.log.logs.entry.\*.dport | string |  `port`  |   161 
+action_result.data.\*.log.logs.entry.\*.dst | string |  `ip`  |   10.18.3.2 
+action_result.data.\*.log.logs.entry.\*.dstloc | string |  |   10.0.0.0-10.255.255.255 
+action_result.data.\*.log.logs.entry.\*.elapsed | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.flag-flagged | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.flag-nat | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.flag-pcap | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.flag-proxy | string |  |   no 
 action_result.data.\*.log.logs.entry.\*.flag-url-denied | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.temporary-match | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.flags | string |  |   0x64 
+action_result.data.\*.log.logs.entry.\*.from | string |  |   Internal Zone 
+action_result.data.\*.log.logs.entry.\*.inbound_if | string |  |   ethernet1/1 
+action_result.data.\*.log.logs.entry.\*.logset | string |  |   Forward all logs from DG2 
+action_result.data.\*.log.logs.entry.\*.natdport | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.natsport | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.non-std-dport | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.outbound_if | string |  |   ethernet1/1 
+action_result.data.\*.log.logs.entry.\*.packets | string |  |   1 
+action_result.data.\*.log.logs.entry.\*.padding | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.pbf-c2s | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.pbf-s2c | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.pkts_received | string |  |   0 
+action_result.data.\*.log.logs.entry.\*.pkts_sent | string |  |   1 
+action_result.data.\*.log.logs.entry.\*.proto | string |  |   udp 
+action_result.data.\*.log.logs.entry.\*.receive_time | string |  |   2017/06/23 15:35:54 
+action_result.data.\*.log.logs.entry.\*.repeatcnt | string |  |   1 
+action_result.data.\*.log.logs.entry.\*.rule | string |  |   Phantom URL Security Policy 
+action_result.data.\*.log.logs.entry.\*.seqno | string |  |   1715 
+action_result.data.\*.log.logs.entry.\*.serial | string |  |   007200000031753 
 action_result.data.\*.log.logs.entry.\*.session_end_reason | string |  |   aged-out 
-action_result.data.\*.log.logs.@count | string |  |   21 
-action_result.data.\*.log.logs.@progress | string |  |   1 
-action_result.status | string |  |   success  failed 
-action_result.message | string |  |   Num logs: 1 
+action_result.data.\*.log.logs.entry.\*.sessionid | string |  |   58 
+action_result.data.\*.log.logs.entry.\*.sport | string |  `port`  |   64453 
+action_result.data.\*.log.logs.entry.\*.src | string |  `ip`  |   10.10.0.18 
+action_result.data.\*.log.logs.entry.\*.srcloc | string |  |   10.0.0.0-10.255.255.255 
+action_result.data.\*.log.logs.entry.\*.start | string |  |   2017/06/23 15:35:21 
+action_result.data.\*.log.logs.entry.\*.subtype | string |  |   end 
+action_result.data.\*.log.logs.entry.\*.sym-return | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.temporary-match | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.time_generated | string |  |   2017/06/23 15:35:50 
+action_result.data.\*.log.logs.entry.\*.time_received | string |  |   2017/06/23 15:35:50 
+action_result.data.\*.log.logs.entry.\*.to | string |  |   Internal Zone 
+action_result.data.\*.log.logs.entry.\*.transaction | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.type | string |  |   TRAFFIC 
+action_result.data.\*.log.logs.entry.\*.vsys | string |  |   vsys1 
+action_result.data.\*.log.logs.entry.\*.vsys_id | string |  |   1 
 action_result.summary.num_logs | numeric |  |   21 
+action_result.message | string |  |   Num logs: 1 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -576,12 +576,12 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.status | string |  |   success  failed 
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -603,15 +603,15 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.pcap_id | string |  `panorama pcap id`  |  
-action_result.parameter.device_name | string |  `panorama device name`  |  
-action_result.parameter.session_id | string |  `panorama session id`  |  
-action_result.parameter.search_time | string |  `timestamp`  |  
-action_result.parameter.filename | string |  |  
 action_result.status | string |  |   success  failed 
-action_result.message | string |  |  
+action_result.parameter.device_name | string |  `panorama device name`  |  
+action_result.parameter.filename | string |  |  
+action_result.parameter.pcap_id | string |  `panorama pcap id`  |  
+action_result.parameter.search_time | string |  `timestamp`  |  
+action_result.parameter.session_id | string |  `panorama session id`  |  
 action_result.data | string |  |  
 action_result.summary | numeric |  |  
+action_result.message | string |  |  
 summary.total_objects | numeric |  |  
 summary.total_objects_successful | numeric |  |    
 
@@ -629,12 +629,44 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.data.\*.@name | string |  `panorama edl name`  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   dg5 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
+action_result.data.\*.@admin | string |  |   admin 
+action_result.data.\*.@dirtyId | string |  |   59 
+action_result.data.\*.@name | string |  `panorama edl name`  |  
+action_result.data.\*.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.disable-override.#text | string |  |   yes 
+action_result.data.\*.disable-override.@admin | string |  |   admin 
+action_result.data.\*.disable-override.@dirtyId | string |  |   59 
+action_result.data.\*.disable-override.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.@admin | string |  |   admin 
+action_result.data.\*.type.@dirtyId | string |  |   59 
+action_result.data.\*.type.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.ip.@admin | string |  |   admin 
+action_result.data.\*.type.ip.@dirtyId | string |  |   59 
+action_result.data.\*.type.ip.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.ip.recurring.@admin | string |  |   admin 
+action_result.data.\*.type.ip.recurring.@dirtyId | string |  |   59 
+action_result.data.\*.type.ip.recurring.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.ip.recurring.monthly.@admin | string |  |   admin 
+action_result.data.\*.type.ip.recurring.monthly.@dirtyId | string |  |   59 
+action_result.data.\*.type.ip.recurring.monthly.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.ip.recurring.monthly.at.#text | string |  |   07 
+action_result.data.\*.type.ip.recurring.monthly.at.@admin | string |  |   admin 
+action_result.data.\*.type.ip.recurring.monthly.at.@dirtyId | string |  |   59 
+action_result.data.\*.type.ip.recurring.monthly.at.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.ip.recurring.monthly.day-of-month.#text | string |  |   12 
+action_result.data.\*.type.ip.recurring.monthly.day-of-month.@admin | string |  |   admin 
+action_result.data.\*.type.ip.recurring.monthly.day-of-month.@dirtyId | string |  |   59 
+action_result.data.\*.type.ip.recurring.monthly.day-of-month.@time | string |  |   2023/10/15 03:16:57 
+action_result.data.\*.type.ip.url.#text | string |  |   http://www.test.com 
+action_result.data.\*.type.ip.url.@admin | string |  |   admin 
+action_result.data.\*.type.ip.url.@dirtyId | string |  |   59 
+action_result.data.\*.type.ip.url.@time | string |  |   2023/10/15 03:16:57 
 action_result.summary | string |  |  
+action_result.summary.total_external_dynamic_lists | numeric |  |   1 
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -653,12 +685,21 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama edl name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   dg1 
+action_result.parameter.name | string |  `panorama edl name`  |   edl_name 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
+action_result.data.\*.@loc | string |  |   dg1 
+action_result.data.\*.@name | string |  |   test edl 1 
+action_result.data.\*.disable-override | string |  |   no 
+action_result.data.\*.type.ip.certificate-profile | string |  |   test123 
+action_result.data.\*.type.ip.description | string |  |   This is test edl description 
+action_result.data.\*.type.ip.recurring.monthly.at | string |  |   10 
+action_result.data.\*.type.ip.recurring.monthly.day-of-month | string |  |   22 
+action_result.data.\*.type.ip.url | string |  |   https://www.test.com 
 action_result.summary | string |  |  
+action_result.summary.message | string |  |   fetched data successfully 
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -692,25 +733,62 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama edl name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.description | string |  |  
-action_result.parameter.list_type | string |  |  
-action_result.parameter.source | boolean |  |  
-action_result.parameter.expand_for_subdomains | boolean |  |  
-action_result.parameter.disable_override | string |  |  
-action_result.parameter.certificate_profile | string |  |  
-action_result.parameter.check_for_updates | string |  |  
-action_result.parameter.hour | string |  |  
-action_result.parameter.day_of_week | string |  |  
-action_result.parameter.day_of_month | string |  |  
-action_result.parameter.exception_list | string |  |  
-action_result.parameter.should_commit_changes | boolean |  |  
-action_result.parameter.use_partial_commit | boolean |  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.certificate_profile | string |  |   None 
+action_result.parameter.check_for_updates | string |  |   Hourly 
+action_result.parameter.day_of_month | string |  |   22 
+action_result.parameter.day_of_week | string |  |   Sunday 
+action_result.parameter.description | string |  |   Test description for edl 
+action_result.parameter.device_group | string |  `panorama device group`  |   dg5 
+action_result.parameter.disable_override | string |  |   Yes  No 
+action_result.parameter.exception_list | string |  |   https://test1.com, https://test2.com 
+action_result.parameter.expand_for_subdomains | string |  |   Yes  No 
+action_result.parameter.hour | string |  |   12 
+action_result.parameter.list_type | string |  |   IP List 
+action_result.parameter.name | string |  `panorama edl name`  |   edl_name 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.source | string |  |   https://test.com 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
 action_result.summary | string |  |  
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.id | string |  |   3639 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   03:14:30 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/10/15 03:14:30 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/10/15 03:14:56 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   3650 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:15:00 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/10/15 03:15:00 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/10/15 03:15:00 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.create_edl.response.@code | string |  |   20 
+action_result.summary.create_edl.response.@status | string |  |   success 
+action_result.summary.create_edl.response.msg | string |  |   command succeeded 
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -744,25 +822,28 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama edl name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.description | string |  |  
-action_result.parameter.list_type | string |  |  
-action_result.parameter.source | string |  |  
-action_result.parameter.expand_for_subdomains | string |  |  
-action_result.parameter.disable_override | string |  |  
-action_result.parameter.certificate_profile | string |  |  
-action_result.parameter.check_for_updates | string |  |  
-action_result.parameter.hour | string |  |  
-action_result.parameter.day_of_week | string |  |  
-action_result.parameter.day_of_month | string |  |  
-action_result.parameter.exception_list | string |  |  
-action_result.parameter.should_commit_changes | boolean |  |  
-action_result.parameter.use_partial_commit | boolean |  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.certificate_profile | string |  |   None 
+action_result.parameter.check_for_updates | string |  |   Hourly 
+action_result.parameter.day_of_month | string |  |   1 
+action_result.parameter.day_of_week | string |  |   Sunday 
+action_result.parameter.description | string |  |   Test description for edl 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.disable_override | string |  |   Yes  NO 
+action_result.parameter.exception_list | string |  |   test.com 
+action_result.parameter.expand_for_subdomains | string |  |   Yes  NO 
+action_result.parameter.hour | string |  |   10 
+action_result.parameter.list_type | string |  |   IP List 
+action_result.parameter.name | string |  `panorama edl name`  |   edl_name 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.source | string |  |   test.com 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.summary.modify_edl.response.@code | string |  |   20 
+action_result.summary.modify_edl.response.@status | string |  |   success 
+action_result.summary.modify_edl.response.msg | string |  |   command succeeded 
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -783,14 +864,49 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama edl name`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.use_partial_commit | boolean |  |  
-action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   device_group 
+action_result.parameter.name | string |  `panorama edl name`  |   edl_name 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.id | string |  |   3651 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   03:19:54 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/10/15 03:19:54 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/10/15 03:20:20 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   3662 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:20:21 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/10/15 03:20:21 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/10/15 03:20:21 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.delete_edl.response.@code | string |  |   20 
+action_result.summary.delete_edl.response.@status | string |  |   success 
+action_result.summary.delete_edl.response.msg | string |  |   command succeeded 
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -838,96 +954,96 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.status | string |  |  
+action_result.parameter.action | string |  |   allow 
+action_result.parameter.application | string |  |   1c-enterprise 
+action_result.parameter.audit_comment | string |  |   updated source address 
+action_result.parameter.category | string |  |   Test URL Category 
+action_result.parameter.description | string |  |   Policy rule to deny traffic from a specific address group 
+action_result.parameter.destination_address | string |  |   dev_env_address_1  10.1.192.168 
+action_result.parameter.destination_device | string |  |   test_device 
+action_result.parameter.destination_zone | string |  |   IN 
+action_result.parameter.device_group | string |  `panorama device group`  |   shared 
+action_result.parameter.disable | string |  |   Yes 
+action_result.parameter.dst | string |  |   test_policy_rule_1 
+action_result.parameter.icmp_unreachable | string |  |   Yes 
+action_result.parameter.log_forwarding | string |  |   IoT Security Default Profile 
+action_result.parameter.negate_destination | string |  |   Yes 
+action_result.parameter.negate_source | string |  |   Yes 
 action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
+action_result.parameter.profile_setting | string |  |   profiles 
+action_result.parameter.rule_type | string |  |   universal 
+action_result.parameter.service | string |  |   service-http 
+action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.source_address | string |  |   dev_env_address_1  10.1.192.168 
+action_result.parameter.source_device | string |  |   test_device 
+action_result.parameter.source_user | string |  |   test_user 
+action_result.parameter.source_zone | string |  |   IN 
+action_result.parameter.tag | string |  |   test_tag 
+action_result.parameter.target | string |  |   000000000000000 
+action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.where | string |  |   after 
+action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
-action_result.data.\*.response.@code | string |  |   20 
 action_result.summary | string |  |  
-action_result.status | string |  |  
-action_result.message | string |  |  
-action_result.parameter.rule_type | string |  |   universal 
-action_result.parameter.device_group | string |  `panorama device group`  |   shared 
-action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.source_zone | string |  |   IN 
-action_result.parameter.audit_comment | string |  |   updated source address 
-action_result.parameter.destination_zone | string |  |   IN 
-action_result.parameter.description | string |  |   Policy rule to deny traffic from a specific address group 
-action_result.parameter.source_address | string |  |   dev_env_address_1  10.1.192.168 
-action_result.parameter.destination_address | string |  |   dev_env_address_1  10.1.192.168 
-action_result.parameter.source_user | string |  |   test_user 
-action_result.parameter.source_device | string |  |   test_device 
-action_result.parameter.destination_device | string |  |   test_device 
-action_result.parameter.action | string |  |   allow 
-action_result.parameter.negate_source | string |  |   Yes 
-action_result.parameter.negate_destination | string |  |   Yes 
-action_result.parameter.application | string |  |   1c-enterprise 
-action_result.parameter.where | string |  |   after 
-action_result.parameter.dst | string |  |   test_policy_rule_1 
-action_result.parameter.tag | string |  |   test_tag 
-action_result.parameter.log_forwarding | string |  |   IoT Security Default Profile 
-action_result.parameter.disable | string |  |   Yes 
-action_result.parameter.category | string |  |   Test URL Category 
-action_result.parameter.icmp_unreachable | string |  |   Yes 
-action_result.parameter.service | string |  |   service-http 
-action_result.parameter.profile_setting | string |  |   profiles 
-action_result.parameter.target | string |  |   000000000000000 
-action_result.parameter.use_partial_commit | string |  |   True 
-action_result.parameter.should_commit_changes | string |  |   True 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.id | string |  |   432 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   04:54:34 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/25 04:54:34 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/25 04:54:58 
 action_result.summary.commit_config.finished_job.type | string |  |   Commit 
 action_result.summary.commit_config.finished_job.user | string |  |   admin 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
-action_result.summary.commit_config.finished_job.result | string |  |   OK 
-action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
-action_result.summary.commit_config.finished_job.progress | string |  |   100 
 action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_config.finished_job.description | string |  |  
-action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   169 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 03:15:29 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   03:14:54 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
 action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   443 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   04:55:01 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/08/25 04:55:01 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/08/25 04:55:01 
 action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
 action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
-action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
-action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
-action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
-action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
-action_result.summary.create a policy rule.response.msg | string |  |   command succeeded 
 action_result.summary.create a policy rule.response.@code | string |  |   20 
 action_result.summary.create a policy rule.response.@status | string |  |   success 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 03:15:29 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   03:14:54 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   169 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
+action_result.summary.create a policy rule.response.msg | string |  |   command succeeded 
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'custom block policy'
 Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule
@@ -959,32 +1075,32 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
-action_result.data.\*.response.@status | string |  |   success 
-action_result.data.\*.response.msg | string |  |   command succeeded 
-action_result.data.\*.response.@code | string |  |   20 
-action_result.summary | string |  |  
 action_result.status | string |  |  
-action_result.message | string |  |  
-action_result.parameter.device_group | string |  `panorama device group`  |   shared 
-action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.direction | string |  |   both 
-action_result.parameter.object_type | string |  |   ip 
-action_result.parameter.object_value | string |  |   test_address_2  10.1.10.20 
-action_result.parameter.rule_type | string |  |   universal 
-action_result.parameter.log_forwarding | string |  |   IoT Security Default Profile 
-action_result.parameter.where | string |  |   after 
-action_result.parameter.dst | string |  |   test_policy_rule_1 
 action_result.parameter.audit_comment | string |  |  
 action_result.parameter.description | string |  |  
-action_result.parameter.tag | string |  |   test_tag 
+action_result.parameter.device_group | string |  `panorama device group`  |   shared 
+action_result.parameter.direction | string |  |   both 
+action_result.parameter.dst | string |  |   test_policy_rule_1 
 action_result.parameter.icmp_unreachable | string |  |   Yes 
+action_result.parameter.log_forwarding | string |  |   IoT Security Default Profile 
+action_result.parameter.object_type | string |  |   ip 
+action_result.parameter.object_value | string |  |   test_address_2  10.1.10.20 
+action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
+action_result.parameter.rule_type | string |  |   universal 
+action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.tag | string |  |   test_tag 
 action_result.parameter.target | string |  |   000000000000000 
-action_result.parameter.use_partial_commit | string |  |   True 
-action_result.parameter.should_commit_changes | string |  |   True 
+action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.where | string |  |   after 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.summary | string |  |  
+action_result.message | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -1030,43 +1146,43 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
+action_result.parameter.action | string |  |   allow 
+action_result.parameter.application | string |  |   1c-enterprise 
+action_result.parameter.audit_comment | string |  |   updated source address 
+action_result.parameter.category | string |  |   Test URL Category 
+action_result.parameter.description | string |  |   Policy rule to deny traffic from a specific address group 
+action_result.parameter.destination_address | string |  |   dev_env_address_1  10.1.192.168 
+action_result.parameter.destination_device | string |  |   test_device 
+action_result.parameter.destination_zone | string |  |   IN 
+action_result.parameter.device_group | string |  `panorama device group`  |   shared 
+action_result.parameter.disable | string |  |   Yes 
+action_result.parameter.icmp_unreachable | string |  |   Yes 
+action_result.parameter.log_forwarding | string |  |   IoT Security Default Profile 
+action_result.parameter.negate_destination | string |  |   Yes 
+action_result.parameter.negate_source | string |  |   Yes 
 action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
+action_result.parameter.profile_setting | string |  |   profiles 
+action_result.parameter.rule_type | string |  |   universal 
+action_result.parameter.service | string |  |   service-http 
+action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.source_address | string |  |   dev_env_address_1  10.1.192.168 
+action_result.parameter.source_device | string |  |   test_device 
+action_result.parameter.source_user | string |  |   test_user 
+action_result.parameter.source_zone | string |  |   IN 
+action_result.parameter.tag | string |  |   test_tag 
+action_result.parameter.target | string |  |   000000000000000 
+action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.data | string |  |  
+action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
-action_result.data.\*.response.@code | string |  |   20 
+action_result.summary | string |  |  
+action_result.summary | string |  |  
 action_result.message | string |  |  
-action_result.summary | string |  |  
-action_result.status | string |  |  
-action_result.parameter.rule_type | string |  |   universal 
-action_result.parameter.device_group | string |  `panorama device group`  |   shared 
-action_result.parameter.audit_comment | string |  |   updated source address 
-action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.source_zone | string |  |   IN 
-action_result.parameter.destination_zone | string |  |   IN 
-action_result.parameter.description | string |  |   Policy rule to deny traffic from a specific address group 
-action_result.parameter.source_address | string |  |   dev_env_address_1  10.1.192.168 
-action_result.parameter.destination_address | string |  |   dev_env_address_1  10.1.192.168 
-action_result.parameter.source_user | string |  |   test_user 
-action_result.parameter.source_device | string |  |   test_device 
-action_result.parameter.destination_device | string |  |   test_device 
-action_result.parameter.action | string |  |   allow 
-action_result.parameter.negate_source | string |  |   Yes 
-action_result.parameter.negate_destination | string |  |   Yes 
-action_result.parameter.application | string |  |   1c-enterprise 
-action_result.parameter.tag | string |  |   test_tag 
-action_result.parameter.log_forwarding | string |  |   IoT Security Default Profile 
-action_result.parameter.disable | string |  |   Yes 
-action_result.parameter.category | string |  |   Test URL Category 
-action_result.parameter.icmp_unreachable | string |  |   Yes 
-action_result.parameter.service | string |  |   service-http 
-action_result.parameter.profile_setting | string |  |   profiles 
-action_result.parameter.target | string |  |   000000000000000 
-action_result.parameter.use_partial_commit | string |  |   True 
-action_result.parameter.should_commit_changes | string |  |   True 
-action_result.status | string |  |   success  failed 
-action_result.data | string |  |  
 action_result.message | string |  |   command succeeded 
-action_result.summary | string |  |  
 summary.total_objects | numeric |  |  
 summary.total_objects_successful | numeric |  |    
 
@@ -1094,81 +1210,81 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.status | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   shared 
+action_result.parameter.dst | string |  |   test_policy_rule_1 
+action_result.parameter.dst_device_group | string |  `panorama device group`  |   shared 
+action_result.parameter.dst_policy_type | string |  |   pre-rulebase 
+action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1  policy_rule_1,policy_rule_2 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
+action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.where | string |  |   after 
+action_result.data.\*.response.@from | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.@to | string |  |   /config/shared/pre-rulebase/security/rules 
-action_result.data.\*.response.@from | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
 action_result.data.\*.response.member | string |  |   test_block_rule 
 action_result.summary | string |  |  
-action_result.status | string |  |  
-action_result.message | string |  |  
-action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1  policy_rule_1,policy_rule_2 
-action_result.parameter.device_group | string |  `panorama device group`  |   shared 
-action_result.parameter.dst_device_group | string |  `panorama device group`  |   shared 
-action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.where | string |  |   after 
-action_result.parameter.dst | string |  |   test_policy_rule_1 
-action_result.parameter.use_partial_commit | string |  |   True 
-action_result.parameter.should_commit_changes | string |  |   True 
-action_result.parameter.dst_policy_type | string |  |   pre-rulebase 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.summary.move policy rule.response.@to | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
-action_result.summary.move policy rule.response.@from | string |  |   /config/shared/pre-rulebase/security/rules 
-action_result.summary.move policy rule.response.member | string |  |   dhwani_test_block_rule 
-action_result.summary.move policy rule.response.@status | string |  |   success 
-action_result.summary.move policy rule.response.msg | string |  |   command succeeded 
-action_result.summary.move policy rule.response.@code | string |  |   20 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.id | string |  |   227 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   22:13:51 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/06 22:13:51 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/06 22:14:19 
 action_result.summary.commit_config.finished_job.type | string |  |   Commit 
 action_result.summary.commit_config.finished_job.user | string |  |   admin 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
-action_result.summary.commit_config.finished_job.result | string |  |   OK 
-action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
-action_result.summary.commit_config.finished_job.progress | string |  |   100 
 action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_config.finished_job.description | string |  |  
-action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   239 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 22:14:29 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:14:22 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
 action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   238 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   22:14:22 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/06 22:14:22 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/06 22:14:22 
 action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
 action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
-action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
-action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
-action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
-action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 22:14:29 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:14:22 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   239 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no   
+action_result.summary.move policy rule.response.@code | string |  |   20 
+action_result.summary.move policy rule.response.@from | string |  |   /config/shared/pre-rulebase/security/rules 
+action_result.summary.move policy rule.response.@status | string |  |   success 
+action_result.summary.move policy rule.response.@to | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
+action_result.summary.move policy rule.response.member | string |  |   dhwani_test_block_rule 
+action_result.summary.move policy rule.response.msg | string |  |   command succeeded 
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete policy'
 Delete a security policy rule
@@ -1188,70 +1304,70 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
+action_result.status | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   shared 
+action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
+action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.summary | string |  |  
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.id | string |  |   640 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   03:31:30 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/29 03:31:30 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/29 03:31:54 
 action_result.summary.commit_config.finished_job.type | string |  |   Commit 
 action_result.summary.commit_config.finished_job.user | string |  |   admin 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
-action_result.summary.commit_config.finished_job.result | string |  |   OK 
-action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
-action_result.summary.commit_config.finished_job.progress | string |  |   100 
 action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_config.finished_job.description | string |  |  
-action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   214 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 22:12:56 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:12:50 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
 action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   651 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:31:57 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/08/29 03:31:57 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/08/29 03:31:57 
 action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
 action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
-action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
-action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
-action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
-action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/06 22:12:56 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:12:50 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   214 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
-action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
-action_result.parameter.device_group | string |  `panorama device group`  |   shared 
-action_result.data.\*.response.@status | string |  |   success 
-action_result.data.\*.response.msg | string |  |   command succeeded 
-action_result.data.\*.response.@code | string |  |   20 
-action_result.summary | string |  |  
-action_result.status | string |  |  
 action_result.message | string |  |  
-action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.use_partial_commit | string |  |  
-action_result.parameter.should_commit_changes | string |  |    
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'create address group'
 Create an address group
@@ -1275,16 +1391,16 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address group name`  |   address_group_1 
+action_result.status | string |  |   success  failed 
+action_result.parameter.addresses_or_match_criteria | string |  |   address_1,address_2  'tag_1' and 'tag_2' or 'tag_3' 
+action_result.parameter.description | string |  |   Test description 
 action_result.parameter.device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.disable_override | string |  |   Yes 
-action_result.parameter.type | string |  |   Static 
-action_result.parameter.description | string |  |   Test description 
-action_result.parameter.addresses_or_match_criteria | string |  |   address_1,address_2  'tag_1' and 'tag_2' or 'tag_3' 
+action_result.parameter.name | string |  `panorama address group name`  |   address_group_1 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.tag | string |  |   tag_1,tag_2 
-action_result.parameter.use_partial_commit | boolean |  |   True 
-action_result.parameter.should_commit_changes | boolean |  |   True 
-action_result.status | string |  |   success  failed 
+action_result.parameter.type | string |  |   Static 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
 action_result.message | string |  |   Created global table successfully 
@@ -1313,16 +1429,16 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address group name`  |   address_group_1 
+action_result.status | string |  |   success  failed 
+action_result.parameter.addresses_or_match_criteria | string |  |   address_1,address_2  'tag_1' and 'tag_2' or 'tag_3' 
+action_result.parameter.description | string |  |   Test description 
 action_result.parameter.device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.disable_override | string |  |   Yes 
-action_result.parameter.type | string |  |   Static 
-action_result.parameter.description | string |  |   Test description 
-action_result.parameter.addresses_or_match_criteria | string |  |   address_1,address_2  'tag_1' and 'tag_2' or 'tag_3' 
+action_result.parameter.name | string |  `panorama address group name`  |   address_group_1 
+action_result.parameter.should_commit_changes | string |  |   True  False 
 action_result.parameter.tag | string |  |   tag_1,tag_2 
-action_result.parameter.use_partial_commit | string |  |   True 
-action_result.parameter.should_commit_changes | string |  |   True 
-action_result.status | string |  |   success  failed 
+action_result.parameter.type | string |  |   Static 
+action_result.parameter.use_partial_commit | string |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
 action_result.message | string |  |   Created global table successfully 
@@ -1343,50 +1459,50 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
-action_result.summary | string |  |  
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.tag.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.tag.@admin | string |  |   admin 
-action_result.data.\*.tag.member.#text | string |  |   from_ui 
-action_result.data.\*.tag.member.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.tag.member.@admin | string |  |   admin 
-action_result.data.\*.tag.member.@dirtyId | string |  |   1 
-action_result.data.\*.tag.@dirtyId | string |  |   1 
+action_result.data.\*.@admin | string |  |   admin 
+action_result.data.\*.@dirtyId | string |  |   1 
 action_result.data.\*.@name | string |  `panorama address group name`  |   test address group name 
 action_result.data.\*.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.@admin | string |  |   admin 
-action_result.data.\*.static.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.static.@admin | string |  |   admin 
-action_result.data.\*.static.member.#text | string |  |   test1 
-action_result.data.\*.static.member.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.static.member.@admin | string |  |   admin 
-action_result.data.\*.static.member.@dirtyId | string |  |   1 
-action_result.data.\*.static.@dirtyId | string |  |   1 
-action_result.data.\*.@dirtyId | string |  |   1 
-action_result.summary.total_address_groups | numeric |  |   1 
-action_result.data.\*.dynamic.filter | string |  |   blocked 
 action_result.data.\*.description | string |  |   test 
-action_result.data.\*.static | string |  |  
-action_result.data.\*.tag.member | string |  |   xyz 
+action_result.data.\*.description.#text | string |  |   test 
+action_result.data.\*.description.@admin | string |  |   admin 
+action_result.data.\*.description.@dirtyId | string |  |   1 
+action_result.data.\*.description.@time | string |  |   2023/09/24 22:58:19 
 action_result.data.\*.disable-override | string |  |   yes 
+action_result.data.\*.dynamic.filter | string |  |   blocked 
+action_result.data.\*.static | string |  |  
+action_result.data.\*.static.@admin | string |  |   admin 
+action_result.data.\*.static.@dirtyId | string |  |   1 
+action_result.data.\*.static.@time | string |  |   2023/09/24 23:15:36 
 action_result.data.\*.static.member | string |  |   2.2.2.2 Added By Splunk SOAR 
-action_result.data.\*.tag.member.\*.#text | string |  |   new 
-action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/24 22:58:19 
-action_result.data.\*.tag.member.\*.@admin | string |  |   admin 
-action_result.data.\*.tag.member.\*.@dirtyId | string |  |   1 
+action_result.data.\*.static.member.#text | string |  |   test1 
 action_result.data.\*.static.member.\*.#text | string |  |   test_address_tag 
-action_result.data.\*.static.member.\*.@time | string |  |   2023/09/24 22:58:19 
 action_result.data.\*.static.member.\*.@admin | string |  |   admin 
 action_result.data.\*.static.member.\*.@dirtyId | string |  |   1 
-action_result.data.\*.description.#text | string |  |   test 
-action_result.data.\*.description.@time | string |  |   2023/09/24 22:58:19 
-action_result.data.\*.description.@admin | string |  |   admin 
-action_result.data.\*.description.@dirtyId | string |  |   1   
+action_result.data.\*.static.member.\*.@time | string |  |   2023/09/24 22:58:19 
+action_result.data.\*.static.member.@admin | string |  |   admin 
+action_result.data.\*.static.member.@dirtyId | string |  |   1 
+action_result.data.\*.static.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.@admin | string |  |   admin 
+action_result.data.\*.tag.@dirtyId | string |  |   1 
+action_result.data.\*.tag.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.member | string |  |   xyz 
+action_result.data.\*.tag.member.#text | string |  |   from_ui 
+action_result.data.\*.tag.member.\*.#text | string |  |   new 
+action_result.data.\*.tag.member.\*.@admin | string |  |   admin 
+action_result.data.\*.tag.member.\*.@dirtyId | string |  |   1 
+action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/24 22:58:19 
+action_result.data.\*.tag.member.@admin | string |  |   admin 
+action_result.data.\*.tag.member.@dirtyId | string |  |   1 
+action_result.data.\*.tag.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.summary | string |  |  
+action_result.summary.total_address_groups | numeric |  |   1 
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'get address group'
 Fetch address group details for the supplied address group name
@@ -1403,34 +1519,34 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address group name`  |   test_address_group_name 
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.name | string |  `panorama address group name`  |   test_address_group_name 
 action_result.data | string |  |  
-action_result.message | string |  |   Successfully fetched address group details 
-action_result.summary | string |  |  
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.tag.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.tag.@admin | string |  |   admin 
-action_result.data.\*.tag.member.#text | string |  |   from_ui 
-action_result.data.\*.tag.member.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.tag.member.@admin | string |  |   admin 
-action_result.data.\*.tag.member.@dirtyId | string |  |   1 
-action_result.data.\*.tag.@dirtyId | string |  |   1 
+action_result.data.\*.@admin | string |  |   admin 
+action_result.data.\*.@dirtyId | string |  |   1 
 action_result.data.\*.@loc | string |  |   test 
 action_result.data.\*.@name | string |  |   test from Splunk SOAR 
 action_result.data.\*.@time | string |  |   2023/09/24 23:15:36 
-action_result.data.\*.@admin | string |  |   admin 
-action_result.data.\*.static.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.description | string |  |   test 
 action_result.data.\*.static.@admin | string |  |   admin 
+action_result.data.\*.static.@dirtyId | string |  |   1 
+action_result.data.\*.static.@time | string |  |   2023/09/24 23:15:36 
 action_result.data.\*.static.member.#text | string |  |   test1 
-action_result.data.\*.static.member.@time | string |  |   2023/09/24 23:15:36 
 action_result.data.\*.static.member.@admin | string |  |   admin 
 action_result.data.\*.static.member.@dirtyId | string |  |   1 
-action_result.data.\*.static.@dirtyId | string |  |   1 
-action_result.data.\*.@dirtyId | string |  |   1 
-action_result.data.\*.description | string |  |   test   
+action_result.data.\*.static.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.@admin | string |  |   admin 
+action_result.data.\*.tag.@dirtyId | string |  |   1 
+action_result.data.\*.tag.@time | string |  |   2023/09/24 23:15:36 
+action_result.data.\*.tag.member.#text | string |  |   from_ui 
+action_result.data.\*.tag.member.@admin | string |  |   admin 
+action_result.data.\*.tag.member.@dirtyId | string |  |   1 
+action_result.data.\*.tag.member.@time | string |  |   2023/09/24 23:15:36 
+action_result.summary | string |  |  
+action_result.message | string |  |   Successfully fetched address group details 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete address group'
 Delete an address group for the supplied address group name
@@ -1449,14 +1565,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address group name`  |   test_address_group_name 
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
-action_result.parameter.use_partial_commit | boolean |  |  
-action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.name | string |  `panorama address group name`  |   test_address_group_name 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -1484,57 +1600,57 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
-action_result.parameter.type | string |  |  
-action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  |  
-action_result.parameter.tag | string |  |   test_address_tag 
-action_result.parameter.disable_override | string |  |  
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
-action_result.parameter.use_partial_commit | boolean |  |  
-action_result.parameter.should_commit_changes | boolean |  |  
-action_result.parameter.description | string |  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.description | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.disable_override | string |  |  
+action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.tag | string |  |   test_address_tag 
+action_result.parameter.type | string |  |  
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
+action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  |  
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.id | string |  |   622 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   03:06:14 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/11 03:06:14 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/11 03:06:40 
 action_result.summary.commit_config.finished_job.type | string |  |   Commit 
 action_result.summary.commit_config.finished_job.user | string |  |   admin 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
-action_result.summary.commit_config.finished_job.result | string |  |   OK 
-action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
-action_result.summary.commit_config.finished_job.progress | string |  |   100 
 action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_config.finished_job.description | string |  |  
-action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
-action_result.summary.create_address.response.msg | string |  |   command succeeded 
-action_result.summary.create_address.response.@code | string |  |   20 
-action_result.summary.create_address.response.@status | string |  |   success 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   share 
 action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   633 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:06:43 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/11 03:06:43 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/11 03:06:43 
 action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
 action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
-action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
-action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   share 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
-action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
-action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
-action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0   
+action_result.summary.create_address.response.@code | string |  |   20 
+action_result.summary.create_address.response.@status | string |  |   success 
+action_result.summary.create_address.response.msg | string |  |   command succeeded 
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'get address'
 Fetch address details for the supplied address name
@@ -1551,42 +1667,42 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
-action_result.summary | string |  |  
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.@loc | string |  |   dg1 
-action_result.data.\*.@name | string |  |   test from phantom 
-action_result.data.\*.ip-netmask | string |  |   10.1.1.1 
-action_result.data.\*.description | string |  |   Testing from phantom 
-action_result.data.\*.disable-override | string |  |   no 
-action_result.summary.message | string |  |   fetched data successfully 
-action_result.data.\*.@time | string |  |   2023/09/13 05:18:32 
 action_result.data.\*.@admin | string |  |   admin 
 action_result.data.\*.@dirtyId | string |  |   175 
-action_result.data.\*.ip-netmask.#text | string |  |   10.1.1.1 
-action_result.data.\*.ip-netmask.@time | string |  |   2023/09/13 05:18:32 
-action_result.data.\*.ip-netmask.@admin | string |  |   admin 
-action_result.data.\*.ip-netmask.@dirtyId | string |  |   175 
+action_result.data.\*.@loc | string |  |   dg1 
+action_result.data.\*.@name | string |  |   test from phantom 
+action_result.data.\*.@time | string |  |   2023/09/13 05:18:32 
+action_result.data.\*.description | string |  |   Testing from phantom 
+action_result.data.\*.description.#text | string |  |   testing with , 
+action_result.data.\*.description.@admin | string |  |   admin 
+action_result.data.\*.description.@dirtyId | string |  |   25 
+action_result.data.\*.description.@time | string |  |   2023/09/26 23:49:56 
+action_result.data.\*.disable-override | string |  |   no 
 action_result.data.\*.disable-override.#text | string |  |   no 
-action_result.data.\*.disable-override.@time | string |  |   2023/09/13 05:18:32 
 action_result.data.\*.disable-override.@admin | string |  |   admin 
 action_result.data.\*.disable-override.@dirtyId | string |  |   175 
-action_result.data.\*.tag.@time | string |  |   2023/09/26 23:49:56 
+action_result.data.\*.disable-override.@time | string |  |   2023/09/13 05:18:32 
+action_result.data.\*.ip-netmask | string |  |   10.1.1.1 
+action_result.data.\*.ip-netmask.#text | string |  |   10.1.1.1 
+action_result.data.\*.ip-netmask.@admin | string |  |   admin 
+action_result.data.\*.ip-netmask.@dirtyId | string |  |   175 
+action_result.data.\*.ip-netmask.@time | string |  |   2023/09/13 05:18:32 
 action_result.data.\*.tag.@admin | string |  |   admin 
+action_result.data.\*.tag.@dirtyId | string |  |   25 
+action_result.data.\*.tag.@time | string |  |   2023/09/26 23:49:56 
 action_result.data.\*.tag.member.\*.#text | string |  |   avs 
-action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/26 23:49:56 
 action_result.data.\*.tag.member.\*.@admin | string |  |   admin 
 action_result.data.\*.tag.member.\*.@dirtyId | string |  |   25 
-action_result.data.\*.tag.@dirtyId | string |  |   25 
-action_result.data.\*.description.#text | string |  |   testing with , 
-action_result.data.\*.description.@time | string |  |   2023/09/26 23:49:56 
-action_result.data.\*.description.@admin | string |  |   admin 
-action_result.data.\*.description.@dirtyId | string |  |   25   
+action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/26 23:49:56 
+action_result.summary | string |  |  
+action_result.summary.message | string |  |   fetched data successfully 
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete address'
 Delete address details for the supplied address name
@@ -1605,16 +1721,16 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
-action_result.parameter.use_partial_commit | boolean |  |  
-action_result.parameter.should_commit_changes | boolean |  |  
 action_result.status | string |  |   success  failed 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.message | string |  |   command succeeded 
 action_result.summary | string |  |  
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.summary.delete_address.response.msg | string |  |   command succeeded 
 action_result.summary.delete_address.response.@code | string |  |   20 
 action_result.summary.delete_address.response.@status | string |  |   success 
+action_result.summary.delete_address.response.msg | string |  |   command succeeded 
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
