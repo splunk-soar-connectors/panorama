@@ -89,9 +89,9 @@ class ModifyEdl(BaseAction):
             if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei"]:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
+                        "modifying external dynamic list",
                         f"Invalid list type for edl, please enter a valid list type. {consts.PAN_EDL_TYPES_STR}"
-                    )), {}
+                    )), ""
         elif old_edl_list_type:
             edl_list_type = old_edl_list_type
 
@@ -100,9 +100,9 @@ class ModifyEdl(BaseAction):
             if len(source) > 255:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
+                        "modifying external dynamic list",
                         "Length of source for edl is over the limit, edl source can have 255 characters at max"
-                    )), {}
+                    )), ""
         else:
             source = existing_data["type"][old_edl_list_type]["url"]
             if isinstance(source, dict):
@@ -124,9 +124,9 @@ class ModifyEdl(BaseAction):
             if len(edl_description) > 255:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
+                        "modifying external dynamic list",
                         "Length of description for edl is over the limit, edl description can have 255 characters at max"
-                    )), {}
+                    )), ""
             dict_for_xml["entry"]["type"][edl_list_type]["description"] = edl_description
         else:
             old_description = existing_data["type"][old_edl_list_type].get("description")
@@ -144,9 +144,9 @@ class ModifyEdl(BaseAction):
                 if len(certificate_profile) > 31:
                     return action_result.set_status(
                         phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                            "creating external dynamic list",
+                            "modifying external dynamic list",
                             "Length of certificate profile for edl is over the limit, edl description can have 31 characters at max"
-                        )), {}
+                        )), ""
                 dict_for_xml["entry"]["type"][edl_list_type]["certificate-profile"] = certificate_profile
             else:
                 certificate_profile = existing_data["type"][old_edl_list_type].get("certificate-profile")
@@ -185,7 +185,7 @@ class ModifyEdl(BaseAction):
                 if not old_check_for_updates:
                     return action_result.set_status(
                         phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                            "creating external dynamic list",
+                            "modifying external dynamic list",
                             "check_for_updates is a required key for the selected edl type"
                         )), ""
                 check_for_updates = old_check_for_updates
@@ -193,16 +193,15 @@ class ModifyEdl(BaseAction):
             if check_for_updates not in ["five-minute", "hourly", "daily", "weekly", "monthly"]:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
+                        "modifying external dynamic list",
                         f"Invalid check for update value, please enter a check for update value. {consts.PAN_EDL_CHECK_UPDATE_STR}"
-                    )), {}
-
+                    )), ""
             if check_for_updates in ["weekly", "monthly", "daily"]:
 
                 if not hour:
                     if not old_hour:
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                            "creating external dynamic list",
+                            "modifying external dynamic list",
                             "hour is a required key for the selected check update time"
                         )), ""
                     hour = old_hour
@@ -241,9 +240,9 @@ class ModifyEdl(BaseAction):
                     if day_of_week not in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
                         return action_result.set_status(
                             phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                                "creating external dynamic list",
+                                "modifying external dynamic list",
                                 f"Invalid day_of_week value, please enter a valid day_of_week value. {consts.PAN_EDL_WEEK_DAY_STR}"
-                            )), {}
+                            )), ""
 
                     recurring_dict[check_for_updates] = {
                         "day-of-week": day_of_week,
@@ -271,7 +270,7 @@ class ModifyEdl(BaseAction):
 
                     if not (1 <= day_of_month <= 31):
                         return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                            "creating external dynamic list",
+                            "modifying external dynamic list",
                             "Invalid day_of_month, day_of_month must be in range 1-31"
                         )), ""
 
@@ -296,9 +295,9 @@ class ModifyEdl(BaseAction):
         if edl_list_type == "domain":
             if expand_subdomain not in ["yes", "no", None]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                            "creating external dynamic list",
+                            "modifying external dynamic list",
                             "Invalid value for expand subdomain, the value can contain value either yes or no"
-                        )), {}
+                        )), ""
 
             if expand_subdomain:
                 dict_for_xml["entry"]["type"][edl_list_type]["expand-domain"] = expand_subdomain
@@ -340,9 +339,9 @@ class ModifyEdl(BaseAction):
         if device_group.lower() != "shared":
             if disable_override not in ["yes", "no", None]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating external dynamic list",
+                        "modifying external dynamic list",
                         "Invalid value for disable override, the value can contain value either yes or no"
-                    )), {}
+                    )), ""
 
             if disable_override:
                 dict_for_xml["entry"]["disable-override"] = disable_override

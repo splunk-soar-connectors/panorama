@@ -28,10 +28,6 @@ PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'a
 PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
 PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
 PAN_ERROR_NO_JOB_ID = "Could not find Job ID in response body"
-PAN_ERROR_CODE_MESSAGE = "Error code unavailable"
-PAN_ERROR_MESSAGE = "Unknown error occurred. Please check the asset configuration and|or action parameters"
-TYPE_ERROR_MESSAGE = "Error occurred while connecting to the Panorama server. Please check the asset configuration and|or the action parameters"
-PARSE_ERROR_MESSAGE = "Unable to parse the error message. Please check the asset configuration and|or action parameters"
 PAN_ERROR_MESSAGE = "Error occurred while {}. Details: {}"
 
 PAN_PROG_USING_BASE_URL = "Using base URL '{base_url}'"
@@ -258,7 +254,7 @@ param_mapping = {
 }
 
 
-PAN_ERR_MSG = {
+PAN_ERROR_MESSAGE_FROM_CODE = {
     "400": "Bad request",
     "403": "Forbidden",
     "1": "Unknown command",
@@ -281,9 +277,9 @@ PAN_ERR_MSG = {
     "21": "Internal error",
     "22": "Session timed out"
 }
-PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
+PAN_CODE_NOT_PRESENT_MESSAGE = "Unknown error returned from API"
 
 ADD_GRP_TYPE_VAL_LIST = ["static", "dynamic"]
-VALIDATE_STRING_ERROR_MSG = "Invalid value provided for the {param_name} parameter. The name must start with a alphanumeric character and\
+VALIDATE_STRING_ERROR_MESSAGE = "Invalid value provided for the {param_name} parameter. The name must start with a alphanumeric character and\
      can contain alphanumeric characters, hyphen(-), underscore(_), dot(.) and spaces"
-PAN_CODE_NOT_PRESENT_MSG = "Unknown error returned from API"
+PAN_CODE_NOT_PRESENT_MESSAGE = "Unknown error returned from API"

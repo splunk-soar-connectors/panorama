@@ -235,7 +235,10 @@ class CreateEdl(BaseAction):
 
         action_result.update_summary({'create_edl': response})
         if phantom.is_fail(status):
-            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("create edl", action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                consts.PAN_ERROR_MESSAGE.format("creating external dynamic list", action_result.get_message())
+            )
 
         connector.debug_print("fetching response msg")
         message = action_result.get_message()

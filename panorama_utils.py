@@ -133,7 +133,7 @@ class PanoramaUtils(object):
             if param_name == "tag":
                 message = " ' [ ] are not supported characters for tag names"
             else:
-                message = consts.VALIDATE_STRING_ERROR_MSG.format(param_name=param_name)
+                message = consts.VALIDATE_STRING_ERROR_MESSAGE.format(param_name=param_name)
             return action_result.set_status(
                 phantom.APP_ERROR,
                 message
@@ -1069,7 +1069,7 @@ class PanoramaUtils(object):
             )
 
         code = response.get('@code')
-        error_msg = consts.PAN_ERR_MSG.get(code) if (code and code not in ["19", "20"]) else consts.PAN_CODE_NOT_PRESENT_MSG
+        error_msg = consts.PAN_ERROR_MESSAGE_FROM_CODE.get(code) if (code and code not in ["19", "20"]) else consts.PAN_CODE_NOT_PRESENT_MESSAGE
 
         if status == "success":
             response_message = consts.PAN_SUCCESS_REST_CALL_PASSED

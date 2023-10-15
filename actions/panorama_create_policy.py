@@ -161,7 +161,7 @@ class CreatePolicy(BaseAction):
             status, tag_element_string = connector.util._create_tag(connector, action_result, parameter, tags)
             message = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags: ", message))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating the tags: ", message))
             element += tag_element_string
 
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
