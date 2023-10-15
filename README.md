@@ -800,7 +800,7 @@ Create a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -994,7 +994,7 @@ Modify a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li>.</ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
