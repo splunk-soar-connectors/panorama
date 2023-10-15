@@ -2702,7 +2702,7 @@
                     "order": 3
                 },
                 "source": {
-                    "description": "Source url to fetch the data.",
+                    "description": "Source url to fetch the data",
                     "data_type": "string",
                     "order": 4
                 },
@@ -3844,7 +3844,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings.line",
                     "data_type": "string",
                     "example_values": [
-                        "External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation."
+                        "External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation"
                     ]
                 },
                 {
@@ -3884,7 +3884,7 @@
         {
             "action": "custom block policy",
             "identifier": "custom_block_policy",
-            "description": "Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule.",
+            "description": "Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -3973,7 +3973,7 @@
                     "order": 8
                 },
                 "object_value": {
-                    "description": "Value of the object to be blocked. Can be a list.",
+                    "description": "Value of the object to be blocked. Can be a list",
                     "data_type": "string",
                     "required": true,
                     "order": 9
@@ -4387,7 +4387,7 @@
                     "order": 20
                 },
                 "icmp_unreachable": {
-                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'.",
+                    "description": "Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop'",
                     "data_type": "string",
                     "value_list": [
                         "Yes",
@@ -5055,7 +5055,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
                     "data_type": "string",
                     "example_values": [
-                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer"
                     ]
                 },
                 {
