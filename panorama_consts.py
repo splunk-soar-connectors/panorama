@@ -226,7 +226,7 @@ SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_c
 SEC_POLICY_WITH_MEMBER = ['from', 'to', 'source', 'destination', 'source-user',
                           'service', 'source-hip', 'destination-hip', 'application', 'category']
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
-WHERE_VALUE_LIST = ["after", "before", "top"]
+WHERE_VALUE_LIST = ["after", "before", "top", "bottom"]
 ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "reset both client and server"]
 IP_ADD_TYPE = {
     "IP Netmask": "ip-netmask",
