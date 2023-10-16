@@ -97,11 +97,13 @@ class CreateAddressGroup(BaseAction):
         xpath = f"{ADDR_GRP_XPATH.format(config_xpath= connector.util._get_config_xpath(parameter), ip_group_name=parameter['name'])}"
         if parameter.get('tag'):
             tags = [value.strip() for value in parameter.get('tag').split(',') if value.strip()]
-            status, tag_element_string = connector.util._create_tag(connector, action_result, parameter, tags)
-            message = action_result.get_message()
-            if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("Error occurred while creating the tags: ", message))
-            element += tag_element_string
+            if tags:
+                status, tag_element_string = connector.util._create_tag(connector, action_result, parameter, tags)
+                message = action_result.get_message()
+                if phantom.is_fail(status):
+                    return action_result.set_status(phantom.APP_ERROR,
+                                                    PAN_ERROR_MESSAGE.format("Error occurred while creating the tags: ", message))
+                element += tag_element_string
 
         if parameter.get(PAN_JSON_ADD_GRP_TYPE):
             if parameter.get(PAN_JSON_ADD_GRP_TYPE).lower() == "dynamic":
