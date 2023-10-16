@@ -136,7 +136,7 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR,
                                                 VALUE_LIST_VALIDATION_MESSAGE.format(RULE_TYPE_VALUE_LIST, PAN_JSON_RULE_TYPE))
             else:
-                parameter[PAN_JSON_RULE_TYPE] = parameter.get("rule-type").lower()
+                parameter["rule-type"] = parameter.get("rule-type").lower()
 
         if where:
             if where.lower() not in WHERE_VALUE_LIST:
