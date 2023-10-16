@@ -55,32 +55,43 @@ You can learn more about Audit comment below:
 
 ### Common parameter behavior
 
--   Name Objects
-    Address, Address group EDL and policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters)  
-    ``` 
-    Example:  
-    Test_name (valid input)  
-    _Addressname (invalid input)   
-    ```
-
--   Device group   
-    The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters)    
-    ``` 
-    Example:  
-    Test_edl (valid input)  
-    _Testedl (invalid input)   
-    ```
-
--  disable_override  
-    When the **device_group** is 'shared' the **disable_override** parameter is ignored.  
-<br>
-
-   **Note**  -  If you want to add '&' in any of the field you need to add **\&amp;**
+- Name 
+ Address, Address group, EDL and Policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters) 
     ``` 
     Example: 
-    <static>
-    <member>do_not_delete_address1_default</member>
-    </static>
-    <description>testing&amp;</description>
-    <disable-override>yes</disable-override>
+    Test_name (valid input) 
+    _Addressname (invalid input) 
+    ```
+
+- Device group 
+ The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters) 
     ``` 
+    Example: 
+    Test_edl (valid input) 
+    _Testedl (invalid input) 
+    ```
+
+- disable_override 
+ When the **device_group** is 'shared' the **disable_override** parameter is ignored. 
+
+- use_partial_commit 
+ When **use_partial_commit** is **true**, this performs user specific commit at admin-level changes. As part of the request, the configuration's username is included as the administrator name. Otherwise, plain commit is used by default.
+
+- should_commit_changes (Default: true) 
+ When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. When the **should_commit_changes** is **true** the **use_partial_commit** parameter is ignored. 
+<br>
+
+ **Note** - If you want to add below special characters in any of the field you need to add as per below list. 
+ & - **\&amp;** 
+ < - **\&lt;** 
+ \> - **\&gt;** 
+ " - **\&quot;** 
+ ' - **\&apos;** 
+ ``` 
+ Example: 
+ <static>
+ <member>do_not_delete_address1_default</member>
+ </static>
+ <description>testing&amp;</description>
+ <disable-override>yes</disable-override>
+ ```
