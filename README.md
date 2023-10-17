@@ -67,46 +67,39 @@ You can learn more about Audit comment below:
 
 ### Common parameter behavior
 
-- Name 
- Address, Address group, EDL and Policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters) 
-    ``` 
-    Example: 
-    Test_name (valid input) 
-    _Addressname (invalid input) 
-    ```
+- Name   
+ Address, Address group, EDL and Policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters)  
+  - Examples:  
+    - Test_name (valid input)  
+    - _Addressname (invalid input)  
 
-- Device group 
+- Device group  
  The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters) 
-    ``` 
-    Example: 
-    Test_edl (valid input) 
-    _Testedl (invalid input) 
-    ```
+    - Examples:  
+      - Test_edl (valid input)  
+      - _Testedl (invalid input)  
 
-- disable_override 
+- disable_override  
  When the **device_group** is 'shared' the **disable_override** parameter is ignored. 
 
-- use_partial_commit 
+- use_partial_commit  
  When **use_partial_commit** is **true**, this performs user specific commit at admin-level changes. As part of the request, the configuration's username is included as the administrator name. Otherwise, plain commit is used by default.
 
-- should_commit_changes (Default: true) 
- When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. When the **should_commit_changes** is **true** the **use_partial_commit** parameter is ignored. 
-<br>
+- should_commit_changes (Default: true)  
+ When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. When the **should_commit_changes** is **true** the **use_partial_commit** parameter is ignored.
 
- **Note** - If you want to add below special characters in any of the field you need to add as per below list. 
- & - **\&amp;** 
- < - **\&lt;** 
- \> - **\&gt;** 
- " - **\&quot;** 
- ' - **\&apos;** 
- ``` 
- Example: 
- <static>
- <member>do_not_delete_address1_default</member>
- </static>
- <description>testing&amp;</description>
- <disable-override>yes</disable-override>
- ```
+ **Note**  
+ - If you want to add below special characters in any of the field you need to add as per below list.  
+    - & - **\&amp;**  
+    - < - **\&lt;**  
+    - \> - **\&gt;**  
+    - " - **\&quot;**  
+    - ' - **\&apos;**  
+
+- Example:
+ If you want to pass value as  -> testing&  
+ In the parameter pass it as -> testing&amp;
+
 
 ### Configuration Variables
 The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Panorama asset in SOAR.
@@ -509,11 +502,11 @@ action_result.data.\*.log.logs.entry.\*.app | string |  |   snmp-base
 action_result.data.\*.log.logs.entry.\*.bytes | string |  |   79 
 action_result.data.\*.log.logs.entry.\*.bytes_received | string |  |   0 
 action_result.data.\*.log.logs.entry.\*.bytes_sent | string |  |   79 
-action_result.data.\*.log.logs.entry.\*.captive-portal | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.captive-portal | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.category | string |  |   any 
 action_result.data.\*.log.logs.entry.\*.config_ver | string |  |   1 
 action_result.data.\*.log.logs.entry.\*.cpadding | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.decrypt-mirror | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.decrypt-mirror | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.device_name | string |  |   PA-VM 
 action_result.data.\*.log.logs.entry.\*.dg_hier_level_1 | string |  |   17 
 action_result.data.\*.log.logs.entry.\*.dg_hier_level_2 | string |  |   0 
@@ -524,23 +517,23 @@ action_result.data.\*.log.logs.entry.\*.dport | string |  `port`  |   161
 action_result.data.\*.log.logs.entry.\*.dst | string |  `ip`  |   10.18.3.2 
 action_result.data.\*.log.logs.entry.\*.dstloc | string |  |   10.0.0.0-10.255.255.255 
 action_result.data.\*.log.logs.entry.\*.elapsed | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.flag-flagged | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.flag-nat | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.flag-pcap | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.flag-proxy | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.flag-url-denied | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.flag-flagged | string |  |   No 
+action_result.data.\*.log.logs.entry.\*.flag-nat | string |  |   No 
+action_result.data.\*.log.logs.entry.\*.flag-pcap | string |  |   No 
+action_result.data.\*.log.logs.entry.\*.flag-proxy | string |  |   No 
+action_result.data.\*.log.logs.entry.\*.flag-url-denied | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.flags | string |  |   0x64 
 action_result.data.\*.log.logs.entry.\*.from | string |  |   Internal Zone 
 action_result.data.\*.log.logs.entry.\*.inbound_if | string |  |   ethernet1/1 
 action_result.data.\*.log.logs.entry.\*.logset | string |  |   Forward all logs from DG2 
 action_result.data.\*.log.logs.entry.\*.natdport | string |  |   0 
 action_result.data.\*.log.logs.entry.\*.natsport | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.non-std-dport | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.non-std-dport | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.outbound_if | string |  |   ethernet1/1 
 action_result.data.\*.log.logs.entry.\*.packets | string |  |   1 
 action_result.data.\*.log.logs.entry.\*.padding | string |  |   0 
-action_result.data.\*.log.logs.entry.\*.pbf-c2s | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.pbf-s2c | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.pbf-c2s | string |  |   No 
+action_result.data.\*.log.logs.entry.\*.pbf-s2c | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.pkts_received | string |  |   0 
 action_result.data.\*.log.logs.entry.\*.pkts_sent | string |  |   1 
 action_result.data.\*.log.logs.entry.\*.proto | string |  |   udp 
@@ -556,12 +549,12 @@ action_result.data.\*.log.logs.entry.\*.src | string |  `ip`  |   10.10.0.18
 action_result.data.\*.log.logs.entry.\*.srcloc | string |  |   10.0.0.0-10.255.255.255 
 action_result.data.\*.log.logs.entry.\*.start | string |  |   2017/06/23 15:35:21 
 action_result.data.\*.log.logs.entry.\*.subtype | string |  |   end 
-action_result.data.\*.log.logs.entry.\*.sym-return | string |  |   no 
-action_result.data.\*.log.logs.entry.\*.temporary-match | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.sym-return | string |  |   No 
+action_result.data.\*.log.logs.entry.\*.temporary-match | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.time_generated | string |  |   2017/06/23 15:35:50 
 action_result.data.\*.log.logs.entry.\*.time_received | string |  |   2017/06/23 15:35:50 
 action_result.data.\*.log.logs.entry.\*.to | string |  |   Internal Zone 
-action_result.data.\*.log.logs.entry.\*.transaction | string |  |   no 
+action_result.data.\*.log.logs.entry.\*.transaction | string |  |   No 
 action_result.data.\*.log.logs.entry.\*.type | string |  |   TRAFFIC 
 action_result.data.\*.log.logs.entry.\*.vsys | string |  |   vsys1 
 action_result.data.\*.log.logs.entry.\*.vsys_id | string |  |   1 
@@ -702,12 +695,12 @@ action_result.parameter.name | string |  `panorama edl name`  |   edl_name
 action_result.data | string |  |  
 action_result.data.\*.@loc | string |  |   dg1 
 action_result.data.\*.@name | string |  |   test edl 1 
-action_result.data.\*.disable-override | string |  |   no 
+action_result.data.\*.disable-override | string |  |   No 
 action_result.data.\*.type.ip.certificate-profile | string |  |   test123 
 action_result.data.\*.type.ip.description | string |  |   This is test edl description 
 action_result.data.\*.type.ip.recurring.monthly.at | string |  |   10 
 action_result.data.\*.type.ip.recurring.monthly.day-of-month | string |  |   22 
-action_result.data.\*.type.ip.url | string |  |   https://www.test.com 
+action_result.data.\*.type.ip.url | string |  |   www.test.com 
 action_result.summary | string |  |  
 action_result.summary.message | string |  |   fetched data successfully 
 action_result.message | string |  |   command succeeded 
@@ -752,13 +745,13 @@ action_result.parameter.day_of_week | string |  |   Sunday
 action_result.parameter.description | string |  |   Test description for edl 
 action_result.parameter.device_group | string |  `panorama device group`  |   dg5 
 action_result.parameter.disable_override | string |  |   Yes  No 
-action_result.parameter.exception_list | string |  |   https://test1.com, https://test2.com 
+action_result.parameter.exception_list | string |  |   test1.com, test2.com 
 action_result.parameter.expand_for_subdomains | string |  |   Yes  No 
 action_result.parameter.hour | string |  |   12 
 action_result.parameter.list_type | string |  |   IP List 
 action_result.parameter.name | string |  `panorama edl name`  |   edl_name 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.parameter.source | string |  |   https://test.com 
+action_result.parameter.source | string |  |   http://test.com 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.data.\*.@count | string |  |   0 
@@ -768,10 +761,10 @@ action_result.summary.commit_config.finished_job.description | string |  |
 action_result.summary.commit_config.finished_job.id | string |  |   3639 
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
 action_result.summary.commit_config.finished_job.result | string |  |   OK 
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   03:14:30 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/10/15 03:14:30 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/10/15 03:14:56 
@@ -785,11 +778,11 @@ action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   36
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
 action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
 action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:15:00 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/10/15 03:15:00 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/10/15 03:15:00 
@@ -840,17 +833,49 @@ action_result.parameter.day_of_month | string |  |   1
 action_result.parameter.day_of_week | string |  |   Sunday 
 action_result.parameter.description | string |  |   Test description for edl 
 action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
-action_result.parameter.disable_override | string |  |   Yes  NO 
+action_result.parameter.disable_override | string |  |   Yes  No 
 action_result.parameter.exception_list | string |  |   test.com 
-action_result.parameter.expand_for_subdomains | string |  |   Yes  NO 
+action_result.parameter.expand_for_subdomains | string |  |   Yes  No 
 action_result.parameter.hour | string |  |   10 
 action_result.parameter.list_type | string |  |   IP List 
 action_result.parameter.name | string |  `panorama edl name`  |   edl_name 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.parameter.source | string |  |   test.com 
+action_result.parameter.source | string |  |   http://test.com 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.id | string |  |   3879 
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   02:47:03 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/10/17 02:47:03 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/10/17 02:47:30 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   3890 
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   02:47:33 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/10/17 02:47:33 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/10/17 02:47:33 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
 action_result.summary.modify_edl.response.@code | string |  |   20 
 action_result.summary.modify_edl.response.@status | string |  |   success 
 action_result.summary.modify_edl.response.msg | string |  |   command succeeded 
@@ -886,10 +911,10 @@ action_result.summary.commit_config.finished_job.description | string |  |
 action_result.summary.commit_config.finished_job.id | string |  |   3651 
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
 action_result.summary.commit_config.finished_job.result | string |  |   OK 
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   03:19:54 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/10/15 03:19:54 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/10/15 03:20:20 
@@ -903,11 +928,11 @@ action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   36
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
 action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
 action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:20:21 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/10/15 03:20:21 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/10/15 03:20:21 
@@ -1004,10 +1029,10 @@ action_result.summary.commit_config.finished_job.details.line | string |  |   Co
 action_result.summary.commit_config.finished_job.id | string |  |   432 
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
 action_result.summary.commit_config.finished_job.result | string |  |   OK 
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   04:54:34 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/25 04:54:34 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/25 04:54:58 
@@ -1026,7 +1051,7 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
@@ -1038,11 +1063,11 @@ action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   44
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
 action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
 action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   04:55:01 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/08/25 04:55:01 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/08/25 04:55:01 
@@ -1241,10 +1266,10 @@ action_result.summary.commit_config.finished_job.details.line | string |  |   Co
 action_result.summary.commit_config.finished_job.id | string |  |   227 
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
 action_result.summary.commit_config.finished_job.result | string |  |   OK 
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   22:13:51 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/06 22:13:51 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/06 22:14:19 
@@ -1264,7 +1289,7 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
@@ -1276,11 +1301,11 @@ action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   23
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
 action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
 action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   22:14:22 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/06 22:14:22 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/06 22:14:22 
@@ -1330,10 +1355,10 @@ action_result.summary.commit_config.finished_job.details.line | string |  |   Co
 action_result.summary.commit_config.finished_job.id | string |  |   640 
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
 action_result.summary.commit_config.finished_job.result | string |  |   OK 
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   03:31:30 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/29 03:31:30 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/29 03:31:54 
@@ -1353,7 +1378,7 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
@@ -1365,11 +1390,11 @@ action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   65
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
 action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
 action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:31:57 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/08/29 03:31:57 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/08/29 03:31:57 
@@ -1628,10 +1653,10 @@ action_result.summary.commit_config.finished_job.details.line | string |  |   Co
 action_result.summary.commit_config.finished_job.id | string |  |   622 
 action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_config.finished_job.progress | string |  |   100 
-action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.queued | string |  |   No 
 action_result.summary.commit_config.finished_job.result | string |  |   OK 
 action_result.summary.commit_config.finished_job.status | string |  |   FIN 
-action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_config.finished_job.tdeq | string |  |   03:06:14 
 action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/11 03:06:14 
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/11 03:06:40 
@@ -1645,11 +1670,11 @@ action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   63
 action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
 action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
 action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
-action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
 action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
 action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
-action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:06:43 
 action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/11 03:06:43 
 action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/11 03:06:43 
@@ -1692,8 +1717,8 @@ action_result.data.\*.description.#text | string |  |   testing with ,
 action_result.data.\*.description.@admin | string |  |   admin 
 action_result.data.\*.description.@dirtyId | string |  |   25 
 action_result.data.\*.description.@time | string |  |   2023/09/26 23:49:56 
-action_result.data.\*.disable-override | string |  |   no 
-action_result.data.\*.disable-override.#text | string |  |   no 
+action_result.data.\*.disable-override | string |  |   No 
+action_result.data.\*.disable-override.#text | string |  |   No 
 action_result.data.\*.disable-override.@admin | string |  |   admin 
 action_result.data.\*.disable-override.@dirtyId | string |  |   175 
 action_result.data.\*.disable-override.@time | string |  |   2023/09/13 05:18:32 
