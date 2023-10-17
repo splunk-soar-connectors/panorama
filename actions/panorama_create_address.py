@@ -38,10 +38,10 @@ class CreateAddress(BaseAction):
         if address_ip_type not in consts.IP_ADD_TYPE.keys():
             return action_result.set_status(
                 phantom.APP_ERROR, f"Invalid ip_type parameter. Please select the valid ip address type FROM {consts.IP_ADD_TYPE.keys()}"
-                )
+                ), ""
         status = connector.util._validate_ip_as_per_type(connector, action_result, address_ip_type, address_ip)
         if phantom.is_fail(status):
-            return action_result.get_status()
+            return action_result.get_status(), ""
 
         xml_string = f"<{consts.IP_ADD_TYPE[address_ip_type]}>{address_ip}</{consts.IP_ADD_TYPE[address_ip_type]}>"
 
@@ -51,7 +51,7 @@ class CreateAddress(BaseAction):
         if address_tags:
             tag_status, xml_tag_string = connector.util._create_tag(connector, action_result, self._param, address_tags)
             if phantom.is_fail(tag_status):
-                return action_result.get_status()
+                return action_result.get_status(), ""
             if xml_tag_string:
                 xml_string += xml_tag_string
         # Address description
@@ -62,12 +62,12 @@ class CreateAddress(BaseAction):
         # if its not shared group
         device_group = self._param["device_group"]
         if device_group.lower() != "shared":
-            disable_override = self._param.get("disable_override", "no")
+            disable_override = self._param.get("disable_override", "no").lower()
             if disable_override not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                         "creating address",
                         "Invalid value for expand disable override, the value can contain value either yes or no"
-                    ))
+                    )), ""
             xml_string += f"<disable-override>{disable_override}</disable-override>"
 
         return phantom.APP_SUCCESS, xml_string

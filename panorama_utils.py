@@ -1285,13 +1285,13 @@ class PanoramaUtils(object):
             APP_SUCCESS/APP_ERROR: Phantom success/error boolean object
         """
         connector.debug_print(f"Starting checking type of - {ip_address}")
-        if ip_type == 'IP Wildcard Mask' and self._validate_ip_wildcard_mask(action_result, ip_address):
+        if ip_type == 'ip wildcard mask' and self._validate_ip_wildcard_mask(action_result, ip_address):
             return phantom.APP_SUCCESS
-        elif ip_type == 'IP Netmask' and self._is_ip(action_result, ip_address):
+        elif ip_type == 'ip netmask' and self._is_ip(action_result, ip_address):
             return phantom.APP_SUCCESS
-        elif ip_type == 'IP Range' and self._validate_ip_range(action_result, ip_address):
+        elif ip_type == 'ip range' and self._validate_ip_range(action_result, ip_address):
             return phantom.APP_SUCCESS
-        elif ip_type == 'FQDN' and self._validate_fqdn(action_result, ip_address):
+        elif ip_type == 'fqdn' and self._validate_fqdn(action_result, ip_address):
             return phantom.APP_SUCCESS
 
         connector.debug_print(f"Ending checking type of - {ip_address}")
