@@ -69,9 +69,9 @@ You can learn more about Audit comment below:
 
 - Name   
  Address, Address group, EDL and Policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters)  
-  - Examples:  
-    - Test_name (valid input)  
-    - _Addressname (invalid input)  
+    - Examples:  
+        - Test_name (valid input)  
+        - _Addressname (invalid input)  
 
 - Device group  
  The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters) 
@@ -713,7 +713,7 @@ Create an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b></li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificatesthat match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li><li>If the list type is <b>Subscriber Identity List(IMSI)</b>, in the exception list IMSI prefix can have 6 digit values followed by '\*'<ul><li>Example : 123456\*</li></ul></li><li>If the list type is <b>Equipment Identity List(IESI)</b>, in the exception list IMSI prefix can have 8 digit values followed by '\*'<ul><li>Example : 12345678\*</li></ul></li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -802,7 +802,7 @@ Modify an External Dynamic List
 Type: **generic**  
 Read only: **True**
 
-<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li><li>If the list type is <b>Subscriber Identity List(IMSI)</b>, in the exception list IMSI prefix can have 6 digit values followed by '\*'<ul><li>Example : 123456\*</li></ul></li><li>If the list type is <b>Equipment Identity List(IESI)</b>, in the exception list IMSI prefix can have 8 digit values followed by '\*'<ul><li>Example : 12345678\*</li></ul></li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
