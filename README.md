@@ -628,7 +628,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group whose edl you want to list (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group whose edl you want to list (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -684,7 +684,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to get data off (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the edl exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -719,7 +719,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to create (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group in which you want to create the edl (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to create the edl (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  required  | Type of external dynamic list | string | 
 **source** |  required  | Source url to fetch the data | string | 
@@ -808,7 +808,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to modify (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the edl exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **description** |  optional  | Description of external dynamic list (max char : 255) | string | 
 **list_type** |  optional  | Type of external dynamic list | string | 
 **source** |  optional  | Source url to fetch the data | string | 
@@ -893,7 +893,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the external dynamic list you want to delete (up to 63 characters) | string |  `panorama edl name` 
-**device_group** |  required  | Device group in which the edl exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the edl exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -958,7 +958,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
-**device_group** |  required  | Device group to create the policy rule in (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group to create the policy rule in (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
@@ -1091,7 +1091,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group to create the policy rule in (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group to create the policy rule in (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
@@ -1152,7 +1152,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
-**device_group** |  required  | Device group of the policy rule | string |  `panorama device group` 
+**device_group** |  required  | Device group of the policy rule (default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **rule_type** |  optional  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
@@ -1234,7 +1234,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another. Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.) | string |  `panorama policy name` 
-**device_group** |  required  | Device group of the policy rule (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group of the policy rule (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **dst_device_group** |  optional  | Device group to move the policy rule to (up to 31 characters) | string |  `panorama device group` 
 **dst_policy_type** |  optional  | Rule base to move the policy to (pre-rule or post-rule) | string | 
@@ -1333,7 +1333,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **policy_name** |  required  | Name of the policy rule to delete | string |  `panorama policy name` 
 **policy_type** |  required  | Rule base to delete the policy from (pre-rule or post-rule) | string | 
-**device_group** |  required  | Device group of the policy rule | string |  `panorama device group` 
+**device_group** |  required  | Device group of the policy rule (default is 'shared') | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -1415,7 +1415,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the address group to be created (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group to create the address group in or 'shared' (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group to create the address group in or 'shared' (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **type** |  required  | Type of the address group (Whether to create a static or a dynamic address group) | string | 
 **addresses_or_match_criteria** |  required  | List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group) | string | 
 **description** |  optional  | Description for the address group (max length 1023 characters) | string | 
@@ -1453,7 +1453,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of the address group to be modified | string |  `panorama address group name` 
-**device_group** |  required  | Device group to which the address group to be modified belongs | string |  `panorama device group` 
+**device_group** |  required  | Device group to which the address group to be modified belongs (default is 'shared') | string |  `panorama device group` 
 **type** |  optional  | Type of the address group | string | 
 **addresses_or_match_criteria** |  optional  | List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this address group | string | 
 **description** |  optional  | Description for the address group (max length 1023 characters) | string | 
@@ -1490,7 +1490,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group whose address groups you want to list (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group whose address groups you want to list (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1550,7 +1550,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group in which the address group exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address group exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1594,7 +1594,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address group (up to 63 characters) | string |  `panorama address group name` 
-**device_group** |  required  | Device group in which the address group exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address group exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
@@ -1624,7 +1624,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address to be created (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group in which you want to create address (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which you want to create address (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **type** |  required  | Type of address to create | string | 
 **value** |  required  | Value of address as per the selected type | string |  `ip`  `ipv6`  `domain` 
 **description** |  optional  | Description of address (up to 1023 characters) | string | 
@@ -1698,7 +1698,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group in which the address exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
@@ -1750,7 +1750,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Name of address (up to 63 characters) | string |  `panorama address name` 
-**device_group** |  required  | Device group in which the address exists (up to 31 characters) | string |  `panorama device group` 
+**device_group** |  required  | Device group in which the address exists (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **should_commit_changes** |  optional  | Whether to commit both changes to firewall and changes to device groups at the end of this action | boolean | 
 **use_partial_commit** |  optional  | Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default | boolean | 
 
