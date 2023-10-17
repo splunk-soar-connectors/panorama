@@ -57,9 +57,9 @@ You can learn more about Audit comment below:
 
 - Name   
  Address, Address group, EDL and Policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters)  
-  - Examples:  
-    - Test_name (valid input)  
-    - _Addressname (invalid input)  
+    - Examples:  
+        - Test_name (valid input)  
+        - _Addressname (invalid input)  
 
 - Device group  
  The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters) 
