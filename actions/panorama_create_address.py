@@ -22,7 +22,7 @@ from actions import BaseAction
 class CreateAddress(BaseAction):
 
     def _generate_xml_string_for_address(self, connector, action_result):
-        """Create a tag and add tags into Panorama plateform as per tags. Generate the XML string based on given input parameters.
+        """Create a tag and add tags into Panorama platform as per tags. Generate the XML string based on given input parameters.
 
         Args:
             connector: Connector object
@@ -32,7 +32,7 @@ class CreateAddress(BaseAction):
             xml_string: XML string
         """
         xml_tag_string = None
-        address_ip_type = self._param["type"]
+        address_ip_type = self._param["type"].lower()
         address_ip = self._param["value"]
 
         if address_ip_type not in consts.IP_ADD_TYPE.keys():

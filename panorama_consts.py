@@ -174,13 +174,13 @@ PAN_KEY_TOKEN = "key_token"
 PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
 
 PAN_EDL_TYPES = {
-    "Predefined IP List": "predefined-ip",
-    "Predefined URL List": "predefined-url",
-    "IP List": "ip",
-    "Domain List": "domain",
-    "URL List": "url",
-    "Subscriber Identity List": "imsi",
-    "Equipment Identity List": "imei"
+    "predefined ip list": "predefined-ip",
+    "predefined url list": "predefined-url",
+    "ip list": "ip",
+    "domain list": "domain",
+    "url list": "url",
+    "subscriber identity list": "imsi",
+    "equipment identity list": "imei"
 }
 
 PAN_EDL_TYPES_STR = " The valid list types for EDL are : Predefined IP List, Predefined Url\
@@ -229,10 +229,10 @@ CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zo
 WHERE_VALUE_LIST = ["after", "before", "top", "bottom"]
 ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "reset both client and server"]
 IP_ADD_TYPE = {
-    "IP Netmask": "ip-netmask",
-    "IP Range": "ip-range",
-    "IP Wildcard Mask": "ip-wildcard",
-    "FQDN": "fqdn"
+    "ip netmask": "ip-netmask",
+    "ip range": "ip-range",
+    "ip wildcard mask": "ip-wildcard",
+    "fqdn": "fqdn"
 }
 
 param_mapping = {

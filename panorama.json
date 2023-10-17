@@ -1561,7 +1561,7 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.captive-portal",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -1589,7 +1589,7 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.decrypt-mirror",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -1679,35 +1679,35 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.flag-flagged",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.log.logs.entry.*.flag-nat",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.log.logs.entry.*.flag-pcap",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.log.logs.entry.*.flag-proxy",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.log.logs.entry.*.flag-url-denied",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -1756,7 +1756,7 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.non-std-dport",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -1784,14 +1784,14 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.pbf-c2s",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.log.logs.entry.*.pbf-s2c",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -1915,14 +1915,14 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.sym-return",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.log.logs.entry.*.temporary-match",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -1950,7 +1950,7 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.transaction",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -2613,7 +2613,7 @@
                     "data_path": "action_result.data.*.disable-override",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -2648,7 +2648,7 @@
                     "data_path": "action_result.data.*.type.ip.url",
                     "data_type": "string",
                     "example_values": [
-                        "https://www.test.com"
+                        "www.test.com"
                     ]
                 },
                 {
@@ -2900,7 +2900,7 @@
                     "data_path": "action_result.parameter.exception_list",
                     "data_type": "string",
                     "example_values": [
-                        "https://test1.com, https://test2.com"
+                        "test1.com, test2.com"
                     ]
                 },
                 {
@@ -2949,7 +2949,7 @@
                     "data_path": "action_result.parameter.source",
                     "data_type": "string",
                     "example_values": [
-                        "https://test.com"
+                        "http://test.com"
                     ]
                 },
                 {
@@ -3011,7 +3011,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -3032,7 +3032,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -3124,7 +3124,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -3152,7 +3152,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -3440,7 +3440,7 @@
                     "data_type": "string",
                     "example_values": [
                         "Yes",
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -3455,7 +3455,7 @@
                     "data_type": "string",
                     "example_values": [
                         "Yes",
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -3496,7 +3496,7 @@
                     "data_path": "action_result.parameter.source",
                     "data_type": "string",
                     "example_values": [
-                        "test.com"
+                        "http://test.com"
                     ]
                 },
                 {
@@ -3513,6 +3513,218 @@
                 },
                 {
                     "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "3879"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "No"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "No"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "02:47:03"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/17 02:47:03"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/17 02:47:30"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Commit"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer."
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.dgname",
+                    "data_type": "string",
+                    "example_values": [
+                        "dg1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "3890"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.positionInQ",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.progress",
+                    "data_type": "string",
+                    "example_values": [
+                        "100"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.push_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "shared-policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
+                    "data_type": "string",
+                    "example_values": [
+                        "No"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "OK"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.sched",
+                    "data_type": "string",
+                    "example_values": [
+                        "None"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
+                    "data_type": "string",
+                    "example_values": [
+                        "No"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "02:47:33"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/17 02:47:33"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.tfin",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/17 02:47:33"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "CommitAll"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.user",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.warnings",
                     "data_type": "string"
                 },
                 {
@@ -3694,7 +3906,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -3715,7 +3927,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -3807,7 +4019,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -3835,7 +4047,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -4451,7 +4663,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -4472,7 +4684,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -4593,7 +4805,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.multi-vsys",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -4674,7 +4886,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -4702,7 +4914,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -5867,7 +6079,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -5888,7 +6100,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -6016,7 +6228,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.multi-vsys",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -6097,7 +6309,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -6125,7 +6337,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -6404,7 +6616,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -6425,7 +6637,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -6553,7 +6765,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.multi-vsys",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -6634,7 +6846,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -6662,7 +6874,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -7905,9 +8117,9 @@
                     "data_type": "string",
                     "value_list": [
                         "yes",
-                        "no"
+                        "No"
                     ],
-                    "default": "no",
+                    "default": "No",
                     "order": 6
                 },
                 "ph_0": {
@@ -8051,7 +8263,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -8072,7 +8284,7 @@
                     "data_path": "action_result.summary.commit_config.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -8164,7 +8376,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.queued",
                     "data_type": "string",
                     "example_values": [
-                        "NO"
+                        "No"
                     ]
                 },
                 {
@@ -8192,7 +8404,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.stoppable",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
@@ -8421,14 +8633,14 @@
                     "data_path": "action_result.data.*.disable-override",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.disable-override.#text",
                     "data_type": "string",
                     "example_values": [
-                        "no"
+                        "No"
                     ]
                 },
                 {

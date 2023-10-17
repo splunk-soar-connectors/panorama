@@ -25,7 +25,7 @@ class CreateEdl(BaseAction):
     def generate_dict_for_xml(self, action_result):
 
         source = self._param["source"]
-        edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"])
+        edl_list_type = consts.PAN_EDL_TYPES.get(self._param["list_type"].lower())
 
         if len(source) > 255:
             return action_result.set_status(
@@ -106,8 +106,7 @@ class CreateEdl(BaseAction):
                 hour = "%02d" % hour
 
                 if check_for_updates == "weekly":
-                    day_of_week = self._param.get("day_of_week", "Sunday")
-                    day_of_week = day_of_week.lower()
+                    day_of_week = self._param.get("day_of_week", "Sunday").lower()
                     if day_of_week not in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
                         return action_result.set_status(
                             phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
@@ -159,8 +158,7 @@ class CreateEdl(BaseAction):
             dict_for_xml["type"][edl_list_type]["recurring"] = recurring_dict
 
         if edl_list_type == "domain":
-            expand_subdomain = self._param.get("expand_for_subdomains", "no")
-            expand_subdomain = expand_subdomain.lower()
+            expand_subdomain = self._param.get("expand_for_subdomains", "no").lower()
             if expand_subdomain not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
                     "creating external dynamic list",

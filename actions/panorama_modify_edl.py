@@ -85,7 +85,7 @@ class ModifyEdl(BaseAction):
 
         # fetch edl type if updated
         if edl_list_type:
-            edl_list_type = consts.PAN_EDL_TYPES.get(edl_list_type)
+            edl_list_type = consts.PAN_EDL_TYPES.get(edl_list_type.lower())
             if edl_list_type not in ["predefined-ip", "predefined-url", "ip", "domain", "url", "imsi", "imei"]:
                 return action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
