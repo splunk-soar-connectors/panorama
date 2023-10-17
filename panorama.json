@@ -2232,7 +2232,7 @@
             "type": "investigate",
             "parameters": {
                 "device_group": {
-                    "description": "Device group whose edl you want to list (up to 31 characters)",
+                    "description": "Device group whose edl you want to list (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
@@ -2551,7 +2551,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the edl exists (up to 31 characters)",
+                    "description": "Device group in which the edl exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -2709,7 +2709,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which you want to create the edl (up to 31 characters)",
+                    "description": "Device group in which you want to create the edl (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -3264,7 +3264,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the edl exists (up to 31 characters)",
+                    "description": "Device group in which the edl exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -3796,7 +3796,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the edl exists (up to 31 characters)",
+                    "description": "Device group in which the edl exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -4159,7 +4159,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to create the policy rule in (up to 31 characters)",
+                    "description": "Device group to create the policy rule in (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -5022,7 +5022,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to create the policy rule in (up to 31 characters)",
+                    "description": "Device group to create the policy rule in (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -5372,7 +5372,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group of the policy rule",
+                    "description": "Device group of the policy rule (default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -5857,7 +5857,7 @@
                     "order": 1
                 },
                 "device_group": {
-                    "description": "Device group of the policy rule (up to 31 characters)",
+                    "description": "Device group of the policy rule (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -6476,7 +6476,7 @@
                     "required": true
                 },
                 "device_group": {
-                    "description": "Device group of the policy rule",
+                    "description": "Device group of the policy rule (default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "primary": true,
@@ -6961,7 +6961,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to create the address group in or 'shared' (up to 31 characters)",
+                    "description": "Device group to create the address group in or 'shared' (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "required": true,
@@ -7166,7 +7166,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group to which the address group to be modified belongs",
+                    "description": "Device group to which the address group to be modified belongs (default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "required": true,
@@ -7357,7 +7357,7 @@
             "read_only": true,
             "parameters": {
                 "device_group": {
-                    "description": "Device group whose address groups you want to list (up to 31 characters)",
+                    "description": "Device group whose address groups you want to list (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
@@ -7704,7 +7704,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the address group exists (up to 31 characters)",
+                    "description": "Device group in which the address group exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -7938,7 +7938,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the address group exists (up to 31 characters)",
+                    "description": "Device group in which the address group exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -8067,7 +8067,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which you want to create address (up to 31 characters)",
+                    "description": "Device group in which you want to create address (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -8515,7 +8515,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the address exists (up to 31 characters)",
+                    "description": "Device group in which the address exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
@@ -8805,7 +8805,7 @@
                     ]
                 },
                 "device_group": {
-                    "description": "Device group in which the address exists (up to 31 characters)",
+                    "description": "Device group in which the address exists (up to 31 characters, default is 'shared')",
                     "data_type": "string",
                     "default": "shared",
                     "order": 1,
