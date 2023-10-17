@@ -55,4 +55,4 @@ class DeletePolicy(BaseAction):
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Successfully deleted policy: {}".format(message))
+        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
