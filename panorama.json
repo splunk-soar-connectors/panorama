@@ -77,7 +77,6 @@
                 "device_group": {
                     "description": "Device group in which you want to block url",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -239,7 +238,6 @@
                 "device_group": {
                     "description": "Device group in which you want to unblock url",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -364,7 +362,6 @@
                 "device_group": {
                     "description": "Device group in which you want to block application",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -526,7 +523,6 @@
                 "device_group": {
                     "description": "Device group in which you want to unblock application",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 1,
                     "required": true,
                     "primary": true,
@@ -656,7 +652,6 @@
                 "device_group": {
                     "description": "Device group in which you want to block ip",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 2,
                     "required": true,
                     "primary": true,
@@ -841,7 +836,6 @@
                 "device_group": {
                     "description": "Device group in which you want to unblock ip",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 2,
                     "required": true,
                     "primary": true,
@@ -2025,7 +2019,6 @@
                 "device_group": {
                     "description": "Device group whose changes you want to commit changes",
                     "data_type": "string",
-                    "default": "shared",
                     "order": 0,
                     "required": true,
                     "primary": true,
