@@ -2314,7 +2314,7 @@
                     "data_path": "action_result.data.*.disable-override.#text",
                     "data_type": "string",
                     "example_values": [
-                        "yes"
+                        "Yes"
                     ]
                 },
                 {
@@ -4619,6 +4619,20 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.response.@code",
                     "data_type": "string",
                     "example_values": [
@@ -4737,6 +4751,10 @@
                     "example_values": [
                         "admin"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
@@ -4994,6 +5012,52 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.summary.does_policy_exist.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "7"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.update_audit_comment.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.update_audit_comment.response.result",
+                    "data_type": "string",
+                    "example_values": [
+                        "Successfully added comment for xpath"
+                    ]
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
@@ -5012,70 +5076,6 @@
                     "data_type": "numeric",
                     "example_values": [
                         1
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.commit_config.finished_job.warnings",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "7"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.update_audit_comment.response.result",
-                    "data_type": "string",
-                    "example_values": [
-                        "Successfully added comment for xpath"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.update_audit_comment.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
                     ]
                 }
             ],
@@ -5384,6 +5384,20 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.data.*.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.response.@code",
                     "data_type": "string",
                     "example_values": [
@@ -5413,6 +5427,38 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.summary.does_policy_exist.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "7"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
@@ -5432,52 +5478,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "7"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result",
-                    "data_type": "string"
                 }
             ],
             "render": {
@@ -5909,6 +5909,741 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.data.*.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.@loc",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_dg_child"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "splunk_phantom_test_rule_23"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.@uuid",
+                    "data_type": "string",
+                    "example_values": [
+                        "3fcfee47-4425-4c3a-8cb9-cb37ae4ee096"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.action",
+                    "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.action.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.action.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.action.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.action.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.application.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.description.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "Case Sensitive Description. THIS is Case sensitive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.description.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.description.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.description.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination-hip.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.destination.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.from.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.rule-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.rule-type.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.rule-type.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.rule-type.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.rule-type.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "service-http"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "200"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 07:16:26"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.service.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-hip.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "403"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 09:47:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_user_group_parent"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "403"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source-user.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 09:47:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_address1_default"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "303"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 08:52:12"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.source.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_zone1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "403"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 09:47:07"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.to.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.response.@code",
                     "data_type": "string",
                     "example_values": [
@@ -5938,6 +6673,759 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.summary.does_policy_exist.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@loc",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_dg_child"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@name",
+                    "data_type": "string",
+                    "example_values": [
+                        "splunk_phantom_test_rule_23"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@uuid",
+                    "data_type": "string",
+                    "example_values": [
+                        "3fcfee47-4425-4c3a-8cb9-cb37ae4ee096"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action",
+                    "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "Case Sensitive Description. THIS is Case sensitive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "universal"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "service-http"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "200"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 07:16:26"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "403"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 09:47:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_user_group_parent"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "403"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 09:47:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_address1_default"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "303"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 08:52:12"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_zone1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "403"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 09:47:07"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "153"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/09/25 06:56:08"
+                    ]
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
@@ -5956,1494 +7444,6 @@
                     "data_type": "numeric",
                     "example_values": [
                         1
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@name",
-                    "data_type": "string",
-                    "example_values": [
-                        "splunk_phantom_test_rule_23"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@uuid",
-                    "data_type": "string",
-                    "example_values": [
-                        "3fcfee47-4425-4c3a-8cb9-cb37ae4ee096"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.action",
-                    "data_type": "string",
-                    "example_values": [
-                        "allow"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.rule-type",
-                    "data_type": "string",
-                    "example_values": [
-                        "universal"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "19"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@name",
-                    "data_type": "string",
-                    "example_values": [
-                        "splunk_phantom_test_rule_23"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@uuid",
-                    "data_type": "string",
-                    "example_values": [
-                        "3fcfee47-4425-4c3a-8cb9-cb37ae4ee096"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action",
-                    "data_type": "string",
-                    "example_values": [
-                        "allow"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type",
-                    "data_type": "string",
-                    "example_values": [
-                        "universal"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@loc",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_dg_child"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@loc",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_dg_child"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.from.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.action.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "allow"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.action.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.action.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.action.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.rule-type.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "universal"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.rule-type.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.rule-type.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.rule-type.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-hip.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.application.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.description.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "Case Sensitive Description. THIS is Case sensitive"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.description.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.description.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.description.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.destination-hip.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "allow"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "universal"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "Case Sensitive Description. THIS is Case sensitive"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "any"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 06:56:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "153"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "service-http"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 07:16:26"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.service.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "200"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "service-http"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 07:16:26"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.service.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "200"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 09:47:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_user_group_parent"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 09:47:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "403"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source-user.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "403"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 09:47:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_user_group_parent"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 09:47:08"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "403"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "403"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_zone1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 09:47:07"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.to.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "403"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_zone1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 09:47:07"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.to.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "403"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_address1_default"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 08:52:12"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.source.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "303"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_address1_default"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/09/25 08:52:12"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.source.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "303"
                     ]
                 }
             ],
@@ -7637,6 +7637,13 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.response.@from",
                     "data_type": "string",
                     "example_values": [
@@ -7662,6 +7669,13 @@
                     "data_type": "string",
                     "example_values": [
                         "test_block_rule"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
                     ]
                 },
                 {
@@ -8066,20 +8080,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ]
                 }
             ],
             "render": {
@@ -8322,6 +8322,10 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.summary.commit_config.finished_job.warnings",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.summary.commit_config.finished_job.warnings.line",
                     "data_type": "string",
                     "example_values": [
@@ -8383,6 +8387,10 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn.entry.*.#text",
                     "data_type": "string",
                     "example_values": [
@@ -8399,6 +8407,13 @@
                 {
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "External Dynamic List test65432 is configured with no certificate profile. Please select a certificate profile for performing server certificate validation."
+                    ]
                 },
                 {
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.devicename",
@@ -8582,21 +8597,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.summary.commit_config.finished_job.warnings",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings.line",
-                    "data_type": "string",
-                    "example_values": [
-                        "External Dynamic List test65432 is configured with no certificate profile. Please select a certificate profile for performing server certificate validation."
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn",
-                    "data_type": "string"
                 }
             ],
             "render": {
@@ -8647,7 +8647,7 @@
                     "order": 2
                 },
                 "addresses_or_match_criteria": {
-                    "description": "List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group)",
+                    "description": "List of addresses or address_group to add in this address group, if 'type' is static then addresses or address groups to be included in address group have to added and if 'type' is dynamic then the match criteria (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group has to be added",
                     "data_type": "string",
                     "required": true,
                     "order": 3
@@ -8779,31 +8779,6 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Created global table successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.@count",
                     "data_type": "string",
                     "example_values": [
@@ -8815,13 +8790,6 @@
                     "data_type": "string",
                     "example_values": [
                         "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
                     ]
                 },
                 {
@@ -8839,11 +8807,33 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
                     "data_type": "string",
                     "example_values": [
                         "7"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary.does_policy_exist.response.result.@count",
@@ -8860,15 +8850,25 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.@status",
+                    "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "command succeeded"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result",
-                    "data_type": "string"
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -9047,74 +9047,28 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.data.*.@count",
                     "data_type": "string",
                     "example_values": [
-                        "Created global table successfully"
+                        "1"
                     ]
                 },
                 {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.@time",
+                    "data_path": "action_result.data.*.@total-count",
                     "data_type": "string",
                     "example_values": [
-                        "2023/10/03 23:06:06"
+                        "1"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.entry.tag.@admin",
+                    "data_path": "action_result.data.*.entry.@admin",
                     "data_type": "string",
                     "example_values": [
                         "admin"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.entry.tag.member.*.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "Test_Tag_For_ADG"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:06"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.member.*.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "6"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.@dirtyId",
+                    "data_path": "action_result.data.*.entry.@dirtyId",
                     "data_type": "string",
                     "example_values": [
                         "6"
@@ -9142,31 +9096,10 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.entry.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "6"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.entry.description.#text",
                     "data_type": "string",
                     "example_values": [
                         "This is test description for Address_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.description.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:06"
                     ]
                 },
                 {
@@ -9184,24 +9117,108 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.@count",
+                    "data_path": "action_result.data.*.entry.description.@time",
                     "data_type": "string",
                     "example_values": [
-                        "1"
+                        "2023/10/03 23:06:06"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.@total-count",
+                    "data_path": "action_result.data.*.entry.static.@admin",
                     "data_type": "string",
                     "example_values": [
-                        "1"
+                        "admin"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.response.msg",
+                    "data_path": "action_result.data.*.entry.static.@dirtyId",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.static.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:07"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.static.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "do_not_delete_address_group_shared"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.static.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.static.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.static.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:07"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:06"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "Test_Tag_For_ADG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:06"
                     ]
                 },
                 {
@@ -9219,6 +9236,17 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
                     "data_type": "string",
                     "example_values": [
@@ -9226,49 +9254,39 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.@time",
+                    "data_path": "action_result.summary.does_policy_exist.response.@status",
                     "data_type": "string",
                     "example_values": [
-                        "2023/10/03 23:06:06"
+                        "success"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.@admin",
+                    "data_path": "action_result.summary.does_policy_exist.response.result",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
                     "data_type": "string",
                     "example_values": [
-                        "admin"
+                        "1"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.#text",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
                     "data_type": "string",
                     "example_values": [
-                        "Test_Tag_For_ADG"
+                        "1"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:06"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.@admin",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@admin",
                     "data_type": "string",
                     "example_values": [
                         "admin"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "6"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@dirtyId",
                     "data_type": "string",
                     "example_values": [
                         "6"
@@ -9296,31 +9314,10 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "6"
-                    ]
-                },
-                {
                     "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.#text",
                     "data_type": "string",
                     "example_values": [
                         "This is test description for Address_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:06"
                     ]
                 },
                 {
@@ -9338,70 +9335,21 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@count",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.description.@time",
                     "data_type": "string",
                     "example_values": [
-                        "1"
+                        "2023/10/03 23:06:06"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.static.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:07"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.static.@admin",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.@admin",
                     "data_type": "string",
                     "example_values": [
                         "admin"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.entry.static.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "do_not_delete_address_group_shared"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.static.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:07"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.static.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.static.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "6"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.static.@dirtyId",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.@dirtyId",
                     "data_type": "string",
                     "example_values": [
                         "6"
@@ -9415,24 +9363,10 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
                     "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.member.#text",
                     "data_type": "string",
                     "example_values": [
                         "do_not_delete_address_group_shared"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/03 23:06:07"
                     ]
                 },
                 {
@@ -9450,15 +9384,81 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.@dirtyId",
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.static.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:07"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId",
                     "data_type": "string",
                     "example_values": [
                         "6"
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.does_policy_exist.response.result",
-                    "data_type": "string"
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:06"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "Test_Tag_For_ADG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.*.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/03 23:06:06"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -9481,11 +9481,7 @@
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
-                    "required": true,
-                    "primary": true,
-                    "contains": [
-                        "panorama device group"
-                    ]
+                    "required": true
                 }
             },
             "output": [
@@ -9500,9 +9496,6 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
-                    "contains": [
-                        "panorama device group"
-                    ],
                     "example_values": [
                         "test_device_grp"
                     ]
@@ -9583,7 +9576,7 @@
                     "data_path": "action_result.data.*.disable-override",
                     "data_type": "string",
                     "example_values": [
-                        "yes"
+                        "Yes"
                     ]
                 },
                 {
@@ -10237,7 +10230,7 @@
                     "description": "Whether to disable override the address or not",
                     "data_type": "string",
                     "value_list": [
-                        "yes",
+                        "Yes",
                         "No"
                     ],
                     "default": "No",

@@ -1222,6 +1222,17 @@ class PanoramaUtils(object):
         return name
 
     def _get_action_element(self, param):
+        """
+            Create the element that needs to passes in the API call
+            based on parameters that support comma separated values
+            and parameters that don't
+
+            Args:
+            param : Parameters
+
+            Returns:
+            element: XML string for passing as element
+        """
         element = ""
         status = False
         for params in param.keys():
@@ -1236,6 +1247,18 @@ class PanoramaUtils(object):
         return element
 
     def _element_prep(self, param_name, param_val, member=False):
+        """
+            Create the element for individual parameter
+
+            Args:
+            param_name : Parameter name
+            param_val : Parameter value
+            member (boolean) : If the parameter accepts list of comma separated values
+
+            Returns:
+            status: If the parameter needs to be added to element or not
+            element: XML string for particular parameter
+        """
 
         temp_element = ""
         status = True
@@ -1243,6 +1266,8 @@ class PanoramaUtils(object):
         try:
             param_list = param_val.split(",")
             param_list = [value.strip() for value in param_list if value.strip()]
+            # if the parameter is a list of comma separated values values and needs 'member,
+            # in its element and length is zero then do not add that to element
             if len(param_list) == 0 and member:
                 status = False
                 return status, temp_element

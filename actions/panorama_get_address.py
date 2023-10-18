@@ -54,4 +54,4 @@ class GetAddress(BaseAction):
 
         action_result.update_data([result_data])
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"successfully fetched {address_name} address details")
+        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched address details")

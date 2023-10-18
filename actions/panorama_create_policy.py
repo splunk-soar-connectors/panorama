@@ -47,7 +47,7 @@ class CreatePolicy(BaseAction):
         rule_type = parameter.get(PAN_JSON_RULE_TYPE)
         audit_comment = parameter.get(PAN_JSON_AUDIT_COMMENT, None)
         description = parameter.get(PAN_JSON_DESC, None)
-
+        # validate description length
         if description and len(description) > 1024:
             return action_result.set_status(
                 phantom.APP_ERROR, "The length of description is too long. It should not exceed 1024 characters.")
@@ -61,46 +61,46 @@ class CreatePolicy(BaseAction):
                         phantom.APP_ERROR,
                         f"'{param}' is a required value hence please add a valid input"
                     )
-
+        # parameter mapping for preparing the element
         for param in parameter.copy():
             if param in param_mapping:
                 new_key = param_mapping.get(param)
                 parameter[new_key] = parameter.get(param)
                 del parameter[param]
-
+        # value list validation for action
         if parameter.get(PAN_JSON_ACTION):
             if parameter.get(PAN_JSON_ACTION).lower() not in ACTION_VALUE_LIST:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(ACTION_VALUE_LIST, PAN_JSON_ACTION))
             else:
                 parameter[PAN_JSON_ACTION] = parameter[PAN_JSON_ACTION].lower()
-
+        # value list validation for negate source
         if parameter.get(PAN_JSON_NEGATE_SOURCE):
             if parameter.get(PAN_JSON_NEGATE_SOURCE).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"], "negate_source"))
             else:
                 parameter[PAN_JSON_NEGATE_SOURCE] = parameter.get(PAN_JSON_NEGATE_SOURCE).lower()
-
+        # value list validation for negate destination
         if parameter.get(PAN_JSON_NEGATE_DESTINATION):
             if parameter.get(PAN_JSON_NEGATE_DESTINATION).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "negate_destination"))
             else:
                 parameter[PAN_JSON_NEGATE_DESTINATION] = parameter.get(PAN_JSON_NEGATE_DESTINATION).lower()
-
+        # value list validation for icmp_unreachable
         if parameter.get(PAN_JSON_ICMP_UNREACHABLE):
             if parameter.get(PAN_JSON_ICMP_UNREACHABLE).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "icmp_unreachable"))
             else:
                 parameter[PAN_JSON_ICMP_UNREACHABLE] = parameter.get(PAN_JSON_ICMP_UNREACHABLE).lower()
-
+        # value list validation for disable
         if parameter.get(PAN_JSON_DISABLE):
             if parameter.get(PAN_JSON_DISABLE).lower() not in ["yes", "no"]:
                 return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["Yes", "No"],
                                                                                                         "disable"))
             else:
                 parameter[PAN_JSON_DISABLE] = parameter.get(PAN_JSON_DISABLE).lower()
-
+        # check if a policy with same name exists
         status, policy_present = connector.util._does_policy_exist(parameter, action_result)
 
         if policy_present and connector.get_action_identifier() != "modify_policy":
@@ -137,7 +137,7 @@ class CreatePolicy(BaseAction):
                                                 VALUE_LIST_VALIDATION_MESSAGE.format(RULE_TYPE_VALUE_LIST, PAN_JSON_RULE_TYPE))
             else:
                 parameter["rule-type"] = parameter.get("rule-type").lower()
-
+        # value list validation for where
         if where:
             if where.lower() not in WHERE_VALUE_LIST:
                 return action_result.set_status(phantom.APP_ERROR,
@@ -168,7 +168,8 @@ class CreatePolicy(BaseAction):
         status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
 
         message = action_result.get_message()
-
+        # if nothing to modify in policy, but audit comment needs to be added or it has to be enabled
+        # or disabled while modifying then do not display the message returned due to empty element from API yet
         if not ((not element and phantom.is_fail(status)) and (audit_comment or parameter.get(PAN_JSON_DISABLE))):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))

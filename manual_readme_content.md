@@ -71,10 +71,10 @@ You can learn more about Audit comment below:
  When the **device_group** is 'shared' the **disable_override** parameter is ignored. 
 
 - use_partial_commit  
- When **use_partial_commit** is **true**, this performs user specific commit at admin-level changes. As part of the request, the configuration's username is included as the administrator name. Otherwise, plain commit is used by default.
+ When **use_partial_commit** is **true**, this performs user specific commit at admin-level changes. As part of the request, the configuration's username is included as the administrator name. Otherwise, plain commit is used by default.When the **should_commit_changes** is **false** the **use_partial_commit** parameter is ignored.
 
 - should_commit_changes (Default: true)  
- When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. When the **should_commit_changes** is **true** the **use_partial_commit** parameter is ignored.
+ When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. 
 
  **Note**  
  - If you want to add below special characters in any of the field you need to add as per below list.  
