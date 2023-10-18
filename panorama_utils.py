@@ -1360,7 +1360,7 @@ class PanoramaUtils(object):
         """
 
         try:
-            ipaddress.IPv4Network(input_ip_address)
+            ipaddress.ip_network(input_ip_address)
         except Exception as e:
             action_result.set_status(phantom.APP_ERROR, f"Invalid value for IP Netmask type. Error - {e}")
             return phantom.APP_ERROR
