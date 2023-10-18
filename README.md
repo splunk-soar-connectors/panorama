@@ -90,15 +90,15 @@ You can learn more about Audit comment below:
 
  **Note**  
  - If you want to add below special characters in any of the field you need to add as per below list.  
-    - & - **\&amp;**  
-    - < - **\&lt;**  
-    - \> - **\&gt;**  
-    - " - **\&quot;**  
-    - ' - **\&apos;**  
+    - & - **`&amp;`**  
+    - < - **`&lt;`**  
+    - \> - **`&gt;`**  
+    - " - **`&quot;`**  
+    - ' - **`&apos;`**  
 
 - Example:
  If you want to pass value as  -> testing&  
- In the parameter pass it as -> testing&amp;
+ In the parameter pass it as -> testing`&amp;`
 
 
 ### Configuration Variables
@@ -177,7 +177,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |   success  failed 
-action_result.parameter.audit_comment | string |  |  
+action_result.parameter.audit_comment | string |  |   updated description 
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
 action_result.parameter.policy_type | string |  |  
@@ -244,7 +244,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |   success  failed 
 action_result.parameter.application | string |  `network application`  |  
-action_result.parameter.audit_comment | string |  |  
+action_result.parameter.audit_comment | string |  |   updated description 
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.policy_name | string |  `panorama policy name`  |  
 action_result.parameter.policy_type | string |  |  
@@ -311,7 +311,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |   success  failed 
-action_result.parameter.audit_comment | string |  |  
+action_result.parameter.audit_comment | string |  |   updated description 
 action_result.parameter.device_group | string |  `panorama device group`  |  
 action_result.parameter.ip | string |  `ip`  |  
 action_result.parameter.is_source_address | boolean |  |  
@@ -615,9 +615,9 @@ action_result.parameter.search_time | string |  `timestamp`  |
 action_result.parameter.session_id | string |  `panorama session id`  |  
 action_result.data | string |  |  
 action_result.summary | numeric |  |  
-action_result.message | string |  |  
-summary.total_objects | numeric |  |  
-summary.total_objects_successful | numeric |  |    
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list edl'
 List External Dynamic Lists
@@ -957,28 +957,28 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, and underscores) | string |  `panorama policy name` 
+**policy_name** |  required  | Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, dot and underscores) | string |  `panorama policy name` 
 **device_group** |  required  | Device group to create the policy rule in (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
-**tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
+**tag** |  optional  | List of tags(comma separated) to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
 **source_zone** |  required  | Source zones for policy (default is Any) | string | 
-**source_address** |  required  | List of source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**source_address** |  required  | List of source addresses, address groups, or regions (comma separated, default is Any) to be added to the policy | string | 
 **negate_source** |  optional  | Whether to negate the source (apply the rule to source addresses from the specified zone except for the addresses specified) | string | 
-**source_user** |  optional  | List of source users or groups of users subject to the policy | string | 
-**source_device** |  optional  | List of host devices subject to the policy | string | 
-**destination_zone** |  required  | Destinations zones for policy (default is Any) | string | 
-**destination_device** |  optional  | List of host devices subject to the policy | string | 
-**destination_address** |  required  | List of destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**source_user** |  optional  | List of source users or groups of users (comma separated) subject to the policy | string | 
+**source_device** |  optional  | List of host devices(comma separated) subject to the policy | string | 
+**destination_zone** |  required  | Destinations zones(comma separated) for policy (default is Any) | string | 
+**destination_device** |  optional  | List of host devices(comma separated) subject to the policy | string | 
+**destination_address** |  required  | List of destination addresses, address groups, or regions (comma separated, default is Any) to be added to the policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
-**application** |  required  | List of specific applications for the security policy rule | string | 
-**service** |  required  | List of services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
-**category** |  optional  | List of URL Categories of the policy | string | 
+**application** |  required  | List of specific applications(comma separated) for the security policy rule | string | 
+**service** |  required  | List of services(comma separated) of the policy (services to limit to specific TCP or UDP port numbers) | string | 
+**category** |  optional  | List of URL Categories(comma separated) of the policy | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
 **action** |  required  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
-**icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
+**icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop', 'Reset Client', 'Reset Server', 'Reset Both' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **where** |  optional  | Where to position the policy, by default the policy would be created at the bottom | string | 
@@ -990,10 +990,10 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.parameter.action | string |  |   allow 
 action_result.parameter.application | string |  |   1c-enterprise 
-action_result.parameter.audit_comment | string |  |   updated source address 
+action_result.parameter.audit_comment | string |  |   updated description 
 action_result.parameter.category | string |  |   Test URL Category 
 action_result.parameter.description | string |  |   Policy rule to deny traffic from a specific address group 
 action_result.parameter.destination_address | string |  |   dev_env_address_1  10.1.192.168 
@@ -1011,14 +1011,14 @@ action_result.parameter.policy_type | string |  |   pre-rulebase
 action_result.parameter.profile_setting | string |  |   profiles 
 action_result.parameter.rule_type | string |  |   universal 
 action_result.parameter.service | string |  |   service-http 
-action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.source_address | string |  |   dev_env_address_1  10.1.192.168 
 action_result.parameter.source_device | string |  |   test_device 
 action_result.parameter.source_user | string |  |   test_user 
 action_result.parameter.source_zone | string |  |   IN 
 action_result.parameter.tag | string |  |   test_tag 
 action_result.parameter.target | string |  |   000000000000000 
-action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.where | string |  |   after 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
@@ -1042,7 +1042,7 @@ action_result.summary.commit_config.finished_job.warnings.line | string |  |   H
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   test_device_group 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   169 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
@@ -1077,9 +1077,19 @@ action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  
 action_result.summary.create a policy rule.response.@code | string |  |   20 
 action_result.summary.create a policy rule.response.@status | string |  |   success 
 action_result.summary.create a policy rule.response.msg | string |  |   command succeeded 
-action_result.message | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.warnings | string |  |  
+action_result.summary.does_policy_exist.response.@code | string |  |   7 
+action_result.summary.does_policy_exist.response.result | string |  |  
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   0 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   0 
+action_result.summary.update_audit_comment.response.result | string |  |   Successfully added comment for xpath 
+action_result.summary.update_audit_comment.response.@status | string |  |   success   
 
 ## action: 'custom block policy'
 Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule
@@ -1090,7 +1100,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule | string |  `panorama policy name` 
+**policy_name** |  required  | Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, dot and underscores) | string |  `panorama policy name` 
 **device_group** |  required  | Device group to create the policy rule in (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base to create the policy in (pre-rule or post-rule) | string | 
 **rule_type** |  required  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
@@ -1099,8 +1109,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
 **direction** |  optional  | Direction to block the traffic (Default is 'both') | string | 
 **object_type** |  required  | Type of object to block | string | 
-**object_value** |  required  | Value of the object to be blocked. Can be a list | string | 
-**icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
+**object_value** |  required  | Value of the object to be blocked. Can be a list(comma separated) | string | 
+**icmp_unreachable** |  optional  | Whether to send information to the client that a session is not allowed. Applicable only in case action is 'Drop', 'Reset Client', 'Reset Server', 'Reset Both' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **where** |  optional  | Where to position the policy, by default the policy would be created at the bottom | string | 
 **dst** |  optional  | Policy in reference to which, position the current policy | string | 
@@ -1111,9 +1121,9 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
-action_result.parameter.audit_comment | string |  |  
-action_result.parameter.description | string |  |  
+action_result.status | string |  |   success  failed 
+action_result.parameter.audit_comment | string |  |   updated description 
+action_result.parameter.description | string |  |   Test description 
 action_result.parameter.device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.direction | string |  |   both 
 action_result.parameter.dst | string |  |   test_policy_rule_1 
@@ -1124,10 +1134,10 @@ action_result.parameter.object_value | string |  |   test_address_2  10.1.10.20
 action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
 action_result.parameter.policy_type | string |  |   pre-rulebase 
 action_result.parameter.rule_type | string |  |   universal 
-action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.tag | string |  |   test_tag 
 action_result.parameter.target | string |  |   000000000000000 
-action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.where | string |  |   after 
 action_result.data | string |  |  
 action_result.data.\*.response.@code | string |  |   20 
@@ -1135,10 +1145,16 @@ action_result.data.\*.response.@status | string |  |   success
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.summary | string |  |  
 action_result.summary | string |  |  
-action_result.message | string |  |  
 action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
+action_result.summary.does_policy_exist.response.@code | string |  |   7 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   0 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   0 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result | string |  |    
 
 ## action: 'modify policy'
 Modify a security policy rule
@@ -1146,7 +1162,7 @@ Modify a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li>.</ul></p>
+<p><h4>Action Keynote</h4><ul><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>Source address, source zone, source user, source device, destination address, destination zone, destination device, tag, application, service, category, target parameters would append the values to the already existing values in th policy</li><li>Log forwarding, profile settings, rule type parameters would be replaced</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1156,23 +1172,23 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **rule_type** |  optional  | Rule type of the policy rule (specifies whether the rule applies to traffic within a zone, between zones, or both) | string | 
 **description** |  optional  | Description for the policy (max length 1024 characters) | string | 
-**tag** |  optional  | List of tags to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
+**tag** |  optional  | List of tags(comma separated) to apply to this policy (allow to group objects using keywords or phrases, max length 127 characters) | string | 
 **audit_comment** |  optional  | Describe the changes made and why the rule was created by adding an audit comment(once the configuration is commited, it would be reflected in Audit Comment Archive for future reference) | string | 
-**source_zone** |  optional  | List of source zones for policy (default is Any) | string | 
-**source_address** |  optional  | List of source addresses, address groups, or regions (default is Any) to be added to the policy | string | 
+**source_zone** |  optional  | List of source zones(comma separated) for policy (default is Any) | string | 
+**source_address** |  optional  | List of source addresses, address groups, or regions (comma separated, default is Any) to be added to the policy | string | 
 **negate_source** |  optional  | Whether to negate the source (apply the rule to source addresses from the specified zone except for the addresses specified) | string | 
-**source_user** |  optional  | List of source users or groups of users subject to the policy | string | 
-**source_device** |  optional  | The host devices subject to the policy | string | 
-**destination_zone** |  optional  | List of destinations zones for policy (default is Any) | string | 
-**destination_device** |  optional  | List of host devices subject to the policy | string | 
+**source_user** |  optional  | List of source users or groups of users(comma separated) subject to the policy | string | 
+**source_device** |  optional  | The host devices(comma separated) subject to the policy | string | 
+**destination_zone** |  optional  | List of destinations zones(comma separated) for policy (default is Any) | string | 
+**destination_device** |  optional  | List of host devices(comma separated) subject to the policy | string | 
 **destination_address** |  optional  | List of destination addresses, address groups, or regions (default is Any) to be added to the policy | string | 
 **negate_destination** |  optional  | Whether to negate the destination (apply the rule to destination addresses from the specified zone except for the addresses specified) | string | 
-**application** |  optional  | List of specific applications for the Security policy rule | string | 
-**service** |  optional  | List of services of the policy (services to limit to specific TCP or UDP port numbers) | string | 
-**category** |  optional  | List of URL Categories of the policy | string | 
+**application** |  optional  | List of specific applications(comma separated) for the Security policy rule | string | 
+**service** |  optional  | List of services of the policy (comma separated, services to limit to specific TCP or UDP port numbers) | string | 
+**category** |  optional  | List of URL Categories(comma separated) of the policy | string | 
 **profile_setting** |  optional  | Type of profile setting to choose for the policy (additional checking that the firewall performs on packets that match the Security profile rule) | string | 
 **action** |  optional  | Action the firewall takes on traffic that matches the attributes defined in a rule | string | 
-**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop' | string | 
+**icmp_unreachable** |  optional  | Whether to send sent information to the client that a session is not allowed. Applicable only in case action is 'Drop', 'Reset Client', 'Reset Server', 'Reset Both' | string | 
 **log_forwarding** |  optional  | To forward the local traffic log and threat log entries to remote destinations, such as Panorama | string | 
 **target** |  optional  | Apply the rule to specific firewalls or descendant device groups of the Device Group (or Shared location) where the rule is defined (Takes serial number of firewall as input) | string | 
 **disable** |  optional  | Whether to disable the policy | string | 
@@ -1182,7 +1198,6 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
 action_result.status | string |  |   success  failed 
 action_result.parameter.action | string |  |   allow 
 action_result.parameter.application | string |  |   1c-enterprise 
@@ -1203,24 +1218,236 @@ action_result.parameter.policy_type | string |  |   pre-rulebase
 action_result.parameter.profile_setting | string |  |   profiles 
 action_result.parameter.rule_type | string |  |   universal 
 action_result.parameter.service | string |  |   service-http 
-action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.source_address | string |  |   dev_env_address_1  10.1.192.168 
 action_result.parameter.source_device | string |  |   test_device 
 action_result.parameter.source_user | string |  |   test_user 
 action_result.parameter.source_zone | string |  |   IN 
 action_result.parameter.tag | string |  |   test_tag 
 action_result.parameter.target | string |  |   000000000000000 
-action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.summary | string |  |  
 action_result.summary | string |  |  
-action_result.message | string |  |  
 action_result.message | string |  |   command succeeded 
-summary.total_objects | numeric |  |  
-summary.total_objects_successful | numeric |  |    
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.entry.to.member | string |  |   any 
+action_result.data.\*.entry.from.member | string |  |   any 
+action_result.data.\*.entry.@name | string |  |   splunk_phantom_test_rule_23 
+action_result.data.\*.entry.@uuid | string |  |   3fcfee47-4425-4c3a-8cb9-cb37ae4ee096 
+action_result.data.\*.entry.action | string |  |   allow 
+action_result.data.\*.entry.source.member | string |  |   any 
+action_result.data.\*.entry.rule-type | string |  |   universal 
+action_result.data.\*.entry.source-hip.member | string |  |   any 
+action_result.data.\*.entry.application.member | string |  |   any 
+action_result.data.\*.entry.destination.member | string |  |   any 
+action_result.data.\*.entry.destination-hip.member | string |  |   any 
+action_result.data.\*.@count | string |  |   1 
+action_result.data.\*.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.@code | string |  |   19 
+action_result.summary.does_policy_exist.response.result.entry.to.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   splunk_phantom_test_rule_23 
+action_result.summary.does_policy_exist.response.result.entry.@uuid | string |  |   3fcfee47-4425-4c3a-8cb9-cb37ae4ee096 
+action_result.summary.does_policy_exist.response.result.entry.action | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.source.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.rule-type | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.application.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.data.\*.entry.@loc | string |  |   do_not_delete_dg_child 
+action_result.data.\*.entry.service.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   do_not_delete_dg_child 
+action_result.summary.does_policy_exist.response.result.entry.service.member | string |  |   any 
+action_result.data.\*.entry.to.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.to.@admin | string |  |   admin 
+action_result.data.\*.entry.to.member.#text | string |  |   any 
+action_result.data.\*.entry.to.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.to.member.@admin | string |  |   admin 
+action_result.data.\*.entry.to.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.to.@dirtyId | string |  |   153 
+action_result.data.\*.entry.from.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.from.@admin | string |  |   admin 
+action_result.data.\*.entry.from.member.#text | string |  |   any 
+action_result.data.\*.entry.from.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.from.member.@admin | string |  |   admin 
+action_result.data.\*.entry.from.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.from.@dirtyId | string |  |   153 
+action_result.data.\*.entry.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.@admin | string |  |   admin 
+action_result.data.\*.entry.action.#text | string |  |   allow 
+action_result.data.\*.entry.action.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.action.@admin | string |  |   admin 
+action_result.data.\*.entry.action.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source.@admin | string |  |   admin 
+action_result.data.\*.entry.source.member.#text | string |  |   any 
+action_result.data.\*.entry.source.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source.member.@admin | string |  |   admin 
+action_result.data.\*.entry.source.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source.@dirtyId | string |  |   153 
+action_result.data.\*.entry.service.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.service.@admin | string |  |   admin 
+action_result.data.\*.entry.service.member.#text | string |  |   any 
+action_result.data.\*.entry.service.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.service.member.@admin | string |  |   admin 
+action_result.data.\*.entry.service.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.service.@dirtyId | string |  |   153 
+action_result.data.\*.entry.@dirtyId | string |  |   153 
+action_result.data.\*.entry.rule-type.#text | string |  |   universal 
+action_result.data.\*.entry.rule-type.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.rule-type.@admin | string |  |   admin 
+action_result.data.\*.entry.rule-type.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source-hip.@admin | string |  |   admin 
+action_result.data.\*.entry.source-hip.member.#text | string |  |   any 
+action_result.data.\*.entry.source-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source-hip.member.@admin | string |  |   admin 
+action_result.data.\*.entry.source-hip.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source-hip.@dirtyId | string |  |   153 
+action_result.data.\*.entry.application.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.application.@admin | string |  |   admin 
+action_result.data.\*.entry.application.member.#text | string |  |   any 
+action_result.data.\*.entry.application.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.application.member.@admin | string |  |   admin 
+action_result.data.\*.entry.application.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.application.@dirtyId | string |  |   153 
+action_result.data.\*.entry.description.#text | string |  |   Case Sensitive Description. THIS is Case sensitive 
+action_result.data.\*.entry.description.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.description.@admin | string |  |   admin 
+action_result.data.\*.entry.description.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination.@admin | string |  |   admin 
+action_result.data.\*.entry.destination.member.#text | string |  |   any 
+action_result.data.\*.entry.destination.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination.member.@admin | string |  |   admin 
+action_result.data.\*.entry.destination.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination-hip.@admin | string |  |   admin 
+action_result.data.\*.entry.destination-hip.member.#text | string |  |   any 
+action_result.data.\*.entry.destination-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination-hip.member.@admin | string |  |   admin 
+action_result.data.\*.entry.destination-hip.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination-hip.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.to.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.to.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.from.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.from.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.#text | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.action.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.action.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.service.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.service.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.#text | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.application.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.application.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   Case Sensitive Description. THIS is Case sensitive 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId | string |  |   153 
+action_result.data.\*.entry.service.member.\*.#text | string |  |   service-http 
+action_result.data.\*.entry.service.member.\*.@time | string |  |   2023/09/25 07:16:26 
+action_result.data.\*.entry.service.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.service.member.\*.@dirtyId | string |  |   200 
+action_result.summary.does_policy_exist.response.result.entry.service.member.\*.#text | string |  |   service-http 
+action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@time | string |  |   2023/09/25 07:16:26 
+action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@dirtyId | string |  |   200 
+action_result.data.\*.entry.source-user.@time | string |  |   2023/09/25 09:47:08 
+action_result.data.\*.entry.source-user.@admin | string |  |   admin 
+action_result.data.\*.entry.source-user.member.#text | string |  |   do_not_delete_user_group_parent 
+action_result.data.\*.entry.source-user.member.@time | string |  |   2023/09/25 09:47:08 
+action_result.data.\*.entry.source-user.member.@admin | string |  |   admin 
+action_result.data.\*.entry.source-user.member.@dirtyId | string |  |   403 
+action_result.data.\*.entry.source-user.@dirtyId | string |  |   403 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@time | string |  |   2023/09/25 09:47:08 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.#text | string |  |   do_not_delete_user_group_parent 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time | string |  |   2023/09/25 09:47:08 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@dirtyId | string |  |   403 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId | string |  |   403 
+action_result.summary.does_policy_exist.response.result | string |  |  
+action_result.data.\*.entry.to.member.\*.#text | string |  |   do_not_delete_zone1 
+action_result.data.\*.entry.to.member.\*.@time | string |  |   2023/09/25 09:47:07 
+action_result.data.\*.entry.to.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.to.member.\*.@dirtyId | string |  |   403 
+action_result.summary.does_policy_exist.response.result.entry.to.member.\*.#text | string |  |   do_not_delete_zone1 
+action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@time | string |  |   2023/09/25 09:47:07 
+action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@dirtyId | string |  |   403 
+action_result.data.\*.entry.source.member.\*.#text | string |  |   do_not_delete_address1_default 
+action_result.data.\*.entry.source.member.\*.@time | string |  |   2023/09/25 08:52:12 
+action_result.data.\*.entry.source.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.source.member.\*.@dirtyId | string |  |   303 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.#text | string |  |   do_not_delete_address1_default 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@time | string |  |   2023/09/25 08:52:12 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@dirtyId | string |  |   303   
 
 ## action: 'move policy'
 Move a security policy rule
@@ -1228,12 +1455,12 @@ Move a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>If input for either 'dst_device_group' or 'dst_policy_type' is not given, the current device_group and policy_type would be taken as their respective values.</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>If input for either 'dst_device_group' or 'dst_policy_type' is not given, the current device_group and current policy_type would be taken as their respective values.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another. Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.) | string |  `panorama policy name` 
+**policy_name** |  required  | Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another(comma separated). Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.) | string |  `panorama policy name` 
 **device_group** |  required  | Device group of the policy rule (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **dst_device_group** |  optional  | Device group to move the policy rule to (up to 31 characters) | string |  `panorama device group` 
@@ -1246,17 +1473,17 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.parameter.device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.dst | string |  |   test_policy_rule_1 
 action_result.parameter.dst_device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.dst_policy_type | string |  |   pre-rulebase 
 action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1  policy_rule_1,policy_rule_2 
 action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.should_commit_changes | string |  |   True  False 
-action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.where | string |  |   after 
-action_result.data.\*.response.@from | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
+action_result.data.\*.response.@from | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='test_device_group_1_down']/pre-rulebase/security/rules 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.@to | string |  |   /config/shared/pre-rulebase/security/rules 
 action_result.data.\*.response.member | string |  |   test_block_rule 
@@ -1279,13 +1506,13 @@ action_result.summary.commit_config.finished_job.warnings.line | string |  |   H
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   test_device_group 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   239 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "test"]}]} 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
@@ -1315,12 +1542,14 @@ action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  
 action_result.summary.move policy rule.response.@code | string |  |   20 
 action_result.summary.move policy rule.response.@from | string |  |   /config/shared/pre-rulebase/security/rules 
 action_result.summary.move policy rule.response.@status | string |  |   success 
-action_result.summary.move policy rule.response.@to | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='harsh_device_group_1_down']/pre-rulebase/security/rules 
-action_result.summary.move policy rule.response.member | string |  |   dhwani_test_block_rule 
+action_result.summary.move policy rule.response.@to | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='test_device_group_1_down']/pre-rulebase/security/rules 
+action_result.summary.move policy rule.response.member | string |  |   test_block_rule 
 action_result.summary.move policy rule.response.msg | string |  |   command succeeded 
-action_result.message | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20   
 
 ## action: 'delete policy'
 Delete a security policy rule
@@ -1340,12 +1569,12 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.parameter.device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.policy_name | string |  `panorama policy name`  |   policy_rule_1 
 action_result.parameter.policy_type | string |  |   pre-rulebase 
-action_result.parameter.should_commit_changes | string |  |   True  False 
-action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
@@ -1368,13 +1597,13 @@ action_result.summary.commit_config.finished_job.warnings.line | string |  |   H
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   test_device_group 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   214 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "dhwani_test"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "test"]}]} 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
@@ -1401,9 +1630,12 @@ action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   
 action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
 action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
 action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
-action_result.message | string |  |  
+action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.summary.commit_config.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test65432 is configured with no certificate profile. Please select a certificate profile for performing server certificate validation. 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |    
 
 ## action: 'create address group'
 Create an address group
@@ -1441,7 +1673,17 @@ action_result.data | string |  |
 action_result.summary | string |  |  
 action_result.message | string |  |   Created global table successfully 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.@code | string |  |   7 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   0 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   0 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result | string |  |    
 
 ## action: 'modify address group'
 Modify an address group
@@ -1471,15 +1713,71 @@ action_result.parameter.description | string |  |   Test description
 action_result.parameter.device_group | string |  `panorama device group`  |   shared 
 action_result.parameter.disable_override | string |  |   Yes 
 action_result.parameter.name | string |  `panorama address group name`  |   address_group_1 
-action_result.parameter.should_commit_changes | string |  |   True  False 
+action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.tag | string |  |   tag_1,tag_2 
 action_result.parameter.type | string |  |   Static 
-action_result.parameter.use_partial_commit | string |  |   True  False 
+action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
 action_result.message | string |  |   Created global table successfully 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1   
+summary.total_objects_successful | numeric |  |   1 
+action_result.data.\*.entry.tag.@time | string |  |   2023/10/03 23:06:06 
+action_result.data.\*.entry.tag.@admin | string |  |   admin 
+action_result.data.\*.entry.tag.member.\*.#text | string |  |   Test_Tag_For_ADG 
+action_result.data.\*.entry.tag.member.\*.@time | string |  |   2023/10/03 23:06:06 
+action_result.data.\*.entry.tag.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.tag.member.\*.@dirtyId | string |  |   6 
+action_result.data.\*.entry.tag.@dirtyId | string |  |   6 
+action_result.data.\*.entry.@loc | string |  |   New_Device_Group_1234 
+action_result.data.\*.entry.@name | string |  |   New_address_Group1234 
+action_result.data.\*.entry.@time | string |  |   2023/10/03 23:06:06 
+action_result.data.\*.entry.@admin | string |  |   admin 
+action_result.data.\*.entry.@dirtyId | string |  |   6 
+action_result.data.\*.entry.description.#text | string |  |   This is test description for Address_group 
+action_result.data.\*.entry.description.@time | string |  |   2023/10/03 23:06:06 
+action_result.data.\*.entry.description.@admin | string |  |   admin 
+action_result.data.\*.entry.description.@dirtyId | string |  |   6 
+action_result.data.\*.@count | string |  |   1 
+action_result.data.\*.@total-count | string |  |   1 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.response.@code | string |  |   20 
+action_result.data.\*.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.@code | string |  |   19 
+action_result.summary.does_policy_exist.response.result.entry.tag.@time | string |  |   2023/10/03 23:06:06 
+action_result.summary.does_policy_exist.response.result.entry.tag.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.#text | string |  |   Test_Tag_For_ADG 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@time | string |  |   2023/10/03 23:06:06 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   New_Device_Group_1234 
+action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   New_address_Group1234 
+action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/10/03 23:06:06 
+action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   This is test description for Address_group 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/10/03 23:06:06 
+action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.data.\*.entry.static.@time | string |  |   2023/10/03 23:06:07 
+action_result.data.\*.entry.static.@admin | string |  |   admin 
+action_result.data.\*.entry.static.member.#text | string |  |   do_not_delete_address_group_shared 
+action_result.data.\*.entry.static.member.@time | string |  |   2023/10/03 23:06:07 
+action_result.data.\*.entry.static.member.@admin | string |  |   admin 
+action_result.data.\*.entry.static.member.@dirtyId | string |  |   6 
+action_result.data.\*.entry.static.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.static.@time | string |  |   2023/10/03 23:06:07 
+action_result.summary.does_policy_exist.response.result.entry.static.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.static.member.#text | string |  |   do_not_delete_address_group_shared 
+action_result.summary.does_policy_exist.response.result.entry.static.member.@time | string |  |   2023/10/03 23:06:07 
+action_result.summary.does_policy_exist.response.result.entry.static.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.static.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.static.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result | string |  |    
 
 ## action: 'list address groups'
 List the address groups
@@ -1637,7 +1935,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |   success  failed 
-action_result.parameter.description | string |  |  
+action_result.parameter.description | string |  |   Test description 
 action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.parameter.disable_override | string |  |  
 action_result.parameter.name | string |  `panorama address name`  |   test_address_name 

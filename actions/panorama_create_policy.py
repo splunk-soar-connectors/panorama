@@ -174,9 +174,9 @@ class CreatePolicy(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("creating policy: ", message))
         if audit_comment:
             status = connector.util._update_audit_comment(parameter, action_result)
-            message = action_result.get_message()
+            message1 = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("adding audit comment: ", message))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("adding audit comment: ", message1))
 
         if where and where != "bottom":
             data = {
@@ -189,11 +189,11 @@ class CreatePolicy(BaseAction):
             if dst:
                 data.update({'dst': dst})
             status, _ = connector.util._make_rest_call(data, action_result)
-            message = action_result.get_message()
+            message1 = action_result.get_message()
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_SUCCESS,
                                                 f"The policy has been created but unable to move \
-                                                it to the specified location: {PAN_ERROR_MESSAGE.format('moving policy',message)}")
+                                                it to the specified location: {PAN_ERROR_MESSAGE.format('moving policy', message1)}")
 
         if parameter.get(PAN_JSON_DISABLE):
             if parameter.get(PAN_JSON_DISABLE) == "yes":
@@ -201,13 +201,12 @@ class CreatePolicy(BaseAction):
             else:
                 element = "<disabled>no</disabled>"
             status, _ = self.make_rest_call_helper(connector, xpath, element, action_result)
-            message = action_result.get_message()
+            message1 = action_result.get_message()
             if phantom.is_fail(status):
-                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("disabling policy :", {message}))
+                return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("disabling policy :", {message1}))
 
         if parameter.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(parameter, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
-        message = action_result.get_message()
         return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")
