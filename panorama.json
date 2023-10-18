@@ -107,13 +107,13 @@
                     "order": 4
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 5
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 6
@@ -249,13 +249,13 @@
                     ]
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 3
@@ -395,13 +395,13 @@
                     "order": 4
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 5
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 6
@@ -537,13 +537,13 @@
                     ]
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 3
@@ -694,13 +694,13 @@
                     "order": 6
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 7
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 8
@@ -853,13 +853,13 @@
                     ]
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 3
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 4
@@ -2020,13 +2020,13 @@
         {
             "action": "commit changes",
             "description": "Commit changes to the firewall and device groups",
-            "verbose": "The action then proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it.",
+            "verbose": "The action proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it. Regardless of the value provided in device group parameter, pending changes of all the device groups will be committed and the action will then proceed with pushing the changes to the firewall (if linked to that device group) of mentioned device group",
             "type": "generic",
             "identifier": "commit_changes",
             "read_only": false,
             "parameters": {
                 "device_group": {
-                    "description": "Device group whose changes you want to commit changes",
+                    "description": "Device group whose changes you want to push to firewall",
                     "data_type": "string",
                     "order": 0,
                     "required": true,
@@ -2036,7 +2036,7 @@
                     ]
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "order": 1
                 }
@@ -2834,13 +2834,13 @@
                     "order": 13
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 14
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 15
@@ -3381,13 +3381,13 @@
                     "order": 13
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 14
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 15
@@ -3821,13 +3821,13 @@
                     ]
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 3
@@ -4380,13 +4380,13 @@
                     "order": 27
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 28
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 29
@@ -5226,13 +5226,13 @@
                     "order": 15
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 16
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 17
@@ -5680,13 +5680,13 @@
                     "order": 25
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 26
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 27
@@ -7534,13 +7534,13 @@
                     "order": 7
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 9
@@ -8133,13 +8133,13 @@
                     "order": 3
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 4
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 5
@@ -8677,13 +8677,13 @@
                     "order": 7
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 9
@@ -8917,7 +8917,7 @@
                     "order": 2
                 },
                 "addresses_or_match_criteria": {
-                    "description": "List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this address group",
+                    "description": "List of addresses or address_group to add in this address group, if 'type' is static then addresses or address groups to be included in address group have to added and if 'type' is dynamic then the match criteria (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group has to be added",
                     "data_type": "string",
                     "order": 3
                 },
@@ -8945,13 +8945,13 @@
                     "order": 7
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 9
@@ -10062,13 +10062,13 @@
                     ]
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 3
@@ -10242,13 +10242,13 @@
                     "data_type": "ph"
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 8
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 9
@@ -10934,13 +10934,13 @@
                     ]
                 },
                 "should_commit_changes": {
-                    "description": "Whether to commit both changes to firewall and changes to device groups at the end of this action",
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
                     "data_type": "boolean",
                     "default": true,
                     "order": 2
                 },
                 "use_partial_commit": {
-                    "description": "Whether to perform Partial commit admin-level changes. Config's username is included as the administrator name in the request. Otherwise, plain commit is used by default",
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
                     "data_type": "boolean",
                     "default": true,
                     "order": 3
