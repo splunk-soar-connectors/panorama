@@ -39,9 +39,6 @@ class CreateAddress(BaseAction):
             return action_result.set_status(
                 phantom.APP_ERROR, f"Invalid ip_type parameter. Please select the valid ip address type FROM {consts.IP_ADD_TYPE.keys()}"
                 ), ""
-        status = connector.util._validate_ip_as_per_type(connector, action_result, address_ip_type, address_ip)
-        if phantom.is_fail(status):
-            return action_result.get_status(), ""
 
         xml_string = f"<{consts.IP_ADD_TYPE[address_ip_type]}>{address_ip}</{consts.IP_ADD_TYPE[address_ip_type]}>"
 
