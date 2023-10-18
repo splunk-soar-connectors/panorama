@@ -1924,7 +1924,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **name** |  required  | Name of address to be created (up to 63 characters) | string |  `panorama address name` 
 **device_group** |  required  | Device group in which you want to create address (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **type** |  required  | Type of address to create | string | 
-**value** |  required  | Value of address as per the selected type | string |  `ip`  `ipv6`  `domain` 
+**value** |  required  | Value of address as per the selected type | string |  `ip`  `ipv6`  `domain`  `panorama address value` 
 **description** |  optional  | Description of address (up to 1023 characters) | string | 
 **tag** |  optional  | Tags want to apply on an address (comma-separated, up to 127 characters for each tag) | string | 
 **disable_override** |  optional  | Whether to disable override the address or not | string | 
@@ -1943,7 +1943,7 @@ action_result.parameter.should_commit_changes | boolean |  |   True  False
 action_result.parameter.tag | string |  |   test_address_tag 
 action_result.parameter.type | string |  |  
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  |  
+action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  `panorama address value`  |  
 action_result.data | string |  |  
 action_result.summary | string |  |  
 action_result.summary.commit_config.finished_job.description | string |  |  
