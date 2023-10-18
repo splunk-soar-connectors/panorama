@@ -83,10 +83,10 @@ You can learn more about Audit comment below:
  When the **device_group** is 'shared' the **disable_override** parameter is ignored. 
 
 - use_partial_commit  
- When **use_partial_commit** is **true**, this performs user specific commit at admin-level changes. As part of the request, the configuration's username is included as the administrator name. Otherwise, plain commit is used by default.
+ When **use_partial_commit** is **true**, this performs user specific commit at admin-level changes. As part of the request, the configuration's username is included as the administrator name. Otherwise, plain commit is used by default.When the **should_commit_changes** is **false** the **use_partial_commit** parameter is ignored.
 
 - should_commit_changes (Default: true)  
- When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. When the **should_commit_changes** is **true** the **use_partial_commit** parameter is ignored.
+ When the **should_commit_changes** is set to **true**, This commits both changes to the firewall and changes to the device groups at the end of this action. 
 
  **Note**  
  - If you want to add below special characters in any of the field you need to add as per below list.  
@@ -640,7 +640,7 @@ action_result.data.\*.@admin | string |  |   admin
 action_result.data.\*.@dirtyId | string |  |   59 
 action_result.data.\*.@name | string |  `panorama edl name`  |  
 action_result.data.\*.@time | string |  |   2023/10/15 03:16:57 
-action_result.data.\*.disable-override.#text | string |  |   yes 
+action_result.data.\*.disable-override.#text | string |  |   Yes 
 action_result.data.\*.disable-override.@admin | string |  |   admin 
 action_result.data.\*.disable-override.@dirtyId | string |  |   59 
 action_result.data.\*.disable-override.@time | string |  |   2023/10/15 03:16:57 
@@ -1020,6 +1020,8 @@ action_result.parameter.tag | string |  |   test_tag
 action_result.parameter.target | string |  |   000000000000000 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.where | string |  |   after 
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
@@ -1038,6 +1040,7 @@ action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/25
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/25 04:54:58 
 action_result.summary.commit_config.finished_job.type | string |  |   Commit 
 action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.warnings | string |  |  
 action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
@@ -1077,19 +1080,16 @@ action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  
 action_result.summary.create a policy rule.response.@code | string |  |   20 
 action_result.summary.create a policy rule.response.@status | string |  |   success 
 action_result.summary.create a policy rule.response.msg | string |  |   command succeeded 
-action_result.message | string |  |   command succeeded 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.summary.commit_config.finished_job.warnings | string |  |  
 action_result.summary.does_policy_exist.response.@code | string |  |   7 
-action_result.summary.does_policy_exist.response.result | string |  |  
 action_result.summary.does_policy_exist.response.@status | string |  |   success 
-action_result.data.\*.@count | string |  |   0 
-action_result.data.\*.@total-count | string |  |   0 
+action_result.summary.does_policy_exist.response.result | string |  |  
 action_result.summary.does_policy_exist.response.result.@count | string |  |   0 
 action_result.summary.does_policy_exist.response.result.@total-count | string |  |   0 
+action_result.summary.update_audit_comment.response.@status | string |  |   success 
 action_result.summary.update_audit_comment.response.result | string |  |   Successfully added comment for xpath 
-action_result.summary.update_audit_comment.response.@status | string |  |   success   
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'custom block policy'
 Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule
@@ -1140,21 +1140,21 @@ action_result.parameter.target | string |  |   000000000000000
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.where | string |  |   after 
 action_result.data | string |  |  
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.summary | string |  |  
 action_result.summary | string |  |  
-action_result.message | string |  |   command succeeded 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.@count | string |  |   0 
-action_result.data.\*.@total-count | string |  |   0 
 action_result.summary.does_policy_exist.response.@code | string |  |   7 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result | string |  |  
 action_result.summary.does_policy_exist.response.result.@count | string |  |   0 
 action_result.summary.does_policy_exist.response.result.@total-count | string |  |   0 
-action_result.summary.does_policy_exist.response.@status | string |  |   success 
-action_result.summary.does_policy_exist.response.result | string |  |    
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'modify policy'
 Modify a security policy rule
@@ -1227,227 +1227,227 @@ action_result.parameter.tag | string |  |   test_tag
 action_result.parameter.target | string |  |   000000000000000 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
+action_result.data.\*.@count | string |  |   1 
+action_result.data.\*.@total-count | string |  |   1 
+action_result.data.\*.entry.@admin | string |  |   admin 
+action_result.data.\*.entry.@dirtyId | string |  |   153 
+action_result.data.\*.entry.@loc | string |  |   do_not_delete_dg_child 
+action_result.data.\*.entry.@name | string |  |   splunk_phantom_test_rule_23 
+action_result.data.\*.entry.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.@uuid | string |  |   3fcfee47-4425-4c3a-8cb9-cb37ae4ee096 
+action_result.data.\*.entry.action | string |  |   allow 
+action_result.data.\*.entry.action.#text | string |  |   allow 
+action_result.data.\*.entry.action.@admin | string |  |   admin 
+action_result.data.\*.entry.action.@dirtyId | string |  |   153 
+action_result.data.\*.entry.action.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.application.@admin | string |  |   admin 
+action_result.data.\*.entry.application.@dirtyId | string |  |   153 
+action_result.data.\*.entry.application.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.application.member | string |  |   any 
+action_result.data.\*.entry.application.member.#text | string |  |   any 
+action_result.data.\*.entry.application.member.@admin | string |  |   admin 
+action_result.data.\*.entry.application.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.application.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.description.#text | string |  |   Case Sensitive Description. THIS is Case sensitive 
+action_result.data.\*.entry.description.@admin | string |  |   admin 
+action_result.data.\*.entry.description.@dirtyId | string |  |   153 
+action_result.data.\*.entry.description.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination-hip.@admin | string |  |   admin 
+action_result.data.\*.entry.destination-hip.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination-hip.member | string |  |   any 
+action_result.data.\*.entry.destination-hip.member.#text | string |  |   any 
+action_result.data.\*.entry.destination-hip.member.@admin | string |  |   admin 
+action_result.data.\*.entry.destination-hip.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination.@admin | string |  |   admin 
+action_result.data.\*.entry.destination.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.destination.member | string |  |   any 
+action_result.data.\*.entry.destination.member.#text | string |  |   any 
+action_result.data.\*.entry.destination.member.@admin | string |  |   admin 
+action_result.data.\*.entry.destination.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.destination.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.from.@admin | string |  |   admin 
+action_result.data.\*.entry.from.@dirtyId | string |  |   153 
+action_result.data.\*.entry.from.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.from.member | string |  |   any 
+action_result.data.\*.entry.from.member.#text | string |  |   any 
+action_result.data.\*.entry.from.member.@admin | string |  |   admin 
+action_result.data.\*.entry.from.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.from.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.rule-type | string |  |   universal 
+action_result.data.\*.entry.rule-type.#text | string |  |   universal 
+action_result.data.\*.entry.rule-type.@admin | string |  |   admin 
+action_result.data.\*.entry.rule-type.@dirtyId | string |  |   153 
+action_result.data.\*.entry.rule-type.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.service.@admin | string |  |   admin 
+action_result.data.\*.entry.service.@dirtyId | string |  |   153 
+action_result.data.\*.entry.service.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.service.member | string |  |   any 
+action_result.data.\*.entry.service.member.#text | string |  |   any 
+action_result.data.\*.entry.service.member.\*.#text | string |  |   service-http 
+action_result.data.\*.entry.service.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.service.member.\*.@dirtyId | string |  |   200 
+action_result.data.\*.entry.service.member.\*.@time | string |  |   2023/09/25 07:16:26 
+action_result.data.\*.entry.service.member.@admin | string |  |   admin 
+action_result.data.\*.entry.service.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.service.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source-hip.@admin | string |  |   admin 
+action_result.data.\*.entry.source-hip.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source-hip.member | string |  |   any 
+action_result.data.\*.entry.source-hip.member.#text | string |  |   any 
+action_result.data.\*.entry.source-hip.member.@admin | string |  |   admin 
+action_result.data.\*.entry.source-hip.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source-user.@admin | string |  |   admin 
+action_result.data.\*.entry.source-user.@dirtyId | string |  |   403 
+action_result.data.\*.entry.source-user.@time | string |  |   2023/09/25 09:47:08 
+action_result.data.\*.entry.source-user.member.#text | string |  |   do_not_delete_user_group_parent 
+action_result.data.\*.entry.source-user.member.@admin | string |  |   admin 
+action_result.data.\*.entry.source-user.member.@dirtyId | string |  |   403 
+action_result.data.\*.entry.source-user.member.@time | string |  |   2023/09/25 09:47:08 
+action_result.data.\*.entry.source.@admin | string |  |   admin 
+action_result.data.\*.entry.source.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.source.member | string |  |   any 
+action_result.data.\*.entry.source.member.#text | string |  |   any 
+action_result.data.\*.entry.source.member.\*.#text | string |  |   do_not_delete_address1_default 
+action_result.data.\*.entry.source.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.source.member.\*.@dirtyId | string |  |   303 
+action_result.data.\*.entry.source.member.\*.@time | string |  |   2023/09/25 08:52:12 
+action_result.data.\*.entry.source.member.@admin | string |  |   admin 
+action_result.data.\*.entry.source.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.source.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.to.@admin | string |  |   admin 
+action_result.data.\*.entry.to.@dirtyId | string |  |   153 
+action_result.data.\*.entry.to.@time | string |  |   2023/09/25 06:56:08 
+action_result.data.\*.entry.to.member | string |  |   any 
+action_result.data.\*.entry.to.member.#text | string |  |   any 
+action_result.data.\*.entry.to.member.\*.#text | string |  |   do_not_delete_zone1 
+action_result.data.\*.entry.to.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.to.member.\*.@dirtyId | string |  |   403 
+action_result.data.\*.entry.to.member.\*.@time | string |  |   2023/09/25 09:47:07 
+action_result.data.\*.entry.to.member.@admin | string |  |   admin 
+action_result.data.\*.entry.to.member.@dirtyId | string |  |   153 
+action_result.data.\*.entry.to.member.@time | string |  |   2023/09/25 06:56:08 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.summary | string |  |  
 action_result.summary | string |  |  
-action_result.message | string |  |   command succeeded 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.entry.to.member | string |  |   any 
-action_result.data.\*.entry.from.member | string |  |   any 
-action_result.data.\*.entry.@name | string |  |   splunk_phantom_test_rule_23 
-action_result.data.\*.entry.@uuid | string |  |   3fcfee47-4425-4c3a-8cb9-cb37ae4ee096 
-action_result.data.\*.entry.action | string |  |   allow 
-action_result.data.\*.entry.source.member | string |  |   any 
-action_result.data.\*.entry.rule-type | string |  |   universal 
-action_result.data.\*.entry.source-hip.member | string |  |   any 
-action_result.data.\*.entry.application.member | string |  |   any 
-action_result.data.\*.entry.destination.member | string |  |   any 
-action_result.data.\*.entry.destination-hip.member | string |  |   any 
-action_result.data.\*.@count | string |  |   1 
-action_result.data.\*.@total-count | string |  |   1 
 action_result.summary.does_policy_exist.response.@code | string |  |   19 
-action_result.summary.does_policy_exist.response.result.entry.to.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.from.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   splunk_phantom_test_rule_23 
-action_result.summary.does_policy_exist.response.result.entry.@uuid | string |  |   3fcfee47-4425-4c3a-8cb9-cb37ae4ee096 
-action_result.summary.does_policy_exist.response.result.entry.action | string |  |   allow 
-action_result.summary.does_policy_exist.response.result.entry.source.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.rule-type | string |  |   universal 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.application.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.destination.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.destination-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result | string |  |  
 action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
 action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
-action_result.summary.does_policy_exist.response.@status | string |  |   success 
-action_result.data.\*.entry.@loc | string |  |   do_not_delete_dg_child 
-action_result.data.\*.entry.service.member | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   do_not_delete_dg_child 
-action_result.summary.does_policy_exist.response.result.entry.service.member | string |  |   any 
-action_result.data.\*.entry.to.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.to.@admin | string |  |   admin 
-action_result.data.\*.entry.to.member.#text | string |  |   any 
-action_result.data.\*.entry.to.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.to.member.@admin | string |  |   admin 
-action_result.data.\*.entry.to.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.to.@dirtyId | string |  |   153 
-action_result.data.\*.entry.from.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.from.@admin | string |  |   admin 
-action_result.data.\*.entry.from.member.#text | string |  |   any 
-action_result.data.\*.entry.from.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.from.member.@admin | string |  |   admin 
-action_result.data.\*.entry.from.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.from.@dirtyId | string |  |   153 
-action_result.data.\*.entry.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.@admin | string |  |   admin 
-action_result.data.\*.entry.action.#text | string |  |   allow 
-action_result.data.\*.entry.action.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.action.@admin | string |  |   admin 
-action_result.data.\*.entry.action.@dirtyId | string |  |   153 
-action_result.data.\*.entry.source.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.source.@admin | string |  |   admin 
-action_result.data.\*.entry.source.member.#text | string |  |   any 
-action_result.data.\*.entry.source.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.source.member.@admin | string |  |   admin 
-action_result.data.\*.entry.source.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.source.@dirtyId | string |  |   153 
-action_result.data.\*.entry.service.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.service.@admin | string |  |   admin 
-action_result.data.\*.entry.service.member.#text | string |  |   any 
-action_result.data.\*.entry.service.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.service.member.@admin | string |  |   admin 
-action_result.data.\*.entry.service.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.service.@dirtyId | string |  |   153 
-action_result.data.\*.entry.@dirtyId | string |  |   153 
-action_result.data.\*.entry.rule-type.#text | string |  |   universal 
-action_result.data.\*.entry.rule-type.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.rule-type.@admin | string |  |   admin 
-action_result.data.\*.entry.rule-type.@dirtyId | string |  |   153 
-action_result.data.\*.entry.source-hip.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.source-hip.@admin | string |  |   admin 
-action_result.data.\*.entry.source-hip.member.#text | string |  |   any 
-action_result.data.\*.entry.source-hip.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.source-hip.member.@admin | string |  |   admin 
-action_result.data.\*.entry.source-hip.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.source-hip.@dirtyId | string |  |   153 
-action_result.data.\*.entry.application.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.application.@admin | string |  |   admin 
-action_result.data.\*.entry.application.member.#text | string |  |   any 
-action_result.data.\*.entry.application.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.application.member.@admin | string |  |   admin 
-action_result.data.\*.entry.application.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.application.@dirtyId | string |  |   153 
-action_result.data.\*.entry.description.#text | string |  |   Case Sensitive Description. THIS is Case sensitive 
-action_result.data.\*.entry.description.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.description.@admin | string |  |   admin 
-action_result.data.\*.entry.description.@dirtyId | string |  |   153 
-action_result.data.\*.entry.destination.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.destination.@admin | string |  |   admin 
-action_result.data.\*.entry.destination.member.#text | string |  |   any 
-action_result.data.\*.entry.destination.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.destination.member.@admin | string |  |   admin 
-action_result.data.\*.entry.destination.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.destination.@dirtyId | string |  |   153 
-action_result.data.\*.entry.destination-hip.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.destination-hip.@admin | string |  |   admin 
-action_result.data.\*.entry.destination-hip.member.#text | string |  |   any 
-action_result.data.\*.entry.destination-hip.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.data.\*.entry.destination-hip.member.@admin | string |  |   admin 
-action_result.data.\*.entry.destination-hip.member.@dirtyId | string |  |   153 
-action_result.data.\*.entry.destination-hip.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.to.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.to.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.to.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.to.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.to.member.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.from.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.from.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.from.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.from.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.from.member.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   do_not_delete_dg_child 
+action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   splunk_phantom_test_rule_23 
+action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.@uuid | string |  |   3fcfee47-4425-4c3a-8cb9-cb37ae4ee096 
+action_result.summary.does_policy_exist.response.result.entry.action | string |  |   allow 
 action_result.summary.does_policy_exist.response.result.entry.action.#text | string |  |   allow 
-action_result.summary.does_policy_exist.response.result.entry.action.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.action.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.source.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.source.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.source.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.source.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.source.member.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.service.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.service.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.service.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.service.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.service.member.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.rule-type.#text | string |  |   universal 
-action_result.summary.does_policy_exist.response.result.entry.rule-type.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.application.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.action.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.application.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.application.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.application.member | string |  |   any 
 action_result.summary.does_policy_exist.response.result.entry.application.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.application.member.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.application.member.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.application.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   Case Sensitive Description. THIS is Case sensitive 
-action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.destination.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.destination.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.destination.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.destination.member.@time | string |  |   2023/09/25 06:56:08 
-action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member | string |  |   any 
 action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text | string |  |   any 
-action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId | string |  |   153 
-action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId | string |  |   153 
-action_result.data.\*.entry.service.member.\*.#text | string |  |   service-http 
-action_result.data.\*.entry.service.member.\*.@time | string |  |   2023/09/25 07:16:26 
-action_result.data.\*.entry.service.member.\*.@admin | string |  |   admin 
-action_result.data.\*.entry.service.member.\*.@dirtyId | string |  |   200 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.destination.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.from.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.from.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.from.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.rule-type | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.#text | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.service.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.service.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.service.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.service.member.#text | string |  |   any 
 action_result.summary.does_policy_exist.response.result.entry.service.member.\*.#text | string |  |   service-http 
-action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@time | string |  |   2023/09/25 07:16:26 
 action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@dirtyId | string |  |   200 
-action_result.data.\*.entry.source-user.@time | string |  |   2023/09/25 09:47:08 
-action_result.data.\*.entry.source-user.@admin | string |  |   admin 
-action_result.data.\*.entry.source-user.member.#text | string |  |   do_not_delete_user_group_parent 
-action_result.data.\*.entry.source-user.member.@time | string |  |   2023/09/25 09:47:08 
-action_result.data.\*.entry.source-user.member.@admin | string |  |   admin 
-action_result.data.\*.entry.source-user.member.@dirtyId | string |  |   403 
-action_result.data.\*.entry.source-user.@dirtyId | string |  |   403 
-action_result.summary.does_policy_exist.response.result.entry.source-user.@time | string |  |   2023/09/25 09:47:08 
+action_result.summary.does_policy_exist.response.result.entry.service.member.\*.@time | string |  |   2023/09/25 07:16:26 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time | string |  |   2023/09/25 06:56:08 
 action_result.summary.does_policy_exist.response.result.entry.source-user.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId | string |  |   403 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@time | string |  |   2023/09/25 09:47:08 
 action_result.summary.does_policy_exist.response.result.entry.source-user.member.#text | string |  |   do_not_delete_user_group_parent 
-action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time | string |  |   2023/09/25 09:47:08 
 action_result.summary.does_policy_exist.response.result.entry.source-user.member.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.source-user.member.@dirtyId | string |  |   403 
-action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId | string |  |   403 
-action_result.summary.does_policy_exist.response.result | string |  |  
-action_result.data.\*.entry.to.member.\*.#text | string |  |   do_not_delete_zone1 
-action_result.data.\*.entry.to.member.\*.@time | string |  |   2023/09/25 09:47:07 
-action_result.data.\*.entry.to.member.\*.@admin | string |  |   admin 
-action_result.data.\*.entry.to.member.\*.@dirtyId | string |  |   403 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time | string |  |   2023/09/25 09:47:08 
+action_result.summary.does_policy_exist.response.result.entry.source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.source.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.#text | string |  |   do_not_delete_address1_default 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@dirtyId | string |  |   303 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@time | string |  |   2023/09/25 08:52:12 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.to.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.to.@time | string |  |   2023/09/25 06:56:08 
+action_result.summary.does_policy_exist.response.result.entry.to.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.to.member.#text | string |  |   any 
 action_result.summary.does_policy_exist.response.result.entry.to.member.\*.#text | string |  |   do_not_delete_zone1 
-action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@time | string |  |   2023/09/25 09:47:07 
 action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@dirtyId | string |  |   403 
-action_result.data.\*.entry.source.member.\*.#text | string |  |   do_not_delete_address1_default 
-action_result.data.\*.entry.source.member.\*.@time | string |  |   2023/09/25 08:52:12 
-action_result.data.\*.entry.source.member.\*.@admin | string |  |   admin 
-action_result.data.\*.entry.source.member.\*.@dirtyId | string |  |   303 
-action_result.summary.does_policy_exist.response.result.entry.source.member.\*.#text | string |  |   do_not_delete_address1_default 
-action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@time | string |  |   2023/09/25 08:52:12 
-action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@dirtyId | string |  |   303   
+action_result.summary.does_policy_exist.response.result.entry.to.member.\*.@time | string |  |   2023/09/25 09:47:07 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId | string |  |   153 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@time | string |  |   2023/09/25 06:56:08 
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'move policy'
 Move a security policy rule
@@ -1483,10 +1483,12 @@ action_result.parameter.policy_type | string |  |   pre-rulebase
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.parameter.where | string |  |   after 
+action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@from | string |  |   /config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='test_device_group_1_down']/pre-rulebase/security/rules 
 action_result.data.\*.response.@status | string |  |   success 
 action_result.data.\*.response.@to | string |  |   /config/shared/pre-rulebase/security/rules 
 action_result.data.\*.response.member | string |  |   test_block_rule 
+action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.summary | string |  |  
 action_result.summary.commit_config.finished_job.description | string |  |  
 action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
@@ -1547,9 +1549,7 @@ action_result.summary.move policy rule.response.member | string |  |   test_bloc
 action_result.summary.move policy rule.response.msg | string |  |   command succeeded 
 action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.response.msg | string |  |   command succeeded 
-action_result.data.\*.response.@code | string |  |   20   
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'delete policy'
 Delete a security policy rule
@@ -1593,6 +1593,7 @@ action_result.summary.commit_config.finished_job.tenq | string |  |   2023/08/29
 action_result.summary.commit_config.finished_job.tfin | string |  |   2023/08/29 03:31:54 
 action_result.summary.commit_config.finished_job.type | string |  |   Commit 
 action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.warnings | string |  |  
 action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer 
 action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
@@ -1603,9 +1604,11 @@ action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "e4ced49a-58db-40f5-aa5d-400bc1579da8", "serial" : "007951000393837", "rulename" : "test_rule_1", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Social Media Block", "test"]}]} 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   e4ced49a-58db-40f5-aa5d-400bc1579da8 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test65432 is configured with no certificate profile. Please select a certificate profile for performing server certificate validation. 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   No 
 action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
@@ -1632,10 +1635,7 @@ action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   
 action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
 action_result.message | string |  |   command succeeded 
 summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.summary.commit_config.finished_job.warnings | string |  |  
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings.line | string |  |   External Dynamic List test65432 is configured with no certificate profile. Please select a certificate profile for performing server certificate validation. 
-action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |    
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'create address group'
 Create an address group
@@ -1649,7 +1649,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **name** |  required  | Name of the address group to be created (up to 63 characters) | string |  `panorama address group name` 
 **device_group** |  required  | Device group to create the address group in or 'shared' (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **type** |  required  | Type of the address group (Whether to create a static or a dynamic address group) | string | 
-**addresses_or_match_criteria** |  required  | List of addresses or address_group to add in this address group if 'type' is static else match criteria to add addresses or address groups dynamically if 'type' is dynamic (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group) | string | 
+**addresses_or_match_criteria** |  required  | List of addresses or address_group to add in this address group, if 'type' is static then addresses or address groups to be included in address group have to added and if 'type' is dynamic then the match criteria (using 'and' or 'or' operators with different tags available in that device group, negation is not supported) to add addresses and address groups that satisfy this criteria into this newly created address group has to be added | string | 
 **description** |  optional  | Description for the address group (max length 1023 characters) | string | 
 **disable_override** |  optional  | Used to ensure that a firewall administrator cannot override settings locally on a firewall that inherits this configuration through a Device Group commit from Panorama (only used when device group is not 'shared') | string | 
 **tag** |  optional  | List of tags to apply to this address group (allow to group objects using keywords or phrases, max length 127 characters) | string | 
@@ -1670,20 +1670,20 @@ action_result.parameter.tag | string |  |   tag_1,tag_2
 action_result.parameter.type | string |  |   Static 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.summary | string |  |  
-action_result.message | string |  |   Created global table successfully 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
 action_result.data.\*.@count | string |  |   0 
 action_result.data.\*.@total-count | string |  |   0 
-action_result.data.\*.response.msg | string |  |   command succeeded 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.summary | string |  |  
 action_result.summary.does_policy_exist.response.@code | string |  |   7 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result | string |  |  
 action_result.summary.does_policy_exist.response.result.@count | string |  |   0 
 action_result.summary.does_policy_exist.response.result.@total-count | string |  |   0 
-action_result.summary.does_policy_exist.response.@status | string |  |   success 
-action_result.summary.does_policy_exist.response.result | string |  |    
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'modify address group'
 Modify an address group
@@ -1718,66 +1718,66 @@ action_result.parameter.tag | string |  |   tag_1,tag_2
 action_result.parameter.type | string |  |   Static 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
-action_result.summary | string |  |  
-action_result.message | string |  |   Created global table successfully 
-summary.total_objects | numeric |  |   1 
-summary.total_objects_successful | numeric |  |   1 
-action_result.data.\*.entry.tag.@time | string |  |   2023/10/03 23:06:06 
-action_result.data.\*.entry.tag.@admin | string |  |   admin 
-action_result.data.\*.entry.tag.member.\*.#text | string |  |   Test_Tag_For_ADG 
-action_result.data.\*.entry.tag.member.\*.@time | string |  |   2023/10/03 23:06:06 
-action_result.data.\*.entry.tag.member.\*.@admin | string |  |   admin 
-action_result.data.\*.entry.tag.member.\*.@dirtyId | string |  |   6 
-action_result.data.\*.entry.tag.@dirtyId | string |  |   6 
+action_result.data.\*.@count | string |  |   1 
+action_result.data.\*.@total-count | string |  |   1 
+action_result.data.\*.entry.@admin | string |  |   admin 
+action_result.data.\*.entry.@dirtyId | string |  |   6 
 action_result.data.\*.entry.@loc | string |  |   New_Device_Group_1234 
 action_result.data.\*.entry.@name | string |  |   New_address_Group1234 
 action_result.data.\*.entry.@time | string |  |   2023/10/03 23:06:06 
-action_result.data.\*.entry.@admin | string |  |   admin 
-action_result.data.\*.entry.@dirtyId | string |  |   6 
 action_result.data.\*.entry.description.#text | string |  |   This is test description for Address_group 
-action_result.data.\*.entry.description.@time | string |  |   2023/10/03 23:06:06 
 action_result.data.\*.entry.description.@admin | string |  |   admin 
 action_result.data.\*.entry.description.@dirtyId | string |  |   6 
-action_result.data.\*.@count | string |  |   1 
-action_result.data.\*.@total-count | string |  |   1 
-action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.data.\*.entry.description.@time | string |  |   2023/10/03 23:06:06 
+action_result.data.\*.entry.static.@admin | string |  |   admin 
+action_result.data.\*.entry.static.@dirtyId | string |  |   6 
+action_result.data.\*.entry.static.@time | string |  |   2023/10/03 23:06:07 
+action_result.data.\*.entry.static.member.#text | string |  |   do_not_delete_address_group_shared 
+action_result.data.\*.entry.static.member.@admin | string |  |   admin 
+action_result.data.\*.entry.static.member.@dirtyId | string |  |   6 
+action_result.data.\*.entry.static.member.@time | string |  |   2023/10/03 23:06:07 
+action_result.data.\*.entry.tag.@admin | string |  |   admin 
+action_result.data.\*.entry.tag.@dirtyId | string |  |   6 
+action_result.data.\*.entry.tag.@time | string |  |   2023/10/03 23:06:06 
+action_result.data.\*.entry.tag.member.\*.#text | string |  |   Test_Tag_For_ADG 
+action_result.data.\*.entry.tag.member.\*.@admin | string |  |   admin 
+action_result.data.\*.entry.tag.member.\*.@dirtyId | string |  |   6 
+action_result.data.\*.entry.tag.member.\*.@time | string |  |   2023/10/03 23:06:06 
 action_result.data.\*.response.@code | string |  |   20 
 action_result.data.\*.response.@status | string |  |   success 
+action_result.data.\*.response.msg | string |  |   command succeeded 
+action_result.summary | string |  |  
 action_result.summary.does_policy_exist.response.@code | string |  |   19 
-action_result.summary.does_policy_exist.response.result.entry.tag.@time | string |  |   2023/10/03 23:06:06 
-action_result.summary.does_policy_exist.response.result.entry.tag.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.#text | string |  |   Test_Tag_For_ADG 
-action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@time | string |  |   2023/10/03 23:06:06 
-action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@dirtyId | string |  |   6 
-action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result | string |  |  
+action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   6 
 action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   New_Device_Group_1234 
 action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   New_address_Group1234 
 action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/10/03 23:06:06 
-action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
-action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   6 
 action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   This is test description for Address_group 
-action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/10/03 23:06:06 
 action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   6 
-action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
-action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
-action_result.summary.does_policy_exist.response.@status | string |  |   success 
-action_result.data.\*.entry.static.@time | string |  |   2023/10/03 23:06:07 
-action_result.data.\*.entry.static.@admin | string |  |   admin 
-action_result.data.\*.entry.static.member.#text | string |  |   do_not_delete_address_group_shared 
-action_result.data.\*.entry.static.member.@time | string |  |   2023/10/03 23:06:07 
-action_result.data.\*.entry.static.member.@admin | string |  |   admin 
-action_result.data.\*.entry.static.member.@dirtyId | string |  |   6 
-action_result.data.\*.entry.static.@dirtyId | string |  |   6 
-action_result.summary.does_policy_exist.response.result.entry.static.@time | string |  |   2023/10/03 23:06:07 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/10/03 23:06:06 
 action_result.summary.does_policy_exist.response.result.entry.static.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.static.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.static.@time | string |  |   2023/10/03 23:06:07 
 action_result.summary.does_policy_exist.response.result.entry.static.member.#text | string |  |   do_not_delete_address_group_shared 
-action_result.summary.does_policy_exist.response.result.entry.static.member.@time | string |  |   2023/10/03 23:06:07 
 action_result.summary.does_policy_exist.response.result.entry.static.member.@admin | string |  |   admin 
 action_result.summary.does_policy_exist.response.result.entry.static.member.@dirtyId | string |  |   6 
-action_result.summary.does_policy_exist.response.result.entry.static.@dirtyId | string |  |   6 
-action_result.summary.does_policy_exist.response.result | string |  |    
+action_result.summary.does_policy_exist.response.result.entry.static.member.@time | string |  |   2023/10/03 23:06:07 
+action_result.summary.does_policy_exist.response.result.entry.tag.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@time | string |  |   2023/10/03 23:06:06 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.#text | string |  |   Test_Tag_For_ADG 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.\*.@time | string |  |   2023/10/03 23:06:06 
+action_result.message | string |  |   command succeeded 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list address groups'
 List the address groups
@@ -1788,13 +1788,13 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**device_group** |  required  | Device group whose address groups you want to list (up to 31 characters, default is 'shared') | string |  `panorama device group` 
+**device_group** |  required  | Device group whose address groups you want to list (up to 31 characters, default is 'shared') | string | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |   success  failed 
-action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
+action_result.parameter.device_group | string |  |   test_device_grp 
 action_result.data | string |  |  
 action_result.data.\*.@admin | string |  |   admin 
 action_result.data.\*.@dirtyId | string |  |   1 
@@ -1805,7 +1805,7 @@ action_result.data.\*.description.#text | string |  |   test
 action_result.data.\*.description.@admin | string |  |   admin 
 action_result.data.\*.description.@dirtyId | string |  |   1 
 action_result.data.\*.description.@time | string |  |   2023/09/24 22:58:19 
-action_result.data.\*.disable-override | string |  |   yes 
+action_result.data.\*.disable-override | string |  |   Yes 
 action_result.data.\*.dynamic.filter | string |  |   blocked 
 action_result.data.\*.static | string |  |  
 action_result.data.\*.static.@admin | string |  |   admin 
