@@ -17,8 +17,8 @@ from phantom.action_result import ActionResult
 
 from actions import BaseAction
 from actions.panorama_create_policy import CreatePolicy
-from panorama_consts import (PAN_JSON_APPLICATION, PAN_JSON_CATEGORY, PAN_JSON_DESTINATION_ADDRESS, PAN_JSON_DIR, PAN_JSON_OBJ_TYPE,
-                             PAN_JSON_OBJ_VAL, PAN_JSON_POL_SOURCE_ADD, VALUE_LIST_VALIDATION_MESSAGE)
+from panorama_consts import (OBJ_TYPE_VALUE_LIST, PAN_JSON_APPLICATION, PAN_JSON_CATEGORY, PAN_JSON_DESTINATION_ADDRESS, PAN_JSON_DIR,
+                             PAN_JSON_OBJ_TYPE, PAN_JSON_OBJ_VAL, PAN_JSON_POL_SOURCE_ADD, VALUE_LIST_VALIDATION_MESSAGE)
 
 
 class CustomBlockPolicy(BaseAction):
@@ -37,6 +37,12 @@ class CustomBlockPolicy(BaseAction):
         if parameter[PAN_JSON_DIR] not in ["from", "to", "both"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["from", "to", "both"],
                                                                                                     PAN_JSON_DIR))
+
+        if parameter.get(PAN_JSON_OBJ_TYPE):
+            if parameter.get(PAN_JSON_OBJ_TYPE).lower() not in OBJ_TYPE_VALUE_LIST:
+                return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(OBJ_TYPE_VALUE_LIST, PAN_JSON_OBJ_TYPE))
+            else:
+                parameter[PAN_JSON_OBJ_TYPE] = parameter.get(PAN_JSON_OBJ_TYPE).lower()
 
         if parameter[PAN_JSON_OBJ_TYPE] in ['ip', 'address-group', 'edl']:
             if parameter[PAN_JSON_DIR] == "from":
