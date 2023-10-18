@@ -90,15 +90,15 @@ You can learn more about Audit comment below:
 
  **Note**  
  - If you want to add below special characters in any of the field you need to add as per below list.  
-    - & - **\&amp;**  
-    - < - **\&lt;**  
-    - \> - **\&gt;**  
-    - " - **\&quot;**  
-    - ' - **\&apos;**  
+    - & - **`&amp;`**  
+    - < - **`&lt;`**  
+    - \> - **`&gt;`**  
+    - " - **`&quot;`**  
+    - ' - **`&apos;`**  
 
 - Example:
  If you want to pass value as  -> testing&  
- In the parameter pass it as -> testing&amp;
+ In the parameter pass it as -> testing`&amp;`
 
 
 ### Configuration Variables
