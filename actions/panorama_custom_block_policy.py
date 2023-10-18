@@ -32,6 +32,7 @@ class CustomBlockPolicy(BaseAction):
         parameter = self._param.copy()
 
         parameter[PAN_JSON_DIR] = parameter.get(PAN_JSON_DIR, "both").lower()
+        parameter[PAN_JSON_OBJ_TYPE] = parameter[PAN_JSON_OBJ_TYPE].lower()
 
         if parameter[PAN_JSON_DIR] not in ["from", "to", "both"]:
             return action_result.set_status(phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(["from", "to", "both"],
