@@ -46,7 +46,6 @@ class GetEdl(BaseAction):
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
 
-        action_result.update_summary({"Response Received:": "Fetched data successfully"})
         action_result.update_data([result_data])
 
-        return action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched edl details")
