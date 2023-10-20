@@ -101,19 +101,70 @@ class PanoramaConnector(BaseConnector):
 
 
 if __name__ == '__main__':
-
+    import argparse
     import json
 
     import pudb
+    import requests
 
     pudb.set_trace()
 
-    with open(sys.argv[1]) as f:
+    argparser = argparse.ArgumentParser()
+
+    argparser.add_argument('input_test_json', help='Input Test JSON file')
+    argparser.add_argument('-u', '--username', help='username', required=False)
+    argparser.add_argument('-p', '--password', help='password', required=False)
+    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
+    args = argparser.parse_args()
+    session_id = None
+
+    username = args.username
+    password = args.password
+    verify = args.verify
+
+    if username is not None and password is None:
+        # User specified a username but not a password, so ask
+        import getpass
+        password = getpass.getpass("Password: ")
+
+    if username and password:
+        try:
+            login_url = PanoramaConnector._get_phantom_base_url() + "/login"
+
+            print("Accessing the Login page")
+            r = requests.get(login_url, verify=verify)
+            csrftoken = r.cookies["csrftoken"]
+
+            data = dict()
+            data["username"] = username
+            data["password"] = password
+            data["csrfmiddlewaretoken"] = csrftoken
+
+            headers = dict()
+            headers["Cookie"] = "csrftoken=" + csrftoken
+            headers["Referer"] = login_url
+
+            print("Logging into Platform to get the session id")
+            r2 = requests.post(login_url, verify=verify,
+                               data=data, headers=headers)
+            session_id = r2.cookies["sessionid"]
+        except Exception as e:
+            print("Unable to get session id from the platform. Error: " + str(e))
+            exit(1)
+
+    with open(args.input_test_json) as f:
         in_json = f.read()
         in_json = json.loads(in_json)
+        print(json.dumps(in_json, indent=4))
 
         connector = PanoramaConnector()
         connector.print_progress_message = True
-        result = connector._handle_action(json.dumps(in_json), None)
+
+        if session_id is not None:
+            in_json["user_session_token"] = session_id
+            connector._set_csrf_info(csrftoken, headers["Referer"])
+
+        ret_val = connector._handle_action(json.dumps(in_json), None)
+        print(json.dumps(json.loads(ret_val), indent=4))
 
     sys.exit(0)
