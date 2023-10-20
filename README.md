@@ -177,13 +177,245 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.does_policy_exist.response.@code | string |  |   19 
+action_result.summary.does_policy_exist.response.result.entry.to.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.to.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.tag.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.#text | string |  |   test_tag 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   do_not_delete_dg_default 
+action_result.summary.does_policy_exist.response.result.entry.from.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.from.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   test_playbook_policy 
+action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/10/03 23:44:32 
+action_result.summary.does_policy_exist.response.result.entry.@uuid | string |  |   6eca9cdf-2c3b-4dc8-bf8b-4b967f4519fa 
+action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.#text | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.action.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.action.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.#text | string |  |   12.23.34.45 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.service.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.service.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.category.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.category.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.category.member.#text | string |  |   auctions 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.category.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.#text | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.application.@time | string |  |   2023/10/03 23:44:32 
+action_result.summary.does_policy_exist.response.result.entry.application.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.#text | string |  |   3pc 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   Test playbook policy 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.#text | string |  |   23.34.45.67 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.set_url_filtering.response.msg | string |  |   command succeeded 
+action_result.summary.set_url_filtering.response.@code | string |  |   20 
+action_result.summary.set_url_filtering.response.@status | string |  |   success 
+action_result.summary.update_audit_comment.response.result | string |  |   Successfully added comment for xpath 
+action_result.summary.update_audit_comment.response.@status | string |  |   success 
+action_result.summary.update_security_policy.response.msg | string |  |   command succeeded 
+action_result.summary.update_security_policy.response.@code | string |  |   20 
+action_result.summary.update_security_policy.response.@status | string |  |   success 
+action_result.summary.add_url_to_url_category.response.msg | string |  |   command succeeded 
+action_result.summary.add_url_to_url_category.response.@code | string |  |   20 
+action_result.summary.add_url_to_url_category.response.@status | string |  |   success 
+action_result.summary.commit_config.finished_job.id | string |  |   10361 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   03:18:37 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/25 03:18:37 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/25 03:18:59 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings | string |  |  
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   10362 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:19:02 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/25 03:19:02 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/25 03:19:02 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   test 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.does_policy_exist.response.result.entry.to.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.action | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.source.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.target.negate | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.service.member | string |  |   application-default 
+action_result.summary.does_policy_exist.response.result.entry.category.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@time | string |  |   2023/09/26 05:00:06 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.#text | string |  |   Phantom URL List for Shared 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@time | string |  |   2023/09/26 05:00:06 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@dirtyId | string |  |   23 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@dirtyId | string |  |   23 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/26 05:02:10 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   05:01:40 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   3054 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.#text | string |  |   23.34.45.67 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.disabled.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.#text | string |  |   12.23.34.45 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.group.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.group.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.group.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.member | string |  |   test_tag 
+action_result.summary.does_policy_exist.response.result.entry.disabled | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.rule-type | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.description | string |  |   Test playbook policy 
+action_result.summary.does_policy_exist.response.result.entry.negate-source | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles | string |  |  
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.target.@time | string |  |   2023/10/09 05:23:34 
+action_result.summary.does_policy_exist.response.result.entry.target.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.@time | string |  |   2023/10/09 05:23:34 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.@dirtyId | string |  |   13 
+action_result.summary.does_policy_exist.response.result.entry.target.@dirtyId | string |  |   13 
+action_result.summary.does_policy_exist.response.result.entry.application.member.#text | string |  |   2ch 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@time | string |  |   2023/10/09 05:23:34 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@dirtyId | string |  |   13 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@time | string |  |   2023/10/09 05:23:34 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time | string |  |   2023/10/09 05:23:34 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@dirtyId | string |  |   13 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId | string |  |   13 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member | string |  |   Phantom URL List for do_not_del 
 action_result.status | string |  |   success  failed 
 action_result.parameter.audit_comment | string |  |   updated description 
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.policy_name | string |  `panorama policy name`  |  
-action_result.parameter.policy_type | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
+action_result.parameter.policy_name | string |  `panorama policy name`  |   test_policy 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.parameter.url | string |  `url`  |  
+action_result.parameter.url | string |  `url`  |   www.test.com 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
@@ -210,10 +442,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.delete_url_from_url_category.response.msg | string |  |   command succeeded 
+action_result.summary.delete_url_from_url_category.response.@code | string |  |   20 
+action_result.summary.delete_url_from_url_category.response.@status | string |  |   success 
 action_result.status | string |  |   success  failed 
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
-action_result.parameter.url | string |  `url`  |  
+action_result.parameter.url | string |  `url`  |   www.test.com 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
@@ -243,12 +478,241 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.add_application_to_application_group.response.msg | string |  |   command succeeded 
+action_result.summary.add_application_to_application_group.response.@code | string |  |   20 
+action_result.summary.add_application_to_application_group.response.@status | string |  |   success 
+action_result.summary.commit_config.finished_job.id | string |  |   2847 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   02:34:37 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/26 02:34:37 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/26 02:35:02 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.does_policy_exist.response.@code | string |  |   19 
+action_result.summary.does_policy_exist.response.result.entry.to.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.to.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   test 
+action_result.summary.does_policy_exist.response.result.entry.from.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.from.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   test_pre_rule 
+action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/09/26 02:29:58 
+action_result.summary.does_policy_exist.response.result.entry.@uuid | string |  |   e97777da-aad8-44e0-9206-492172b9d18e 
+action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.#text | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.action.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.action.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.source.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.target.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.target.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.target.negate.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.target.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.service.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.service.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.#text | string |  |   application-default 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.category.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.category.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.category.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.category.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.#text | string |  |   intrazone 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.application.@time | string |  |   2023/09/26 02:29:58 
+action_result.summary.does_policy_exist.response.result.entry.application.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.#text | string |  |   3pc 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.destination.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.source-user.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time | string |  |   2023/09/26 02:26:52 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId | string |  |   15 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   2858 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   02:35:03 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/26 02:35:03 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/26 02:35:03 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   test 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.update_audit_comment.response.result | string |  |   Successfully added comment for xpath 
+action_result.summary.update_audit_comment.response.@status | string |  |   success 
+action_result.summary.update_security_policy.response.msg | string |  |   command succeeded 
+action_result.summary.update_security_policy.response.@code | string |  |   20 
+action_result.summary.update_security_policy.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result.entry.application.member.#text | string |  |   airdroid 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@time | string |  |   2023/09/26 02:58:38 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.@dirtyId | string |  |   19 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/26 03:00:03 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   02:59:33 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   2893 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.to.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.action | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.source.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.target.negate | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.service.member | string |  |   application-default 
+action_result.summary.does_policy_exist.response.result.entry.category.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.tag.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.tag.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.#text | string |  |   test_tag 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.#text | string |  |   12.23.34.45 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   Test playbook policy 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.#text | string |  |   23.34.45.67 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.group.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.group.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.group.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.#text | string |  |   Phantom URL List for do_not_del 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.disabled.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.tag.member | string |  |   test_tag 
+action_result.summary.does_policy_exist.response.result.entry.disabled | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.rule-type | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.description | string |  |   Test playbook policy 
+action_result.summary.does_policy_exist.response.result.entry.negate-source | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member | string |  |   Phantom URL List for do_not_del 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.application.member | string |  |   3pc 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles | string |  |  
 action_result.status | string |  |   success  failed 
-action_result.parameter.application | string |  `network application`  |  
+action_result.parameter.application | string |  `network application`  |   1c-enterprise 
 action_result.parameter.audit_comment | string |  |   updated description 
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.policy_name | string |  `panorama policy name`  |  
-action_result.parameter.policy_type | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
+action_result.parameter.policy_name | string |  `panorama policy name`  |   test_policy 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
@@ -276,9 +740,61 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.delete_application_from_application_group.response.msg | string |  |   command succeeded 
+action_result.summary.delete_application_from_application_group.response.@code | string |  |   20 
+action_result.summary.delete_application_from_application_group.response.@status | string |  |   success 
+action_result.summary.commit_config.finished_job.id | string |  |   2921 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   03:19:06 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/26 03:19:06 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/26 03:19:31 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   2932 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   03:19:32 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/26 03:19:32 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/26 03:19:32 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   dg1 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/09/26 03:20:03 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   FAIL 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit failed 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   03:19:33 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   2933 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   error 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
 action_result.status | string |  |   success  failed 
-action_result.parameter.application | string |  `network application`  |  
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.application | string |  `network application`  |   1c-enterprise 
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
@@ -311,13 +827,176 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.add_address_entry.link_tag_to_ip.response.msg | string |  |   command succeeded 
+action_result.summary.add_address_entry.link_tag_to_ip.response.@code | string |  |   20 
+action_result.summary.add_address_entry.link_tag_to_ip.response.@status | string |  |   success 
+action_result.summary.add_ip_to_address_group.response.msg | string |  |   command succeeded 
+action_result.summary.add_ip_to_address_group.response.@code | string |  |   20 
+action_result.summary.add_ip_to_address_group.response.@status | string |  |   success 
+action_result.summary.add_address_entry.add_tag.response.msg | string |  |   command succeeded 
+action_result.summary.add_address_entry.add_tag.response.@code | string |  |   20 
+action_result.summary.add_address_entry.add_tag.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.@code | string |  |   19 
+action_result.summary.does_policy_exist.response.result.entry.to.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.@loc | string |  |   dg1 
+action_result.summary.does_policy_exist.response.result.entry.from.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.@name | string |  |   DO_NOT_DELETE_RK 
+action_result.summary.does_policy_exist.response.result.entry.@time | string |  |   2023/09/26 00:16:55 
+action_result.summary.does_policy_exist.response.result.entry.@uuid | string |  |   6c809822-a080-46f6-b28e-e1dd5150719c 
+action_result.summary.does_policy_exist.response.result.entry.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.source.@time | string |  |   2023/09/26 00:08:51 
+action_result.summary.does_policy_exist.response.result.entry.source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.@dirtyId | string |  |   484 
+action_result.summary.does_policy_exist.response.result.entry.target.negate | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.service.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.@dirtyId | string |  |   508 
+action_result.summary.does_policy_exist.response.result.entry.category.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.group-tag | string |  |   do_not_delete_tag 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.application.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.description | string |  |   Test 
+action_result.summary.does_policy_exist.response.result.entry.destination.@time | string |  |   2023/09/26 00:16:55 
+action_result.summary.does_policy_exist.response.result.entry.destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.@dirtyId | string |  |   508 
+action_result.summary.does_policy_exist.response.result.entry.source-user.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member | string |  |   any 
+action_result.summary.does_policy_exist.response.result.@count | string |  |   1 
+action_result.summary.does_policy_exist.response.result.@total-count | string |  |   1 
+action_result.summary.does_policy_exist.response.@status | string |  |   success 
+action_result.summary.update_security_policy.response.msg | string |  |   command succeeded 
+action_result.summary.update_security_policy.response.@code | string |  |   20 
+action_result.summary.update_security_policy.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result.entry.to.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.to.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.to.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.to.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.tag.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.#text | string |  |   test_tag 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.tag.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.from.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.from.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.from.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.from.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.action.#text | string |  |   allow 
+action_result.summary.does_policy_exist.response.result.entry.action.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.action.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.action.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source.member.#text | string |  |   12.23.34.45 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.service.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.service.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.service.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.service.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.category.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.category.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.category.member.#text | string |  |   auctions 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.category.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.category.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.#text | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.rule-type.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source-hip.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.application.@time | string |  |   2023/10/03 23:44:32 
+action_result.summary.does_policy_exist.response.result.entry.application.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.#text | string |  |   3pc 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.application.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.application.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.description.#text | string |  |   Test playbook policy 
+action_result.summary.does_policy_exist.response.result.entry.description.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.description.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.description.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.#text | string |  |   23.34.45.67 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.#text | string |  |   any 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.destination-hip.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.#text | string |  |   Phantom URL List for do_not_del 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@time | string |  |   2023/10/03 23:44:35 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.member.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.profile-setting.profiles.url-filtering.@dirtyId | string |  |   6 
+action_result.summary.update_audit_comment.response.result | string |  |   Successfully added comment for xpath 
+action_result.summary.update_audit_comment.response.@status | string |  |   success 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.#text | string |  |   23.34.45.67 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.destination.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.#text | string |  |   12.23.34.45 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@time | string |  |   2023/10/03 23:44:31 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.source.member.\*.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.negate-source.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@time | string |  |   2023/10/04 00:05:40 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination.@dirtyId | string |  |   6 
+action_result.summary.does_policy_exist.response.result.entry.disabled.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.disabled.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.#text | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@time | string |  |   2023/10/04 01:26:35 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable.@dirtyId | string |  |   10 
+action_result.summary.does_policy_exist.response.result.entry.tag.member | string |  |   test_tag 
+action_result.summary.does_policy_exist.response.result.entry.source.member | string |  |   12.23.34.45 
+action_result.summary.does_policy_exist.response.result.entry.disabled | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.rule-type | string |  |   universal 
+action_result.summary.does_policy_exist.response.result.entry.destination.member | string |  |   23.34.45.67 
+action_result.summary.does_policy_exist.response.result.entry.negate-source | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.icmp-unreachable | string |  |   no 
+action_result.summary.does_policy_exist.response.result.entry.negate-destination | string |  |   no 
 action_result.status | string |  |   success  failed 
 action_result.parameter.audit_comment | string |  |   updated description 
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.ip | string |  `ip`  |  
-action_result.parameter.is_source_address | boolean |  |  
-action_result.parameter.policy_name | string |  `panorama policy name`  |  
-action_result.parameter.policy_type | string |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
+action_result.parameter.ip | string |  `ip`  |   10.1.1.1 
+action_result.parameter.is_source_address | boolean |  |   True 
+action_result.parameter.policy_name | string |  `panorama policy name`  |   test_policy 
+action_result.parameter.policy_type | string |  |   pre-rulebase 
 action_result.parameter.should_add_tag | boolean |  |   True  False 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
@@ -347,10 +1026,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.delete_ip_from_address_group.response.msg | string |  |   command succeeded 
+action_result.summary.delete_ip_from_address_group.response.@code | string |  |   20 
+action_result.summary.delete_ip_from_address_group.response.@status | string |  |   success 
 action_result.status | string |  |   success  failed 
-action_result.parameter.device_group | string |  `panorama device group`  |  
-action_result.parameter.ip | string |  `ip`  |  
-action_result.parameter.is_source_address | boolean |  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
+action_result.parameter.ip | string |  `ip`  |   10.1.1.1 
+action_result.parameter.is_source_address | boolean |  |   True 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
@@ -482,6 +1164,16 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.run_query.response.@code | string |  |   19 
+action_result.summary.run_query.response.result.job | string |  |   852 
+action_result.summary.run_query.response.result.msg.line | string |  |   query job enqueued with jobid 852 
+action_result.summary.run_query.response.@status | string |  |   success 
+action_result.summary.finished_job.id | string |  |   852 
+action_result.summary.finished_job.tdeq | string |  |   04:32:51 
+action_result.summary.finished_job.tenq | string |  |   04:32:51 
+action_result.summary.finished_job.tlast | string |  |   16:00:00 
+action_result.summary.finished_job.status | string |  |   FIN 
+action_result.summary.finished_job.cached-logs | string |  |   0 
 action_result.status | string |  |   success  failed 
 action_result.parameter.direction | string |  |   backward 
 action_result.parameter.log_type | string |  |   traffic 
@@ -581,8 +1273,59 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.summary.commit_config.finished_job.id | string |  |   2834 
+action_result.summary.commit_config.finished_job.tdeq | string |  |   02:22:04 
+action_result.summary.commit_config.finished_job.tenq | string |  |   2023/09/26 02:22:04 
+action_result.summary.commit_config.finished_job.tfin | string |  |   2023/09/26 02:22:30 
+action_result.summary.commit_config.finished_job.type | string |  |   Commit 
+action_result.summary.commit_config.finished_job.user | string |  |   admin 
+action_result.summary.commit_config.finished_job.queued | string |  |   NO 
+action_result.summary.commit_config.finished_job.result | string |  |   OK 
+action_result.summary.commit_config.finished_job.status | string |  |   FIN 
+action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
+action_result.summary.commit_config.finished_job.progress | string |  |   100 
+action_result.summary.commit_config.finished_job.warnings.line | string |  |   HA Peer Serial Number has not been entered. Please enter the serial number of the HA peer. 
+action_result.summary.commit_config.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_config.finished_job.description | string |  |  
+action_result.summary.commit_config.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.id | string |  |   2845 
+action_result.summary.commit_device_groups.\*.finished_job.tdeq | string |  |   02:22:31 
+action_result.summary.commit_device_groups.\*.finished_job.tenq | string |  |   2023/09/26 02:22:31 
+action_result.summary.commit_device_groups.\*.finished_job.tfin | string |  |   2023/09/26 02:22:31 
+action_result.summary.commit_device_groups.\*.finished_job.type | string |  |   CommitAll 
+action_result.summary.commit_device_groups.\*.finished_job.user | string |  |   admin 
+action_result.summary.commit_device_groups.\*.finished_job.sched | string |  |   None 
+action_result.summary.commit_device_groups.\*.finished_job.dgname | string |  |   test 
+action_result.summary.commit_device_groups.\*.finished_job.queued | string |  |   NO 
+action_result.summary.commit_device_groups.\*.finished_job.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.status | string |  |   FIN 
+action_result.summary.commit_device_groups.\*.finished_job.devices | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.progress | string |  |   100 
+action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.push_type | string |  |   shared-policy 
+action_result.summary.commit_device_groups.\*.finished_job.stoppable | string |  |   no 
+action_result.summary.commit_device_groups.\*.finished_job.description | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.positionInQ | string |  |   0 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tfin | string |  |   2023/10/17 22:32:21 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.vsys | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.result | string |  |   OK 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.status | string |  |   commit succeeded 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.tstart | string |  |   22:31:33 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@cmd | string |  |   push-data 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dname | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@jobid | string |  |   3970 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@dgname | string |  |   harsh_device_group 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@result | string |  |   success 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.@tplname | string |  |   harsh_splunk_phantom_template_stack 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.app-warn | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.warnings | string |  |  
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.#text | string |  |   { "uuid" : "8ec4cbb8-4ab9-4ae3-8a9f-7cb3d9b3324a", "serial" : "007951000393837", "rulename" : "test_dhwani_91", "ruletype" : "security", "vsys" : [{ "id" : "vsys1", "dgid" : 43, "shadowed-rule" : [ "Allow Panorama Comm", "General Blocked Sites", "LAN to WAN internet Access", "Social Media Block", "cp_1", "cp_2", "create_policy", "create_policy_1", "create_policy_2", "create_policy_3", "create_policy_4", "create_policy_4fe", "create_policy_4fed", "harsh_test_policy", "mpan2    .-_", "mpantest mpantest", "part_5", "test", "test12345", "test_123_policy", "test_create_policy", "test_pol_12", "test_policy_123", "test_post_rule_shared", "yitweshjb"]}]} 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.details.msg.shadow-warn.entry.\*.@name | string |  |   8ec4cbb8-4ab9-4ae3-8a9f-7cb3d9b3324a 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.serial-no | string |  |   007951000393837 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.devicename | string |  |   PA-VM 
+action_result.summary.commit_device_groups.\*.finished_job.devices.entry.multi-vsys | string |  |   no 
 action_result.status | string |  |   success  failed 
-action_result.parameter.device_group | string |  `panorama device group`  |  
+action_result.parameter.device_group | string |  `panorama device group`  |   test_device_group 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
 action_result.data | string |  |  
 action_result.summary | string |  |  
@@ -1708,6 +2451,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.data.\*.entry.tag.member.#text | string |  |   test_tag1 
+action_result.data.\*.entry.tag.member.@time | string |  |   2023/10/04 01:05:29 
+action_result.data.\*.entry.tag.member.@admin | string |  |   admin 
+action_result.data.\*.entry.tag.member.@dirtyId | string |  |   8 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.#text | string |  |   test_tag1 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@time | string |  |   2023/10/04 01:05:29 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@admin | string |  |   admin 
+action_result.summary.does_policy_exist.response.result.entry.tag.member.@dirtyId | string |  |   8 
 action_result.status | string |  |   success  failed 
 action_result.parameter.addresses_or_match_criteria | string |  |   address_1,address_2  'tag_1' and 'tag_2' or 'tag_3' 
 action_result.parameter.description | string |  |   Test description 
@@ -1935,18 +2686,19 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.data.\*.@count | string |  |   0 
+action_result.data.\*.@total-count | string |  |   0 
 action_result.status | string |  |   success  failed 
+action_result.data | string |  |  
 action_result.parameter.description | string |  |   Test description 
 action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
-action_result.parameter.disable_override | string |  |  
+action_result.parameter.disable_override | string |  |   Yes 
 action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
 action_result.parameter.should_commit_changes | boolean |  |   True  False 
 action_result.parameter.tag | string |  |   test_address_tag 
-action_result.parameter.type | string |  |  
+action_result.parameter.type | string |  |   IP Netmask 
 action_result.parameter.use_partial_commit | boolean |  |   True  False 
-action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  `panorama address value`  |  
-action_result.data | string |  |  
-action_result.summary | string |  |  
+action_result.parameter.value | string |  `ip`  `ipv6`  `domain`  `panorama address value`  |   10.1.1.1 
 action_result.summary.commit_config.finished_job.description | string |  |  
 action_result.summary.commit_config.finished_job.details.line | string |  |   Configuration committed successfully 
 action_result.summary.commit_config.finished_job.id | string |  |   622 
@@ -1983,7 +2735,7 @@ action_result.summary.commit_device_groups.\*.finished_job.warnings | string |  
 action_result.summary.create_address.response.@code | string |  |   20 
 action_result.summary.create_address.response.@status | string |  |   success 
 action_result.summary.create_address.response.msg | string |  |   command succeeded 
-action_result.message | string |  |   command succeeded 
+action_result.message | string |  |   Response Received: command succeeded 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -2002,10 +2754,26 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
+action_result.data.\*.tag.member.#text | string |  |   test_tag1 
+action_result.data.\*.tag.member.@time | string |  |   2023/10/05 23:22:27 
+action_result.data.\*.tag.member.@admin | string |  |   phantomlab 
+action_result.data.\*.tag.member.@dirtyId | string |  |   46 
+action_result.data.\*.tag.member | string |  |   test_tag1 
+action_result.data.\*.ip-wildcard.#text | string |  |   10.20.1.0/0.0.248.255 
+action_result.data.\*.ip-wildcard.@time | string |  |   2023/10/19 04:16:04 
+action_result.data.\*.ip-wildcard.@admin | string |  |   admin 
+action_result.data.\*.ip-wildcard.@dirtyId | string |  |   322 
+action_result.data.\*.ip-range.#text | string |  |   12.12.12.12-13.13.13.13 
+action_result.data.\*.ip-range.@time | string |  |   2023/10/19 04:16:05 
+action_result.data.\*.ip-range.@admin | string |  |   admin 
+action_result.data.\*.ip-range.@dirtyId | string |  |   322 
+action_result.data.\*.fqdn.#text | string |  |   www.google.com 
+action_result.data.\*.fqdn.@time | string |  |   2023/10/19 04:16:06 
+action_result.data.\*.fqdn.@admin | string |  |   admin 
+action_result.data.\*.fqdn.@dirtyId | string |  |   322 
 action_result.status | string |  |   success  failed 
 action_result.parameter.device_group | string |  `panorama device group`  |   test_device_grp 
 action_result.parameter.name | string |  `panorama address name`  |   test_address_name 
-action_result.data | string |  |  
 action_result.data.\*.@admin | string |  |   admin 
 action_result.data.\*.@dirtyId | string |  |   175 
 action_result.data.\*.@loc | string |  |   dg1 
@@ -2034,8 +2802,7 @@ action_result.data.\*.tag.member.\*.@admin | string |  |   admin
 action_result.data.\*.tag.member.\*.@dirtyId | string |  |   25 
 action_result.data.\*.tag.member.\*.@time | string |  |   2023/09/26 23:49:56 
 action_result.summary | string |  |  
-action_result.summary.message | string |  |   fetched data successfully 
-action_result.message | string |  |   command succeeded 
+action_result.message | string |  |   Successfully fetched address details 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
