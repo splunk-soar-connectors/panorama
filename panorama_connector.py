@@ -19,6 +19,7 @@ import sys
 from importlib import import_module
 
 import phantom.app as phantom
+import requests
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 
@@ -105,7 +106,6 @@ if __name__ == '__main__':
     import json
 
     import pudb
-    import requests
 
     pudb.set_trace()
 
