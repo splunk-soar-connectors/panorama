@@ -1906,7 +1906,7 @@ Modify a security policy rule
 Type: **generic**  
 Read only: **False**
 
-<p><h4>Action Keynote</h4><ul><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored</li><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>Source address, source zone, source user, source device, destination address, destination zone, destination device, tag, application, service, category, target parameters would append the values to the already existing values in th policy</li><li>Log forwarding, profile settings, rule type parameters would be replaced</li></ul></p>
+<p><h4>Action Keynote</h4><ul><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored.</li><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>Source address, source zone, source user, source device, destination address, destination zone, destination device, tag, application, service, category, target parameters would append the values to the already existing values in th policy.</li><li>Log forwarding, profile settings, rule type parameters would be replaced.</li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
