@@ -1262,7 +1262,7 @@ Commit changes to the firewall and device groups
 Type: **generic**  
 Read only: **False**
 
-The action proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it. Regardless of the value provided in device group parameter, pending changes of all the device groups will be committed and the action will then proceed with pushing the changes to the firewall (if linked to that device group) of mentioned device group
+The action proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it. Regardless of the value provided in device group parameter, pending changes of all the device groups will be committed and the action will then proceed with pushing the changes to the firewall (if linked to that device group) of mentioned device group.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
