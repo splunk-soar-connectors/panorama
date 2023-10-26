@@ -172,7 +172,7 @@ class PanoramaUtils(object):
             response = requests.post(
                 self._connector.base_url,
                 data=data,
-                verify=self._connector.config[phantom.APP_JSON_VERIFY],
+                verify=self._connector.config.get("verify_server_cert", False),
                 timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
@@ -258,7 +258,7 @@ class PanoramaUtils(object):
             response = requests.post(
                 self._connector.base_url,
                 data=data,
-                verify=self._connector.config.get("verify_server_cert", True),
+                verify=self._connector.config.get("verify_server_cert", False),
                 timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
