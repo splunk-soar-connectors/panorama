@@ -12,15 +12,15 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-from datetime import datetime
 import os
 import shutil
 import uuid
+from datetime import datetime
 
 import phantom.app as phantom
-from phantom.action_result import ActionResult
 import phantom.rules as phrules
 import requests
+from phantom.action_result import ActionResult
 from phantom.vault import Vault
 
 import panorama_consts as consts
@@ -79,9 +79,7 @@ class GetThreatPcap(BaseAction):
 
         try:
             request_method = getattr(requests, method)
-            connector.debug_print(f"====inside try block of make rest get threat pcap======")
         except AttributeError:
-            connector.debug_print(f"====inside except block of make rest get threat pcap======")
             return False, "invalid method: {}".format(method)
 
         try:
@@ -106,10 +104,10 @@ class GetThreatPcap(BaseAction):
         return action_result.set_status(
             phantom.APP_SUCCESS,
             f"Unable to get PCAP - {response.text}"
-            )
+        )
 
     def execute(self, connector):
-        
+
         connector.debug_print("Inside Get Threat PCAP Action")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
@@ -146,7 +144,8 @@ class GetThreatPcap(BaseAction):
         result_data = response_content
 
         connector.save_progress("Saving PCAP file in vault")
-        ret_val, vault_details = self._save_pcap_to_vault(connector, "{}.pcap".format(filename), result_data, connector.get_container_id(), action_result)
+        ret_val, vault_details = self._save_pcap_to_vault(connector, "{}.pcap".format(
+            filename), result_data, connector.get_container_id(), action_result)
 
         if (phantom.is_fail(ret_val)):
             return action_result.get_status()
