@@ -12,12 +12,13 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-import datetime
+from datetime import datetime
 import os
 import shutil
 import uuid
 
 import phantom.app as phantom
+from phantom.action_result import ActionResult
 import phantom.rules as phrules
 import requests
 from phantom.vault import Vault
@@ -28,7 +29,7 @@ from actions import BaseAction
 
 class GetThreatPcap(BaseAction):
 
-    def _save_pcap_to_vault(self, filename, response, container_id):
+    def _save_pcap_to_vault(self, connector, filename, response, container_id, action_result):
 
         # Creating temporary directory and file
         try:
@@ -43,18 +44,18 @@ class GetThreatPcap(BaseAction):
             with open(file_path, 'wb') as file_obj:
                 file_obj.write(response)
         except Exception as e:
-            return self._action_result.set_status(
+            return action_result.set_status(
                 phantom.APP_ERROR, "Error while writing to temporary file", e), None
 
         # Adding pcap to vault
-        self._connector.save_progress("Adding pcap to vault")
+        connector.save_progress("Adding pcap to vault")
         vault_status, vault_message, vault_id = phrules.vault_add(container_id, file_path, filename)
 
         # Removing temporary directory created to download file
         try:
             shutil.rmtree(temp_dir)
         except Exception as e:
-            return self._action_result.set_status(
+            return action_result.set_status(
                 phantom.APP_ERROR, "Unable to remove temporary directory", e), None
 
         # Updating data with vault details
@@ -66,61 +67,68 @@ class GetThreatPcap(BaseAction):
             return phantom.APP_SUCCESS, vault_details
 
         # Error while adding report to vault
-        self._connector.debug_print('Error adding file to vault:', vault_message)
-        self._connector.action_result.append_to_message('. {}'.format(vault_message))
+        connector.debug_print('Error adding file to vault:', vault_message)
+        connector.action_result.append_to_message('. {}'.format(vault_message))
 
         # Set the action_result status to error, the handler function will most probably return as is
         return phantom.APP_ERROR, None
 
-    def _make_rest_download(self, params, method="get"):
+    def _make_rest_download(self, connector, params, action_result, method="get"):
 
-        self._connector.debug_print("Making rest call")
+        connector.debug_print("Making rest call")
 
         try:
             request_method = getattr(requests, method)
+            connector.debug_print(f"====inside try block of make rest get threat pcap======")
         except AttributeError:
+            connector.debug_print(f"====inside except block of make rest get threat pcap======")
             return False, "invalid method: {}".format(method)
 
         try:
             response = request_method(
-                self._connector.base_url,
+                connector.base_url,
                 params=params,
-                verify=self._connector.config[phantom.APP_JSON_VERIFY],
+                verify=connector.config[phantom.APP_JSON_VERIFY],
                 timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
-            self._connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY, e)
+            connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY, e)
             return (
-                self._action_result.set_status(
+                action_result.set_status(
                     phantom.APP_ERROR,
-                    consts.PAN_ERROR_DEVICE_CONNECTIVITY, self._connector.util._get_error_message_from_exception(e)
+                    consts.PAN_ERROR_DEVICE_CONNECTIVITY, connector.util._get_error_message_from_exception(e)
                 ),
                 e
             )
         if 200 <= response.status_code < 399:
             return True, response.content
 
-        return self._action_result.set_status(
+        return action_result.set_status(
             phantom.APP_SUCCESS,
             f"Unable to get PCAP - {response.text}"
             )
 
-    def execute(self):
-        pcap_id = self._param['pcap_id']
-        device_name = self._param['device_name']
-        session_id = self._param['session_id']
+    def execute(self, connector):
+        
+        connector.debug_print("Inside Get Threat PCAP Action")
+
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        pcap_id = self._param["pcap_id"]
+        device_name = self._param["device_name"]
+        session_id = self._param["session_id"]
         search_time = self._param["search_time"]
         try:
-            datetime.strptime(search_time, '%Y/%m/%d %H:%M:%S')
+            datetime.strptime(search_time, "%Y/%m/%d %H:%M:%S")
         except ValueError as e:
-            error = self._connector.util._get_error_message_from_exception(e)
-            return self._action_result.set_status(
+            error = connector.util._get_error_message_from_exception(e)
+            return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("fetching Threat PCAP", error))
-        filename = self._param.get('filename', pcap_id)
+        filename = self._param.get("filename", pcap_id)
 
         data = {
             'type': 'export',
-            'key': self._connector.util._key,
+            'key': connector.util._key,
             'category': 'threat-pcap',
             'pcap-id': pcap_id,
             'device_name': device_name,
@@ -128,22 +136,22 @@ class GetThreatPcap(BaseAction):
             'search-time': search_time
         }
 
-        status, response_content = self._make_rest_download(data)
+        status, response_content = self._make_rest_download(connector, data, action_result)
         # action_result.update_summary({'get_threat_pcap': response})
         if phantom.is_fail(status):
-            return self._action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("fetching Threat PCAP", self._action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("fetching Threat PCAP", action_result.get_message()))
 
         # Move things around, so that result data is an array of applications
         result_data = response_content
 
-        self._connector.save_progress("Saving PCAP file in vault")
-        ret_val, vault_details = self._save_pcap_to_vault("{}.pcap".format(filename), result_data, self.get_container_id())
+        connector.save_progress("Saving PCAP file in vault")
+        ret_val, vault_details = self._save_pcap_to_vault(connector, "{}.pcap".format(filename), result_data, connector.get_container_id(), action_result)
 
         if (phantom.is_fail(ret_val)):
-            return self._action_result.get_status()
+            return action_result.get_status()
 
-        self._action_result.update_data([vault_details])
-        self._action_result.set_summary({"message": "PCAP file added successfully to the vault"})
+        action_result.update_data([vault_details])
+        action_result.set_summary({"message": "PCAP file added successfully to the vault"})
 
-        return self._action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS)
