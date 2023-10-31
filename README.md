@@ -2204,7 +2204,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**policy_name** |  required  | Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another(comma separated). Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.) | string |  `panorama policy name` 
+**policy_name** |  required  | Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or device group to another(comma separated). Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.) | string |  `panorama policy name` 
 **device_group** |  required  | Device group of the policy rule (up to 31 characters, default is 'shared') | string |  `panorama device group` 
 **policy_type** |  required  | Rule base of the policy (pre-rule or post-rule) | string | 
 **dst_device_group** |  optional  | Device group to move the policy rule to (up to 31 characters) | string |  `panorama device group` 

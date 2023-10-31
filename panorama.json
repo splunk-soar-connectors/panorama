@@ -12626,7 +12626,7 @@
             "read_only": false,
             "parameters": {
                 "policy_name": {
-                    "description": "Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or deice group to another(comma separated). Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.)",
+                    "description": "Name of the security policy rule (multiple policy names can be added in policy_name when they have to moved from one policy_type or device group to another(comma separated). Whereas, for changing their respective position internally in the same device group and policy_type, only one rule can be moved at a time.)",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
