@@ -12,6 +12,7 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
+
 import phantom.app as phantom
 from phantom.action_result import ActionResult
 
@@ -23,7 +24,7 @@ class GetAddressGroup(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting reference address groups action")
+        connector.debug_print("starting get address groups action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         address_group_name = self._param["name"]

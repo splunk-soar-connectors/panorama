@@ -12,6 +12,7 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
+
 import phantom.app as phantom
 from phantom.action_result import ActionResult
 
@@ -23,7 +24,7 @@ class GetEdl(BaseAction):
 
     def execute(self, connector):
 
-        connector.debug_print("starting reference edl action")
+        connector.debug_print("starting get edl action")
 
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
@@ -48,4 +49,4 @@ class GetEdl(BaseAction):
 
         action_result.update_data([result_data])
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched edl details")
+        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched EDL details")

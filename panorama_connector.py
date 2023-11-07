@@ -12,12 +12,11 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-#
-#
-# Phantom imports
+
 import sys
 from importlib import import_module
 
+# Phantom App imports
 import phantom.app as phantom
 import requests
 from phantom.action_result import ActionResult

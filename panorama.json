@@ -63,6 +63,7 @@
             "type": "contain",
             "identifier": "block_url",
             "read_only": false,
+            "undo": "unblock url",
             "parameters": {
                 "url": {
                     "description": "URL to block",
@@ -99,7 +100,8 @@
                     "order": 3,
                     "contains": [
                         "panorama policy name"
-                    ]
+                    ],
+                    "primary": true
                 },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters",
@@ -120,6 +122,82 @@
                 }
             },
             "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string",
+                    "example_values": [
+                        "updated description"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama policy name"
+                    ],
+                    "example_values": [
+                        "test_policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.url",
+                    "data_type": "string",
+                    "column_name": "URL",
+                    "column_order": 0,
+                    "contains": [
+                        "url"
+                    ],
+                    "example_values": [
+                        "https://www.test.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
                 {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
                     "data_type": "string",
@@ -1289,7 +1367,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_device_group"
+                        "test_device_group"
                     ]
                 },
                 {
@@ -1303,7 +1381,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -1715,6 +1793,81 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "column_name": "Message",
+                    "column_order": 2,
+                    "example_values": [
+                        "Response Received: command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Block URL",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "unblock url",
+            "description": "Unblock an URL",
+            "verbose": "For Version 8 and below, this action will remove the URL from the URL Filtering profile that was created/updated in the <b>block url</b> action. For Version 9 and above, this action will remove the URL from the Custom URL category that was created/updated in the <b>block url</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.",
+            "type": "correct",
+            "identifier": "unblock_url",
+            "read_only": false,
+            "undo": "block url",
+            "parameters": {
+                "url": {
+                    "description": "URL to unblock",
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "url"
+                    ],
+                    "primary": true,
+                    "required": true
+                },
+                "device_group": {
+                    "description": "Device group in which you want to unblock url",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 2
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 3
+                }
+            },
+            "output": [
+                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "column_name": "Status",
@@ -1722,6 +1875,189 @@
                     "example_values": [
                         "success",
                         "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.url",
+                    "data_type": "string",
+                    "column_name": "URL",
+                    "column_order": 0,
+                    "contains": [
+                        "url"
+                    ],
+                    "example_values": [
+                        "www.test.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.delete_url_from_url_category.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_url_from_url_category.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_url_from_url_category.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "column_name": "Message",
+                    "column_order": 2,
+                    "example_values": [
+                        "Response Received: command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Unblock URL",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "block application",
+            "description": "Block an application",
+            "verbose": "This action does the following to block an application:<ul><li>Create an Application group named '<b>Phantom App List for [device_group]</b>' containing the application to block.</br>If the group is already present, then it will be updated to include the application.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created application group.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>To get a list of applications that can be blocked, execute the <b>list applications</b> action.",
+            "type": "contain",
+            "identifier": "block_application",
+            "read_only": false,
+            "undo": "unblock application",
+            "parameters": {
+                "application": {
+                    "description": "Application to block",
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "network application"
+                    ],
+                    "primary": true,
+                    "required": true
+                },
+                "device_group": {
+                    "description": "Device group in which you want to block application",
+                    "data_type": "string",
+                    "order": 1,
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "panorama device group"
+                    ]
+                },
+                "policy_type": {
+                    "description": "Block policy type",
+                    "data_type": "string",
+                    "order": 2,
+                    "value_list": [
+                        "pre-rulebase",
+                        "post-rulebase"
+                    ]
+                },
+                "policy_name": {
+                    "description": "Policy to use",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "panorama policy name"
+                    ],
+                    "primary": true
+                },
+                "audit_comment": {
+                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "should_commit_changes": {
+                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 5
+                },
+                "use_partial_commit": {
+                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
+                    "data_type": "boolean",
+                    "default": true,
+                    "order": 6
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.application",
+                    "data_type": "string",
+                    "column_name": "Application",
+                    "column_order": 0,
+                    "contains": [
+                        "network application"
+                    ],
+                    "example_values": [
+                        "1c-enterprise"
                     ]
                 },
                 {
@@ -1767,18 +2103,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.url",
-                    "data_type": "string",
-                    "column_name": "URL",
-                    "column_order": 0,
-                    "contains": [
-                        "url"
-                    ],
-                    "example_values": [
-                        "www.test.com"
-                    ]
-                },
-                {
                     "data_path": "action_result.parameter.use_partial_commit",
                     "data_type": "boolean",
                     "example_values": [
@@ -1790,257 +2114,6 @@
                     "data_path": "action_result.data",
                     "data_type": "string"
                 },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "column_name": "Message",
-                    "column_order": 2,
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                }
-            ],
-            "render": {
-                "width": 12,
-                "title": "Block Url",
-                "type": "table",
-                "height": 5
-            },
-            "versions": "EQ(*)"
-        },
-        {
-            "action": "unblock url",
-            "description": "Unblock an URL",
-            "verbose": "For Version 8 and below, this action will remove the URL from the URL Filtering profile that was created/updated in the <b>block url</b> action. For Version 9 and above, this action will remove the URL from the Custom URL category that was created/updated in the <b>block url</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.",
-            "type": "correct",
-            "identifier": "unblock_url",
-            "read_only": false,
-            "parameters": {
-                "url": {
-                    "description": "URL to unblock",
-                    "data_type": "string",
-                    "order": 0,
-                    "contains": [
-                        "url"
-                    ],
-                    "primary": true,
-                    "required": true
-                },
-                "device_group": {
-                    "description": "Device group in which you want to unblock url",
-                    "data_type": "string",
-                    "order": 1,
-                    "required": true,
-                    "primary": true,
-                    "contains": [
-                        "panorama device group"
-                    ]
-                },
-                "should_commit_changes": {
-                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
-                    "data_type": "boolean",
-                    "default": true,
-                    "order": 2
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
-                    "data_type": "boolean",
-                    "default": true,
-                    "order": 3
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.summary.delete_url_from_url_category.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.delete_url_from_url_category.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.delete_url_from_url_category.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 1,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama device group"
-                    ],
-                    "example_values": [
-                        "test_device_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.url",
-                    "data_type": "string",
-                    "column_name": "URL",
-                    "column_order": 0,
-                    "contains": [
-                        "url"
-                    ],
-                    "example_values": [
-                        "www.test.com"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "column_name": "Message",
-                    "column_order": 2,
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                }
-            ],
-            "render": {
-                "width": 12,
-                "title": "Unblock Url",
-                "type": "table",
-                "height": 5
-            },
-            "versions": "EQ(*)"
-        },
-        {
-            "action": "block application",
-            "description": "Block an application",
-            "verbose": "This action does the following to block an application:<ul><li>Create an Application group named '<b>Phantom App List for [device_group]</b>' containing the application to block.</br>If the group is already present, then it will be updated to include the application.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created application group.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>To get a list of applications that can be blocked, execute the <b>list applications</b> action.",
-            "type": "contain",
-            "identifier": "block_application",
-            "read_only": false,
-            "parameters": {
-                "application": {
-                    "description": "Application to block",
-                    "data_type": "string",
-                    "order": 0,
-                    "contains": [
-                        "network application"
-                    ],
-                    "primary": true,
-                    "required": true
-                },
-                "device_group": {
-                    "description": "Device group in which you want to block application",
-                    "data_type": "string",
-                    "order": 1,
-                    "required": true,
-                    "primary": true,
-                    "contains": [
-                        "panorama device group"
-                    ]
-                },
-                "policy_type": {
-                    "description": "Block policy type",
-                    "data_type": "string",
-                    "order": 2,
-                    "value_list": [
-                        "pre-rulebase",
-                        "post-rulebase"
-                    ]
-                },
-                "policy_name": {
-                    "description": "Policy to use",
-                    "data_type": "string",
-                    "order": 3,
-                    "contains": [
-                        "panorama policy name"
-                    ]
-                },
-                "audit_comment": {
-                    "description": "Audit comment to be used with the policy name. Maximum 256 characters",
-                    "data_type": "string",
-                    "order": 4
-                },
-                "should_commit_changes": {
-                    "description": "Whether to commit both, changes to firewall and changes to device groups at the end of this action",
-                    "data_type": "boolean",
-                    "default": true,
-                    "order": 5
-                },
-                "use_partial_commit": {
-                    "description": "Whether to perform user specific commit. As part of the request, the configuration's username is included as the administrator name (when the 'should_commit_changes' is 'false' the 'use_partial_commit' parameter is ignored)",
-                    "data_type": "boolean",
-                    "default": true,
-                    "order": 6
-                }
-            },
-            "output": [
                 {
                     "data_path": "action_result.summary.add_application_to_application_group.response.msg",
                     "data_type": "string",
@@ -3066,7 +3139,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_device_group"
+                        "test_device_group"
                     ]
                 },
                 {
@@ -3080,7 +3153,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -3618,92 +3691,12 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 1,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.application",
-                    "data_type": "string",
-                    "column_name": "Application",
-                    "column_order": 0,
-                    "contains": [
-                        "network application"
-                    ],
-                    "example_values": [
-                        "1c-enterprise"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.audit_comment",
-                    "data_type": "string",
-                    "example_values": [
-                        "updated description"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama device group"
-                    ],
-                    "example_values": [
-                        "test_device_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama policy name"
-                    ],
-                    "example_values": [
-                        "test_policy"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string",
-                    "example_values": [
-                        "pre-rulebase"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "column_name": "Message",
                     "column_order": 2,
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -3735,6 +3728,7 @@
             "verbose": "This action will remove the application from the Application group that was created/updated in the <b>block application</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.<br>Note: This action will pass for any non-existing application name as API doesn't return an error for an incorrect application name.",
             "type": "correct",
             "identifier": "unblock_application",
+            "undo": "block application",
             "read_only": false,
             "parameters": {
                 "application": {
@@ -3771,6 +3765,58 @@
                 }
             },
             "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.application",
+                    "data_type": "string",
+                    "column_name": "Application",
+                    "column_order": 0,
+                    "contains": [
+                        "network application"
+                    ],
+                    "example_values": [
+                        "1c-enterprise"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
                 {
                     "data_path": "action_result.summary.delete_application_from_application_group.response.msg",
                     "data_type": "string",
@@ -4061,7 +4107,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_device_group"
+                        "test_device_group"
                     ]
                 },
                 {
@@ -4075,7 +4121,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -4110,62 +4156,6 @@
                     "example_values": [
                         "no"
                     ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 1,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.application",
-                    "data_type": "string",
-                    "column_name": "Application",
-                    "column_order": 0,
-                    "contains": [
-                        "network application"
-                    ],
-                    "example_values": [
-                        "1c-enterprise"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama device group"
-                    ],
-                    "example_values": [
-                        "test_device_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -4206,6 +4196,7 @@
             "type": "contain",
             "identifier": "block_ip",
             "read_only": false,
+            "undo": "unblock ip",
             "parameters": {
                 "ip": {
                     "description": "IP to block",
@@ -4247,7 +4238,8 @@
                     "order": 4,
                     "contains": [
                         "panorama policy name"
-                    ]
+                    ],
+                    "primary": true
                 },
                 "audit_comment": {
                     "description": "Audit comment to be used with the policy name. Maximum 256 characters",
@@ -4274,6 +4266,97 @@
                 }
             },
             "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.audit_comment",
+                    "data_type": "string",
+                    "example_values": [
+                        "updated description"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.ip",
+                    "data_type": "string",
+                    "column_name": "IP",
+                    "column_order": 0,
+                    "contains": [
+                        "ip"
+                    ],
+                    "example_values": [
+                        "10.1.1.1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.is_source_address",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.policy_name",
+                    "data_type": "string",
+                    "contains": [
+                        "panorama policy name"
+                    ],
+                    "example_values": [
+                        "test_policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.policy_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "pre-rulebase"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_add_tag",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.should_commit_changes",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
                 {
                     "data_path": "action_result.summary.add_address_entry.link_tag_to_ip.response.msg",
                     "data_type": "string",
@@ -4369,7 +4452,7 @@
                     "data_path": "action_result.summary.does_policy_exist.response.result.entry.@name",
                     "data_type": "string",
                     "example_values": [
-                        "DO_NOT_DELETE_RK"
+                        "DO_NOT_DELETE"
                     ]
                 },
                 {
@@ -5416,107 +5499,12 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 1,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.audit_comment",
-                    "data_type": "string",
-                    "example_values": [
-                        "updated description"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama device group"
-                    ],
-                    "example_values": [
-                        "test_device_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.ip",
-                    "data_type": "string",
-                    "column_name": "IP",
-                    "column_order": 0,
-                    "contains": [
-                        "ip"
-                    ],
-                    "example_values": [
-                        "10.1.1.1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.is_source_address",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.policy_name",
-                    "data_type": "string",
-                    "contains": [
-                        "panorama policy name"
-                    ],
-                    "example_values": [
-                        "test_policy"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.policy_type",
-                    "data_type": "string",
-                    "example_values": [
-                        "pre-rulebase"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.should_add_tag",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.should_commit_changes",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "column_name": "Message",
                     "column_order": 2,
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -5536,7 +5524,7 @@
             ],
             "render": {
                 "width": 12,
-                "title": "Block Ip",
+                "title": "Block IP",
                 "type": "table",
                 "height": 5
             },
@@ -5549,6 +5537,7 @@
             "type": "correct",
             "identifier": "unblock_ip",
             "read_only": false,
+            "undo": "block ip",
             "parameters": {
                 "ip": {
                     "description": "IP to unblock",
@@ -5590,27 +5579,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.summary.delete_ip_from_address_group.response.msg",
-                    "data_type": "string",
-                    "example_values": [
-                        "command succeeded"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.delete_ip_from_address_group.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "20"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.delete_ip_from_address_group.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "column_name": "Status",
@@ -5670,8 +5638,25 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.summary.delete_ip_from_address_group.response.msg",
+                    "data_type": "string",
+                    "example_values": [
+                        "command succeeded"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_ip_from_address_group.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "20"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.delete_ip_from_address_group.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
@@ -5679,7 +5664,7 @@
                     "column_name": "Message",
                     "column_order": 2,
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -5699,7 +5684,7 @@
             ],
             "render": {
                 "width": 12,
-                "title": "Unblock Ip",
+                "title": "Unblock IP",
                 "type": "table",
                 "height": 5
             },
@@ -6167,76 +6152,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.summary.run_query.response.@code",
-                    "data_type": "string",
-                    "example_values": [
-                        "19"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.run_query.response.result.job",
-                    "data_type": "string",
-                    "example_values": [
-                        "852"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.run_query.response.result.msg.line",
-                    "data_type": "string",
-                    "example_values": [
-                        "query job enqueued with jobid 852"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.run_query.response.@status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.finished_job.id",
-                    "data_type": "string",
-                    "example_values": [
-                        "852"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.finished_job.tdeq",
-                    "data_type": "string",
-                    "example_values": [
-                        "04:32:51"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.finished_job.tenq",
-                    "data_type": "string",
-                    "example_values": [
-                        "04:32:51"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.finished_job.tlast",
-                    "data_type": "string",
-                    "example_values": [
-                        "16:00:00"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.finished_job.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "FIN"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.finished_job.cached-logs",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "column_name": "Status",
@@ -6662,7 +6577,7 @@
                     "data_path": "action_result.data.*.log.logs.entry.*.rule",
                     "data_type": "string",
                     "example_values": [
-                        "Phantom URL Security Policy"
+                        "Test URL Security Policy"
                     ]
                 },
                 {
@@ -6811,6 +6726,76 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.summary.run_query.response.@code",
+                    "data_type": "string",
+                    "example_values": [
+                        "19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.run_query.response.result.job",
+                    "data_type": "string",
+                    "example_values": [
+                        "852"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.run_query.response.result.msg.line",
+                    "data_type": "string",
+                    "example_values": [
+                        "query job enqueued with jobid 852"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.run_query.response.@status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.finished_job.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "852"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.finished_job.tdeq",
+                    "data_type": "string",
+                    "example_values": [
+                        "04:32:51"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.finished_job.tenq",
+                    "data_type": "string",
+                    "example_values": [
+                        "04:32:51"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.finished_job.tlast",
+                    "data_type": "string",
+                    "example_values": [
+                        "16:00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.finished_job.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "FIN"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.finished_job.cached-logs",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
@@ -6865,6 +6850,40 @@
                 }
             },
             "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.device_group",
+                    "data_type": "string",
+                    "column_name": "Device Group",
+                    "column_order": 0,
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "example_values": [
+                        "test_device_group"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.use_partial_commit",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
                 {
                     "data_path": "action_result.summary.commit_config.finished_job.id",
                     "data_type": "string",
@@ -7141,7 +7160,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@dgname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_device_group"
+                        "test_device_group"
                     ]
                 },
                 {
@@ -7155,7 +7174,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -7170,7 +7189,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.shadow-warn.entry.*.#text",
                     "data_type": "string",
                     "example_values": [
-                        "{ \"uuid\" : \"8ec4cbb8-4ab9-4ae3-8a9f-7cb3d9b3324a\", \"serial\" : \"007951000393837\", \"rulename\" : \"test_dhwani_91\", \"ruletype\" : \"security\", \"vsys\" : [{ \"id\" : \"vsys1\", \"dgid\" : 43, \"shadowed-rule\" : [ \"Allow Panorama Comm\", \"General Blocked Sites\", \"LAN to WAN internet Access\", \"Social Media Block\", \"cp_1\", \"cp_2\", \"create_policy\", \"create_policy_1\", \"create_policy_2\", \"create_policy_3\", \"create_policy_4\", \"create_policy_4fe\", \"create_policy_4fed\", \"harsh_test_policy\", \"mpan2    .-_\", \"mpantest mpantest\", \"part_5\", \"test\", \"test12345\", \"test_123_policy\", \"test_create_policy\", \"test_pol_12\", \"test_policy_123\", \"test_post_rule_shared\", \"yitweshjb\"]}]}"
+                        "{ \"uuid\" : \"8ec4cbb8-4ab9-4ae3-8a9f-7cb3d9b3324a\", \"serial\" : \"007951000393837\", \"rulename\" : \"test_91\", \"ruletype\" : \"security\", \"vsys\" : [{ \"id\" : \"vsys1\", \"dgid\" : 43, \"shadowed-rule\" : [ \"Allow Panorama Comm\", \"General Blocked Sites\", \"LAN to WAN internet Access\", \"Social Media Block\", \"cp_1\", \"cp_2\", \"create_policy\", \"create_policy_1\", \"create_policy_2\", \"create_policy_3\", \"create_policy_4\", \"create_policy_4fe\", \"create_policy_4fed\", \"test_test_policy\", \"test2    .-_\", \"test1 test\", \"part_5\", \"test\", \"test12345\", \"test_123_policy\", \"test_create_policy\", \"test_pol_12\", \"test_policy_123\", \"test_post_rule_shared\", \"example\"]}]}"
                     ]
                 },
                 {
@@ -7200,44 +7219,6 @@
                     "example_values": [
                         "no"
                     ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 1,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.device_group",
-                    "data_type": "string",
-                    "column_name": "Device Group",
-                    "column_order": 0,
-                    "contains": [
-                        "panorama device group"
-                    ],
-                    "example_values": [
-                        "test_device_group"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.use_partial_commit",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -7275,7 +7256,7 @@
             "action": "get threat pcap",
             "identifier": "get_threat_pcap",
             "description": "Export a Threat PCAP file",
-            "type": "generic",
+            "type": "investigate",
             "read_only": true,
             "parameters": {
                 "pcap_id": {
@@ -7366,18 +7347,35 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
+                    "data_path": "action_result.data.vault_id",
+                    "data_type": "string",
+                    "column_name": "Vault ID",
+                    "column_order": 0,
+                    "example_values":[
+                        "testff855c129457453de6a5cde58d19add6fbe31"
+                    ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "numeric"
+                    "data_path": "action_result.data.file_name",
+                    "data_type": "string",
+                    "column_name": "File name",
+                    "column_order": 1,
+                    "example_values":[
+                        "test.pcap"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.message",
+                    "data_type": "string",
+                    "example_values":[
+                        "PCAP file added successfully to the vault"
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Message: PCAP file added successfully to the vault"
                     ]
                 },
                 {
@@ -7396,7 +7394,10 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "Get Threat PCAP"
             },
             "versions": "EQ(*)"
         },
@@ -7437,10 +7438,6 @@
                     "contains": [
                         "panorama device group"
                     ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.@admin",
@@ -7683,7 +7680,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Total external dynamic lists: 1"
                     ]
                 },
                 {
@@ -7768,10 +7765,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.@loc",
                     "data_type": "string",
                     "example_values": [
@@ -7832,17 +7825,10 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "fetched data successfully"
-                    ]
-                },
-                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Successfully fetched EDL details"
                     ]
                 },
                 {
@@ -7862,7 +7848,7 @@
             ],
             "render": {
                 "type": "json",
-                "title": "Reference EDL"
+                "title": "Get EDL"
             },
             "versions": "EQ(*)"
         },
@@ -7871,8 +7857,9 @@
             "identifier": "create_edl",
             "description": "Create an External Dynamic List",
             "verbose": "<h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b>.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li><li>If the list type is <b>Subscriber Identity List(IMSI)</b>, in the exception list IMSI prefix can have 6 digit values followed by '*'.<ul><li><code>Example : '123456*'</code>.</li></ul></li><li>If the list type is <b>Equipment Identity List(IMEI)</b>, in the exception list IMSI prefix can have 8 digit values followed by '*'.<ul><li><code>Example : '12345678*'</code>.</li></ul></li></ul>",
-            "read_only": true,
-            "type": "generic",
+            "read_only": false,
+            "type": "contain",
+            "undo": "delete edl",
             "parameters": {
                 "name": {
                     "description": "Name of the external dynamic list you want to create (up to 63 characters)",
@@ -8137,10 +8124,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.@count",
                     "data_type": "string",
                     "example_values": [
@@ -8153,10 +8136,6 @@
                     "example_values": [
                         "0"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary.commit_config.finished_job.description",
@@ -8395,7 +8374,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -8417,7 +8396,7 @@
                 "type": "table",
                 "width": 12,
                 "height": 5,
-                "title": "List EDL"
+                "title": "Create EDL"
             },
             "versions": "EQ(*)"
         },
@@ -8426,7 +8405,7 @@
             "identifier": "modify_edl",
             "description": "Modify an External Dynamic List",
             "verbose": "<h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li><li>If the list type is <b>Subscriber Identity List(IMSI)</b>, in the exception list IMSI prefix can have 6 digit values followed by '*'.<ul><li><code>Example : '123456*'</code>.</li></ul></li><li>If the list type is <b>Equipment Identity List(IMEI)</b>, in the exception list IMSI prefix can have 8 digit values followed by '*'.<ul><li><code>Example : '12345678*'</code>.</li></ul></li></ul>",
-            "read_only": true,
+            "read_only": false,
             "type": "generic",
             "parameters": {
                 "name": {
@@ -8688,10 +8667,6 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.summary.commit_config.finished_job.description",
                     "data_type": "string"
                 },
@@ -8928,7 +8903,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -8950,7 +8925,7 @@
                 "type": "table",
                 "width": 12,
                 "height": 5,
-                "title": "List EDL"
+                "title": "Modify EDL"
             },
             "versions": "EQ(*)"
         },
@@ -8958,8 +8933,8 @@
             "action": "delete edl",
             "identifier": "delete_edl",
             "description": "Delete an External Dynamic List",
-            "read_only": true,
-            "type": "generic",
+            "read_only": false,
+            "type": "correct",
             "parameters": {
                 "name": {
                     "description": "Name of the external dynamic list you want to delete (up to 63 characters)",
@@ -9047,10 +9022,6 @@
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
@@ -9290,7 +9261,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -9312,7 +9283,7 @@
                 "type": "table",
                 "width": 12,
                 "height": 5,
-                "title": "List EDL"
+                "title": "Delete EDL"
             },
             "versions": "EQ(*)"
         },
@@ -9321,8 +9292,9 @@
             "identifier": "create_policy",
             "verbose": "<p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored.</li></ul></p>",
             "description": "Create a security policy rule",
-            "type": "generic",
+            "type": "contain",
             "read_only": false,
+            "undo": "delete policy",
             "parameters": {
                 "policy_name": {
                     "description": "Name of the security policy rule (max length is 63 characters, which can be letters, numbers, spaces, hyphens, dot and underscores)",
@@ -9816,10 +9788,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.summary.commit_config.finished_job.description",
                     "data_type": "string"
                 },
@@ -9972,7 +9940,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -9987,7 +9955,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.warnings.line",
                     "data_type": "string",
                     "example_values": [
-                        "External Dynamic List test_edl_harsh_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation"
+                        "External Dynamic List test_edl_test_ip_list is configured with no certificate profile. Please select a certificate profile for performing server certificate validation"
                     ]
                 },
                 {
@@ -10223,7 +10191,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -10542,10 +10510,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.@count",
                     "data_type": "string",
                     "example_values": [
@@ -10579,14 +10543,6 @@
                     "example_values": [
                         "command succeeded"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
@@ -10624,7 +10580,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -11067,10 +11023,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.@count",
                     "data_type": "string",
                     "example_values": [
@@ -11109,7 +11061,7 @@
                     "data_path": "action_result.data.*.entry.@name",
                     "data_type": "string",
                     "example_values": [
-                        "splunk_phantom_test_rule_23"
+                        "test_rule_23"
                     ]
                 },
                 {
@@ -11827,14 +11779,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
                     "data_type": "string",
                     "example_values": [
@@ -11891,7 +11835,7 @@
                     "data_path": "action_result.summary.does_policy_exist.response.result.entry.@name",
                     "data_type": "string",
                     "example_values": [
-                        "splunk_phantom_test_rule_23"
+                        "test_rule_23"
                     ]
                 },
                 {
@@ -12591,7 +12535,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -12841,10 +12785,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.summary.commit_config.finished_job.description",
                     "data_type": "string"
                 },
@@ -12993,7 +12933,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -13226,7 +13166,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Successfully moved policy"
                     ]
                 },
                 {
@@ -13255,7 +13195,7 @@
         {
             "action": "delete policy",
             "description": "Delete a security policy rule",
-            "type": "generic",
+            "type": "correct",
             "identifier": "delete_policy",
             "read_only": false,
             "parameters": {
@@ -13383,10 +13323,6 @@
                     "example_values": [
                         "command succeeded"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary.commit_config.finished_job.description",
@@ -13541,7 +13477,7 @@
                     "data_path": "action_result.summary.commit_device_groups.*.finished_job.devices.entry.details.msg.@tplname",
                     "data_type": "string",
                     "example_values": [
-                        "harsh_splunk_phantom_template_stack"
+                        "test_template_stack"
                     ]
                 },
                 {
@@ -13743,7 +13679,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -13772,9 +13708,10 @@
         {
             "action": "create address group",
             "description": "Create an address group",
-            "type": "generic",
+            "type": "contain",
             "identifier": "create_address_group",
             "read_only": false,
+            "undo": "delete address group",
             "parameters": {
                 "name": {
                     "description": "Name of the address group to be created (up to 63 characters)",
@@ -13937,10 +13874,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.@count",
                     "data_type": "string",
                     "example_values": [
@@ -13974,10 +13907,6 @@
                     "example_values": [
                         "command succeeded"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
@@ -14015,7 +13944,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -14121,62 +14050,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.entry.tag.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "test_tag1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/04 01:05:29"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.entry.tag.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "8"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "test_tag1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/04 01:05:29"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "8"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -14259,10 +14132,6 @@
                         true,
                         false
                     ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.@count",
@@ -14410,6 +14279,33 @@
                     "example_values": [
                         "2023/10/03 23:06:06"
                     ]
+                },{
+                    "data_path": "action_result.data.*.entry.tag.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/04 01:05:29"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.entry.tag.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "8"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.entry.tag.member.*.#text",
@@ -14461,8 +14357,32 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/04 01:05:29"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.does_policy_exist.response.result.entry.tag.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "8"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary.does_policy_exist.response.@code",
@@ -14661,7 +14581,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -14699,6 +14619,10 @@
                     "data_type": "string",
                     "default": "shared",
                     "order": 0,
+                    "contains": [
+                        "panorama device group"
+                    ],
+                    "primary": true,
                     "required": true
                 }
             },
@@ -14714,13 +14638,12 @@
                 {
                     "data_path": "action_result.parameter.device_group",
                     "data_type": "string",
+                    "contains": [
+                        "panorama device group"
+                    ],
                     "example_values": [
                         "test_device_grp"
                     ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.@admin",
@@ -14833,7 +14756,7 @@
                     "data_path": "action_result.data.*.static.member",
                     "data_type": "string",
                     "example_values": [
-                        "2.2.2.2 Added By Splunk SOAR"
+                        "2.2.2.2 Added By User"
                     ]
                 },
                 {
@@ -14977,10 +14900,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.summary.total_address_groups",
                     "data_type": "numeric",
                     "example_values": [
@@ -14991,7 +14910,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Total address groups: 1"
                     ]
                 },
                 {
@@ -15076,10 +14995,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.@admin",
                     "data_type": "string",
                     "example_values": [
@@ -15104,7 +15019,7 @@
                     "data_path": "action_result.data.*.@name",
                     "data_type": "string",
                     "example_values": [
-                        "test from Splunk SOAR"
+                        "test"
                     ]
                 },
                 {
@@ -15256,7 +15171,7 @@
             "identifier": "delete_address_group",
             "description": "Delete an address group for the supplied address group name",
             "read_only": false,
-            "type": "generic",
+            "type": "correct",
             "parameters": {
                 "name": {
                     "description": "Name of address group (up to 63 characters)",
@@ -15353,7 +15268,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {
@@ -15385,7 +15300,8 @@
             "description": "Create an address on the panorama platform",
             "verbose": "<p><h4>Action Keynote</h4><ul><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask\u2014Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul><li>192.168.80.150/32\u2014Indicates one address.</li><li>192.168.80.0/24\u2014Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range\u2014Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask\u2014Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).<ul><li>Note - You can use an address object of type IP Wildcard Mask only in a Security policy rule.</li></ul></li><li>FQDN\u2014Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>",
             "read_only": false,
-            "type": "generic",
+            "type": "contain",
+            "undo": "delete address",
             "parameters": {
                 "name": {
                     "description": "Name of address to be created (up to 63 characters)",
@@ -15473,20 +15389,6 @@
                 }
             },
             "output": [
-                {
-                    "data_path": "action_result.data.*.@count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.@total-count",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
@@ -15580,6 +15482,20 @@
                     ],
                     "example_values": [
                         "10.1.1.1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.@total-count",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
                     ]
                 },
                 {
@@ -15883,125 +15799,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.tag.member.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "test_tag1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.tag.member.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/05 23:22:27"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.tag.member.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "phantomlab"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.tag.member.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "46"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.tag.member",
-                    "data_type": "string",
-                    "example_values": [
-                        "test_tag1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-wildcard.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "10.20.1.0/0.0.248.255"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-wildcard.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/19 04:16:04"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-wildcard.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-wildcard.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "322"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-range.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "12.12.12.12-13.13.13.13"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-range.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/19 04:16:05"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-range.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ip-range.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "322"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.fqdn.#text",
-                    "data_type": "string",
-                    "example_values": [
-                        "www.google.com"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.fqdn.@time",
-                    "data_type": "string",
-                    "example_values": [
-                        "2023/10/19 04:16:06"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.fqdn.@admin",
-                    "data_type": "string",
-                    "example_values": [
-                        "admin"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.fqdn.@dirtyId",
-                    "data_type": "string",
-                    "example_values": [
-                        "322"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -16054,7 +15851,7 @@
                     "data_path": "action_result.data.*.@name",
                     "data_type": "string",
                     "example_values": [
-                        "test from phantom"
+                        "test"
                     ]
                 },
                 {
@@ -16068,7 +15865,7 @@
                     "data_path": "action_result.data.*.description",
                     "data_type": "string",
                     "example_values": [
-                        "Testing from phantom"
+                        "Test"
                     ]
                 },
                 {
@@ -16170,6 +15967,125 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*.tag.member.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/05 23:22:27"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "user1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "46"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.tag.member",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_tag1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-wildcard.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "10.20.1.0/0.0.248.255"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-wildcard.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/19 04:16:04"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-wildcard.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-wildcard.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "322"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-range.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "12.12.12.12-13.13.13.13"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-range.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/19 04:16:05"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-range.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ip-range.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "322"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.fqdn.#text",
+                    "data_type": "string",
+                    "example_values": [
+                        "www.google.com"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.fqdn.@time",
+                    "data_type": "string",
+                    "example_values": [
+                        "2023/10/19 04:16:06"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.fqdn.@admin",
+                    "data_type": "string",
+                    "example_values": [
+                        "admin"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.fqdn.@dirtyId",
+                    "data_type": "string",
+                    "example_values": [
+                        "322"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.tag.@admin",
                     "data_type": "string",
                     "example_values": [
@@ -16255,7 +16171,7 @@
             "identifier": "delete_address",
             "description": "Delete address details for the supplied address name",
             "read_only": false,
-            "type": "generic",
+            "type": "correct",
             "parameters": {
                 "name": {
                     "description": "Name of address (up to 63 characters)",
@@ -16345,10 +16261,6 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.summary.delete_address.response.@code",
                     "data_type": "string",
                     "example_values": [
@@ -16373,7 +16285,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "command succeeded"
+                        "Response Received: command succeeded"
                     ]
                 },
                 {

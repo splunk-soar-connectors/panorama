@@ -1,6 +1,6 @@
 **Unreleased**
-* Converted the app to splunk supported
-* Added support for following action:  
+* Converted the connector to Splunk supported
+* Added following new actions:  
     * create edl
     * modify edl
     * delete edl

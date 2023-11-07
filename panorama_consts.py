@@ -12,6 +12,7 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
+
 PAN_ERROR_REPLY_FORMAT_KEY_MISSING = "None '{key}' missing in reply from device"
 PAN_ERROR_REPLY_NOT_SUCCESS = "REST call returned '{status}'"
 PAN_ERROR_UNABLE_TO_PARSE_REPLY = "Unable to parse reply from device : {error}"
