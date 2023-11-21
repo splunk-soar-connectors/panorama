@@ -49,4 +49,4 @@ class GetEdl(BaseAction):
 
         action_result.update_data([result_data])
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched edl details")
+        return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched EDL details")
