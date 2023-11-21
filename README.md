@@ -1350,8 +1350,8 @@ action_result.parameter.filename | string |  |
 action_result.parameter.pcap_id | string |  `panorama pcap id`  |  
 action_result.parameter.search_time | string |  `timestamp`  |  
 action_result.parameter.session_id | string |  `panorama session id`  |  
-action_result.data.vault_id | string |  |   testff855c129457453de6a5cde58d19add6fbe31 
-action_result.data.file_name | string |  |   test.pcap 
+action_result.data.\*.vault_id | string |  |   testff855c129457453de6a5cde58d19add6fbe31 
+action_result.data.\*.file_name | string |  |   test.pcap 
 action_result.summary.message | string |  |   PCAP file added successfully to the vault 
 action_result.message | string |  |   Message: PCAP file added successfully to the vault 
 summary.total_objects | numeric |  |   1 
