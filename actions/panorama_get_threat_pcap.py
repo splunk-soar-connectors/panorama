@@ -88,7 +88,7 @@ class GetThreatPcap(BaseAction):
             response = request_method(
                 connector.base_url,
                 params=params,
-                verify=connector.config[phantom.APP_JSON_VERIFY],
+                verify=connector.config.get(phantom.APP_JSON_VERIFY, False),
                 timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
