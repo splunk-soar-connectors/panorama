@@ -30,6 +30,7 @@
         "verify_server_cert": {
             "description": "Verify server certificate",
             "data_type": "boolean",
+            "default": false,
             "order": 1
         },
         "username": {
@@ -7351,7 +7352,7 @@
                     "data_type": "string",
                     "column_name": "Vault ID",
                     "column_order": 0,
-                    "example_values":[
+                    "example_values": [
                         "testff855c129457453de6a5cde58d19add6fbe31"
                     ]
                 },
@@ -7360,14 +7361,14 @@
                     "data_type": "string",
                     "column_name": "File name",
                     "column_order": 1,
-                    "example_values":[
+                    "example_values": [
                         "test.pcap"
                     ]
                 },
                 {
                     "data_path": "action_result.summary.message",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "PCAP file added successfully to the vault"
                     ]
                 },
@@ -14279,7 +14280,8 @@
                     "example_values": [
                         "2023/10/03 23:06:06"
                     ]
-                },{
+                },
+                {
                     "data_path": "action_result.data.*.entry.tag.member.#text",
                     "data_type": "string",
                     "example_values": [
