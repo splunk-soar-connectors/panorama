@@ -1,11 +1,11 @@
 [comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2016-2022 Splunk Inc."
+[comment]: # "  Copyright (c) 2016-2023 Splunk Inc."
 [comment]: # ""
 [comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
 [comment]: # ""
 ### Overview
 
-The Panorama app has been tested with PanOS version 7.0.4 and should work with any version above.
+The Panorama app has been tested with PanOS version 11.0.2 and should work with any version above.
 
 All the containment actions (like **block ip** etc.), take a policy name and the policy type as
 parameters. The action first creates an object (Application Group, Address Group, etc.) on the
@@ -52,3 +52,39 @@ You can learn more about Audit comment below:
     Archive](https://docs.paloaltonetworks.com/pan-os/10-1/pan-os-web-interface-help/policies/audit-comment-archive.html)
 -   [Making changes to Audit comments via
     API](https://docs.paloaltonetworks.com/pan-os/9-0/pan-os-panorama-api/pan-os-xml-api-request-types/run-operational-mode-commands-api.html)
+
+### Common parameter behavior
+
+- Name   
+ Address, Address group, EDL and Policy name must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 63 characters)  
+    - Examples:  
+        - Test_name (valid input)  
+        - _Addressname (invalid input)  
+
+- Device group  
+ The **device_group** must be alphanumeric and can contain only special characters like dot(.), hyphen(-), underscore(_) and space( ) but cannot start with them. (up to 31 characters) 
+    - Examples:  
+      - Test_edl (valid input)  
+      - _Testedl (invalid input)  
+
+- disable_override  
+ When the **device_group** is 'shared' the **disable_override** parameter is ignored. 
+
+- should_commit_changes (Default: true)  
+ When the **should_commit_changes** is set to **true**, This commits both, changes to the firewall and changes to the device groups at the end of this action. 
+
+- use_partial_commit  
+ When **use_partial_commit** is **true**, this performs user specific commit. As part of the request, the configuration's username is included as the administrator name. When the **should_commit_changes** is **false** the **use_partial_commit** parameter is ignored.
+
+
+ **Note**  
+ - If you want to add below special characters in any of the field you need to add as per below list.  
+    - & - **`&amp;`**  
+    - < - **`&lt;`**  
+    - \> - **`&gt;`**  
+    - " - **`&quot;`**  
+    - ' - **`&apos;`**  
+
+- Example:
+ If you want to pass value as  -> testing&  
+ In the parameter pass it as -> testing`&amp;`
