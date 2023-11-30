@@ -1,4 +1,4 @@
-# File: __init__.py
+# File: panorama_commit_changes.py
 #
 # Copyright (c) 2016-2023 Splunk Inc.
 #
@@ -12,3 +12,17 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
+
+from phantom.action_result import ActionResult
+
+from actions import BaseAction
+
+
+class CommitChanges(BaseAction):
+
+    def execute(self, connector):
+
+        # making action result object
+        action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        return connector.util._commit_and_commit_all(self._param, action_result)
