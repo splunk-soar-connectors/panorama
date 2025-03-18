@@ -1,6 +1,6 @@
 # File: panorama_get_address_group.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,28 +21,23 @@ from actions import BaseAction
 
 
 class GetAddressGroup(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("starting get address groups action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         address_group_name = self._param["name"]
 
-        get_address_xpath = f"""{consts.REF_ADDR_GRP_XPATH.format(
-            config_xpath=connector.util._get_config_xpath(self._param), address_group_name=address_group_name)}"""
+        get_address_xpath = f"""{
+            consts.REF_ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), address_group_name=address_group_name)
+        }"""
 
-        data = {
-            "type": "config",
-            'action': "get",
-            'key': connector.util._key,
-            'xpath': get_address_xpath
-        }
+        data = {"type": "config", "action": "get", "key": connector.util._key, "xpath": get_address_xpath}
 
         status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message()))
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("reference address group", action_result.get_message())
+            )
 
         result_data = action_result.get_data().pop()
 
@@ -50,10 +45,10 @@ class GetAddressGroup(BaseAction):
             return action_result.set_status(phantom.APP_ERROR, "No address group found")
 
         try:
-            result_data = result_data.get('entry')
+            result_data = result_data.get("entry")
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            return action_result.set_status(phantom.APP_ERROR, f"Error occurred while processing response from server. {error}")
 
         action_result.update_data([result_data])
 

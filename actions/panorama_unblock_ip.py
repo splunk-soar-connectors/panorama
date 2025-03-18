@@ -1,6 +1,6 @@
 # File: panorama_unblock_ip.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,14 +17,22 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from panorama_consts import (ADDR_GRP_XPATH, BLOCK_IP_GROUP_NAME, BLOCK_IP_GROUP_NAME_SRC, DEL_ADDR_GRP_XPATH, MAX_NODE_NAME_LEN,
-                             PAN_DEFAULT_SOURCE_ADDRESS, PAN_ERROR_MESSAGE, PAN_JSON_DEVICE_GRP, PAN_JSON_IP, PAN_JSON_SOURCE_ADDRESS)
+from panorama_consts import (
+    ADDR_GRP_XPATH,
+    BLOCK_IP_GROUP_NAME,
+    BLOCK_IP_GROUP_NAME_SRC,
+    DEL_ADDR_GRP_XPATH,
+    MAX_NODE_NAME_LEN,
+    PAN_DEFAULT_SOURCE_ADDRESS,
+    PAN_ERROR_MESSAGE,
+    PAN_JSON_DEVICE_GRP,
+    PAN_JSON_IP,
+    PAN_JSON_SOURCE_ADDRESS,
+)
 
 
 class UnblockIp(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("Removing the Blocked IP")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
@@ -45,26 +53,21 @@ class UnblockIp(BaseAction):
         ip_group_name = block_ip_grp
         ip_group_name = ip_group_name[:MAX_NODE_NAME_LEN].strip()
 
-        xpath = "{0}{1}".format(
-            ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), ip_group_name=ip_group_name),
-            DEL_ADDR_GRP_XPATH.format(addr_name=addr_name))
+        xpath = f"{ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), ip_group_name=ip_group_name)}{DEL_ADDR_GRP_XPATH.format(addr_name=addr_name)}"
 
         # Remove the address from the phantom address group
-        data = {'type': 'config',
-                'action': 'delete',
-                'key': connector.util._key,
-                'xpath': xpath}
+        data = {"type": "config", "action": "delete", "key": connector.util._key, "xpath": xpath}
 
         status, response = connector.util._make_rest_call(data, action_result)
-        action_result.update_summary({'delete_ip_from_address_group': response})
+        action_result.update_summary({"delete_ip_from_address_group": response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking ip", action_result.get_message()))
 
         message = action_result.get_message()
 
-        if self._param.get('should_commit_changes', False):
+        if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")

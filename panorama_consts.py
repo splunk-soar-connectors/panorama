@@ -1,6 +1,6 @@
 # File: panorama_consts.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,8 +24,9 @@ PAN_ERROR_INVALID_IP_FORMAT = "Invalid ip format"
 PAN_ERROR_DEVICE_CONNECTIVITY = "Error in connecting to device"
 PAN_ERROR_PARSE_POLICY_DATA = "Unable to parse security policy config"
 PAN_ERROR_NO_POLICY_ENTRIES_FOUND = "Could not find any security policies to update"
-PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND = ("Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and "
-                                           "type '{policy_type}'.")
+PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND = (
+    "Did not find any policies with an 'allow' action for device group '{dev_sys_value}' and type '{policy_type}'."
+)
 PAN_ERROR_NO_ALLOW_POLICY_ENTRIES_FOUND += "\nNeed atleast one such policy"
 PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE = "Policy not found. Please verify that provided parameter values are correct"
 PAN_ERROR_NO_JOB_ID = "Could not find Job ID in response body"
@@ -156,11 +157,11 @@ GET_TAG_XPATH = "{config_xpath}/tag/entry[@name='{name}']"
 ADDRESS_XPATH = "{config_xpath}/address/entry[@name='{name}']"
 
 APP_LIST_XPATH = "/config/predefined/application"
-COMMIT_ALL_DEV_GRP_DEV_CMD = '<commit-all><shared-policy>'
-COMMIT_ALL_DEV_GRP_DEV_CMD += '<device-group>'
+COMMIT_ALL_DEV_GRP_DEV_CMD = "<commit-all><shared-policy>"
+COMMIT_ALL_DEV_GRP_DEV_CMD += "<device-group>"
 COMMIT_ALL_DEV_GRP_DEV_CMD += '<entry name="{device_group}"><devices><entry name="{dev_ser_num}"/></devices></entry>'
-COMMIT_ALL_DEV_GRP_DEV_CMD += '</device-group>'
-COMMIT_ALL_DEV_GRP_DEV_CMD += '</shared-policy></commit-all>'
+COMMIT_ALL_DEV_GRP_DEV_CMD += "</device-group>"
+COMMIT_ALL_DEV_GRP_DEV_CMD += "</shared-policy></commit-all>"
 
 # Constants relating to value_list check
 POLICY_TYPE_VALUE_LIST = ["pre-rulebase", "post-rulebase"]
@@ -181,7 +182,7 @@ PAN_EDL_TYPES = {
     "domain list": "domain",
     "url list": "url",
     "subscriber identity list": "imsi",
-    "equipment identity list": "imei"
+    "equipment identity list": "imei",
 }
 
 PAN_EDL_TYPES_STR = " The valid list types for EDL are : Predefined IP List, Predefined Url\
@@ -221,20 +222,34 @@ PAN_JSON_ADD_GRP_TYPE = "type"
 PAN_JSON_ADD_GRP_DIS_OVER = "disable-override"
 
 OBJ_TYPE_VALUE_LIST = ["ip", "address-group", "edl", "url-category", "application"]
-SEC_POLICY_WITHOUT_MEMBER = ['rule-type', 'description', 'action', 'target', 'profile-setting',
-                             'log-setting', 'negate-source', 'negate-destination', 'icmp-unreachable']
-SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ['use_partial_commit', 'should_commit_changes', 'disabled']
-SEC_POLICY_WITH_MEMBER = ['from', 'to', 'source', 'destination', 'source-user',
-                          'service', 'source-hip', 'destination-hip', 'application', 'category']
+SEC_POLICY_WITHOUT_MEMBER = [
+    "rule-type",
+    "description",
+    "action",
+    "target",
+    "profile-setting",
+    "log-setting",
+    "negate-source",
+    "negate-destination",
+    "icmp-unreachable",
+]
+SEC_POLICY_NOT_INCLUDE_BOOL_PARAM_LIST = ["use_partial_commit", "should_commit_changes", "disabled"]
+SEC_POLICY_WITH_MEMBER = [
+    "from",
+    "to",
+    "source",
+    "destination",
+    "source-user",
+    "service",
+    "source-hip",
+    "destination-hip",
+    "application",
+    "category",
+]
 CREATE_POL_REQ_PARAM_LIST = ["source_address", "destination_address", "source_zone", "destination_zone", "service", "application"]
 WHERE_VALUE_LIST = ["after", "before", "top", "bottom"]
 ACTION_VALUE_LIST = ["allow", "deny", "drop", "reset client", "reset server", "reset both client and server"]
-IP_ADD_TYPE = {
-    "ip netmask": "ip-netmask",
-    "ip range": "ip-range",
-    "ip wildcard mask": "ip-wildcard",
-    "fqdn": "fqdn"
-}
+IP_ADD_TYPE = {"ip netmask": "ip-netmask", "ip range": "ip-range", "ip wildcard mask": "ip-wildcard", "fqdn": "fqdn"}
 
 param_mapping = {
     "rule_type": "rule-type",
@@ -251,7 +266,7 @@ param_mapping = {
     "disable_override": "disable-override",
     "icmp_unreachable": "icmp-unreachable",
     "negate_source": "negate-source",
-    "negate_destination": "negate-destination"
+    "negate_destination": "negate-destination",
 }
 
 
@@ -276,7 +291,7 @@ PAN_ERROR_MESSAGE_FROM_CODE = {
     "17": "Invalid command",
     "18": "Malformed command",
     "21": "Internal error",
-    "22": "Session timed out"
+    "22": "Session timed out",
 }
 PAN_CODE_NOT_PRESENT_MESSAGE = "Unknown error returned from API"
 

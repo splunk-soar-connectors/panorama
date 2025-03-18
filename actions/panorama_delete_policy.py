@@ -1,6 +1,6 @@
 # File: panorama_delete_policy.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ from panorama_consts import PAN_ERROR_MESSAGE, PAN_JSON_POLICY_TYPE, POLICY_TYPE
 
 
 class DeletePolicy(BaseAction):
-
     def execute(self, connector):
         connector.debug_print("Inside delete policy action")
 
@@ -31,19 +30,13 @@ class DeletePolicy(BaseAction):
 
         if parameter[PAN_JSON_POLICY_TYPE].lower() not in POLICY_TYPE_VALUE_LIST:
             return action_result.set_status(
-                phantom.APP_ERROR,
-                VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
+                phantom.APP_ERROR, VALUE_LIST_VALIDATION_MESSAGE.format(POLICY_TYPE_VALUE_LIST, PAN_JSON_POLICY_TYPE)
             )
         else:
             parameter[PAN_JSON_POLICY_TYPE] = parameter[PAN_JSON_POLICY_TYPE].lower()
 
         xpath = connector.util._get_security_policy_xpath(parameter, action_result)
-        data = {
-            'type': 'config',
-            'action': 'delete',
-            'key': connector.util._key,
-            'xpath': xpath[1]
-        }
+        data = {"type": "config", "action": "delete", "key": connector.util._key, "xpath": xpath[1]}
         status, response = connector.util._make_rest_call(data, action_result)
         message = action_result.get_message()
         if phantom.is_fail(status):
@@ -51,9 +44,9 @@ class DeletePolicy(BaseAction):
 
         action_result.add_data(response)
 
-        if parameter.get('should_commit_changes', False):
+        if parameter.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(parameter, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")

@@ -1,6 +1,6 @@
 # File: panorama_get_address.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ from actions import BaseAction
 
 
 class GetAddress(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("starting get address action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
@@ -31,12 +29,7 @@ class GetAddress(BaseAction):
 
         get_address_xpath = f"{consts.ADDRESS_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), name=address_name)}"
 
-        data = {
-            "type": "config",
-            'action': "get",
-            'key': connector.util._key,
-            'xpath': get_address_xpath
-        }
+        data = {"type": "config", "action": "get", "key": connector.util._key, "xpath": get_address_xpath}
 
         status, _ = connector.util._make_rest_call(data, action_result)
         if phantom.is_fail(status):
@@ -48,10 +41,10 @@ class GetAddress(BaseAction):
             return action_result.set_status(phantom.APP_ERROR, "No Address found")
 
         try:
-            result_data = result_data.get('entry')
+            result_data = result_data.get("entry")
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            return action_result.set_status(phantom.APP_ERROR, f"Error occurred while processing response from server. {error}")
 
         action_result.update_data([result_data])
 

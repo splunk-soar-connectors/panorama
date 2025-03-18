@@ -1,6 +1,6 @@
 # File: panorama_test_connectivity.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ from actions import BaseAction
 
 
 class TestConnectivityAction(BaseAction):
-
     def execute(self, connector):
-
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         connector.save_progress(consts.PAN_PROG_USING_BASE_URL.format(base_url=connector.base_url))
@@ -36,7 +34,4 @@ class TestConnectivityAction(BaseAction):
 
         connector.save_progress(consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED)
 
-        return action_result.set_status(
-            phantom.APP_SUCCESS,
-            consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED
-        )
+        return action_result.set_status(phantom.APP_SUCCESS, consts.PAN_SUCCESS_TEST_CONNECTIVITY_PASSED)
