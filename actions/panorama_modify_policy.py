@@ -1,6 +1,6 @@
 # File: panorama_modify_policy.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,9 +18,7 @@ from actions.panorama_create_policy import CreatePolicy
 
 
 class ModifyPolicy(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("Inside Modify policy action")
 
         policy_rule_obj = CreatePolicy(self._param)

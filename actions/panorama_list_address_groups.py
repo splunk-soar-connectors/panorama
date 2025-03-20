@@ -1,6 +1,6 @@
 # File: panorama_list_address_groups.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,25 +21,24 @@ from actions import BaseAction
 
 
 class ListAddressGroup(BaseAction):
-
     def execute(self, connector):
-
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
         connector.debug_print("Starting list address groups action")
 
         data = {
             "type": "config",
-            'action': "get",
-            'key': connector.util._key,
-            'xpath': consts.GET_ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param))
+            "action": "get",
+            "key": connector.util._key,
+            "xpath": consts.GET_ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param)),
         }
 
         status, _ = connector.util._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of address groups", action_result.get_message()))
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving list of address groups", action_result.get_message())
+            )
 
         result_data = action_result.get_data().pop()
         try:
@@ -48,7 +47,7 @@ class ListAddressGroup(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR, "No address group found")
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            return action_result.set_status(phantom.APP_ERROR, f"Error occurred while processing response from server. {error}")
 
         if isinstance(result_data, dict):
             result_data = [result_data]

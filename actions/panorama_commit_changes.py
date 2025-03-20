@@ -1,6 +1,6 @@
 # File: panorama_commit_changes.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,7 @@ from actions import BaseAction
 
 
 class CommitChanges(BaseAction):
-
     def execute(self, connector):
-
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 

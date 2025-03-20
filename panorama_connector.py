@@ -1,6 +1,6 @@
 # File: panorama_connector.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,11 +28,9 @@ from panorama_utils import PanoramaUtils
 
 
 class PanoramaConnector(BaseConnector):
-
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(PanoramaConnector, self).__init__()
+        super().__init__()
 
         self.config = None
         self.state = None
@@ -42,7 +40,6 @@ class PanoramaConnector(BaseConnector):
         self.key = None
 
     def initialize(self):
-
         # Load the state in initialize, use it to store data
         # that needs to be accessed across actions
         self.state = self.load_state()
@@ -53,7 +50,7 @@ class PanoramaConnector(BaseConnector):
         self.config = self.get_config()
         # Create the util object and use it throughout the action lifecycle
         self.util = PanoramaUtils(self)
-        self.base_url = "https://{}/api/".format(self.config[phantom.APP_JSON_DEVICE])
+        self.base_url = f"https://{self.config[phantom.APP_JSON_DEVICE]}/api/"
 
         self._dev_sys_key = "device-group"
 
@@ -73,7 +70,6 @@ class PanoramaConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def handle_action(self, param):
-
         action_id = self.get_action_identifier()
         self.debug_print("action_id", self.get_action_identifier())
 
@@ -100,7 +96,7 @@ class PanoramaConnector(BaseConnector):
             return phantom.APP_ERROR
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
     import json
 
@@ -110,10 +106,10 @@ if __name__ == '__main__':
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument('input_test_json', help='Input Test JSON file')
-    argparser.add_argument('-u', '--username', help='username', required=False)
-    argparser.add_argument('-p', '--password', help='password', required=False)
-    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
+    argparser.add_argument("input_test_json", help="Input Test JSON file")
+    argparser.add_argument("-u", "--username", help="username", required=False)
+    argparser.add_argument("-p", "--password", help="password", required=False)
+    argparser.add_argument("-v", "--verify", action="store_true", help="verify", required=False, default=False)
     args = argparser.parse_args()
     session_id = None
 
@@ -124,6 +120,7 @@ if __name__ == '__main__':
     if username is not None and password is None:
         # User specified a username but not a password, so ask
         import getpass
+
         password = getpass.getpass("Password: ")
 
     if username and password:
@@ -144,8 +141,7 @@ if __name__ == '__main__':
             headers["Referer"] = login_url
 
             print("Logging into Platform to get the session id")
-            r2 = requests.post(login_url, verify=verify,
-                               data=data, headers=headers)
+            r2 = requests.post(login_url, verify=verify, data=data, headers=headers)
             session_id = r2.cookies["sessionid"]
         except Exception as e:
             print("Unable to get session id from the platform. Error: " + str(e))

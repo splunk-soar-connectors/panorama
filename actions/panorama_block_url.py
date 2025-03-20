@@ -1,6 +1,6 @@
 # File: panorama_block_url.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,13 +21,8 @@ from actions import BaseAction
 
 
 class BlockUrl(BaseAction):
-
     def _set_url_filtering(self, connector, action_result, url_prof_name):
-
-        xpath = consts.URL_PROF_XPATH.format(
-            config_xpath=connector.util._get_config_xpath(self._param),
-            url_profile_name=url_prof_name
-        )
+        xpath = consts.URL_PROF_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), url_profile_name=url_prof_name)
 
         # For Panorama 8 and below, we can simply add the url to the block list of the URL filtering.
 
@@ -37,67 +32,46 @@ class BlockUrl(BaseAction):
         else:
             element = consts.URL_PROF_ELEM_9.format(url_category_name=url_prof_name)
 
-        data = {
-            'type': 'config',
-            'action': 'set',
-            'key': connector.util._key,
-            'xpath': xpath,
-            'element': element
-        }
+        data = {"type": "config", "action": "set", "key": connector.util._key, "xpath": xpath, "element": element}
 
         status, response = connector.util._make_rest_call(data, action_result)
 
-        action_result.update_summary({ "set_url_filtering": response })
+        action_result.update_summary({"set_url_filtering": response})
 
         return status
 
     def _block_url_8_and_below(self, connector, action_result):
         connector.debug_print("Adding the Block URL")
 
-        url_prof_name = consts.BLOCK_URL_PROF_NAME.format(
-            device_group=self._param[consts.PAN_JSON_DEVICE_GRP]
-        )
+        url_prof_name = consts.BLOCK_URL_PROF_NAME.format(device_group=self._param[consts.PAN_JSON_DEVICE_GRP])
 
-        url_prof_name = url_prof_name[:consts.MAX_NODE_NAME_LEN].strip()
+        url_prof_name = url_prof_name[: consts.MAX_NODE_NAME_LEN].strip()
 
         status = self._set_url_filtering(connector, action_result, url_prof_name)
 
         if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message())
-            )
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
         message = action_result.get_message()
 
         if self._param.get("policy_name", ""):
-            status = connector.util._update_security_policy(
-                self._param, consts.SEC_POL_URL_TYPE,
-                action_result, url_prof_name
-            )
+            status = connector.util._update_security_policy(self._param, consts.SEC_POL_URL_TYPE, action_result, url_prof_name)
 
             if phantom.is_fail(status):
-                return action_result.set_status(
-                    phantom.APP_ERROR,
-                    consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message())
-                )
+                return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
         if self._param.get("should commit change", True):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(
-            phantom.APP_SUCCESS, "Response Received: {}".format(message))
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")
 
     def _block_url_9_and_above(self, connector, action_result):
-
         url_prof_name = consts.BLOCK_URL_PROF_NAME.format(device_group=self._param[consts.PAN_JSON_DEVICE_GRP])
-        url_prof_name = url_prof_name[:consts.MAX_NODE_NAME_LEN].strip()
+        url_prof_name = url_prof_name[: consts.MAX_NODE_NAME_LEN].strip()
 
-        status = connector.util._add_url_to_url_category(
-            self._param, action_result, url_prof_name
-        )
+        status = connector.util._add_url_to_url_category(self._param, action_result, url_prof_name)
 
         if phantom.is_fail(status):
             error_message = consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message())
@@ -118,15 +92,14 @@ class BlockUrl(BaseAction):
                 error_message = consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message())
                 return action_result.set_status(phantom.APP_ERROR, error_message)
 
-        if self._param.get('should_commit_changes', False):
+        if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(url_filter_message))
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {url_filter_message}")
 
     def execute(self, connector):
-
         # making action result object
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
@@ -134,9 +107,7 @@ class BlockUrl(BaseAction):
         status = connector.util._load_pan_version(action_result)
 
         if phantom.is_fail(status):
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
+            return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
         connector.debug_print("Getting major version of panorama")
         major_version = connector.util._get_pan_major_version()

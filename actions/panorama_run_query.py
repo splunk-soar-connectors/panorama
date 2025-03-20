@@ -1,6 +1,6 @@
 # File: panorama_run_query.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,9 +23,7 @@ from actions import BaseAction
 
 
 class RunQuery(BaseAction):
-
     def execute(self, connector):
-
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         query = self._param[consts.PAN_JSON_QUERY]
@@ -36,7 +34,7 @@ class RunQuery(BaseAction):
                 phantom.APP_ERROR, consts.VALUE_LIST_VALIDATION_MESSAGE.format(consts.LOG_TYPE_VALUE_LIST, "log_type")
             )
 
-        offset_range = self._param.get("range", "1-{0}".format(consts.MAX_QUERY_COUNT))
+        offset_range = self._param.get("range", f"1-{consts.MAX_QUERY_COUNT}")
 
         spl_range = offset_range.split("-")
 
@@ -45,24 +43,18 @@ class RunQuery(BaseAction):
             max_offset = int(spl_range[1].strip())
         except Exception as e:
             return action_result.set_status(
-                phantom.APP_ERROR, "Given range has a bad format: {0}".format(connector.util._get_error_message_from_exception(e))
+                phantom.APP_ERROR, f"Given range has a bad format: {connector.util._get_error_message_from_exception(e)}"
             )
         offset_diff = max_offset - min_offset + 1
 
         if max_offset < min_offset:
-            return action_result.set_status(
-                phantom.APP_ERROR, "The given range appears to have a larger number listed first."
-            )
+            return action_result.set_status(phantom.APP_ERROR, "The given range appears to have a larger number listed first.")
 
         if min_offset <= 0:
-            return action_result.set_status(
-                phantom.APP_ERROR, "The lower end of the range must be greater than zero (indexing starts at 1)"
-            )
+            return action_result.set_status(phantom.APP_ERROR, "The lower end of the range must be greater than zero (indexing starts at 1)")
 
         if offset_diff > consts.MAX_QUERY_COUNT:
-            return action_result.set_status(
-                phantom.APP_ERROR, "The given range is too large. Maximum range is {0}.".format(consts.MAX_QUERY_COUNT)
-            )
+            return action_result.set_status(phantom.APP_ERROR, f"The given range is too large. Maximum range is {consts.MAX_QUERY_COUNT}.")
 
         direction = self._param.get("direction", "backward")
         if direction not in consts.DIRECTION_VALUE_LIST:
@@ -77,7 +69,7 @@ class RunQuery(BaseAction):
             "query": query,
             "skip": min_offset - 1,
             "nlogs": offset_diff,
-            "dir": direction
+            "dir": direction,
         }
 
         status, response = connector.util._make_rest_call(data, action_result)
@@ -91,8 +83,9 @@ class RunQuery(BaseAction):
         result_data = action_result.get_data()
 
         if len(result_data) == 0:
-            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
-                action_result.get_message()))
+            return action_result.set_status(
+                phantom.APP_ERROR, f"Error occurred while processing response. Details: {action_result.get_message()}"
+            )
 
         result_data = result_data.pop(0)
         job_id = result_data.get("job")
@@ -102,21 +95,17 @@ class RunQuery(BaseAction):
 
         connector.debug_print("query job ID: ", job_id)
 
-        data = {
-            "type": "op",
-            "key": connector.util._key,
-            "cmd": "<show><query><result><id>{job}</id></result></query></show>".format(job=job_id)
-        }
+        data = {"type": "op", "key": connector.util._key, "cmd": f"<show><query><result><id>{job_id}</id></result></query></show>"}
 
         while True:
-
             status_action_result = ActionResult()
 
             status, _ = connector.util._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
-                action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response. Details: {}".format(
-                    status_action_result.get_message()))
+                action_result.set_status(
+                    phantom.APP_ERROR, f"Error occurred while processing response. Details: {status_action_result.get_message()}"
+                )
                 return action_result.get_status()
 
             connector.debug_print("status", status_action_result)
@@ -131,16 +120,16 @@ class RunQuery(BaseAction):
                 if isinstance(result_data.get("log").get("logs").get("entry"), dict):
                     result_data["log"]["logs"]["entry"] = [result_data["log"]["logs"]["entry"]]
                 action_result.add_data(result_data)
-                action_result.update_summary({'finished_job': job})
+                action_result.update_summary({"finished_job": job})
                 break
 
             # send the % progress
-            connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get('progress'))
+            connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get("progress"))
 
             time.sleep(2)
 
         try:
-            action_result.update_summary({'num_logs': int(result_data['log']['logs']['@count'])})
+            action_result.update_summary({"num_logs": int(result_data["log"]["logs"]["@count"])})
         except:
             pass
 

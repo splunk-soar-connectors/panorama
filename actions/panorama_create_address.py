@@ -1,6 +1,6 @@
 # File: panorama_create_address.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ from actions import BaseAction
 
 
 class CreateAddress(BaseAction):
-
     def _generate_xml_string_for_address(self, connector, action_result):
         """Create a tag and add tags into Panorama platform as per tags. Generate the XML string based on given input parameters.
 
@@ -39,13 +38,13 @@ class CreateAddress(BaseAction):
         if address_ip_type not in consts.IP_ADD_TYPE.keys():
             return action_result.set_status(
                 phantom.APP_ERROR, f"Invalid ip_type parameter. Please select the valid ip address type FROM {consts.IP_ADD_TYPE.keys()}"
-                ), ""
+            ), ""
 
         xml_string = f"<{consts.IP_ADD_TYPE[address_ip_type]}>{address_ip}</{consts.IP_ADD_TYPE[address_ip_type]}>"
 
         # address tags Add tags into panorama platform
         address_tags = self._param.get("tag", "")
-        address_tags = [value.strip() for value in address_tags.split(',') if value.strip()]
+        address_tags = [value.strip() for value in address_tags.split(",") if value.strip()]
         if address_tags:
             tag_status, xml_tag_string = connector.util._create_tag(connector, action_result, self._param, address_tags)
             if phantom.is_fail(tag_status):
@@ -62,16 +61,17 @@ class CreateAddress(BaseAction):
         if device_group.lower() != "shared":
             disable_override = self._param.get("disable_override", "no").lower()
             if disable_override not in ["yes", "no"]:
-                return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format(
-                        "creating address",
-                        "Invalid value for expand disable override, the value can contain value either yes or no"
-                    )), ""
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    consts.PAN_ERROR_MESSAGE.format(
+                        "creating address", "Invalid value for expand disable override, the value can contain value either yes or no"
+                    ),
+                ), ""
             xml_string += f"<disable-override>{disable_override}</disable-override>"
 
         return phantom.APP_SUCCESS, xml_string
 
     def execute(self, connector):
-
         connector.debug_print("starting create address action")
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
@@ -90,25 +90,19 @@ class CreateAddress(BaseAction):
         if phantom.is_fail(xml_status):
             return action_result.get_status()
 
-        data = {
-            'type': 'config',
-            'action': 'set',
-            'key': connector.util._key,
-            'xpath': create_xpath,
-            'element': element_xml
-        }
+        data = {"type": "config", "action": "set", "key": connector.util._key, "xpath": create_xpath, "element": element_xml}
 
         status, response = connector.util._make_rest_call(data, action_result)
 
-        action_result.update_summary({'create_address': response})
+        action_result.update_summary({"create_address": response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("create address", action_result.get_message()))
 
         message = action_result.get_message()
 
-        if self._param.get('should_commit_changes', False):
+        if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")

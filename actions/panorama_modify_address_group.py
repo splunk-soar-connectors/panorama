@@ -1,6 +1,6 @@
 # File: panorama_modify_address_group.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,9 +18,7 @@ from actions.panorama_create_address_group import CreateAddressGroup
 
 
 class ModifyAddressGroup(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("Inside Modify Address Group action")
 
         policy_rule_obj = CreateAddressGroup(self._param)

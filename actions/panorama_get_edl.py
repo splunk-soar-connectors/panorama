@@ -1,6 +1,6 @@
 # File: panorama_get_edl.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ from actions import BaseAction
 
 
 class GetEdl(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("starting get edl action")
 
         # making action result object
@@ -33,7 +31,8 @@ class GetEdl(BaseAction):
 
         if phantom.is_fail(status):
             return action_result.set_status(
-                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message()))
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("retrieving data of external dynamic list", action_result.get_message())
+            )
 
         connector.debug_print("fetching result data")
         result_data = action_result.get_data().pop()
@@ -42,10 +41,10 @@ class GetEdl(BaseAction):
             return action_result.set_status(phantom.APP_ERROR, "EDL object doesn't exist")
 
         try:
-            result_data = result_data['entry']
+            result_data = result_data["entry"]
         except Exception as e:
             error = connector.util._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing response from server. {}".format(error))
+            return action_result.set_status(phantom.APP_ERROR, f"Error occurred while processing response from server. {error}")
 
         action_result.update_data([result_data])
 

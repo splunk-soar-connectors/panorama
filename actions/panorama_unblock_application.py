@@ -1,6 +1,6 @@
 # File: panorama_unblock_application.py
 #
-# Copyright (c) 2016-2023 Splunk Inc.
+# Copyright (c) 2016-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,14 +17,19 @@ import phantom.app as phantom
 from phantom.action_result import ActionResult
 
 from actions import BaseAction
-from panorama_consts import (APP_GRP_XPATH, BLOCK_APP_GROUP_NAME, DEL_APP_XPATH, MAX_NODE_NAME_LEN, PAN_ERROR_MESSAGE, PAN_JSON_APPLICATION,
-                             PAN_JSON_DEVICE_GRP)
+from panorama_consts import (
+    APP_GRP_XPATH,
+    BLOCK_APP_GROUP_NAME,
+    DEL_APP_XPATH,
+    MAX_NODE_NAME_LEN,
+    PAN_ERROR_MESSAGE,
+    PAN_JSON_APPLICATION,
+    PAN_JSON_DEVICE_GRP,
+)
 
 
 class UnblockApplication(BaseAction):
-
     def execute(self, connector):
-
         connector.debug_print("Removing the Blocked Application")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
@@ -35,26 +40,21 @@ class UnblockApplication(BaseAction):
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()
 
         # Delete the given application name from Objects > Application Groups > Phantom App List for your device group
-        xpath = "{0}{1}".format(
-            APP_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), app_group_name=app_group_name),
-            DEL_APP_XPATH.format(app_name=block_app))
+        xpath = f"{APP_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(self._param), app_group_name=app_group_name)}{DEL_APP_XPATH.format(app_name=block_app)}"
 
-        data = {'type': 'config',
-                'action': 'delete',
-                'key': connector.util._key,
-                'xpath': xpath}
+        data = {"type": "config", "action": "delete", "key": connector.util._key, "xpath": xpath}
 
         status, response = connector.util._make_rest_call(data, action_result)
-        action_result.update_summary({'delete_application_from_application_group': response})
+        action_result.update_summary({"delete_application_from_application_group": response})
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("unblocking application", action_result.get_message()))
 
         connector.debug_print("fetching response msg")
         message = action_result.get_message()
 
-        if self._param.get('should_commit_changes', False):
+        if self._param.get("should_commit_changes", False):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Response Received: {}".format(message))
+        return action_result.set_status(phantom.APP_SUCCESS, f"Response Received: {message}")
