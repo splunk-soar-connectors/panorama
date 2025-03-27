@@ -1,16 +1,19 @@
 Splunk SOAR Panorama
-Copyright (c) 2016-2023 Splunk Inc.
+Copyright (c) 2016-2025 Splunk Inc.
 
-Third-party Software Attributions:
+Third Party Software Attributions:
 
-Library: beautifulsoup4
+Name: beautifulsoup4
 Version: 4.9.1
+Author: Leonard Richardson
 License: MIT
-Copyright 2004-2017 Leonard Richardson
-Copyright 2004-2019 Leonard Richardson
-Copyright 2018 Isaac Muse
 
-Library: xmltodict
+Name: soupsieve
+Version: 2.6
+Author:
+License:
+
+Name: xmltodict
 Version: 0.12.0
+Author: Martin Blech
 License: MIT
-Copyright 2012 Martin Blech and individual contributors
