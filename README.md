@@ -1,9 +1,9 @@
 # Panorama
 
-Publisher: Splunk \
-Connector Version: 5.0.0 \
-Product Vendor: Palo Alto Networks \
-Product Name: Panorama \
+Publisher: Splunk <br>
+Connector Version: 5.0.0 <br>
+Product Vendor: Palo Alto Networks <br>
+Product Name: Panorama <br>
 Minimum Product Version: 6.1.0
 
 This app integrates with the Palo Alto Networks Panorama product to support several containment and investigative actions
@@ -110,41 +110,41 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity \
-[block url](#action-block-url) - Block an URL \
-[unblock url](#action-unblock-url) - Unblock an URL \
-[block application](#action-block-application) - Block an application \
-[unblock application](#action-unblock-application) - Unblock an application \
-[block ip](#action-block-ip) - Block an IP \
-[unblock ip](#action-unblock-ip) - Unblock an IP \
-[list applications](#action-list-applications) - List the applications that the device knows about and can block \
-[run query](#action-run-query) - Run a query on Panorama \
-[commit changes](#action-commit-changes) - Commit changes to the firewall and device groups \
-[get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file \
-[list edl](#action-list-edl) - List External Dynamic Lists \
-[get edl](#action-get-edl) - Get data of an External Dynamic List \
-[create edl](#action-create-edl) - Create an External Dynamic List \
-[modify edl](#action-modify-edl) - Modify an External Dynamic List \
-[delete edl](#action-delete-edl) - Delete an External Dynamic List \
-[create policy](#action-create-policy) - Create a security policy rule \
-[custom block policy](#action-custom-block-policy) - Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule \
-[modify policy](#action-modify-policy) - Modify a security policy rule \
-[move policy](#action-move-policy) - Move a security policy rule \
-[delete policy](#action-delete-policy) - Delete a security policy rule \
-[create address group](#action-create-address-group) - Create an address group \
-[modify address group](#action-modify-address-group) - Modify an address group \
-[list address groups](#action-list-address-groups) - List the address groups \
-[get address group](#action-get-address-group) - Fetch address group details for the supplied address group name \
-[delete address group](#action-delete-address-group) - Delete an address group for the supplied address group name \
-[create address](#action-create-address) - Create an address on the panorama platform \
-[get address](#action-get-address) - Fetch address details for the supplied address name \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity <br>
+[block url](#action-block-url) - Block an URL <br>
+[unblock url](#action-unblock-url) - Unblock an URL <br>
+[block application](#action-block-application) - Block an application <br>
+[unblock application](#action-unblock-application) - Unblock an application <br>
+[block ip](#action-block-ip) - Block an IP <br>
+[unblock ip](#action-unblock-ip) - Unblock an IP <br>
+[list applications](#action-list-applications) - List the applications that the device knows about and can block <br>
+[run query](#action-run-query) - Run a query on Panorama <br>
+[commit changes](#action-commit-changes) - Commit changes to the firewall and device groups <br>
+[get threat pcap](#action-get-threat-pcap) - Export a Threat PCAP file <br>
+[list edl](#action-list-edl) - List External Dynamic Lists <br>
+[get edl](#action-get-edl) - Get data of an External Dynamic List <br>
+[create edl](#action-create-edl) - Create an External Dynamic List <br>
+[modify edl](#action-modify-edl) - Modify an External Dynamic List <br>
+[delete edl](#action-delete-edl) - Delete an External Dynamic List <br>
+[create policy](#action-create-policy) - Create a security policy rule <br>
+[custom block policy](#action-custom-block-policy) - Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule <br>
+[modify policy](#action-modify-policy) - Modify a security policy rule <br>
+[move policy](#action-move-policy) - Move a security policy rule <br>
+[delete policy](#action-delete-policy) - Delete a security policy rule <br>
+[create address group](#action-create-address-group) - Create an address group <br>
+[modify address group](#action-modify-address-group) - Modify an address group <br>
+[list address groups](#action-list-address-groups) - List the address groups <br>
+[get address group](#action-get-address-group) - Fetch address group details for the supplied address group name <br>
+[delete address group](#action-delete-address-group) - Delete an address group for the supplied address group name <br>
+[create address](#action-create-address) - Create an address on the panorama platform <br>
+[get address](#action-get-address) - Fetch address details for the supplied address name <br>
 [delete address](#action-delete-address) - Delete address details for the supplied address name
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -159,7 +159,7 @@ No Output
 
 Block an URL
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 This action does the following to block a URL:<ul><li>Create an URL Filtering profile object named '<b>Phantom URL List for [device_group]</b>' containing the URL to block.</br>If the profile is already present, then it will be updated to include the URL to block. IMPORTANT: For Version 9 and above, a URL Filtering profile no longer includes allow-list/block-list. The official workaround is to use a Custom URL category instead. Therefore, we create a new Custom URL category with the same name as the profile and link it to the profile. Then, We configure the profile to block the URL category on both 'SITE ACCESS' and 'USER CREDENTIAL SUBMISSION' columns.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created URL Filtering profile. The URL filtering profile created in the previous step will be linked to the Profile Settings of the specified policy.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>
@@ -429,7 +429,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Unblock an URL
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 For Version 8 and below, this action will remove the URL from the URL Filtering profile that was created/updated in the <b>block url</b> action. For Version 9 and above, this action will remove the URL from the Custom URL category that was created/updated in the <b>block url</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.
@@ -464,7 +464,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Block an application
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 This action does the following to block an application:<ul><li>Create an Application group named '<b>Phantom App List for [device_group]</b>' containing the application to block.</br>If the group is already present, then it will be updated to include the application.</li><li>If a <b>policy_name</b> is provided, re-configure the policy (specified in the <b>policy_name</b> parameter) to use the created application group.</br>If the policy is not found on the device, the action will return an error.</li><li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul>To get a list of applications that can be blocked, execute the <b>list applications</b> action.
@@ -731,7 +731,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Unblock an application
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 This action will remove the application from the Application group that was created/updated in the <b>block application</b> action. If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.<br>Note: This action will pass for any non-existing application name as API doesn't return an error for an incorrect application name.
@@ -815,7 +815,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Block an IP
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 <p>This action uses a multistep approach to block an IP. The approach differs whether <b>is_source_address</b> is true or not.  By default, it is false.  The procedure is as follows:</p><ul><li>Create an address entry named '<b>[ip_address] Added By Splunk SOAR</b>' with the specified IP address<li>If the option <b>should_add_tag</b> is enabled, the container id of the phantom action is added as a tag to the address entry when it's created<li>If <b>is_source_address</b> is false:<ul><li> add this entry to an address group called <b>Phantom Network List for [device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>destination</i> to the policy specified in the <b>policy_name</b> parameter</li></ul>If <b>is_source_address</b> is true:<ul><li>add this entry to an address group called <b>PhantomNtwrkSrcLst[device_group]</b></li><li>The address entry and group will be created in the device group specified in the <b>device_group</b> parameter</li><li>If a <b>policy_name</b> is provided, configure the address group as a <i>source</i> to the policy specified in the <b>policy_name</b> parameter</ul><b>Note:</b> If the policy is not found on the device, the action will return an error.<li>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.</li></ul><p><b>Please Note:</b> If the Panorama Policy that is used to block a source or destination address has 'Any' in the Source Address or Destination Address field, Block IP will succeed but it will not work.  Therefore, make sure that the policy that the address group will be appended to has no 'Any' in the field that you are blocking from.  i.e, if you are blocking an IP from source, make sure the policy does not have 'Any' under Source Address.</p><p>The address group name is limited to 32 characters.  The device group chosen will be appended to the address group name created.  If the resulting name is too long, the name will be trimmed, which may result in clipped or unusual names.  This is as intended, as it is a limitation by Panorama.</p>
@@ -1020,7 +1020,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Unblock an IP
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 This action will remove the address entry from the Address group that was created/updated in the <b>block ip</b> action. This action behaves differently based upon whether <b>is_source_address</b> is true or false. By default, it is false.<br>If <b>is_source_address</b> is false:<ul><li>The given IP address will be removed from the <b>Phantom Network List for [device_group]</b> Address Group.</li></ul>If <b>is_source_address</b> is true:<ul><li>The given IP address will be removed from the <b>PhantomNtwrkSrcLst[device_group]</b> Address Group.</li></ul>If <b>should_commit_changes</b> is true, the action then proceeds to <b>commit</b> the changes to Panorama, followed by a commit to the device group. If the device group happens to be <b>shared</b>, then a commit will be sent to all the device groups belonging to it.
@@ -1057,7 +1057,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 List the applications that the device knows about and can block
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -1164,7 +1164,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Run a query on Panorama
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 This action runs a query on Panorama and returns the set of logs matching the search criteria.<br><br>Use the <b>range</b> parameter to limit the number of logs returned by the action. If no range is given, the action will use the range <b>1-5000</b>. The action can retrieve up to a maximum of 5000 logs. If more logs need to be retrieved, rerun the action with the next sequential range of values.<br><br>The <b>log_type</b> parameter can be one of the following:<ul><li><b>traffic</b> - traffic logs</li><li><b>url</b> - URL filtering logs</li><li><b>data</b> - data filtering logs</li><li><b>threat</b> - threat logs</li><li><b>config</b> - config logs</li><li><b>system</b> - system logs</li><li><b>hipmatch</b> - HIP match logs</li><li><b>wildfire</b> - wildfire logs</li><li><b>corr</b> - correlated event logs</li><li><b>corr-categ</b> - correlated events by category</li><li><b>corr-detail</b> - correlated event details.</li></ul>
@@ -1278,7 +1278,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Commit changes to the firewall and device groups
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 The action proceeds to commit the changes to Panorama, followed by a commit to the device group. If the device group happens to be shared, then a commit will be sent to all the device groups belonging to it. Regardless of the value provided in device group parameter, pending changes of all the device groups will be committed and the action will then proceed with pushing the changes to the firewall (if linked to that device group) of mentioned device group.
@@ -1357,7 +1357,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Export a Threat PCAP file
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -1391,7 +1391,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 List External Dynamic Lists
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -1448,7 +1448,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get data of an External Dynamic List
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -1482,7 +1482,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Create an External Dynamic List
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 <h4>Action Keynote</h4><ul><li>If the <b>device_group</b> doesn't exist, it will create a new <b>device_group</b>.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>The default value for <b>hour</b> is '0'.</li><li>The default value for <b>day_of_week</b> is 'Sunday'.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list).</li><li>Exception list can have at max 100 exception values.</li><li>If the list type is <b>Subscriber Identity List(IMSI)</b>, in the exception list IMSI prefix can have 6 digit values followed by '\*'.<ul><li><code>Example : '123456\*'</code>.</li></ul></li><li>If the list type is <b>Equipment Identity List(IMEI)</b>, in the exception list IMSI prefix can have 8 digit values followed by '\*'.<ul><li><code>Example : '12345678\*'</code>.</li></ul></li></ul>
@@ -1573,7 +1573,7 @@ action_result.parameter.ph0 | ph | | |
 
 Modify an External Dynamic List
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 <h4>Action Keynote</h4><ul><li>This action is used to modify the existing edl data. The parameters for which data is provided will only be updated.</li><li>The certificate profile you select must have root CA (certificate authority) and intermediate CA certificates that match the certificates installed on the server you are authenticating.</li><li>Exception list is used to exclude entries from an external dynamic list and gives you the option to enforce policy on some (but not all) of the entries in a list. exception list have an IP address, domain, or URL(depending on the type of list). </li><li>Exception list can have at max 100 exception values.</li><li>If the list type is <b>Subscriber Identity List(IMSI)</b>, in the exception list IMSI prefix can have 6 digit values followed by '\*'.<ul><li><code>Example : '123456\*'</code>.</li></ul></li><li>If the list type is <b>Equipment Identity List(IMEI)</b>, in the exception list IMSI prefix can have 8 digit values followed by '\*'.<ul><li><code>Example : '12345678\*'</code>.</li></ul></li></ul>
@@ -1663,7 +1663,7 @@ action_result.parameter.ph0 | ph | | |
 
 Delete an External Dynamic List
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -1728,7 +1728,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Create a security policy rule
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 <p><h4>Action Keynote</h4><ul><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored.</li></ul></p>
@@ -1876,7 +1876,7 @@ action_result.parameter.ph0 | ph | | |
 
 Block IP addresses, Address Groups, EDLs(External Dynamic List), Applications, or URL Categories in Panorama and creates a custom uni-directional (direction parameter value as from or to) or bi-directional (direction parameter value as both) security rule
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -1942,7 +1942,7 @@ action_result.parameter.ph0 | ph | | |
 
 Modify a security policy rule
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 <p><h4>Action Keynote</h4><ul><li>When rule_type parameter is 'interzone' the destination zone parameter will be ignored.</li><li>The <b>device_group</b> and <b>policy_name</b> parameters cannot be modified.</li><li>For source and destination address parameters, to add a region, provide only the abbreviation of region. That is for region US (United States) enter US as input.</li><li>Source address, source zone, source user, source device, destination address, destination zone, destination device, tag, application, service, category, target parameters would append the values to the already existing values in th policy.</li><li>Log forwarding, profile settings, rule type parameters would be replaced.</li></ul></p>
@@ -2236,7 +2236,7 @@ action_result.parameter.ph0 | ph | | |
 
 Move a security policy rule
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 <p><h4>Action Keynote</h4><ul><li>If input for either 'dst_device_group' or 'dst_policy_type' is not given, the current device_group and current policy_type would be taken as their respective values.</li></ul></p>
@@ -2341,7 +2341,7 @@ action_result.parameter.ph0 | ph | | |
 
 Delete a security policy rule
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -2430,7 +2430,7 @@ action_result.parameter.ph0 | ph | | |
 
 Create an address group
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -2480,7 +2480,7 @@ action_result.parameter.ph0 | ph | | |
 
 Modify an address group
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -2584,7 +2584,7 @@ action_result.parameter.ph0 | ph | | |
 
 List the address groups
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -2644,7 +2644,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Fetch address group details for the supplied address group name
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -2690,7 +2690,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Delete an address group for the supplied address group name
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -2721,7 +2721,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Create an address on the panorama platform
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 <p><h4>Action Keynote</h4><ul><li>The 'ip' paramater support 4-type of ip address object as follow. <ol><li>IP Netmask—Enter the IPv4 or IPv6 address or IP address range using the following notation: ip_address/mask or ip_address where the mask is the number of significant binary digits used for the network portion of the address. Ideally, for IPv6 addresses, you specify only the network portion, not the host portion. For example:</li><ul><li>192.168.80.150/32—Indicates one address.</li><li>192.168.80.0/24—Indicates all addresses from 192.168.80.0 through 192.168.80.255.</li><li>2001:db8::/32</li><li>2001:db8:123:1::/64</li></ul><li>IP Range—Enter a range of addresses using the following format: ip_address-ip_address where both ends of the range are IPv4 addresses or both are IPv6 addresses. For example: 2001:db8:123:1::1-2001:db8:123:1::22</li><li>IP Wildcard Mask—Enter an IP wildcard address in the format of an IPv4 address followed by a slash and a mask (which must begin with a zero); for example, 10.182.1.1/0.127.248.0. In the wildcard mask, a zero (0) bit indicates that the bit being compared must match the bit in the IP address that is covered by the 0. A one (1) bit in the mask is a wildcard bit, meaning the bit being compared need not match the bit in the IP address that is covered by the 1. Convert the IP address and the wildcard mask to binary. To illustrate the matching: on binary snippet 0011, a wildcard mask of 1010 results in four matches (0001, 0011, 1001, and 1011).<ul><li>Note - You can use an address object of type IP Wildcard Mask only in a Security policy rule.</li></ul></li><li>FQDN—Enter the domain name. The FQDN initially resolves at commit time. An FQDN entry is subsequently refreshed based on the TTL of the FQDN if the TTL is greater than or equal to the Minimum FQDN Refresh Time; otherwise the FQDN entry is refreshed at the Minimum FQDN Refresh Time. The FQDN is resolved by the system DNS server or a DNS proxy object if a proxy is configured.</li></ol></li></p>
@@ -2802,7 +2802,7 @@ action_result.parameter.ph_0 | ph | | |
 
 Fetch address details for the supplied address name
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -2872,7 +2872,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Delete address details for the supplied address name
 
-Type: **correct** \
+Type: **correct** <br>
 Read only: **False**
 
 #### Action Parameters
