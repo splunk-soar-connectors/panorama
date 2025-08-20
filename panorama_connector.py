@@ -22,7 +22,6 @@ import requests
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 
-import panorama_consts as consts
 from actions import BaseAction
 from panorama_utils import PanoramaUtils
 
