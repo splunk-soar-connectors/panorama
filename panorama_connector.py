@@ -44,7 +44,7 @@ class PanoramaConnector(BaseConnector):
         # that needs to be accessed across actions
         self.state = self.load_state()
         if not self.state or not isinstance(self.state, dict):
-            self.debug_print(consts.VISION_ERROR_STATE_FILE_CORRUPT)
+            self.debug_print("State file is corrupted or missing")
             self.state = {"app_version": self.get_app_json().get("app_version")}
 
         self.config = self.get_config()
