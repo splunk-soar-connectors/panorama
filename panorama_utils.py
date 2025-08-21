@@ -1115,6 +1115,7 @@ class PanoramaUtils:
         status = False
         for params in param.keys():
             if param[params]:
+                result = ""
                 if params in consts.SEC_POLICY_WITHOUT_MEMBER:
                     status, result = self._element_prep(params, param[params])
                 elif params in consts.SEC_POLICY_WITH_MEMBER:
