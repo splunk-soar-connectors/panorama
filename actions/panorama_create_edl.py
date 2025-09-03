@@ -220,6 +220,7 @@ class CreateEdl(BaseAction):
                 ), {}
 
             # disable override
+            override_text = ""
             if disable_override:
                 override_text = f"<disable-override>{disable_override}</disable-override>"
             element_xml = f"{element_xml}{override_text}"
