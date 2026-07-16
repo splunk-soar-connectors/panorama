@@ -349,7 +349,8 @@ class PanoramaUtils:
         if use_partial_commit:
             data.update({"action": "partial"})
 
-        self._connector.debug_print(f"Committing with data: {data}")
+        redacted_data = {key: value for key, value in data.items() if key != "key"}
+        self._connector.debug_print(f"Committing with data: {redacted_data}")
         status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
