@@ -41,6 +41,9 @@ class GetThreatPcap(BaseAction):
             os.makedirs(temp_dir)
             file_path = os.path.join(temp_dir, filename)
 
+            if os.path.dirname(os.path.realpath(file_path)) != os.path.realpath(temp_dir):
+                return action_result.set_status(phantom.APP_ERROR, "Invalid filename: must not contain path components"), None
+
             with open(file_path, "wb") as file_obj:
                 file_obj.write(response)
         except Exception as e:
@@ -107,7 +110,11 @@ class GetThreatPcap(BaseAction):
         except ValueError as e:
             error = connector.util._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("fetching Threat PCAP", error))
-        filename = self._param.get("filename", pcap_id)
+        filename = os.path.basename(self._param.get("filename") or os.path.basename(str(pcap_id)))
+        if not filename:
+            return action_result.set_status(
+                phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("fetching Threat PCAP", "filename resolves to empty")
+            )
 
         data = {
             "type": "export",
