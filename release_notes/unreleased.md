@@ -6,3 +6,4 @@
 * Verify Panorama server certificates by default while retaining the explicit asset opt-out.
 * Exclude the Panorama API key from commit-request debug output.
 * Bound commit and query polling and fail on undocumented Panorama job states.
+* Reject oversized or DTD-bearing Panorama XML replies before parsing.

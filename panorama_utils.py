@@ -34,6 +34,20 @@ class RetVal(tuple):
         return tuple.__new__(RetVal, (val1, val2))
 
 
+MAX_XML_REPLY_BYTES = 10 * 1024 * 1024
+_DOCTYPE_RE = re.compile(rb"<!DOCTYPE", re.IGNORECASE)
+
+
+def _safe_xml_to_dict(xml_text):
+    """Parse a bounded appliance response without accepting a DTD."""
+    data = xml_text.encode("utf-8", errors="replace") if isinstance(xml_text, str) else xml_text
+    if len(data) > MAX_XML_REPLY_BYTES:
+        raise ValueError(f"XML reply exceeds maximum allowed size of {MAX_XML_REPLY_BYTES} bytes")
+    if _DOCTYPE_RE.search(data):
+        raise ValueError("XML reply contains a DOCTYPE declaration")
+    return xmltodict.parse(data)
+
+
 class PanoramaUtils:
     def __init__(self, connector=None):
         self._connector = connector
@@ -193,7 +207,7 @@ class PanoramaUtils:
         action_result.add_debug_data(xml)
 
         try:
-            response_dict = xmltodict.parse(xml)
+            response_dict = _safe_xml_to_dict(xml)
         except Exception as e:
             self._connector.save_progress(consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY)
             return (
@@ -260,7 +274,7 @@ class PanoramaUtils:
 
         # parse xml response into dict
         try:
-            response_dict = xmltodict.parse(xml)
+            response_dict = _safe_xml_to_dict(xml)
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY, self._get_error_message_from_exception(e))
 
