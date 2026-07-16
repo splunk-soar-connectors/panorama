@@ -13,6 +13,8 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+import xml.sax.saxutils
+
 import phantom.app as phantom
 from phantom.action_result import ActionResult
 
@@ -27,7 +29,7 @@ class BlockUrl(BaseAction):
         # For Panorama 8 and below, we can simply add the url to the block list of the URL filtering.
 
         if connector.util._get_pan_major_version() < 9:
-            block_url = self._param[consts.PAN_JSON_URL]
+            block_url = xml.sax.saxutils.escape(self._param[consts.PAN_JSON_URL], {'"': "&quot;", "'": "&apos;"})
             element = consts.URL_PROF_ELEM.format(url=block_url)
         else:
             element = consts.URL_PROF_ELEM_9.format(url_category_name=url_prof_name)

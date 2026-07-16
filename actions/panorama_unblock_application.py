@@ -36,6 +36,10 @@ class UnblockApplication(BaseAction):
 
         block_app = self._param[PAN_JSON_APPLICATION]
 
+        status = connector.util._validate_xpath_text(action_result, block_app, PAN_JSON_APPLICATION)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
         app_group_name = BLOCK_APP_GROUP_NAME.format(device_group=self._param[PAN_JSON_DEVICE_GRP])
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()
 

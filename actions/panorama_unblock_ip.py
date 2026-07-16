@@ -42,6 +42,10 @@ class UnblockIp(BaseAction):
 
         addr_name = connector.util._get_addr_name(unblock_ip)
 
+        status = connector.util._validate_xpath_text(action_result, addr_name, PAN_JSON_IP)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
         # Check if src or dst
         use_source = self._param.get(PAN_JSON_SOURCE_ADDRESS, PAN_DEFAULT_SOURCE_ADDRESS)
 

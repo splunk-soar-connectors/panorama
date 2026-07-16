@@ -15,6 +15,7 @@
 
 import re
 import time
+import xml.sax.saxutils
 
 import encryption_helper
 import phantom.app as phantom
@@ -131,6 +132,12 @@ class PanoramaUtils:
             return action_result.set_status(phantom.APP_ERROR, message)
         return phantom.APP_SUCCESS
 
+    def _validate_xpath_text(self, action_result, value, param_name):
+        """Reject characters that can terminate an XPath 1.0 string literal."""
+        if "'" in value or any(ord(character) < 32 for character in value):
+            return action_result.set_status(phantom.APP_ERROR, f"Invalid character in the {param_name} parameter")
+        return phantom.APP_SUCCESS
+
     def _get_config_xpath(self, param, device_entry_name=""):
         """Return the xpath to the specified device group
 
@@ -207,7 +214,7 @@ class PanoramaUtils:
         The URL category is usually created prior to linking it to a URL filtering.
         """
 
-        block_url = param[consts.PAN_JSON_URL]
+        block_url = xml.sax.saxutils.escape(param[consts.PAN_JSON_URL], {'"': "&quot;", "'": "&apos;"})
 
         xpath = consts.URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
         element = consts.URL_CATEGORY_ELEM.format(url=block_url)
@@ -1256,6 +1263,15 @@ class PanoramaUtils:
                     if not self._validate_string(action_result, policy_name, consts.PAN_JSON_POLICY_NAME, consts.MAX_NAME_LEN):
                         return action_result.get_status()
             elif not self._validate_string(action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN):
+                return action_result.get_status()
+
+        if param.get(consts.PAN_JSON_URL):
+            url_value = param[consts.PAN_JSON_URL]
+            if len(url_value) > 2048 or "'" in url_value or any(ord(character) < 32 for character in url_value):
+                return action_result.set_status(phantom.APP_ERROR, consts.VALIDATE_STRING_ERROR_MESSAGE.format(param_name=consts.PAN_JSON_URL))
+
+        if param.get(consts.PAN_JSON_APPLICATION):
+            if not self._validate_string(action_result, param[consts.PAN_JSON_APPLICATION], consts.PAN_JSON_APPLICATION, consts.MAX_NAME_LEN):
                 return action_result.get_status()
 
         # Validation for tag parameter if present

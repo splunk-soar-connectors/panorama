@@ -85,6 +85,10 @@ class UnblockUrl(BaseAction):
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
+        status = connector.util._validate_xpath_text(action_result, self._param[PAN_JSON_URL], PAN_JSON_URL)
+        if phantom.is_fail(status):
+            return action_result.get_status()
+
         status = connector.util._load_pan_version(action_result)
         if phantom.is_fail(status):
             return action_result.set_status(phantom.APP_ERROR, PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
