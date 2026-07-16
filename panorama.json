@@ -19,7 +19,7 @@
     ],
     "logo": "logo_panorama.svg",
     "logo_dark": "logo_panorama_dark.svg",
-    "license": "Copyright (c) 2016-2025 Splunk Inc.",
+    "license": "Copyright (c) 2016-2026 Splunk Inc.",
     "configuration": {
         "device": {
             "description": "Device IP/Hostname",
