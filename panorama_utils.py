@@ -406,7 +406,10 @@ class PanoramaUtils:
             status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
-                action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Failed to get the status of commit job {job_id}: {status_action_result.get_message()}",
+                )
                 self._connector.debug_print(f"Failed to get info for job id: {job_id}")
                 return action_result.get_status()
 
@@ -516,10 +519,7 @@ class PanoramaUtils:
 
     def _parse_device_group_job_response(self, job, action_result):
         status_string = ""
-        device_group_status = phantom.APP_ERROR
-
-        if job["result"] == "OK":
-            device_group_status |= phantom.APP_SUCCESS
+        device_group_status = phantom.APP_SUCCESS if job["result"] == "OK" else phantom.APP_ERROR
 
         devices = []
 
@@ -541,8 +541,8 @@ class PanoramaUtils:
 
         for device in devices:
             try:
-                if device["result"] != "FAIL":
-                    device_group_status |= phantom.APP_SUCCESS
+                if device["result"] != "OK":
+                    device_group_status = phantom.APP_ERROR
 
                 device_status = "Device Name: {}, Result: {}, Details: {}".format(
                     device["devicename"], device["result"], self._get_device_commit_details_string(device["details"])
@@ -607,7 +607,10 @@ class PanoramaUtils:
             status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
-                action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Failed to get the status of commit-all job {job_id}: {status_action_result.get_message()}",
+                )
                 return action_result.get_status()
 
             self._connector.debug_print("status", status_action_result)
@@ -690,15 +693,22 @@ class PanoramaUtils:
             dev_groups_ar.append(dev_grp_ar)
             self._commit_device_group(device_group, dev_grp_ar)
 
-        status = phantom.APP_ERROR
+        status = phantom.APP_SUCCESS
         status_message = ""
 
         for dev_group_ar in dev_groups_ar:
-            status |= dev_group_ar.get_status()
+            if phantom.is_fail(dev_group_ar.get_status()):
+                status = phantom.APP_ERROR
             status_message = f"{status_message}{dev_group_ar.get_message()}"
 
         action_result.set_status(status, status_message)
-        action_result.update_summary({"commit_device_groups": [dev_grp_ar.get_summary()["commit_device_group"] for dev_grp_ar in dev_groups_ar]})
+        action_result.update_summary(
+            {
+                "commit_device_groups": [
+                    dev_grp_ar.get_summary().get("commit_device_group", {"error": dev_grp_ar.get_message()}) for dev_grp_ar in dev_groups_ar
+                ]
+            }
+        )
 
         self._connector.debug_print("Done Commit actions")
 
