@@ -773,6 +773,12 @@ class PanoramaUtils:
         if not total_count:
             return (phantom.APP_SUCCESS, False)
 
+        policy_entry = result_data[0].get("entry")
+        if isinstance(policy_entry, list) and policy_entry:
+            policy_entry = policy_entry[0]
+        if isinstance(policy_entry, dict):
+            return (phantom.APP_SUCCESS, policy_entry)
+
         return (phantom.APP_SUCCESS, True)
 
     def _does_address_group_exist(self, param, action_result):
@@ -913,6 +919,33 @@ class PanoramaUtils:
 
         if not policy_present:
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
+
+        if isinstance(policy_present, dict):
+            disabled = policy_present.get("disabled")
+            if isinstance(disabled, dict):
+                disabled = disabled.get("#text")
+            if str(disabled).strip().lower() == "yes":
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"The policy '{param[consts.PAN_JSON_POLICY_NAME]}' is disabled and is not evaluated; enable it or choose an enforcing policy",
+                )
+
+            policy_action = policy_present.get("action")
+            if isinstance(policy_action, dict):
+                policy_action = policy_action.get("#text")
+            if policy_action:
+                policy_action = str(policy_action).strip().lower()
+                blocking_actions = {"deny", "drop", "reset-client", "reset-server", "reset-both"}
+                if sec_policy_type in (consts.SEC_POL_IP_TYPE, consts.SEC_POL_APP_TYPE) and policy_action not in blocking_actions:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        f"The policy '{param[consts.PAN_JSON_POLICY_NAME]}' has action '{policy_action}', which does not block traffic",
+                    )
+                if sec_policy_type == consts.SEC_POL_URL_TYPE and policy_action != "allow":
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        f"The policy '{param[consts.PAN_JSON_POLICY_NAME]}' has action '{policy_action}'; a URL filtering profile requires an allow policy",
+                    )
 
         sec_policy_name = param[consts.PAN_JSON_POLICY_NAME]
         self._connector.debug_print("Updating Security Policy", sec_policy_name)
