@@ -172,6 +172,10 @@ VALUE_LIST_VALIDATION_MESSAGE = "Please provide valid input from {} in '{}' acti
 
 DEFAULT_TIMEOUT = 30
 
+PAN_JOB_POLL_MAX_COUNT = 900
+PAN_ERROR_JOB_POLL_TIMEOUT = "Timed out waiting for job {job_id} to finish; the job never reported status 'FIN'"
+PAN_ERROR_JOB_UNEXPECTED_STATUS = "Job {job_id} reported unexpected status '{job_status}'; aborting instead of polling indefinitely"
+
 PAN_KEY_TOKEN = "key_token"
 PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
 

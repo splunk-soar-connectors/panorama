@@ -97,7 +97,7 @@ class RunQuery(BaseAction):
 
         data = {"type": "op", "key": connector.util._key, "cmd": f"<show><query><result><id>{job_id}</id></result></query></show>"}
 
-        while True:
+        for _ in range(consts.PAN_JOB_POLL_MAX_COUNT):
             status_action_result = ActionResult()
 
             status, _ = connector.util._make_rest_call(data, status_action_result)
@@ -122,11 +122,19 @@ class RunQuery(BaseAction):
                 action_result.add_data(result_data)
                 action_result.update_summary({"finished_job": job})
                 break
+            if job.get("status", "") not in ("PEND", "ACT"):
+                error_message = consts.PAN_ERROR_JOB_UNEXPECTED_STATUS.format(job_id=job_id, job_status=job.get("status", ""))
+                connector.debug_print(error_message)
+                return action_result.set_status(phantom.APP_ERROR, error_message)
 
             # send the % progress
             connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get("progress"))
 
             time.sleep(2)
+        else:
+            error_message = consts.PAN_ERROR_JOB_POLL_TIMEOUT.format(job_id=job_id)
+            connector.debug_print(error_message)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
 
         try:
             action_result.update_summary({"num_logs": int(result_data["log"]["logs"]["@count"])})

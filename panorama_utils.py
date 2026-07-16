@@ -384,7 +384,7 @@ class PanoramaUtils:
 
         # Keep querying Job info until we find a Finished job
         # Update the action result with the finished job
-        while True:
+        for _ in range(consts.PAN_JOB_POLL_MAX_COUNT):
             data = {"type": "op", "key": self._key, "cmd": f"<show><jobs><id>{job_id}</id></jobs></show>"}
 
             status_action_result = ActionResult()
@@ -409,6 +409,10 @@ class PanoramaUtils:
                     self._add_commit_status(job, action_result)
                     action_result.update_summary({"commit_config": {"finished_job": job}})
                     break
+                if job_status not in ("PEND", "ACT"):
+                    error_message = consts.PAN_ERROR_JOB_UNEXPECTED_STATUS.format(job_id=job_id, job_status=job_status)
+                    self._connector.debug_print(error_message)
+                    return action_result.set_status(phantom.APP_ERROR, error_message)
             except Exception as e:
                 self._connector.debug_print(f"Failed to find a finished job. Reason: {e}")
                 error = self._get_error_message_from_exception(e)
@@ -418,6 +422,10 @@ class PanoramaUtils:
             self._connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get("progress"))
 
             time.sleep(2)
+        else:
+            error_message = consts.PAN_ERROR_JOB_POLL_TIMEOUT.format(job_id=job_id)
+            self._connector.debug_print(error_message)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
 
         self._connector.debug_print("DONE Committing Config changes")
         return action_result.get_status()
@@ -577,7 +585,7 @@ class PanoramaUtils:
 
         self._connector.debug_print("commit job id: ", job_id)
 
-        while True:
+        for _ in range(consts.PAN_JOB_POLL_MAX_COUNT):
             data = {"type": "op", "key": self._key, "cmd": f"<show><jobs><id>{job_id}</id></jobs></show>"}
 
             status_action_result = ActionResult()
@@ -602,6 +610,10 @@ class PanoramaUtils:
                     self._parse_device_group_job_response(job, action_result)
                     action_result.update_summary({"commit_device_group": {"finished_job": job}})
                     break
+                if job_status not in ("PEND", "ACT"):
+                    error_message = consts.PAN_ERROR_JOB_UNEXPECTED_STATUS.format(job_id=job_id, job_status=job_status)
+                    self._connector.debug_print(error_message)
+                    return action_result.set_status(phantom.APP_ERROR, error_message)
             except Exception as e:
                 error = self._get_error_message_from_exception(e)
                 return action_result.set_status(phantom.APP_ERROR, f"Error occurred while processing response from server. {error}")
@@ -610,6 +622,10 @@ class PanoramaUtils:
             self._connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get("progress"))
 
             time.sleep(2)
+        else:
+            error_message = consts.PAN_ERROR_JOB_POLL_TIMEOUT.format(job_id=job_id)
+            self._connector.debug_print(error_message)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
 
         self._connector.debug_print(f"Done committing Config changes for the device group '{device_group}'")
 
