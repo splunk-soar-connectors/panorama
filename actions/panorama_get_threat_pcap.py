@@ -81,7 +81,7 @@ class GetThreatPcap(BaseAction):
 
         try:
             response = request_method(
-                connector.base_url, params=params, verify=connector.config.get(phantom.APP_JSON_VERIFY, False), timeout=consts.DEFAULT_TIMEOUT
+                connector.base_url, params=params, verify=connector.config.get(phantom.APP_JSON_VERIFY, True), timeout=consts.DEFAULT_TIMEOUT
             )
         except Exception as e:
             connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY, e)

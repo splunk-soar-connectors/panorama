@@ -171,7 +171,7 @@ class PanoramaUtils:
             response = requests.post(
                 self._connector.base_url,
                 data=data,
-                verify=self._connector.config.get("verify_server_cert", False),
+                verify=self._connector.config.get("verify_server_cert", True),
                 timeout=consts.DEFAULT_TIMEOUT,
             )
         except Exception as e:
@@ -247,7 +247,7 @@ class PanoramaUtils:
             response = requests.post(
                 self._connector.base_url,
                 data=data,
-                verify=self._connector.config.get("verify_server_cert", False),
+                verify=self._connector.config.get("verify_server_cert", True),
                 timeout=consts.DEFAULT_TIMEOUT,
             )
         except Exception as e:
