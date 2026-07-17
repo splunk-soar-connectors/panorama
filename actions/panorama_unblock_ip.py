@@ -1,6 +1,6 @@
 # File: panorama_unblock_ip.py
 #
-# Copyright (c) 2016-2025 Splunk Inc.
+# Copyright (c) 2016-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,6 +41,10 @@ class UnblockIp(BaseAction):
         unblock_ip = self._param[PAN_JSON_IP]
 
         addr_name = connector.util._get_addr_name(unblock_ip)
+
+        status = connector.util._validate_xpath_text(action_result, addr_name, PAN_JSON_IP)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         # Check if src or dst
         use_source = self._param.get(PAN_JSON_SOURCE_ADDRESS, PAN_DEFAULT_SOURCE_ADDRESS)

@@ -1,6 +1,6 @@
 # File: panorama_unblock_application.py
 #
-# Copyright (c) 2016-2025 Splunk Inc.
+# Copyright (c) 2016-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +35,10 @@ class UnblockApplication(BaseAction):
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
 
         block_app = self._param[PAN_JSON_APPLICATION]
+
+        status = connector.util._validate_xpath_text(action_result, block_app, PAN_JSON_APPLICATION)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         app_group_name = BLOCK_APP_GROUP_NAME.format(device_group=self._param[PAN_JSON_DEVICE_GRP])
         app_group_name = app_group_name[:MAX_NODE_NAME_LEN].strip()

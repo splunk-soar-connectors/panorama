@@ -19,7 +19,7 @@
     ],
     "logo": "logo_panorama.svg",
     "logo_dark": "logo_panorama_dark.svg",
-    "license": "Copyright (c) 2016-2025 Splunk Inc.",
+    "license": "Copyright (c) 2016-2026 Splunk Inc.",
     "configuration": {
         "device": {
             "description": "Device IP/Hostname",
@@ -30,7 +30,7 @@
         "verify_server_cert": {
             "description": "Verify server certificate",
             "data_type": "boolean",
-            "default": false,
+            "default": true,
             "order": 1
         },
         "username": {

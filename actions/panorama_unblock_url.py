@@ -1,6 +1,6 @@
 # File: panorama_unblock_url.py
 #
-# Copyright (c) 2016-2025 Splunk Inc.
+# Copyright (c) 2016-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -84,6 +84,10 @@ class UnblockUrl(BaseAction):
         connector.debug_print("Removing the Blocked URL")
 
         action_result = connector.add_action_result(ActionResult(dict(self._param)))
+
+        status = connector.util._validate_xpath_text(action_result, self._param[PAN_JSON_URL], PAN_JSON_URL)
+        if phantom.is_fail(status):
+            return action_result.get_status()
 
         status = connector.util._load_pan_version(action_result)
         if phantom.is_fail(status):

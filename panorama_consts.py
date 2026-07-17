@@ -1,6 +1,6 @@
 # File: panorama_consts.py
 #
-# Copyright (c) 2016-2025 Splunk Inc.
+# Copyright (c) 2016-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -171,6 +171,10 @@ DIRECTION_VALUE_LIST = ["backward", "forward"]
 VALUE_LIST_VALIDATION_MESSAGE = "Please provide valid input from {} in '{}' action parameter"
 
 DEFAULT_TIMEOUT = 30
+
+PAN_JOB_POLL_MAX_COUNT = 900
+PAN_ERROR_JOB_POLL_TIMEOUT = "Timed out waiting for job {job_id} to finish; the job never reported status 'FIN'"
+PAN_ERROR_JOB_UNEXPECTED_STATUS = "Job {job_id} reported unexpected status '{job_status}'; aborting instead of polling indefinitely"
 
 PAN_KEY_TOKEN = "key_token"
 PAN_ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"

@@ -1,6 +1,6 @@
 # File: panorama_utils.py
 #
-# Copyright (c) 2016-2025 Splunk Inc.
+# Copyright (c) 2016-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 
 import re
 import time
+import xml.sax.saxutils
 
 import encryption_helper
 import phantom.app as phantom
@@ -31,6 +32,20 @@ class RetVal(tuple):
     def __new__(cls, val1, val2=None):
         """Create a new tuple object."""
         return tuple.__new__(RetVal, (val1, val2))
+
+
+MAX_XML_REPLY_BYTES = 10 * 1024 * 1024
+_DOCTYPE_RE = re.compile(rb"<!DOCTYPE", re.IGNORECASE)
+
+
+def _safe_xml_to_dict(xml_text):
+    """Parse a bounded appliance response without accepting a DTD."""
+    data = xml_text.encode("utf-8", errors="replace") if isinstance(xml_text, str) else xml_text
+    if len(data) > MAX_XML_REPLY_BYTES:
+        raise ValueError(f"XML reply exceeds maximum allowed size of {MAX_XML_REPLY_BYTES} bytes")
+    if _DOCTYPE_RE.search(data):
+        raise ValueError("XML reply contains a DOCTYPE declaration")
+    return xmltodict.parse(data)
 
 
 class PanoramaUtils:
@@ -131,6 +146,12 @@ class PanoramaUtils:
             return action_result.set_status(phantom.APP_ERROR, message)
         return phantom.APP_SUCCESS
 
+    def _validate_xpath_text(self, action_result, value, param_name):
+        """Reject characters that can terminate an XPath 1.0 string literal."""
+        if "'" in value or any(ord(character) < 32 for character in value):
+            return action_result.set_status(phantom.APP_ERROR, f"Invalid character in the {param_name} parameter")
+        return phantom.APP_SUCCESS
+
     def _get_config_xpath(self, param, device_entry_name=""):
         """Return the xpath to the specified device group
 
@@ -164,7 +185,7 @@ class PanoramaUtils:
             response = requests.post(
                 self._connector.base_url,
                 data=data,
-                verify=self._connector.config.get("verify_server_cert", False),
+                verify=self._connector.config.get("verify_server_cert", True),
                 timeout=consts.DEFAULT_TIMEOUT,
             )
         except Exception as e:
@@ -186,7 +207,7 @@ class PanoramaUtils:
         action_result.add_debug_data(xml)
 
         try:
-            response_dict = xmltodict.parse(xml)
+            response_dict = _safe_xml_to_dict(xml)
         except Exception as e:
             self._connector.save_progress(consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY)
             return (
@@ -207,7 +228,7 @@ class PanoramaUtils:
         The URL category is usually created prior to linking it to a URL filtering.
         """
 
-        block_url = param[consts.PAN_JSON_URL]
+        block_url = xml.sax.saxutils.escape(param[consts.PAN_JSON_URL], {'"': "&quot;", "'": "&apos;"})
 
         xpath = consts.URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
         element = consts.URL_CATEGORY_ELEM.format(url=block_url)
@@ -240,7 +261,7 @@ class PanoramaUtils:
             response = requests.post(
                 self._connector.base_url,
                 data=data,
-                verify=self._connector.config.get("verify_server_cert", False),
+                verify=self._connector.config.get("verify_server_cert", True),
                 timeout=consts.DEFAULT_TIMEOUT,
             )
         except Exception as e:
@@ -253,7 +274,7 @@ class PanoramaUtils:
 
         # parse xml response into dict
         try:
-            response_dict = xmltodict.parse(xml)
+            response_dict = _safe_xml_to_dict(xml)
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY, self._get_error_message_from_exception(e))
 
@@ -342,7 +363,8 @@ class PanoramaUtils:
         if use_partial_commit:
             data.update({"action": "partial"})
 
-        self._connector.debug_print(f"Committing with data: {data}")
+        redacted_data = {key: value for key, value in data.items() if key != "key"}
+        self._connector.debug_print(f"Committing with data: {redacted_data}")
         status, _ = self._make_rest_call(data, action_result)
 
         if phantom.is_fail(status):
@@ -376,7 +398,7 @@ class PanoramaUtils:
 
         # Keep querying Job info until we find a Finished job
         # Update the action result with the finished job
-        while True:
+        for _ in range(consts.PAN_JOB_POLL_MAX_COUNT):
             data = {"type": "op", "key": self._key, "cmd": f"<show><jobs><id>{job_id}</id></jobs></show>"}
 
             status_action_result = ActionResult()
@@ -384,7 +406,10 @@ class PanoramaUtils:
             status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
-                action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Failed to get the status of commit job {job_id}: {status_action_result.get_message()}",
+                )
                 self._connector.debug_print(f"Failed to get info for job id: {job_id}")
                 return action_result.get_status()
 
@@ -401,6 +426,10 @@ class PanoramaUtils:
                     self._add_commit_status(job, action_result)
                     action_result.update_summary({"commit_config": {"finished_job": job}})
                     break
+                if job_status not in ("PEND", "ACT"):
+                    error_message = consts.PAN_ERROR_JOB_UNEXPECTED_STATUS.format(job_id=job_id, job_status=job_status)
+                    self._connector.debug_print(error_message)
+                    return action_result.set_status(phantom.APP_ERROR, error_message)
             except Exception as e:
                 self._connector.debug_print(f"Failed to find a finished job. Reason: {e}")
                 error = self._get_error_message_from_exception(e)
@@ -410,6 +439,10 @@ class PanoramaUtils:
             self._connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get("progress"))
 
             time.sleep(2)
+        else:
+            error_message = consts.PAN_ERROR_JOB_POLL_TIMEOUT.format(job_id=job_id)
+            self._connector.debug_print(error_message)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
 
         self._connector.debug_print("DONE Committing Config changes")
         return action_result.get_status()
@@ -486,10 +519,7 @@ class PanoramaUtils:
 
     def _parse_device_group_job_response(self, job, action_result):
         status_string = ""
-        device_group_status = phantom.APP_ERROR
-
-        if job["result"] == "OK":
-            device_group_status |= phantom.APP_SUCCESS
+        device_group_status = phantom.APP_SUCCESS if job["result"] == "OK" else phantom.APP_ERROR
 
         devices = []
 
@@ -511,8 +541,8 @@ class PanoramaUtils:
 
         for device in devices:
             try:
-                if device["result"] != "FAIL":
-                    device_group_status |= phantom.APP_SUCCESS
+                if device["result"] != "OK":
+                    device_group_status = phantom.APP_ERROR
 
                 device_status = "Device Name: {}, Result: {}, Details: {}".format(
                     device["devicename"], device["result"], self._get_device_commit_details_string(device["details"])
@@ -569,7 +599,7 @@ class PanoramaUtils:
 
         self._connector.debug_print("commit job id: ", job_id)
 
-        while True:
+        for _ in range(consts.PAN_JOB_POLL_MAX_COUNT):
             data = {"type": "op", "key": self._key, "cmd": f"<show><jobs><id>{job_id}</id></jobs></show>"}
 
             status_action_result = ActionResult()
@@ -577,7 +607,10 @@ class PanoramaUtils:
             status, _ = self._make_rest_call(data, status_action_result)
 
             if phantom.is_fail(status):
-                action_result.set_status(phantom.APP_SUCCESS, status_action_result.get_message())
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Failed to get the status of commit-all job {job_id}: {status_action_result.get_message()}",
+                )
                 return action_result.get_status()
 
             self._connector.debug_print("status", status_action_result)
@@ -594,6 +627,10 @@ class PanoramaUtils:
                     self._parse_device_group_job_response(job, action_result)
                     action_result.update_summary({"commit_device_group": {"finished_job": job}})
                     break
+                if job_status not in ("PEND", "ACT"):
+                    error_message = consts.PAN_ERROR_JOB_UNEXPECTED_STATUS.format(job_id=job_id, job_status=job_status)
+                    self._connector.debug_print(error_message)
+                    return action_result.set_status(phantom.APP_ERROR, error_message)
             except Exception as e:
                 error = self._get_error_message_from_exception(e)
                 return action_result.set_status(phantom.APP_ERROR, f"Error occurred while processing response from server. {error}")
@@ -602,6 +639,10 @@ class PanoramaUtils:
             self._connector.send_progress(consts.PAN_PROG_COMMIT_PROGRESS, progress=job.get("progress"))
 
             time.sleep(2)
+        else:
+            error_message = consts.PAN_ERROR_JOB_POLL_TIMEOUT.format(job_id=job_id)
+            self._connector.debug_print(error_message)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
 
         self._connector.debug_print(f"Done committing Config changes for the device group '{device_group}'")
 
@@ -652,15 +693,22 @@ class PanoramaUtils:
             dev_groups_ar.append(dev_grp_ar)
             self._commit_device_group(device_group, dev_grp_ar)
 
-        status = phantom.APP_ERROR
+        status = phantom.APP_SUCCESS
         status_message = ""
 
         for dev_group_ar in dev_groups_ar:
-            status |= dev_group_ar.get_status()
+            if phantom.is_fail(dev_group_ar.get_status()):
+                status = phantom.APP_ERROR
             status_message = f"{status_message}{dev_group_ar.get_message()}"
 
         action_result.set_status(status, status_message)
-        action_result.update_summary({"commit_device_groups": [dev_grp_ar.get_summary()["commit_device_group"] for dev_grp_ar in dev_groups_ar]})
+        action_result.update_summary(
+            {
+                "commit_device_groups": [
+                    dev_grp_ar.get_summary().get("commit_device_group", {"error": dev_grp_ar.get_message()}) for dev_grp_ar in dev_groups_ar
+                ]
+            }
+        )
 
         self._connector.debug_print("Done Commit actions")
 
@@ -724,6 +772,12 @@ class PanoramaUtils:
 
         if not total_count:
             return (phantom.APP_SUCCESS, False)
+
+        policy_entry = result_data[0].get("entry")
+        if isinstance(policy_entry, list) and policy_entry:
+            policy_entry = policy_entry[0]
+        if isinstance(policy_entry, dict):
+            return (phantom.APP_SUCCESS, policy_entry)
 
         return (phantom.APP_SUCCESS, True)
 
@@ -865,6 +919,33 @@ class PanoramaUtils:
 
         if not policy_present:
             return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_POLICY_NOT_PRESENT_CONFIG_DONT_CREATE)
+
+        if isinstance(policy_present, dict):
+            disabled = policy_present.get("disabled")
+            if isinstance(disabled, dict):
+                disabled = disabled.get("#text")
+            if str(disabled).strip().lower() == "yes":
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"The policy '{param[consts.PAN_JSON_POLICY_NAME]}' is disabled and is not evaluated; enable it or choose an enforcing policy",
+                )
+
+            policy_action = policy_present.get("action")
+            if isinstance(policy_action, dict):
+                policy_action = policy_action.get("#text")
+            if policy_action:
+                policy_action = str(policy_action).strip().lower()
+                blocking_actions = {"deny", "drop", "reset-client", "reset-server", "reset-both"}
+                if sec_policy_type in (consts.SEC_POL_IP_TYPE, consts.SEC_POL_APP_TYPE) and policy_action not in blocking_actions:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        f"The policy '{param[consts.PAN_JSON_POLICY_NAME]}' has action '{policy_action}', which does not block traffic",
+                    )
+                if sec_policy_type == consts.SEC_POL_URL_TYPE and policy_action != "allow":
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        f"The policy '{param[consts.PAN_JSON_POLICY_NAME]}' has action '{policy_action}'; a URL filtering profile requires an allow policy",
+                    )
 
         sec_policy_name = param[consts.PAN_JSON_POLICY_NAME]
         self._connector.debug_print("Updating Security Policy", sec_policy_name)
@@ -1248,14 +1329,31 @@ class PanoramaUtils:
             if phantom.is_fail(status):
                 return action_result.get_status()
 
-        # Validation for name parameter if present
-        if param.get(consts.EDL_ADR_POLICY_NAME) or param.get(consts.PAN_JSON_POLICY_NAME):
-            if param.get(consts.PAN_JSON_POLICY_NAME):
-                policy_names = [value.strip() for value in param.get(consts.PAN_JSON_POLICY_NAME).split(",") if value.strip()]
-                for policy_name in policy_names:
-                    if not self._validate_string(action_result, policy_name, consts.PAN_JSON_POLICY_NAME, consts.MAX_NAME_LEN):
-                        return action_result.get_status()
-            elif not self._validate_string(action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN):
+        if param.get(consts.EDL_ADR_POLICY_NAME):
+            if not self._validate_string(action_result, param[consts.EDL_ADR_POLICY_NAME], consts.EDL_ADR_POLICY_NAME, consts.MAX_NAME_LEN):
+                return action_result.get_status()
+
+        if param.get(consts.PAN_JSON_POLICY_NAME):
+            policy_names = [value.strip() for value in param.get(consts.PAN_JSON_POLICY_NAME).split(",") if value.strip()]
+            for policy_name in policy_names:
+                if not self._validate_string(action_result, policy_name, consts.PAN_JSON_POLICY_NAME, consts.MAX_NAME_LEN):
+                    return action_result.get_status()
+
+        if param.get("dst_device_group"):
+            if not self._validate_string(action_result, param["dst_device_group"], "dst device group", consts.MAX_DEVICE_GRP_NAME_LEN):
+                return action_result.get_status()
+
+        if param.get(consts.PAN_JSON_DST):
+            if not self._validate_string(action_result, param[consts.PAN_JSON_DST], consts.PAN_JSON_DST, consts.MAX_NAME_LEN):
+                return action_result.get_status()
+
+        if param.get(consts.PAN_JSON_URL):
+            url_value = param[consts.PAN_JSON_URL]
+            if len(url_value) > 2048 or "'" in url_value or any(ord(character) < 32 for character in url_value):
+                return action_result.set_status(phantom.APP_ERROR, consts.VALIDATE_STRING_ERROR_MESSAGE.format(param_name=consts.PAN_JSON_URL))
+
+        if param.get(consts.PAN_JSON_APPLICATION):
+            if not self._validate_string(action_result, param[consts.PAN_JSON_APPLICATION], consts.PAN_JSON_APPLICATION, consts.MAX_NAME_LEN):
                 return action_result.get_status()
 
         # Validation for tag parameter if present
