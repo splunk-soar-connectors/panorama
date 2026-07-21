@@ -128,8 +128,6 @@ class PanoramaUtils:
             status: phantom.APP_ERROR/phantom.APP_SUCCESS
         """
         regex = "^[A-Za-z0-9][A-Za-z0-9_. -]*$"
-        if param_name == "tag":
-            regex = r"^[^'\]\[]*$"
         string_len = len(string_to_validate)
 
         if not (0 < string_len <= max_len):
@@ -139,11 +137,7 @@ class PanoramaUtils:
             )
 
         if not re.search(regex, string_to_validate):
-            if param_name == "tag":
-                message = " ' [ ] are not supported characters for tag names"
-            else:
-                message = consts.VALIDATE_STRING_ERROR_MESSAGE.format(param_name=param_name)
-            return action_result.set_status(phantom.APP_ERROR, message)
+            return action_result.set_status(phantom.APP_ERROR, consts.VALIDATE_STRING_ERROR_MESSAGE.format(param_name=param_name))
         return phantom.APP_SUCCESS
 
     def _validate_xpath_text(self, action_result, value, param_name):
@@ -1277,14 +1271,15 @@ class PanoramaUtils:
             xml_tag_string = "<tag>"
 
             for tag in tags:
+                escaped_tag = xml.sax.saxutils.escape(tag, {'"': "&quot;", "'": "&apos;"})
                 connector.debug_print(f"Creating - {tag} tag...")
                 tag_status = self._does_tag_exist(param, tag, action_result)
                 if tag_status:
                     connector.debug_print(f"Tag - {tag} already present, Skipping creating tag...")
-                    xml_tag_string += f"<member>{tag}</member>"
+                    xml_tag_string += f"<member>{escaped_tag}</member>"
                     continue
 
-                element_xml = consts.START_TAG.format(tag=tag)
+                element_xml = consts.START_TAG.format(tag=escaped_tag)
                 if color:
                     element_xml += f"<color>{color}</color>"
                 if comment:
@@ -1305,7 +1300,7 @@ class PanoramaUtils:
                     return action_result.get_status(), None
 
                 connector.debug_print(f"Done adding {tag} tag...")
-                xml_tag_string += f"<member>{tag}</member>"
+                xml_tag_string += f"<member>{escaped_tag}</member>"
 
             xml_tag_string += "</tag>"
 
