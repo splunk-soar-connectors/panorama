@@ -29,6 +29,15 @@ import panorama_consts as consts
 from actions import BaseAction
 
 
+PCAP_MAGIC_NUMBERS = (
+    b"\xd4\xc3\xb2\xa1",
+    b"\xa1\xb2\xc3\xd4",
+    b"\x4d\x3c\xb2\xa1",
+    b"\xa1\xb2\x3c\x4d",
+    b"\x0a\x0d\x0d\x0a",
+)
+
+
 class GetThreatPcap(BaseAction):
     def _save_pcap_to_vault(self, connector, filename, response, container_id, action_result):
         # Creating temporary directory and file
@@ -91,10 +100,14 @@ class GetThreatPcap(BaseAction):
                 ),
                 e,
             )
-        if 200 <= response.status_code < 399:
-            return True, response.content
+        if not 200 <= response.status_code < 399:
+            return action_result.set_status(phantom.APP_ERROR, f"Unable to get PCAP: HTTP {response.status_code}"), None
 
-        return action_result.set_status(phantom.APP_SUCCESS, f"Unable to get PCAP - {response.text}")
+        response_content = response.content
+        if not response_content.startswith(PCAP_MAGIC_NUMBERS):
+            return action_result.set_status(phantom.APP_ERROR, "Panorama did not return a PCAP capture"), None
+
+        return phantom.APP_SUCCESS, response_content
 
     def execute(self, connector):
         connector.debug_print("Inside Get Threat PCAP Action")

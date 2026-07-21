@@ -1,1 +1,4 @@
 **Unreleased**
+
+* Validate and safely encode Panorama tags before adding them to configuration requests. [PSAAS-33417]
+* Reject non-PCAP responses instead of adding them to the Panorama vault. [PSAAS-33418]
