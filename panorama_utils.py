@@ -200,12 +200,13 @@ class PanoramaUtils:
 
         return consts.DEVICE_GRP_XPATH.format(formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
 
-    def _make_rest_call(self, data, action_result):
+    def _make_rest_call(self, data, action_result, reauth_attempted=False):
         """This function is used to make the REST call.
 
         Args:
             data : dictionary of request body
             action_result : Object of ActionResult class
+            reauth_attempted : Whether this request already retried after generating a new token
 
         Returns:
             Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message), response obtained by making an API call
@@ -227,11 +228,19 @@ class PanoramaUtils:
             )
 
         if response.status_code == 403 and response.reason == "Invalid Credential":
+            if reauth_attempted:
+                return (
+                    action_result.set_status(
+                        phantom.APP_ERROR,
+                        consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=response.reason),
+                    ),
+                    None,
+                )
             status = self._generate_token(action_result)
             if phantom.is_fail(status):
                 return action_result.get_status(), None
             data["key"] = self._key
-            return self._make_rest_call(data, action_result)
+            return self._make_rest_call(data, action_result, reauth_attempted=True)
 
         xml = response.text
 
