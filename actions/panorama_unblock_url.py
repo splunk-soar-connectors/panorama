@@ -33,7 +33,10 @@ from panorama_consts import (
 class UnblockUrl(BaseAction):
     def _unblock_url_8_and_below(self, connector, action_result):
         # Add the block url, will create the url profile if not present
-        block_url = self._param[PAN_JSON_URL]
+        try:
+            block_url = connector.util._normalize_idn_url(self._param[PAN_JSON_URL])
+        except ValueError as e:
+            return action_result.set_status(phantom.APP_ERROR, str(e))
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._param[PAN_JSON_DEVICE_GRP])
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 
@@ -58,7 +61,10 @@ class UnblockUrl(BaseAction):
 
     def _unblock_url_9_and_above(self, connector, action_result):
         # Add the block url, will create the url profile if not present
-        block_url = self._param[PAN_JSON_URL]
+        try:
+            block_url = connector.util._normalize_idn_url(self._param[PAN_JSON_URL])
+        except ValueError as e:
+            return action_result.set_status(phantom.APP_ERROR, str(e))
         url_prof_name = BLOCK_URL_PROF_NAME.format(device_group=self._param[PAN_JSON_DEVICE_GRP])
         url_prof_name = url_prof_name[:MAX_NODE_NAME_LEN].strip()
 

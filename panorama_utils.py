@@ -15,9 +15,11 @@
 
 import re
 import time
+import urllib.parse
 import xml.sax.saxutils
 
 import encryption_helper
+import idna
 import phantom.app as phantom
 import requests
 import xmltodict
@@ -146,6 +148,41 @@ class PanoramaUtils:
             return action_result.set_status(phantom.APP_ERROR, f"Invalid character in the {param_name} parameter")
         return phantom.APP_SUCCESS
 
+    def _normalize_idn_url(self, url):
+        """Convert non-ASCII hostname labels to their UTS #46 A-label form."""
+        if url.isascii():
+            return url
+
+        has_authority_prefix = url.startswith("//")
+        has_scheme = "://" in url
+        parsed = urllib.parse.urlsplit(url if has_scheme or has_authority_prefix else f"//{url}")
+        if not parsed.hostname:
+            raise ValueError("The URL hostname is invalid")
+        if parsed.hostname.isascii():
+            return url
+
+        userinfo, separator, host_and_port = parsed.netloc.rpartition("@")
+        prefix = f"{userinfo}{separator}" if separator else ""
+        port_suffix = ""
+        if parsed.port is not None:
+            host_text, port_text = host_and_port.rsplit(":", 1)
+            port_suffix = f":{port_text}"
+        else:
+            host_text = host_and_port
+
+        try:
+            normalized_labels = [
+                idna.encode(label, uts46=True).decode("ascii") if label and not label.isascii() else label for label in host_text.split(".")
+            ]
+        except idna.IDNAError as e:
+            raise ValueError("The URL hostname is not a valid internationalized domain name") from e
+
+        normalized_host = ".".join(normalized_labels)
+        normalized = urllib.parse.urlunsplit(parsed._replace(netloc=f"{prefix}{normalized_host}{port_suffix}"))
+        if not has_scheme and not has_authority_prefix:
+            return normalized.removeprefix("//")
+        return normalized
+
     def _get_config_xpath(self, param, device_entry_name=""):
         """Return the xpath to the specified device group
 
@@ -222,7 +259,11 @@ class PanoramaUtils:
         The URL category is usually created prior to linking it to a URL filtering.
         """
 
-        block_url = xml.sax.saxutils.escape(param[consts.PAN_JSON_URL], {'"': "&quot;", "'": "&apos;"})
+        try:
+            block_url = self._normalize_idn_url(param[consts.PAN_JSON_URL])
+        except ValueError as e:
+            return action_result.set_status(phantom.APP_ERROR, str(e))
+        block_url = xml.sax.saxutils.escape(block_url, {'"': "&quot;", "'": "&apos;"})
 
         xpath = consts.URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
         element = consts.URL_CATEGORY_ELEM.format(url=block_url)
