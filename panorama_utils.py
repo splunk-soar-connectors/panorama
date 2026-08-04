@@ -826,6 +826,42 @@ class PanoramaUtils:
 
         return (phantom.APP_SUCCESS, True)
 
+    def _parse_existence_result(self, action_result, data_start, object_type):
+        result_data = action_result.get_data()
+        if len(result_data) <= data_start:
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Panorama returned no result while checking whether the {object_type} exists",
+                ),
+                None,
+            )
+
+        result = result_data[-1]
+        try:
+            total_count = int(result["@total-count"])
+        except (KeyError, TypeError, ValueError) as e:
+            self._connector.debug_print(f"Unable to parse the {object_type} existence response", e)
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Panorama returned an invalid result while checking whether the {object_type} exists",
+                ),
+                None,
+            )
+
+        if total_count == 0:
+            return phantom.APP_SUCCESS, False
+        if not result.get("entry"):
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Panorama omitted the {object_type} entry from a non-empty existence result",
+                ),
+                None,
+            )
+        return phantom.APP_SUCCESS, True
+
     def _does_address_group_exist(self, param, action_result):
         """Checking the address is exist or not
 
@@ -834,7 +870,8 @@ class PanoramaUtils:
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if address group existing else false
+            Tuple of status and True if the address group exists, False if it is absent,
+            or None if the check failed
         """
 
         self._connector.debug_print("Checking whether the address group exists or not...")
@@ -845,26 +882,13 @@ class PanoramaUtils:
 
         data = {"type": "config", "action": "get", "key": self._key, "xpath": get_add_grp_xpath}
 
+        data_start = len(action_result.get_data())
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print(f"Error occurred fetching address group. Error - {action_result.get_message()}")
-            return phantom.APP_ERROR
+            return action_result.get_status(), None
 
-        result_data = action_result.get_data().pop()
-        self._connector.debug_print(f"result_data {result_data}")
-
-        if result_data.get("@total-count") == "0":
-            self._connector.debug_print("No Address Group found")
-            return phantom.APP_ERROR
-
-        try:
-            result_data = result_data.get("entry")
-        except Exception as e:
-            error = self._get_error_message_from_exception(e)
-            self._connector.debug_print(f"Error occurred while processing response from server. {error}")
-            return phantom.APP_ERROR
-
-        return phantom.APP_SUCCESS
+        return self._parse_existence_result(action_result, data_start, "address group")
 
     def _does_address_exist(self, param, action_result):
         """Checking the address is exist or not
@@ -874,7 +898,8 @@ class PanoramaUtils:
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if address existing else false
+            Tuple of status and True if the address exists, False if it is absent,
+            or None if the check failed
         """
 
         self._connector.debug_print("Checking the address is exist or not...")
@@ -885,25 +910,13 @@ class PanoramaUtils:
 
         data = {"type": "config", "action": "get", "key": self._key, "xpath": get_address_xpath}
 
+        data_start = len(action_result.get_data())
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print(f"Error occur while checking the existence of address. Error - {action_result.get_message()}")
-            return phantom.APP_ERROR
+            return action_result.get_status(), None
 
-        result_data = action_result.get_data().pop()
-
-        if result_data.get("@total-count") == "0":
-            self._connector.debug_print("No Address found")
-            return phantom.APP_ERROR
-
-        try:
-            result_data = result_data.get("entry")
-        except Exception as e:
-            error = self._get_error_message_from_exception(e)
-            self._connector.debug_print(f"Error occurred while processing response from server. {error}")
-            return phantom.APP_ERROR
-
-        return phantom.APP_SUCCESS
+        return self._parse_existence_result(action_result, data_start, "address")
 
     def _does_tag_exist(self, param, tag, action_result):
         """Checking the tag is exist or not
@@ -913,7 +926,8 @@ class PanoramaUtils:
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if tag existing else false
+            Tuple of status and True if the tag exists, False if it is absent,
+            or None if the check failed
         """
 
         self._connector.debug_print("Checking the tag is exist or not...")
@@ -922,26 +936,13 @@ class PanoramaUtils:
 
         data = {"type": "config", "action": "get", "key": self._key, "xpath": get_tag_xpath}
 
+        data_start = len(action_result.get_data())
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print(f"Error occur while checking the existence of tag. Error - {action_result.get_message()}")
-            return phantom.APP_ERROR
+            return action_result.get_status(), None
 
-        result_data = action_result.get_data().pop()
-
-        if result_data.get("@total-count") == "0":
-            self._connector.debug_print("No Tag found")
-            return phantom.APP_ERROR
-
-        try:
-            result_data = result_data.get("entry")
-        except Exception as e:
-            error = self._get_error_message_from_exception(e)
-            self._connector.debug_print(f"Error occurred while processing response from server. {error}")
-            return phantom.APP_ERROR
-        self._connector.debug_print("out from Checking the tag is exist or not...")
-
-        return phantom.APP_SUCCESS
+        return self._parse_existence_result(action_result, data_start, "tag")
 
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
         """
@@ -1324,8 +1325,11 @@ class PanoramaUtils:
             for tag in tags:
                 escaped_tag = xml.sax.saxutils.escape(tag, {'"': "&quot;", "'": "&apos;"})
                 connector.debug_print(f"Creating - {tag} tag...")
-                tag_status = self._does_tag_exist(param, tag, action_result)
-                if tag_status:
+                tag_status, tag_present = self._does_tag_exist(param, tag, action_result)
+                if phantom.is_fail(tag_status):
+                    connector.debug_print(f"Unable to determine whether tag - {tag} exists; aborting tag creation")
+                    return action_result.get_status(), None
+                if tag_present:
                     connector.debug_print(f"Tag - {tag} already present, Skipping creating tag...")
                     xml_tag_string += f"<member>{escaped_tag}</member>"
                     continue

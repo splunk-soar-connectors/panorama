@@ -78,7 +78,12 @@ class CreateAddress(BaseAction):
         address_name = self._param["name"]
 
         # Check the given address already exist or not
-        address_present = connector.util._does_address_exist(self._param, action_result)
+        check_status, address_present = connector.util._does_address_exist(self._param, action_result)
+        if phantom.is_fail(check_status):
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                consts.PAN_ERROR_MESSAGE.format("checking for an existing address", action_result.get_message()),
+            )
         if address_present:
             connector.debug_print("Given address already exist...")
             return action_result.set_status(phantom.APP_ERROR, f"{address_name} - address already exist")
