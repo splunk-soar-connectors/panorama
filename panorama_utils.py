@@ -229,7 +229,7 @@ class PanoramaUtils:
         if response.status_code == 403 and response.reason == "Invalid Credential":
             status = self._generate_token(action_result)
             if phantom.is_fail(status):
-                return action_result.get_status()
+                return action_result.get_status(), None
             data["key"] = self._key
             return self._make_rest_call(data, action_result)
 
@@ -245,6 +245,7 @@ class PanoramaUtils:
                 action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY.format(error=self._get_error_message_from_exception(e))
                 ),
+                None,
             )
 
         status = self._parse_response(response_dict, action_result)
