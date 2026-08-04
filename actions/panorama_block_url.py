@@ -66,7 +66,7 @@ class BlockUrl(BaseAction):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
-        if self._param.get("should commit change", True):
+        if self._param.get("should_commit_changes", True):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()
