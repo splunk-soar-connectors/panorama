@@ -36,11 +36,38 @@ PCAP_MAGIC_NUMBERS = (
     b"\xa1\xb2\x3c\x4d",
     b"\x0a\x0d\x0d\x0a",
 )
+DEFAULT_MAX_VAULT_ATTACHMENT_SIZE_MB = 300
+DOWNLOAD_CHUNK_SIZE = 1024 * 1024
 
 
 class GetThreatPcap(BaseAction):
-    def _save_pcap_to_vault(self, connector, filename, response, container_id, action_result):
+    def _get_max_vault_attachment_size(self, connector):
+        response = None
+        try:
+            response = requests.get(
+                f"{connector.get_phantom_base_url()}rest/system_settings",
+                verify=False,
+                timeout=consts.DEFAULT_TIMEOUT,
+            )
+            response.raise_for_status()
+            max_size_mb = int(response.json()["max_size_mb_vault_attachment"])
+            if max_size_mb <= 0:
+                raise ValueError("vault attachment limit must be positive")
+        except Exception as e:
+            connector.debug_print(
+                "Unable to read the configured vault attachment limit; using the platform default",
+                connector.util._get_error_message_from_exception(e),
+            )
+            max_size_mb = DEFAULT_MAX_VAULT_ATTACHMENT_SIZE_MB
+        finally:
+            if response is not None:
+                response.close()
+
+        return max_size_mb * 1024 * 1024
+
+    def _save_pcap_to_vault(self, connector, filename, response, max_size_bytes, container_id, action_result):
         # Creating temporary directory and file
+        temp_dir = None
         try:
             if hasattr(Vault, "get_vault_tmp_dir"):
                 temp_dir = Vault.get_vault_tmp_dir()
@@ -54,33 +81,49 @@ class GetThreatPcap(BaseAction):
                 return action_result.set_status(phantom.APP_ERROR, "Invalid filename: must not contain path components"), None
 
             with open(file_path, "wb") as file_obj:
-                file_obj.write(response)
+                total_size = 0
+                magic = b""
+                for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
+                    if not chunk:
+                        continue
+                    total_size += len(chunk)
+                    if total_size > max_size_bytes:
+                        return (
+                            action_result.set_status(
+                                phantom.APP_ERROR,
+                                f"Unable to get PCAP: download exceeds the configured {max_size_bytes} byte vault attachment limit",
+                            ),
+                            None,
+                        )
+                    if len(magic) < 4:
+                        magic = (magic + chunk)[:4]
+                    file_obj.write(chunk)
+
+            if not magic.startswith(PCAP_MAGIC_NUMBERS):
+                return action_result.set_status(phantom.APP_ERROR, "Panorama did not return a PCAP capture"), None
+
+            # Adding pcap to vault
+            connector.save_progress("Adding pcap to vault")
+            vault_status, vault_message, vault_id = phrules.vault_add(container_id, file_path, filename)
+
+            if vault_status:
+                vault_details = {phantom.APP_JSON_VAULT_ID: vault_id, "file_name": filename}
+                return phantom.APP_SUCCESS, vault_details
+
+            connector.debug_print("Error adding file to vault:", vault_message)
+            connector.action_result.append_to_message(f". {vault_message}")
+            return phantom.APP_ERROR, None
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, "Error while writing to temporary file", e), None
+            return action_result.set_status(phantom.APP_ERROR, "Error while downloading or saving PCAP", e), None
+        finally:
+            response.close()
+            if temp_dir:
+                try:
+                    shutil.rmtree(temp_dir)
+                except Exception as e:
+                    connector.debug_print("Unable to remove temporary PCAP directory", e)
 
-        # Adding pcap to vault
-        connector.save_progress("Adding pcap to vault")
-        vault_status, vault_message, vault_id = phrules.vault_add(container_id, file_path, filename)
-
-        # Removing temporary directory created to download file
-        try:
-            shutil.rmtree(temp_dir)
-        except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, "Unable to remove temporary directory", e), None
-
-        # Updating data with vault details
-        if vault_status:
-            vault_details = {phantom.APP_JSON_VAULT_ID: vault_id, "file_name": filename}
-            return phantom.APP_SUCCESS, vault_details
-
-        # Error while adding report to vault
-        connector.debug_print("Error adding file to vault:", vault_message)
-        connector.action_result.append_to_message(f". {vault_message}")
-
-        # Set the action_result status to error, the handler function will most probably return as is
-        return phantom.APP_ERROR, None
-
-    def _make_rest_download(self, connector, params, action_result, method="get"):
+    def _make_rest_download(self, connector, params, max_size_bytes, action_result, method="get"):
         connector.debug_print("Making rest call")
 
         try:
@@ -90,7 +133,11 @@ class GetThreatPcap(BaseAction):
 
         try:
             response = request_method(
-                connector.base_url, params=params, verify=connector.config.get(phantom.APP_JSON_VERIFY, True), timeout=consts.DEFAULT_TIMEOUT
+                connector.base_url,
+                params=params,
+                verify=connector.config.get(phantom.APP_JSON_VERIFY, True),
+                timeout=consts.DEFAULT_TIMEOUT,
+                stream=True,
             )
         except Exception as e:
             connector.debug_print(consts.PAN_ERROR_DEVICE_CONNECTIVITY, e)
@@ -98,16 +145,27 @@ class GetThreatPcap(BaseAction):
                 action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_DEVICE_CONNECTIVITY, connector.util._get_error_message_from_exception(e)
                 ),
-                e,
+                None,
             )
         if not 200 <= response.status_code < 399:
+            response.close()
             return action_result.set_status(phantom.APP_ERROR, f"Unable to get PCAP: HTTP {response.status_code}"), None
 
-        response_content = response.content
-        if not response_content.startswith(PCAP_MAGIC_NUMBERS):
-            return action_result.set_status(phantom.APP_ERROR, "Panorama did not return a PCAP capture"), None
+        content_length = response.headers.get("Content-Length")
+        try:
+            if content_length is not None and int(content_length) > max_size_bytes:
+                response.close()
+                return (
+                    action_result.set_status(
+                        phantom.APP_ERROR,
+                        f"Unable to get PCAP: response exceeds the configured {max_size_bytes} byte vault attachment limit",
+                    ),
+                    None,
+                )
+        except ValueError:
+            connector.debug_print("Ignoring invalid PCAP Content-Length header", content_length)
 
-        return phantom.APP_SUCCESS, response_content
+        return phantom.APP_SUCCESS, response
 
     def execute(self, connector):
         connector.debug_print("Inside Get Threat PCAP Action")
@@ -139,19 +197,17 @@ class GetThreatPcap(BaseAction):
             "search-time": search_time,
         }
 
-        status, response_content = self._make_rest_download(connector, data, action_result)
+        max_size_bytes = self._get_max_vault_attachment_size(connector)
+        status, response = self._make_rest_download(connector, data, max_size_bytes, action_result)
         # action_result.update_summary({'get_threat_pcap': response})
         if phantom.is_fail(status):
             return action_result.set_status(
                 phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("fetching Threat PCAP", action_result.get_message())
             )
 
-        # Move things around, so that result data is an array of applications
-        result_data = response_content
-
         connector.save_progress("Saving PCAP file in vault")
         ret_val, vault_details = self._save_pcap_to_vault(
-            connector, f"{filename}.pcap", result_data, connector.get_container_id(), action_result
+            connector, f"{filename}.pcap", response, max_size_bytes, connector.get_container_id(), action_result
         )
 
         if phantom.is_fail(ret_val):
