@@ -6,3 +6,4 @@
 * Returned actionable errors instead of crashing when credential generation or response parsing fails.
 * Limited invalid-credential recovery to one token refresh per Panorama request.
 * Failed closed when address, address group, or tag existence checks return errors or malformed results.
+* Created paired source and destination rules when a custom block policy targets both traffic directions.
