@@ -1,7 +1,7 @@
 # Panorama
 
 Publisher: Splunk <br>
-Connector Version: 6.0.1 <br>
+Connector Version: 6.0.2 <br>
 Product Vendor: Palo Alto Networks <br>
 Product Name: Panorama <br>
 Minimum Product Version: 6.1.0
