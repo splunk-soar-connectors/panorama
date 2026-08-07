@@ -82,12 +82,18 @@ class CreateAddressGroup(BaseAction):
                                             hence please provide input for both or none.",
             )
 
-        add_grp_present_status = connector.util._does_address_group_exist(parameter, action_result)
+        check_status, add_grp_present = connector.util._does_address_group_exist(parameter, action_result)
 
-        if add_grp_present_status and connector.get_action_identifier() != "modify_address_group":
+        if phantom.is_fail(check_status):
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                PAN_ERROR_MESSAGE.format("checking for an existing address group", action_result.get_message()),
+            )
+
+        if add_grp_present and connector.get_action_identifier() != "modify_address_group":
             return action_result.set_status(phantom.APP_ERROR, "An address group with this name already exists. Please use another name.")
 
-        elif not add_grp_present_status and connector.get_action_identifier() == "modify_address_group":
+        elif not add_grp_present and connector.get_action_identifier() == "modify_address_group":
             return action_result.set_status(phantom.APP_ERROR, "This address group is not present. Please enter a valid address group name.")
         element = connector.util._get_action_element(parameter)
         xpath = f"{ADDR_GRP_XPATH.format(config_xpath=connector.util._get_config_xpath(parameter), ip_group_name=parameter['name'])}"

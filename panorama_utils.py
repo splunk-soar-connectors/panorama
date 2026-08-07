@@ -15,9 +15,11 @@
 
 import re
 import time
+import urllib.parse
 import xml.sax.saxutils
 
 import encryption_helper
+import idna
 import phantom.app as phantom
 import requests
 import xmltodict
@@ -146,6 +148,41 @@ class PanoramaUtils:
             return action_result.set_status(phantom.APP_ERROR, f"Invalid character in the {param_name} parameter")
         return phantom.APP_SUCCESS
 
+    def _normalize_idn_url(self, url):
+        """Convert non-ASCII hostname labels to their UTS #46 A-label form."""
+        if url.isascii():
+            return url
+
+        has_authority_prefix = url.startswith("//")
+        has_scheme = "://" in url
+        parsed = urllib.parse.urlsplit(url if has_scheme or has_authority_prefix else f"//{url}")
+        if not parsed.hostname:
+            raise ValueError("The URL hostname is invalid")
+        if parsed.hostname.isascii():
+            return url
+
+        userinfo, separator, host_and_port = parsed.netloc.rpartition("@")
+        prefix = f"{userinfo}{separator}" if separator else ""
+        port_suffix = ""
+        if parsed.port is not None:
+            host_text, port_text = host_and_port.rsplit(":", 1)
+            port_suffix = f":{port_text}"
+        else:
+            host_text = host_and_port
+
+        try:
+            normalized_labels = [
+                idna.encode(label, uts46=True).decode("ascii") if label and not label.isascii() else label for label in host_text.split(".")
+            ]
+        except idna.IDNAError as e:
+            raise ValueError("The URL hostname is not a valid internationalized domain name") from e
+
+        normalized_host = ".".join(normalized_labels)
+        normalized = urllib.parse.urlunsplit(parsed._replace(netloc=f"{prefix}{normalized_host}{port_suffix}"))
+        if not has_scheme and not has_authority_prefix:
+            return normalized.removeprefix("//")
+        return normalized
+
     def _get_config_xpath(self, param, device_entry_name=""):
         """Return the xpath to the specified device group
 
@@ -163,12 +200,13 @@ class PanoramaUtils:
 
         return consts.DEVICE_GRP_XPATH.format(formatted_device_entry_name=formatted_device_entry_name, device_group=device_group)
 
-    def _make_rest_call(self, data, action_result):
+    def _make_rest_call(self, data, action_result, reauth_attempted=False):
         """This function is used to make the REST call.
 
         Args:
             data : dictionary of request body
             action_result : Object of ActionResult class
+            reauth_attempted : Whether this request already retried after generating a new token
 
         Returns:
             Status phantom.APP_ERROR/phantom.APP_SUCCESS(along with appropriate message), response obtained by making an API call
@@ -190,11 +228,19 @@ class PanoramaUtils:
             )
 
         if response.status_code == 403 and response.reason == "Invalid Credential":
+            if reauth_attempted:
+                return (
+                    action_result.set_status(
+                        phantom.APP_ERROR,
+                        consts.PAN_ERROR_REPLY_NOT_SUCCESS.format(status=response.reason),
+                    ),
+                    None,
+                )
             status = self._generate_token(action_result)
             if phantom.is_fail(status):
-                return action_result.get_status()
+                return action_result.get_status(), None
             data["key"] = self._key
-            return self._make_rest_call(data, action_result)
+            return self._make_rest_call(data, action_result, reauth_attempted=True)
 
         xml = response.text
 
@@ -208,6 +254,7 @@ class PanoramaUtils:
                 action_result.set_status(
                     phantom.APP_ERROR, consts.PAN_ERROR_UNABLE_TO_PARSE_REPLY.format(error=self._get_error_message_from_exception(e))
                 ),
+                None,
             )
 
         status = self._parse_response(response_dict, action_result)
@@ -222,7 +269,11 @@ class PanoramaUtils:
         The URL category is usually created prior to linking it to a URL filtering.
         """
 
-        block_url = xml.sax.saxutils.escape(param[consts.PAN_JSON_URL], {'"': "&quot;", "'": "&apos;"})
+        try:
+            block_url = self._normalize_idn_url(param[consts.PAN_JSON_URL])
+        except ValueError as e:
+            return action_result.set_status(phantom.APP_ERROR, str(e))
+        block_url = xml.sax.saxutils.escape(block_url, {'"': "&quot;", "'": "&apos;"})
 
         xpath = consts.URL_CATEGORY_XPATH.format(config_xpath=self._get_config_xpath(param), url_profile_name=url_prof_name)
         element = consts.URL_CATEGORY_ELEM.format(url=block_url)
@@ -775,6 +826,42 @@ class PanoramaUtils:
 
         return (phantom.APP_SUCCESS, True)
 
+    def _parse_existence_result(self, action_result, data_start, object_type):
+        result_data = action_result.get_data()
+        if len(result_data) <= data_start:
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Panorama returned no result while checking whether the {object_type} exists",
+                ),
+                None,
+            )
+
+        result = result_data[-1]
+        try:
+            total_count = int(result["@total-count"])
+        except (KeyError, TypeError, ValueError) as e:
+            self._connector.debug_print(f"Unable to parse the {object_type} existence response", e)
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Panorama returned an invalid result while checking whether the {object_type} exists",
+                ),
+                None,
+            )
+
+        if total_count == 0:
+            return phantom.APP_SUCCESS, False
+        if not result.get("entry"):
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    f"Panorama omitted the {object_type} entry from a non-empty existence result",
+                ),
+                None,
+            )
+        return phantom.APP_SUCCESS, True
+
     def _does_address_group_exist(self, param, action_result):
         """Checking the address is exist or not
 
@@ -783,7 +870,8 @@ class PanoramaUtils:
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if address group existing else false
+            Tuple of status and True if the address group exists, False if it is absent,
+            or None if the check failed
         """
 
         self._connector.debug_print("Checking whether the address group exists or not...")
@@ -794,26 +882,13 @@ class PanoramaUtils:
 
         data = {"type": "config", "action": "get", "key": self._key, "xpath": get_add_grp_xpath}
 
+        data_start = len(action_result.get_data())
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print(f"Error occurred fetching address group. Error - {action_result.get_message()}")
-            return phantom.APP_ERROR
+            return action_result.get_status(), None
 
-        result_data = action_result.get_data().pop()
-        self._connector.debug_print(f"result_data {result_data}")
-
-        if result_data.get("@total-count") == "0":
-            self._connector.debug_print("No Address Group found")
-            return phantom.APP_ERROR
-
-        try:
-            result_data = result_data.get("entry")
-        except Exception as e:
-            error = self._get_error_message_from_exception(e)
-            self._connector.debug_print(f"Error occurred while processing response from server. {error}")
-            return phantom.APP_ERROR
-
-        return phantom.APP_SUCCESS
+        return self._parse_existence_result(action_result, data_start, "address group")
 
     def _does_address_exist(self, param, action_result):
         """Checking the address is exist or not
@@ -823,7 +898,8 @@ class PanoramaUtils:
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if address existing else false
+            Tuple of status and True if the address exists, False if it is absent,
+            or None if the check failed
         """
 
         self._connector.debug_print("Checking the address is exist or not...")
@@ -834,25 +910,13 @@ class PanoramaUtils:
 
         data = {"type": "config", "action": "get", "key": self._key, "xpath": get_address_xpath}
 
+        data_start = len(action_result.get_data())
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print(f"Error occur while checking the existence of address. Error - {action_result.get_message()}")
-            return phantom.APP_ERROR
+            return action_result.get_status(), None
 
-        result_data = action_result.get_data().pop()
-
-        if result_data.get("@total-count") == "0":
-            self._connector.debug_print("No Address found")
-            return phantom.APP_ERROR
-
-        try:
-            result_data = result_data.get("entry")
-        except Exception as e:
-            error = self._get_error_message_from_exception(e)
-            self._connector.debug_print(f"Error occurred while processing response from server. {error}")
-            return phantom.APP_ERROR
-
-        return phantom.APP_SUCCESS
+        return self._parse_existence_result(action_result, data_start, "address")
 
     def _does_tag_exist(self, param, tag, action_result):
         """Checking the tag is exist or not
@@ -862,7 +926,8 @@ class PanoramaUtils:
             action_result : Object of ActionResult class
 
         Returns:
-            Status phantom.APP_ERROR/phantom.APP_SUCCESS, true if tag existing else false
+            Tuple of status and True if the tag exists, False if it is absent,
+            or None if the check failed
         """
 
         self._connector.debug_print("Checking the tag is exist or not...")
@@ -871,26 +936,13 @@ class PanoramaUtils:
 
         data = {"type": "config", "action": "get", "key": self._key, "xpath": get_tag_xpath}
 
+        data_start = len(action_result.get_data())
         status, _ = self._make_rest_call(data, action_result)
         if phantom.is_fail(status):
             self._connector.debug_print(f"Error occur while checking the existence of tag. Error - {action_result.get_message()}")
-            return phantom.APP_ERROR
+            return action_result.get_status(), None
 
-        result_data = action_result.get_data().pop()
-
-        if result_data.get("@total-count") == "0":
-            self._connector.debug_print("No Tag found")
-            return phantom.APP_ERROR
-
-        try:
-            result_data = result_data.get("entry")
-        except Exception as e:
-            error = self._get_error_message_from_exception(e)
-            self._connector.debug_print(f"Error occurred while processing response from server. {error}")
-            return phantom.APP_ERROR
-        self._connector.debug_print("out from Checking the tag is exist or not...")
-
-        return phantom.APP_SUCCESS
+        return self._parse_existence_result(action_result, data_start, "tag")
 
     def _update_security_policy(self, param, sec_policy_type, action_result, name=None, use_source=False):
         """
@@ -1273,8 +1325,11 @@ class PanoramaUtils:
             for tag in tags:
                 escaped_tag = xml.sax.saxutils.escape(tag, {'"': "&quot;", "'": "&apos;"})
                 connector.debug_print(f"Creating - {tag} tag...")
-                tag_status = self._does_tag_exist(param, tag, action_result)
-                if tag_status:
+                tag_status, tag_present = self._does_tag_exist(param, tag, action_result)
+                if phantom.is_fail(tag_status):
+                    connector.debug_print(f"Unable to determine whether tag - {tag} exists; aborting tag creation")
+                    return action_result.get_status(), None
+                if tag_present:
                     connector.debug_print(f"Tag - {tag} already present, Skipping creating tag...")
                     xml_tag_string += f"<member>{escaped_tag}</member>"
                     continue

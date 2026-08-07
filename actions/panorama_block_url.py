@@ -29,7 +29,11 @@ class BlockUrl(BaseAction):
         # For Panorama 8 and below, we can simply add the url to the block list of the URL filtering.
 
         if connector.util._get_pan_major_version() < 9:
-            block_url = xml.sax.saxutils.escape(self._param[consts.PAN_JSON_URL], {'"': "&quot;", "'": "&apos;"})
+            try:
+                block_url = connector.util._normalize_idn_url(self._param[consts.PAN_JSON_URL])
+            except ValueError as e:
+                return action_result.set_status(phantom.APP_ERROR, str(e))
+            block_url = xml.sax.saxutils.escape(block_url, {'"': "&quot;", "'": "&apos;"})
             element = consts.URL_PROF_ELEM.format(url=block_url)
         else:
             element = consts.URL_PROF_ELEM_9.format(url_category_name=url_prof_name)
@@ -62,7 +66,7 @@ class BlockUrl(BaseAction):
             if phantom.is_fail(status):
                 return action_result.set_status(phantom.APP_ERROR, consts.PAN_ERROR_MESSAGE.format("blocking url", action_result.get_message()))
 
-        if self._param.get("should commit change", True):
+        if self._param.get("should_commit_changes", True):
             status = connector.util._commit_and_commit_all(self._param, action_result)
             if phantom.is_fail(status):
                 return action_result.get_status()

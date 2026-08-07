@@ -19,6 +19,7 @@ from phantom.action_result import ActionResult
 from actions import BaseAction
 from actions.panorama_create_policy import CreatePolicy
 from panorama_consts import (
+    MAX_NAME_LEN,
     OBJ_TYPE_VALUE_LIST,
     PAN_JSON_APPLICATION,
     PAN_JSON_CATEGORY,
@@ -27,6 +28,7 @@ from panorama_consts import (
     PAN_JSON_OBJ_TYPE,
     PAN_JSON_OBJ_VAL,
     PAN_JSON_POL_SOURCE_ADD,
+    PAN_JSON_POLICY_NAME,
     VALUE_LIST_VALIDATION_MESSAGE,
 )
 
@@ -61,8 +63,36 @@ class CustomBlockPolicy(BaseAction):
                 parameter[PAN_JSON_POL_SOURCE_ADD] = "any"
 
             elif parameter[PAN_JSON_DIR] == "both":
-                parameter[PAN_JSON_POL_SOURCE_ADD] = parameter[PAN_JSON_OBJ_VAL]
-                parameter[PAN_JSON_DESTINATION_ADDRESS] = parameter[PAN_JSON_OBJ_VAL]
+                parameter["application"] = "any"
+                parameter["service"] = "any"
+                parameter["source_zone"] = "any"
+                parameter["destination_zone"] = "any"
+                parameter["action"] = "drop"
+
+                base_name = parameter[PAN_JSON_POLICY_NAME]
+                reverse_suffix = "-to"
+                reverse_name = f"{base_name[: MAX_NAME_LEN - len(reverse_suffix)]}{reverse_suffix}"
+                should_commit = parameter.get("should_commit_changes", True)
+                response = phantom.APP_ERROR
+                for policy_name, source, destination in (
+                    (base_name, parameter[PAN_JSON_OBJ_VAL], "any"),
+                    (reverse_name, "any", parameter[PAN_JSON_OBJ_VAL]),
+                ):
+                    policy_parameter = parameter.copy()
+                    policy_parameter[PAN_JSON_POLICY_NAME] = policy_name
+                    policy_parameter[PAN_JSON_POL_SOURCE_ADD] = source
+                    policy_parameter[PAN_JSON_DESTINATION_ADDRESS] = destination
+                    policy_parameter["should_commit_changes"] = False
+                    action_result.set_data_size(0)
+                    response = CreatePolicy(policy_parameter).execute(connector, action_result=action_result)
+                    if phantom.is_fail(response):
+                        return response
+
+                if should_commit:
+                    status = connector.util._commit_and_commit_all(parameter, action_result)
+                    if phantom.is_fail(status):
+                        return action_result.get_status()
+                return response
 
             parameter["application"] = "any"
 
